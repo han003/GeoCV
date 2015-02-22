@@ -1,0 +1,32 @@
+﻿#mainContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.panel-link {
+  text-decoration: none !important;
+  color: black;
+}
+.panel-link .panel-body {
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 170px;
+  cursor: pointer;
+  font-size: 25px;
+  -moz-transition: background 0.4s;
+  -o-transition: background 0.4s;
+  -webkit-transition: background 0.4s;
+  transition: background 0.4s;
+}
+.panel-link .panel-body .glyphicon,
+.panel-link .panel-body .glyphicon {
+  font-size: 60px !important;
+}
+.panel-body:hover {
+  background: #e6e6e6;
+  color: black;
+}
+/*# sourceMappingURL=dashboard.css.map */

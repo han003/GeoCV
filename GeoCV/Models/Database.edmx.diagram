@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="372ad51b2d244256ba0b47e138dc2ba6" Name="Diagram1">
+        <EntityTypeShape EntityType="cvModel.Arbeidserfaring" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="cvModel.CVVersjon" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="cvModel.DatabasesystemListe" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="cvModel.Kompetanse" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="cvModel.Medlem" Width="1.5" PointX="7.5" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="cvModel.OperativsystemListe" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="cvModel.Person" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="cvModel.ProgrammeringsspråkListe" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="cvModel.Prosjekt" Width="1.5" PointX="5.25" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="cvModel.RammeverkListe" Width="1.5" PointX="9.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="cvModel.ServersideListe" Width="1.5" PointX="9.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="cvModel.SpråkListe" Width="1.5" PointX="7.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="cvModel.Utdannelse" Width="1.5" PointX="5.25" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="cvModel.WebTeknologiListe" Width="1.5" PointX="9.75" PointY="9.75" IsExpanded="true" />
+        <AssociationConnector Association="cvModel.FK_CVVersjonArbeidserfaring" ManuallyRouted="false" />
+        <AssociationConnector Association="cvModel.FK_CVVersjonKompetanse" ManuallyRouted="false" />
+        <AssociationConnector Association="cvModel.FK_CVVersjonPerson" ManuallyRouted="false" />
+        <AssociationConnector Association="cvModel.FK_CVVersjonProsjekt" ManuallyRouted="false" />
+        <AssociationConnector Association="cvModel.FK_CVVersjonUtdannelse" ManuallyRouted="false" />
+        <AssociationConnector Association="cvModel.FK_MedlemPerson" ManuallyRouted="false" />
+        <AssociationConnector Association="cvModel.FK_ProsjektMedlem" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

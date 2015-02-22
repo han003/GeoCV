@@ -1,0 +1,747 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="cvModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="cvModelStoreContainer">
+    <EntitySet Name="Arbeidserfaring" EntityType="cvModel.Store.Arbeidserfaring" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CVVersjon" EntityType="cvModel.Store.CVVersjon" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DatabasesystemListe" EntityType="cvModel.Store.DatabasesystemListe" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Kompetanse" EntityType="cvModel.Store.Kompetanse" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Medlem" EntityType="cvModel.Store.Medlem" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="OperativsystemListe" EntityType="cvModel.Store.OperativsystemListe" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Person" EntityType="cvModel.Store.Person" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProgrammeringsspråkListe" EntityType="cvModel.Store.ProgrammeringsspråkListe" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Prosjekt" EntityType="cvModel.Store.Prosjekt" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RammeverkListe" EntityType="cvModel.Store.RammeverkListe" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ServersideListe" EntityType="cvModel.Store.ServersideListe" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SpråkListe" EntityType="cvModel.Store.SpråkListe" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Utdannelse" EntityType="cvModel.Store.Utdannelse" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="WebTeknologiListe" EntityType="cvModel.Store.WebTeknologiListe" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_CVVersjonArbeidserfaring" Association="cvModel.Store.FK_CVVersjonArbeidserfaring">
+      <End Role="CVVersjon" EntitySet="CVVersjon" />
+      <End Role="Arbeidserfaring" EntitySet="Arbeidserfaring" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CVVersjonKompetanse" Association="cvModel.Store.FK_CVVersjonKompetanse">
+      <End Role="Kompetanse" EntitySet="Kompetanse" />
+      <End Role="CVVersjon" EntitySet="CVVersjon" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CVVersjonPerson" Association="cvModel.Store.FK_CVVersjonPerson">
+      <End Role="Person" EntitySet="Person" />
+      <End Role="CVVersjon" EntitySet="CVVersjon" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CVVersjonProsjekt" Association="cvModel.Store.FK_CVVersjonProsjekt">
+      <End Role="CVVersjon" EntitySet="CVVersjon" />
+      <End Role="Prosjekt" EntitySet="Prosjekt" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CVVersjonUtdannelse" Association="cvModel.Store.FK_CVVersjonUtdannelse">
+      <End Role="CVVersjon" EntitySet="CVVersjon" />
+      <End Role="Utdannelse" EntitySet="Utdannelse" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MedlemPerson" Association="cvModel.Store.FK_MedlemPerson">
+      <End Role="Person" EntitySet="Person" />
+      <End Role="Medlem" EntitySet="Medlem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProsjektMedlem" Association="cvModel.Store.FK_ProsjektMedlem">
+      <End Role="Prosjekt" EntitySet="Prosjekt" />
+      <End Role="Medlem" EntitySet="Medlem" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Arbeidserfaring">
+    <Key>
+      <PropertyRef Name="ArbeidserfaringId" />
+    </Key>
+    <Property Name="ArbeidserfaringId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Arbeidsplass" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Rolle" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Beskrivelse" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Fra" Type="smallint" Nullable="true" />
+    <Property Name="Til" Type="smallint" Nullable="true" />
+    <Property Name="LagtTil" Type="datetime" Nullable="false" />
+    <Property Name="Modifisert" Type="datetime" Nullable="false" />
+    <Property Name="CVVersjonCVVersjonId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CVVersjon">
+    <Key>
+      <PropertyRef Name="CVVersjonId" />
+    </Key>
+    <Property Name="CVVersjonId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AspNetUserId" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Beskrivelse" Type="nvarchar(max)" Nullable="false" DefaultValue="Ingen beskrivelse" />
+    <Property Name="LagtTil" Type="datetime" Nullable="false" />
+    <Property Name="Modifisert" Type="datetime" Nullable="false" />
+    <Property Name="Person_PersonId" Type="int" Nullable="false" />
+    <Property Name="Kompetanse_KompetanseId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DatabasesystemListe">
+    <Key>
+      <PropertyRef Name="DatabasesystemListeId" />
+    </Key>
+    <Property Name="DatabasesystemListeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Databasesystem" Type="varchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Kompetanse">
+    <Key>
+      <PropertyRef Name="KompetanseId" />
+    </Key>
+    <Property Name="KompetanseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Programmeringsspråk" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Rammeverk" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="WebTeknologier" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Databasesystemer" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Serverside" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Operativsystemer" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="LagtTil" Type="datetime" Nullable="false" />
+    <Property Name="Modifisert" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Medlem">
+    <Key>
+      <PropertyRef Name="MedlemId" />
+    </Key>
+    <Property Name="MedlemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Rolle" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Start" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Slutt" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="LagtTil" Type="datetime" Nullable="false" />
+    <Property Name="Modifisert" Type="datetime" Nullable="false" />
+    <Property Name="ProsjektProsjektId" Type="int" Nullable="false" />
+    <Property Name="Person_PersonId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OperativsystemListe">
+    <Key>
+      <PropertyRef Name="OperativsystemListeId" />
+    </Key>
+    <Property Name="OperativsystemListeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Operativsystem" Type="varchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Person">
+    <Key>
+      <PropertyRef Name="PersonId" />
+    </Key>
+    <Property Name="PersonId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Fornavn" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Etternavn" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Stilling" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ÅrErfaring" Type="smallint" Nullable="false" />
+    <Property Name="Språk" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="LagtTil" Type="datetime" Nullable="false" />
+    <Property Name="Modifisert" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProgrammeringsspråkListe">
+    <Key>
+      <PropertyRef Name="ProgrammeringsspråkListeId" />
+    </Key>
+    <Property Name="ProgrammeringsspråkListeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Programmeringsspråk" Type="varchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Prosjekt">
+    <Key>
+      <PropertyRef Name="ProsjektId" />
+    </Key>
+    <Property Name="ProsjektId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Navn" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Bedrift" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Beskrivelse" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Fra" Type="smallint" Nullable="true" />
+    <Property Name="Til" Type="smallint" Nullable="true" />
+    <Property Name="LagtTil" Type="datetime" Nullable="false" />
+    <Property Name="Modifisert" Type="datetime" Nullable="false" />
+    <Property Name="CVVersjonCVVersjonId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RammeverkListe">
+    <Key>
+      <PropertyRef Name="RammeverkId" />
+    </Key>
+    <Property Name="RammeverkId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Rammeverk" Type="varchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ServersideListe">
+    <Key>
+      <PropertyRef Name="ServersideId" />
+    </Key>
+    <Property Name="ServersideId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Serverside" Type="varchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="SpråkListe">
+    <Key>
+      <PropertyRef Name="SpråkId" />
+    </Key>
+    <Property Name="SpråkId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Språk" Type="varchar" Nullable="true" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Utdannelse">
+    <Key>
+      <PropertyRef Name="UtdannelseId" />
+    </Key>
+    <Property Name="UtdannelseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Beskrivelse" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Fra" Type="smallint" Nullable="true" />
+    <Property Name="Til" Type="smallint" Nullable="true" />
+    <Property Name="LagtTil" Type="datetime" Nullable="false" />
+    <Property Name="Modifisert" Type="datetime" Nullable="false" />
+    <Property Name="CVVersjonCVVersjonId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="WebTeknologiListe">
+    <Key>
+      <PropertyRef Name="WebTeknologiListeId" />
+    </Key>
+    <Property Name="WebTeknologiListeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="WebTeknologi" Type="varchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_CVVersjonArbeidserfaring">
+    <End Role="CVVersjon" Type="cvModel.Store.CVVersjon" Multiplicity="1" />
+    <End Role="Arbeidserfaring" Type="cvModel.Store.Arbeidserfaring" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CVVersjon">
+        <PropertyRef Name="CVVersjonId" />
+      </Principal>
+      <Dependent Role="Arbeidserfaring">
+        <PropertyRef Name="CVVersjonCVVersjonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CVVersjonKompetanse">
+    <End Role="Kompetanse" Type="cvModel.Store.Kompetanse" Multiplicity="1" />
+    <End Role="CVVersjon" Type="cvModel.Store.CVVersjon" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kompetanse">
+        <PropertyRef Name="KompetanseId" />
+      </Principal>
+      <Dependent Role="CVVersjon">
+        <PropertyRef Name="Kompetanse_KompetanseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CVVersjonPerson">
+    <End Role="Person" Type="cvModel.Store.Person" Multiplicity="1" />
+    <End Role="CVVersjon" Type="cvModel.Store.CVVersjon" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="PersonId" />
+      </Principal>
+      <Dependent Role="CVVersjon">
+        <PropertyRef Name="Person_PersonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CVVersjonProsjekt">
+    <End Role="CVVersjon" Type="cvModel.Store.CVVersjon" Multiplicity="1" />
+    <End Role="Prosjekt" Type="cvModel.Store.Prosjekt" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CVVersjon">
+        <PropertyRef Name="CVVersjonId" />
+      </Principal>
+      <Dependent Role="Prosjekt">
+        <PropertyRef Name="CVVersjonCVVersjonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CVVersjonUtdannelse">
+    <End Role="CVVersjon" Type="cvModel.Store.CVVersjon" Multiplicity="1" />
+    <End Role="Utdannelse" Type="cvModel.Store.Utdannelse" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CVVersjon">
+        <PropertyRef Name="CVVersjonId" />
+      </Principal>
+      <Dependent Role="Utdannelse">
+        <PropertyRef Name="CVVersjonCVVersjonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MedlemPerson">
+    <End Role="Person" Type="cvModel.Store.Person" Multiplicity="1" />
+    <End Role="Medlem" Type="cvModel.Store.Medlem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="PersonId" />
+      </Principal>
+      <Dependent Role="Medlem">
+        <PropertyRef Name="Person_PersonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProsjektMedlem">
+    <End Role="Prosjekt" Type="cvModel.Store.Prosjekt" Multiplicity="1" />
+    <End Role="Medlem" Type="cvModel.Store.Medlem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Prosjekt">
+        <PropertyRef Name="ProsjektId" />
+      </Principal>
+      <Dependent Role="Medlem">
+        <PropertyRef Name="ProsjektProsjektId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="cvModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Arbeidserfaring">
+          <Key>
+            <PropertyRef Name="ArbeidserfaringId" />
+          </Key>
+          <Property Name="ArbeidserfaringId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Arbeidsplass" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Rolle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Beskrivelse" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Fra" Type="Int16" />
+          <Property Name="Til" Type="Int16" />
+          <Property Name="LagtTil" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Modifisert" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CVVersjonCVVersjonId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CVVersjon" Relationship="Self.FK_CVVersjonArbeidserfaring" FromRole="Arbeidserfaring" ToRole="CVVersjon" />
+        </EntityType>
+        <EntityType Name="CVVersjon">
+          <Key>
+            <PropertyRef Name="CVVersjonId" />
+          </Key>
+          <Property Name="CVVersjonId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AspNetUserId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Beskrivelse" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" DefaultValue="Ingen beskrivelse" />
+          <Property Name="LagtTil" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Modifisert" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Person_PersonId" Type="Int32" Nullable="false" />
+          <Property Name="Kompetanse_KompetanseId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Arbeidserfaring" Relationship="Self.FK_CVVersjonArbeidserfaring" FromRole="CVVersjon" ToRole="Arbeidserfaring" />
+          <NavigationProperty Name="Kompetanse" Relationship="Self.FK_CVVersjonKompetanse" FromRole="CVVersjon" ToRole="Kompetanse" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_CVVersjonPerson" FromRole="CVVersjon" ToRole="Person" />
+          <NavigationProperty Name="Prosjekt" Relationship="Self.FK_CVVersjonProsjekt" FromRole="CVVersjon" ToRole="Prosjekt" />
+          <NavigationProperty Name="Utdannelse" Relationship="Self.FK_CVVersjonUtdannelse" FromRole="CVVersjon" ToRole="Utdannelse" />
+        </EntityType>
+        <EntityType Name="DatabasesystemListe">
+          <Key>
+            <PropertyRef Name="DatabasesystemListeId" />
+          </Key>
+          <Property Name="DatabasesystemListeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Databasesystem" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kompetanse">
+          <Key>
+            <PropertyRef Name="KompetanseId" />
+          </Key>
+          <Property Name="KompetanseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Programmeringsspråk" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="true" />
+          <Property Name="Rammeverk" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="true" />
+          <Property Name="WebTeknologier" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="true" />
+          <Property Name="Databasesystemer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="true" />
+          <Property Name="Serverside" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="true" />
+          <Property Name="Operativsystemer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="true" />
+          <Property Name="LagtTil" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Modifisert" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="CVVersjon" Relationship="Self.FK_CVVersjonKompetanse" FromRole="Kompetanse" ToRole="CVVersjon" />
+        </EntityType>
+        <EntityType Name="Medlem">
+          <Key>
+            <PropertyRef Name="MedlemId" />
+          </Key>
+          <Property Name="MedlemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Rolle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Start" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Slutt" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LagtTil" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Modifisert" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ProsjektProsjektId" Type="Int32" Nullable="false" />
+          <Property Name="Person_PersonId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_MedlemPerson" FromRole="Medlem" ToRole="Person" />
+          <NavigationProperty Name="Prosjekt" Relationship="Self.FK_ProsjektMedlem" FromRole="Medlem" ToRole="Prosjekt" />
+        </EntityType>
+        <EntityType Name="OperativsystemListe">
+          <Key>
+            <PropertyRef Name="OperativsystemListeId" />
+          </Key>
+          <Property Name="OperativsystemListeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Operativsystem" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="PersonId" />
+          </Key>
+          <Property Name="PersonId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fornavn" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Etternavn" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Stilling" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ÅrErfaring" Type="Int16" Nullable="false" />
+          <Property Name="Språk" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="true" />
+          <Property Name="LagtTil" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Modifisert" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="CVVersjon" Relationship="Self.FK_CVVersjonPerson" FromRole="Person" ToRole="CVVersjon" />
+          <NavigationProperty Name="Medlem" Relationship="Self.FK_MedlemPerson" FromRole="Person" ToRole="Medlem" />
+        </EntityType>
+        <EntityType Name="ProgrammeringsspråkListe">
+          <Key>
+            <PropertyRef Name="ProgrammeringsspråkListeId" />
+          </Key>
+          <Property Name="ProgrammeringsspråkListeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Programmeringsspråk" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Prosjekt">
+          <Key>
+            <PropertyRef Name="ProsjektId" />
+          </Key>
+          <Property Name="ProsjektId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Navn" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Bedrift" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Beskrivelse" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Fra" Type="Int16" />
+          <Property Name="Til" Type="Int16" />
+          <Property Name="LagtTil" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Modifisert" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CVVersjonCVVersjonId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CVVersjon" Relationship="Self.FK_CVVersjonProsjekt" FromRole="Prosjekt" ToRole="CVVersjon" />
+          <NavigationProperty Name="Medlem" Relationship="Self.FK_ProsjektMedlem" FromRole="Prosjekt" ToRole="Medlem" />
+        </EntityType>
+        <EntityType Name="RammeverkListe">
+          <Key>
+            <PropertyRef Name="RammeverkId" />
+          </Key>
+          <Property Name="RammeverkId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Rammeverk" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ServersideListe">
+          <Key>
+            <PropertyRef Name="ServersideId" />
+          </Key>
+          <Property Name="ServersideId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Serverside" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SpråkListe">
+          <Key>
+            <PropertyRef Name="SpråkId" />
+          </Key>
+          <Property Name="SpråkId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Språk" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Utdannelse">
+          <Key>
+            <PropertyRef Name="UtdannelseId" />
+          </Key>
+          <Property Name="UtdannelseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Beskrivelse" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Fra" Type="Int16" />
+          <Property Name="Til" Type="Int16" />
+          <Property Name="LagtTil" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Modifisert" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CVVersjonCVVersjonId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CVVersjon" Relationship="Self.FK_CVVersjonUtdannelse" FromRole="Utdannelse" ToRole="CVVersjon" />
+        </EntityType>
+        <EntityType Name="WebTeknologiListe">
+          <Key>
+            <PropertyRef Name="WebTeknologiListeId" />
+          </Key>
+          <Property Name="WebTeknologiListeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WebTeknologi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CVVersjonArbeidserfaring">
+          <End Role="CVVersjon" Type="Self.CVVersjon" Multiplicity="1" />
+          <End Role="Arbeidserfaring" Type="Self.Arbeidserfaring" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CVVersjon">
+              <PropertyRef Name="CVVersjonId" />
+            </Principal>
+            <Dependent Role="Arbeidserfaring">
+              <PropertyRef Name="CVVersjonCVVersjonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CVVersjonKompetanse">
+          <End Role="Kompetanse" Type="Self.Kompetanse" Multiplicity="1" />
+          <End Role="CVVersjon" Type="Self.CVVersjon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kompetanse">
+              <PropertyRef Name="KompetanseId" />
+            </Principal>
+            <Dependent Role="CVVersjon">
+              <PropertyRef Name="Kompetanse_KompetanseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CVVersjonPerson">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="CVVersjon" Type="Self.CVVersjon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="CVVersjon">
+              <PropertyRef Name="Person_PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CVVersjonProsjekt">
+          <End Role="CVVersjon" Type="Self.CVVersjon" Multiplicity="1" />
+          <End Role="Prosjekt" Type="Self.Prosjekt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CVVersjon">
+              <PropertyRef Name="CVVersjonId" />
+            </Principal>
+            <Dependent Role="Prosjekt">
+              <PropertyRef Name="CVVersjonCVVersjonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CVVersjonUtdannelse">
+          <End Role="CVVersjon" Type="Self.CVVersjon" Multiplicity="1" />
+          <End Role="Utdannelse" Type="Self.Utdannelse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CVVersjon">
+              <PropertyRef Name="CVVersjonId" />
+            </Principal>
+            <Dependent Role="Utdannelse">
+              <PropertyRef Name="CVVersjonCVVersjonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedlemPerson">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="Medlem" Type="Self.Medlem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="Medlem">
+              <PropertyRef Name="Person_PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProsjektMedlem">
+          <End Role="Prosjekt" Type="Self.Prosjekt" Multiplicity="1" />
+          <End Role="Medlem" Type="Self.Medlem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Prosjekt">
+              <PropertyRef Name="ProsjektId" />
+            </Principal>
+            <Dependent Role="Medlem">
+              <PropertyRef Name="ProsjektProsjektId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="cvEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Arbeidserfaring" EntityType="Self.Arbeidserfaring" />
+          <EntitySet Name="CVVersjon" EntityType="Self.CVVersjon" />
+          <EntitySet Name="DatabasesystemListe" EntityType="Self.DatabasesystemListe" />
+          <EntitySet Name="Kompetanse" EntityType="Self.Kompetanse" />
+          <EntitySet Name="Medlem" EntityType="Self.Medlem" />
+          <EntitySet Name="OperativsystemListe" EntityType="Self.OperativsystemListe" />
+          <EntitySet Name="Person" EntityType="Self.Person" />
+          <EntitySet Name="ProgrammeringsspråkListe" EntityType="Self.ProgrammeringsspråkListe" />
+          <EntitySet Name="Prosjekt" EntityType="Self.Prosjekt" />
+          <EntitySet Name="RammeverkListe" EntityType="Self.RammeverkListe" />
+          <EntitySet Name="ServersideListe" EntityType="Self.ServersideListe" />
+          <EntitySet Name="SpråkListe" EntityType="Self.SpråkListe" />
+          <EntitySet Name="Utdannelse" EntityType="Self.Utdannelse" />
+          <EntitySet Name="WebTeknologiListe" EntityType="Self.WebTeknologiListe" />
+          <AssociationSet Name="FK_CVVersjonArbeidserfaring" Association="Self.FK_CVVersjonArbeidserfaring">
+            <End Role="CVVersjon" EntitySet="CVVersjon" />
+            <End Role="Arbeidserfaring" EntitySet="Arbeidserfaring" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CVVersjonKompetanse" Association="Self.FK_CVVersjonKompetanse">
+            <End Role="Kompetanse" EntitySet="Kompetanse" />
+            <End Role="CVVersjon" EntitySet="CVVersjon" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CVVersjonPerson" Association="Self.FK_CVVersjonPerson">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="CVVersjon" EntitySet="CVVersjon" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CVVersjonProsjekt" Association="Self.FK_CVVersjonProsjekt">
+            <End Role="CVVersjon" EntitySet="CVVersjon" />
+            <End Role="Prosjekt" EntitySet="Prosjekt" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CVVersjonUtdannelse" Association="Self.FK_CVVersjonUtdannelse">
+            <End Role="CVVersjon" EntitySet="CVVersjon" />
+            <End Role="Utdannelse" EntitySet="Utdannelse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedlemPerson" Association="Self.FK_MedlemPerson">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Medlem" EntitySet="Medlem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProsjektMedlem" Association="Self.FK_ProsjektMedlem">
+            <End Role="Prosjekt" EntitySet="Prosjekt" />
+            <End Role="Medlem" EntitySet="Medlem" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="cvModelStoreContainer" CdmEntityContainer="cvEntities">
+    <EntitySetMapping Name="Arbeidserfaring">
+      <EntityTypeMapping TypeName="IsTypeOf(cvModel.Arbeidserfaring)">
+        <MappingFragment StoreEntitySet="Arbeidserfaring">
+          <ScalarProperty Name="ArbeidserfaringId" ColumnName="ArbeidserfaringId" />
+          <ScalarProperty Name="Arbeidsplass" ColumnName="Arbeidsplass" />
+          <ScalarProperty Name="Rolle" ColumnName="Rolle" />
+          <ScalarProperty Name="Beskrivelse" ColumnName="Beskrivelse" />
+          <ScalarProperty Name="Fra" ColumnName="Fra" />
+          <ScalarProperty Name="Til" ColumnName="Til" />
+          <ScalarProperty Name="LagtTil" ColumnName="LagtTil" />
+          <ScalarProperty Name="Modifisert" ColumnName="Modifisert" />
+          <ScalarProperty Name="CVVersjonCVVersjonId" ColumnName="CVVersjonCVVersjonId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CVVersjon">
+      <EntityTypeMapping TypeName="IsTypeOf(cvModel.CVVersjon)">
+        <MappingFragment StoreEntitySet="CVVersjon">
+          <ScalarProperty Name="CVVersjonId" ColumnName="CVVersjonId" />
+          <ScalarProperty Name="AspNetUserId" ColumnName="AspNetUserId" />
+          <ScalarProperty Name="Beskrivelse" ColumnName="Beskrivelse" />
+          <ScalarProperty Name="LagtTil" ColumnName="LagtTil" />
+          <ScalarProperty Name="Modifisert" ColumnName="Modifisert" />
+          <ScalarProperty Name="Person_PersonId" ColumnName="Person_PersonId" />
+          <ScalarProperty Name="Kompetanse_KompetanseId" ColumnName="Kompetanse_KompetanseId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DatabasesystemListe">
+      <EntityTypeMapping TypeName="IsTypeOf(cvModel.DatabasesystemListe)">
+        <MappingFragment StoreEntitySet="DatabasesystemListe">
+          <ScalarProperty Name="DatabasesystemListeId" ColumnName="DatabasesystemListeId" />
+          <ScalarProperty Name="Databasesystem" ColumnName="Databasesystem" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kompetanse">
+      <EntityTypeMapping TypeName="IsTypeOf(cvModel.Kompetanse)">
+        <MappingFragment StoreEntitySet="Kompetanse">
+          <ScalarProperty Name="KompetanseId" ColumnName="KompetanseId" />
+          <ScalarProperty Name="Programmeringsspråk" ColumnName="Programmeringsspråk" />
+          <ScalarProperty Name="Rammeverk" ColumnName="Rammeverk" />
+          <ScalarProperty Name="WebTeknologier" ColumnName="WebTeknologier" />
+          <ScalarProperty Name="Databasesystemer" ColumnName="Databasesystemer" />
+          <ScalarProperty Name="Serverside" ColumnName="Serverside" />
+          <ScalarProperty Name="Operativsystemer" ColumnName="Operativsystemer" />
+          <ScalarProperty Name="LagtTil" ColumnName="LagtTil" />
+          <ScalarProperty Name="Modifisert" ColumnName="Modifisert" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Medlem">
+      <EntityTypeMapping TypeName="IsTypeOf(cvModel.Medlem)">
+        <MappingFragment StoreEntitySet="Medlem">
+          <ScalarProperty Name="MedlemId" ColumnName="MedlemId" />
+          <ScalarProperty Name="Rolle" ColumnName="Rolle" />
+          <ScalarProperty Name="Start" ColumnName="Start" />
+          <ScalarProperty Name="Slutt" ColumnName="Slutt" />
+          <ScalarProperty Name="LagtTil" ColumnName="LagtTil" />
+          <ScalarProperty Name="Modifisert" ColumnName="Modifisert" />
+          <ScalarProperty Name="ProsjektProsjektId" ColumnName="ProsjektProsjektId" />
+          <ScalarProperty Name="Person_PersonId" ColumnName="Person_PersonId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OperativsystemListe">
+      <EntityTypeMapping TypeName="IsTypeOf(cvModel.OperativsystemListe)">
+        <MappingFragment StoreEntitySet="OperativsystemListe">
+          <ScalarProperty Name="OperativsystemListeId" ColumnName="OperativsystemListeId" />
+          <ScalarProperty Name="Operativsystem" ColumnName="Operativsystem" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Person">
+      <EntityTypeMapping TypeName="IsTypeOf(cvModel.Person)">
+        <MappingFragment StoreEntitySet="Person">
+          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+          <ScalarProperty Name="Fornavn" ColumnName="Fornavn" />
+          <ScalarProperty Name="Etternavn" ColumnName="Etternavn" />
+          <ScalarProperty Name="Stilling" ColumnName="Stilling" />
+          <ScalarProperty Name="ÅrErfaring" ColumnName="ÅrErfaring" />
+          <ScalarProperty Name="Språk" ColumnName="Språk" />
+          <ScalarProperty Name="LagtTil" ColumnName="LagtTil" />
+          <ScalarProperty Name="Modifisert" ColumnName="Modifisert" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProgrammeringsspråkListe">
+      <EntityTypeMapping TypeName="IsTypeOf(cvModel.ProgrammeringsspråkListe)">
+        <MappingFragment StoreEntitySet="ProgrammeringsspråkListe">
+          <ScalarProperty Name="ProgrammeringsspråkListeId" ColumnName="ProgrammeringsspråkListeId" />
+          <ScalarProperty Name="Programmeringsspråk" ColumnName="Programmeringsspråk" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Prosjekt">
+      <EntityTypeMapping TypeName="IsTypeOf(cvModel.Prosjekt)">
+        <MappingFragment StoreEntitySet="Prosjekt">
+          <ScalarProperty Name="ProsjektId" ColumnName="ProsjektId" />
+          <ScalarProperty Name="Navn" ColumnName="Navn" />
+          <ScalarProperty Name="Bedrift" ColumnName="Bedrift" />
+          <ScalarProperty Name="Beskrivelse" ColumnName="Beskrivelse" />
+          <ScalarProperty Name="Fra" ColumnName="Fra" />
+          <ScalarProperty Name="Til" ColumnName="Til" />
+          <ScalarProperty Name="LagtTil" ColumnName="LagtTil" />
+          <ScalarProperty Name="Modifisert" ColumnName="Modifisert" />
+          <ScalarProperty Name="CVVersjonCVVersjonId" ColumnName="CVVersjonCVVersjonId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RammeverkListe">
+      <EntityTypeMapping TypeName="IsTypeOf(cvModel.RammeverkListe)">
+        <MappingFragment StoreEntitySet="RammeverkListe">
+          <ScalarProperty Name="RammeverkId" ColumnName="RammeverkId" />
+          <ScalarProperty Name="Rammeverk" ColumnName="Rammeverk" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ServersideListe">
+      <EntityTypeMapping TypeName="IsTypeOf(cvModel.ServersideListe)">
+        <MappingFragment StoreEntitySet="ServersideListe">
+          <ScalarProperty Name="ServersideId" ColumnName="ServersideId" />
+          <ScalarProperty Name="Serverside" ColumnName="Serverside" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SpråkListe">
+      <EntityTypeMapping TypeName="IsTypeOf(cvModel.SpråkListe)">
+        <MappingFragment StoreEntitySet="SpråkListe">
+          <ScalarProperty Name="SpråkId" ColumnName="SpråkId" />
+          <ScalarProperty Name="Språk" ColumnName="Språk" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Utdannelse">
+      <EntityTypeMapping TypeName="IsTypeOf(cvModel.Utdannelse)">
+        <MappingFragment StoreEntitySet="Utdannelse">
+          <ScalarProperty Name="UtdannelseId" ColumnName="UtdannelseId" />
+          <ScalarProperty Name="Beskrivelse" ColumnName="Beskrivelse" />
+          <ScalarProperty Name="Fra" ColumnName="Fra" />
+          <ScalarProperty Name="Til" ColumnName="Til" />
+          <ScalarProperty Name="LagtTil" ColumnName="LagtTil" />
+          <ScalarProperty Name="Modifisert" ColumnName="Modifisert" />
+          <ScalarProperty Name="CVVersjonCVVersjonId" ColumnName="CVVersjonCVVersjonId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WebTeknologiListe">
+      <EntityTypeMapping TypeName="IsTypeOf(cvModel.WebTeknologiListe)">
+        <MappingFragment StoreEntitySet="WebTeknologiListe">
+          <ScalarProperty Name="WebTeknologiListeId" ColumnName="WebTeknologiListeId" />
+          <ScalarProperty Name="WebTeknologi" ColumnName="WebTeknologi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
