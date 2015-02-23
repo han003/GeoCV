@@ -535,11 +535,11 @@
 </div>
 
 
-<div id="form-options" class="container hidden">
+<div id="form-options" class="container">
     <div>
         <!-- Split button -->
         <div class="btn-group">
-            <button type="button" id="download-button" class="btn btn-primary">@Html.ActionLink("Last ned PDF", "Pdf", "Download", new { Model.CVVersjonId }, new { @id = "download-link" })</button>
+            <button type="button" id="download-button" class="btn btn-primary">@Html.ActionLink("Last ned PDF", "Pdf", "Download", null, new { @id = "download-link" })</button>
             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                 <span class="caret"></span>
                 <span class="sr-only">Toggle Dropdown</span>

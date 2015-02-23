@@ -16,9 +16,9 @@ namespace GeoCV
                 .Include("~/Scripts/home.js"));
 
             bundles.Add(new StyleBundle("~/Bundles/css/home")
-                .Include("~/Content/bootstrap.css", new CssRewriteUrlTransform())
-                .Include("~/Content/main.css", new CssRewriteUrlTransform())
-                .Include("~/Content/home.css", new CssRewriteUrlTransform()));
+                .Include("~/Content/bootstrap.css")
+                .Include("~/Content/main.css")
+                .Include("~/Content/home.css"));
 
             // Dashboard
             bundles.Add(new ScriptBundle("~/Bundles/js/dashboard")
@@ -27,9 +27,9 @@ namespace GeoCV
                 .Include("~/Scripts/dashboard.js"));
 
             bundles.Add(new StyleBundle("~/Bundles/css/dashboard")
-                .Include("~/Content/bootstrap.css", new CssRewriteUrlTransform())
-                .Include("~/Content/main.css", new CssRewriteUrlTransform())
-                .Include("~/Content/dashboard.css", new CssRewriteUrlTransform()));
+                .Include("~/Content/bootstrap.css")
+                .Include("~/Content/main.css")
+                .Include("~/Content/dashboard.css"));
 
             // Cv
             bundles.Add(new ScriptBundle("~/Bundles/js/cv")
@@ -39,10 +39,10 @@ namespace GeoCV
                 .Include("~/Scripts/cv/*.js"));
 
             bundles.Add(new StyleBundle("~/Bundles/css/cv")
-                .Include("~/Content/bootstrap.css", new CssRewriteUrlTransform())
-                .Include("~/Content/animate.css", new CssRewriteUrlTransform())
-                .Include("~/Content/main.css", new CssRewriteUrlTransform())
-                .Include("~/Content/cv.css", new CssRewriteUrlTransform()));
+                .Include("~/Content/bootstrap.css")
+                .Include("~/Content/animate.css")
+                .Include("~/Content/main.css")
+                .Include("~/Content/cv.css"));
 
             // Search
             bundles.Add(new ScriptBundle("~/Bundles/js/search")
@@ -51,9 +51,9 @@ namespace GeoCV
                 .Include("~/Scripts/search.js"));
 
             bundles.Add(new StyleBundle("~/Bundles/css/search")
-                .Include("~/Content/bootstrap.css", new CssRewriteUrlTransform())
-                .Include("~/Content/main.css", new CssRewriteUrlTransform())
-                .Include("~/Content/search.css", new CssRewriteUrlTransform()));
+                .Include("~/Content/bootstrap.css")
+                .Include("~/Content/main.css")
+                .Include("~/Content/search.css"));
 
             // Customize
             bundles.Add(new ScriptBundle("~/Bundles/js/customize")
@@ -62,9 +62,9 @@ namespace GeoCV
                 .Include("~/Scripts/customize.js"));
 
             bundles.Add(new StyleBundle("~/Bundles/css/customize")
-                .Include("~/Content/bootstrap.css", new CssRewriteUrlTransform())
-                .Include("~/Content/main.css", new CssRewriteUrlTransform())
-                .Include("~/Content/customize.css", new CssRewriteUrlTransform()));
+                .Include("~/Content/bootstrap.css")
+                .Include("~/Content/main.css")
+                .Include("~/Content/customize.css"));
 
             // Employees
             bundles.Add(new ScriptBundle("~/Bundles/js/employees")
@@ -73,9 +73,9 @@ namespace GeoCV
                 .Include("~/Scripts/employees.js"));
 
             bundles.Add(new StyleBundle("~/Bundles/css/employees")
-                .Include("~/Content/bootstrap.css", new CssRewriteUrlTransform())
-                .Include("~/Content/main.css", new CssRewriteUrlTransform())
-                .Include("~/Content/employees.css", new CssRewriteUrlTransform()));
+                .Include("~/Content/bootstrap.css")
+                .Include("~/Content/main.css")
+                .Include("~/Content/employees.css"));
 
             // Register
             bundles.Add(new ScriptBundle("~/Bundles/js/register")
@@ -84,9 +84,9 @@ namespace GeoCV
                 .Include("~/Scripts/register.js"));
 
             bundles.Add(new StyleBundle("~/Bundles/css/register")
-                .Include("~/Content/bootstrap.css", new CssRewriteUrlTransform())
-                .Include("~/Content/main.css", new CssRewriteUrlTransform())
-                .Include("~/Content/register.css", new CssRewriteUrlTransform()));
+                .Include("~/Content/bootstrap.css")
+                .Include("~/Content/main.css")
+                .Include("~/Content/register.css"));
 
             // Login
             bundles.Add(new ScriptBundle("~/Bundles/js/login")
@@ -95,9 +95,9 @@ namespace GeoCV
                 .Include("~/Scripts/login.js"));
 
             bundles.Add(new StyleBundle("~/Bundles/css/login")
-                .Include("~/Content/bootstrap.css", new CssRewriteUrlTransform())
-                .Include("~/Content/main.css", new CssRewriteUrlTransform())
-                .Include("~/Content/login.css", new CssRewriteUrlTransform()));
+                .Include("~/Content/bootstrap.css")
+                .Include("~/Content/main.css")
+                .Include("~/Content/login.css"));
 
             // Manage
             bundles.Add(new ScriptBundle("~/Bundles/js/manage")
@@ -106,9 +106,9 @@ namespace GeoCV
                 .Include("~/Scripts/manage.js"));
 
             bundles.Add(new StyleBundle("~/Bundles/css/manage")
-                .Include("~/Content/bootstrap.css", new CssRewriteUrlTransform())
-                .Include("~/Content/main.css", new CssRewriteUrlTransform())
-                .Include("~/Content/manage.css", new CssRewriteUrlTransform()));
+                .Include("~/Content/bootstrap.css")
+                .Include("~/Content/main.css")
+                .Include("~/Content/manage.css"));
 
             // Change Password
             bundles.Add(new ScriptBundle("~/Bundles/js/changepass")
@@ -117,11 +117,11 @@ namespace GeoCV
                 .Include("~/Scripts/changepass.js"));
 
             bundles.Add(new StyleBundle("~/Bundles/css/changepass")
-                .Include("~/Content/bootstrap.css", new CssRewriteUrlTransform())
-                .Include("~/Content/main.css", new CssRewriteUrlTransform())
-                .Include("~/Content/changepass.css", new CssRewriteUrlTransform()));
+                .Include("~/Content/bootstrap.css")
+                .Include("~/Content/main.css")
+                .Include("~/Content/changepass.css"));
 
-            // BundleTable.EnableOptimizations = true;
+            BundleTable.EnableOptimizations = true;
         }
     }
 }

@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
 namespace CV.Controllers
 {
@@ -16,13 +17,16 @@ namespace CV.Controllers
     {
         private cvEntities db = new cvEntities();
 
-        public ActionResult Pdf(int CvId)
+        public ActionResult Pdf()
         {
 
-            CVVersjon Cv = new CVVersjon();
-            CVVersjon a = new CVVersjon();
+            string UserId = User.Identity.GetUserId();
 
-            Cv = db.CVVersjon.Find(CvId);
+            var Item = from a in db.CVVersjon
+                       where a.AspNetUserId.Equals(UserId)
+                       select a;
+
+            CVVersjon Cv = Item.FirstOrDefault();
 
             string FileName = Cv.Person.Fornavn + " " + Cv.Person.Etternavn + " - CV";
 
@@ -47,7 +51,7 @@ namespace CV.Controllers
         {
             Font Normal = FontFactory.GetFont("Times-Roman", 12, Font.NORMAL);
             Font Bold = FontFactory.GetFont("Times-Roman", 12, Font.BOLD);
-            /*
+            
             UserCv.Open();
 
             // Top
@@ -94,30 +98,34 @@ namespace CV.Controllers
 
             // Programming Languages
             UserCv.Add(new Phrase("Programmeringsspråk: ", Normal));
-            UserCv.Add(new Phrase(Split(Cv.Person.Kompetanse.Programmeringsspråk), Normal));
+            UserCv.Add(new Phrase(Split(Cv.Kompetanse.Programmeringsspråk), Normal));
+            UserCv.Add(Chunk.NEWLINE);
+
 
             // Framework
             UserCv.Add(new Phrase("Rammeverk: ", Normal));
-            UserCv.Add(new Phrase(Split(Cv.Person.Kompetanse.Rammeverk), Normal));
+            UserCv.Add(new Phrase(Split(Cv.Kompetanse.Rammeverk), Normal));
+            UserCv.Add(Chunk.NEWLINE);
 
             // Web Technologies
             UserCv.Add(new Phrase("Web-Teknologier: ", Normal));
-            UserCv.Add(new Phrase(Split(Cv.Person.Kompetanse.WebTeknologier), Normal));
+            UserCv.Add(new Phrase(Split(Cv.Kompetanse.WebTeknologier), Normal));
+            UserCv.Add(Chunk.NEWLINE);
 
             // Database Systems
             UserCv.Add(new Phrase("Databasesystemer: ", Normal));
-            UserCv.Add(new Phrase(Split(Cv.Person.Kompetanse.Databasesystemer), Normal));
+            UserCv.Add(new Phrase(Split(Cv.Kompetanse.Databasesystemer), Normal));
             UserCv.Add(Chunk.NEWLINE);
 
             // Serverside
             UserCv.Add(new Phrase("Serverside: ", Normal));
-            UserCv.Add(new Phrase(Split(Cv.Person.Kompetanse.Serverside), Normal));
+            UserCv.Add(new Phrase(Split(Cv.Kompetanse.Serverside), Normal));
             UserCv.Add(Chunk.NEWLINE);
 
             // Operating Systems
             UserCv.Add(new Phrase("Operativsystemer: ", Normal));
-            UserCv.Add(new Phrase(Split(Cv.Person.Kompetanse.Operativsystemer), Normal));
-            * */
+            UserCv.Add(new Phrase(Split(Cv.Kompetanse.Operativsystemer), Normal));
+            
             UserCv.Close();
             return UserCv;
              
@@ -125,17 +133,26 @@ namespace CV.Controllers
         
         private string Split(string RandomString)
         {
-            string[] StringElements = RandomString.Split(';');
-            string Result = "";
-
-            foreach (string Element in StringElements)
+            try
             {
-                Result = Result + Element + ", ";
+                string[] StringElements = RandomString.Split(';');
+                string Result = "";
+
+                foreach (string Element in StringElements)
+                {
+                    Result = Result + Element + ", ";
+                }
+
+                Result = Result.Remove(Result.Length - 2);
+
+                return Result;
+            }
+            catch (Exception)
+            {
+                
             }
 
-            Result = Result.Remove(Result.Length - 2);
-
-            return Result;
+            return "";
         }
     }
 }
