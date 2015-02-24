@@ -24,7 +24,7 @@ namespace GeoCV.Models
         public string Fornavn { get; set; }
         public string Etternavn { get; set; }
         public string Stilling { get; set; }
-        public short ÅrErfaring { get; set; }
+        public Nullable<short> ÅrErfaring { get; set; }
         public string Språk { get; set; }
         public System.DateTime LagtTil { get; set; }
         public System.DateTime Modifisert { get; set; }

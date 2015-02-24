@@ -49,7 +49,7 @@ $('.cv-nav-btn').click(function () {
         oldDiv.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
 
             // Hide and remove all relevant classes
-            oldDiv.addClass('hidden').removeClass('cv-current animated fadeOutLeft fadeOutRight');
+            oldDiv.addClass('hidden').removeClass('cv-current animated fadeOutLeft fadeOutRight fadeInLeft fadeInRight');
 
             // Get new div
             newDiv.removeClass('hidden').addClass('cv-current animated ' + fadeIn);

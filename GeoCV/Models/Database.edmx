@@ -4,277 +4,416 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="cvModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="cvModelStoreContainer">
-    <EntitySet Name="Arbeidserfaring" EntityType="cvModel.Store.Arbeidserfaring" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="CVVersjon" EntityType="cvModel.Store.CVVersjon" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="DatabasesystemListe" EntityType="cvModel.Store.DatabasesystemListe" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Kompetanse" EntityType="cvModel.Store.Kompetanse" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Medlem" EntityType="cvModel.Store.Medlem" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="OperativsystemListe" EntityType="cvModel.Store.OperativsystemListe" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Person" EntityType="cvModel.Store.Person" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="ProgrammeringsspråkListe" EntityType="cvModel.Store.ProgrammeringsspråkListe" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Prosjekt" EntityType="cvModel.Store.Prosjekt" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="RammeverkListe" EntityType="cvModel.Store.RammeverkListe" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="ServersideListe" EntityType="cvModel.Store.ServersideListe" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="SpråkListe" EntityType="cvModel.Store.SpråkListe" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Utdannelse" EntityType="cvModel.Store.Utdannelse" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="WebTeknologiListe" EntityType="cvModel.Store.WebTeknologiListe" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="FK_CVVersjonArbeidserfaring" Association="cvModel.Store.FK_CVVersjonArbeidserfaring">
-      <End Role="CVVersjon" EntitySet="CVVersjon" />
-      <End Role="Arbeidserfaring" EntitySet="Arbeidserfaring" />
-    </AssociationSet>
-    <AssociationSet Name="FK_CVVersjonKompetanse" Association="cvModel.Store.FK_CVVersjonKompetanse">
-      <End Role="Kompetanse" EntitySet="Kompetanse" />
-      <End Role="CVVersjon" EntitySet="CVVersjon" />
-    </AssociationSet>
-    <AssociationSet Name="FK_CVVersjonPerson" Association="cvModel.Store.FK_CVVersjonPerson">
-      <End Role="Person" EntitySet="Person" />
-      <End Role="CVVersjon" EntitySet="CVVersjon" />
-    </AssociationSet>
-    <AssociationSet Name="FK_CVVersjonProsjekt" Association="cvModel.Store.FK_CVVersjonProsjekt">
-      <End Role="CVVersjon" EntitySet="CVVersjon" />
-      <End Role="Prosjekt" EntitySet="Prosjekt" />
-    </AssociationSet>
-    <AssociationSet Name="FK_CVVersjonUtdannelse" Association="cvModel.Store.FK_CVVersjonUtdannelse">
-      <End Role="CVVersjon" EntitySet="CVVersjon" />
-      <End Role="Utdannelse" EntitySet="Utdannelse" />
-    </AssociationSet>
-    <AssociationSet Name="FK_MedlemPerson" Association="cvModel.Store.FK_MedlemPerson">
-      <End Role="Person" EntitySet="Person" />
-      <End Role="Medlem" EntitySet="Medlem" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ProsjektMedlem" Association="cvModel.Store.FK_ProsjektMedlem">
-      <End Role="Prosjekt" EntitySet="Prosjekt" />
-      <End Role="Medlem" EntitySet="Medlem" />
-    </AssociationSet>
-  </EntityContainer>
-  <EntityType Name="Arbeidserfaring">
-    <Key>
-      <PropertyRef Name="ArbeidserfaringId" />
-    </Key>
-    <Property Name="ArbeidserfaringId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Arbeidsplass" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Rolle" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Beskrivelse" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Fra" Type="smallint" Nullable="true" />
-    <Property Name="Til" Type="smallint" Nullable="true" />
-    <Property Name="LagtTil" Type="datetime" Nullable="false" />
-    <Property Name="Modifisert" Type="datetime" Nullable="false" />
-    <Property Name="CVVersjonCVVersjonId" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="CVVersjon">
-    <Key>
-      <PropertyRef Name="CVVersjonId" />
-    </Key>
-    <Property Name="CVVersjonId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="AspNetUserId" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Beskrivelse" Type="nvarchar(max)" Nullable="false" DefaultValue="Ingen beskrivelse" />
-    <Property Name="LagtTil" Type="datetime" Nullable="false" />
-    <Property Name="Modifisert" Type="datetime" Nullable="false" />
-    <Property Name="Person_PersonId" Type="int" Nullable="false" />
-    <Property Name="Kompetanse_KompetanseId" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="DatabasesystemListe">
-    <Key>
-      <PropertyRef Name="DatabasesystemListeId" />
-    </Key>
-    <Property Name="DatabasesystemListeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Databasesystem" Type="varchar" Nullable="false" MaxLength="50" />
-  </EntityType>
-  <EntityType Name="Kompetanse">
-    <Key>
-      <PropertyRef Name="KompetanseId" />
-    </Key>
-    <Property Name="KompetanseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Programmeringsspråk" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Rammeverk" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="WebTeknologier" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Databasesystemer" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Serverside" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Operativsystemer" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="LagtTil" Type="datetime" Nullable="false" />
-    <Property Name="Modifisert" Type="datetime" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Medlem">
-    <Key>
-      <PropertyRef Name="MedlemId" />
-    </Key>
-    <Property Name="MedlemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Rolle" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Start" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Slutt" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="LagtTil" Type="datetime" Nullable="false" />
-    <Property Name="Modifisert" Type="datetime" Nullable="false" />
-    <Property Name="ProsjektProsjektId" Type="int" Nullable="false" />
-    <Property Name="Person_PersonId" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="OperativsystemListe">
-    <Key>
-      <PropertyRef Name="OperativsystemListeId" />
-    </Key>
-    <Property Name="OperativsystemListeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Operativsystem" Type="varchar" Nullable="false" MaxLength="50" />
-  </EntityType>
-  <EntityType Name="Person">
-    <Key>
-      <PropertyRef Name="PersonId" />
-    </Key>
-    <Property Name="PersonId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Fornavn" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Etternavn" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Stilling" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="ÅrErfaring" Type="smallint" Nullable="false" />
-    <Property Name="Språk" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="LagtTil" Type="datetime" Nullable="false" />
-    <Property Name="Modifisert" Type="datetime" Nullable="false" />
-  </EntityType>
-  <EntityType Name="ProgrammeringsspråkListe">
-    <Key>
-      <PropertyRef Name="ProgrammeringsspråkListeId" />
-    </Key>
-    <Property Name="ProgrammeringsspråkListeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Programmeringsspråk" Type="varchar" Nullable="false" MaxLength="50" />
-  </EntityType>
-  <EntityType Name="Prosjekt">
-    <Key>
-      <PropertyRef Name="ProsjektId" />
-    </Key>
-    <Property Name="ProsjektId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Navn" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Bedrift" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Beskrivelse" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Fra" Type="smallint" Nullable="true" />
-    <Property Name="Til" Type="smallint" Nullable="true" />
-    <Property Name="LagtTil" Type="datetime" Nullable="false" />
-    <Property Name="Modifisert" Type="datetime" Nullable="false" />
-    <Property Name="CVVersjonCVVersjonId" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="RammeverkListe">
-    <Key>
-      <PropertyRef Name="RammeverkId" />
-    </Key>
-    <Property Name="RammeverkId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Rammeverk" Type="varchar" Nullable="false" MaxLength="50" />
-  </EntityType>
-  <EntityType Name="ServersideListe">
-    <Key>
-      <PropertyRef Name="ServersideId" />
-    </Key>
-    <Property Name="ServersideId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Serverside" Type="varchar" Nullable="false" MaxLength="50" />
-  </EntityType>
-  <EntityType Name="SpråkListe">
-    <Key>
-      <PropertyRef Name="SpråkId" />
-    </Key>
-    <Property Name="SpråkId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Språk" Type="varchar" Nullable="true" MaxLength="50" />
-  </EntityType>
-  <EntityType Name="Utdannelse">
-    <Key>
-      <PropertyRef Name="UtdannelseId" />
-    </Key>
-    <Property Name="UtdannelseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Beskrivelse" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Fra" Type="smallint" Nullable="true" />
-    <Property Name="Til" Type="smallint" Nullable="true" />
-    <Property Name="LagtTil" Type="datetime" Nullable="false" />
-    <Property Name="Modifisert" Type="datetime" Nullable="false" />
-    <Property Name="CVVersjonCVVersjonId" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="WebTeknologiListe">
-    <Key>
-      <PropertyRef Name="WebTeknologiListeId" />
-    </Key>
-    <Property Name="WebTeknologiListeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="WebTeknologi" Type="varchar" Nullable="false" MaxLength="50" />
-  </EntityType>
-  <Association Name="FK_CVVersjonArbeidserfaring">
-    <End Role="CVVersjon" Type="cvModel.Store.CVVersjon" Multiplicity="1" />
-    <End Role="Arbeidserfaring" Type="cvModel.Store.Arbeidserfaring" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CVVersjon">
-        <PropertyRef Name="CVVersjonId" />
-      </Principal>
-      <Dependent Role="Arbeidserfaring">
-        <PropertyRef Name="CVVersjonCVVersjonId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_CVVersjonKompetanse">
-    <End Role="Kompetanse" Type="cvModel.Store.Kompetanse" Multiplicity="1" />
-    <End Role="CVVersjon" Type="cvModel.Store.CVVersjon" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Kompetanse">
-        <PropertyRef Name="KompetanseId" />
-      </Principal>
-      <Dependent Role="CVVersjon">
-        <PropertyRef Name="Kompetanse_KompetanseId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_CVVersjonPerson">
-    <End Role="Person" Type="cvModel.Store.Person" Multiplicity="1" />
-    <End Role="CVVersjon" Type="cvModel.Store.CVVersjon" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Person">
-        <PropertyRef Name="PersonId" />
-      </Principal>
-      <Dependent Role="CVVersjon">
-        <PropertyRef Name="Person_PersonId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_CVVersjonProsjekt">
-    <End Role="CVVersjon" Type="cvModel.Store.CVVersjon" Multiplicity="1" />
-    <End Role="Prosjekt" Type="cvModel.Store.Prosjekt" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CVVersjon">
-        <PropertyRef Name="CVVersjonId" />
-      </Principal>
-      <Dependent Role="Prosjekt">
-        <PropertyRef Name="CVVersjonCVVersjonId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_CVVersjonUtdannelse">
-    <End Role="CVVersjon" Type="cvModel.Store.CVVersjon" Multiplicity="1" />
-    <End Role="Utdannelse" Type="cvModel.Store.Utdannelse" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CVVersjon">
-        <PropertyRef Name="CVVersjonId" />
-      </Principal>
-      <Dependent Role="Utdannelse">
-        <PropertyRef Name="CVVersjonCVVersjonId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_MedlemPerson">
-    <End Role="Person" Type="cvModel.Store.Person" Multiplicity="1" />
-    <End Role="Medlem" Type="cvModel.Store.Medlem" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Person">
-        <PropertyRef Name="PersonId" />
-      </Principal>
-      <Dependent Role="Medlem">
-        <PropertyRef Name="Person_PersonId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ProsjektMedlem">
-    <End Role="Prosjekt" Type="cvModel.Store.Prosjekt" Multiplicity="1" />
-    <End Role="Medlem" Type="cvModel.Store.Medlem" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Prosjekt">
-        <PropertyRef Name="ProsjektId" />
-      </Principal>
-      <Dependent Role="Medlem">
-        <PropertyRef Name="ProsjektProsjektId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-</Schema></edmx:StorageModels>
+    <Schema Namespace="cvModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Arbeidserfaring">
+          <Key>
+            <PropertyRef Name="ArbeidserfaringId" />
+          </Key>
+          <Property Name="ArbeidserfaringId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Arbeidsplass" Type="nvarchar(max)" />
+          <Property Name="Rolle" Type="nvarchar(max)" />
+          <Property Name="Beskrivelse" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Fra" Type="smallint" />
+          <Property Name="Til" Type="smallint" />
+          <Property Name="LagtTil" Type="datetime" Nullable="false" />
+          <Property Name="Modifisert" Type="datetime" Nullable="false" />
+          <Property Name="CVVersjonCVVersjonId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CVVersjon">
+          <Key>
+            <PropertyRef Name="CVVersjonId" />
+          </Key>
+          <Property Name="CVVersjonId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AspNetUserId" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Beskrivelse" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="LagtTil" Type="datetime" Nullable="false" />
+          <Property Name="Modifisert" Type="datetime" Nullable="false" />
+          <Property Name="Person_PersonId" Type="int" Nullable="false" />
+          <Property Name="Kompetanse_KompetanseId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DatabasesystemListe">
+          <Key>
+            <PropertyRef Name="DatabasesystemListeId" />
+          </Key>
+          <Property Name="DatabasesystemListeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Databasesystem" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kompetanse">
+          <Key>
+            <PropertyRef Name="KompetanseId" />
+          </Key>
+          <Property Name="KompetanseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Programmeringsspråk" Type="nvarchar(max)" />
+          <Property Name="Rammeverk" Type="nvarchar(max)" />
+          <Property Name="WebTeknologier" Type="nvarchar(max)" />
+          <Property Name="Databasesystemer" Type="nvarchar(max)" />
+          <Property Name="Serverside" Type="nvarchar(max)" />
+          <Property Name="Operativsystemer" Type="nvarchar(max)" />
+          <Property Name="LagtTil" Type="datetime" Nullable="false" />
+          <Property Name="Modifisert" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Medlem">
+          <Key>
+            <PropertyRef Name="MedlemId" />
+          </Key>
+          <Property Name="MedlemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Rolle" Type="nvarchar(max)" />
+          <Property Name="Start" Type="nvarchar(max)" />
+          <Property Name="Slutt" Type="nvarchar(max)" />
+          <Property Name="LagtTil" Type="datetime" Nullable="false" />
+          <Property Name="Modifisert" Type="datetime" Nullable="false" />
+          <Property Name="ProsjektProsjektId" Type="int" Nullable="false" />
+          <Property Name="Person_PersonId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OperativsystemListe">
+          <Key>
+            <PropertyRef Name="OperativsystemListeId" />
+          </Key>
+          <Property Name="OperativsystemListeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Operativsystem" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="PersonId" />
+          </Key>
+          <Property Name="PersonId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fornavn" Type="nvarchar(max)" />
+          <Property Name="Etternavn" Type="nvarchar(max)" />
+          <Property Name="Stilling" Type="nvarchar(max)" />
+          <Property Name="ÅrErfaring" Type="smallint" />
+          <Property Name="Språk" Type="nvarchar(max)" />
+          <Property Name="LagtTil" Type="datetime" Nullable="false" />
+          <Property Name="Modifisert" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProgrammeringsspråkListe">
+          <Key>
+            <PropertyRef Name="ProgrammeringsspråkListeId" />
+          </Key>
+          <Property Name="ProgrammeringsspråkListeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Programmeringsspråk" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Prosjekt">
+          <Key>
+            <PropertyRef Name="ProsjektId" />
+          </Key>
+          <Property Name="ProsjektId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Navn" Type="nvarchar(max)" />
+          <Property Name="Bedrift" Type="nvarchar(max)" />
+          <Property Name="Beskrivelse" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Fra" Type="smallint" />
+          <Property Name="Til" Type="smallint" />
+          <Property Name="LagtTil" Type="datetime" Nullable="false" />
+          <Property Name="Modifisert" Type="datetime" Nullable="false" />
+          <Property Name="CVVersjonCVVersjonId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RammeverkListe">
+          <Key>
+            <PropertyRef Name="RammeverkId" />
+          </Key>
+          <Property Name="RammeverkId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Rammeverk" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ServersideListe">
+          <Key>
+            <PropertyRef Name="ServersideId" />
+          </Key>
+          <Property Name="ServersideId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Serverside" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SpråkListe">
+          <Key>
+            <PropertyRef Name="SpråkId" />
+          </Key>
+          <Property Name="SpråkId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Språk" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Utdannelse">
+          <Key>
+            <PropertyRef Name="UtdannelseId" />
+          </Key>
+          <Property Name="UtdannelseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Beskrivelse" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Fra" Type="smallint" />
+          <Property Name="Til" Type="smallint" />
+          <Property Name="LagtTil" Type="datetime" Nullable="false" />
+          <Property Name="Modifisert" Type="datetime" Nullable="false" />
+          <Property Name="CVVersjonCVVersjonId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WebTeknologiListe">
+          <Key>
+            <PropertyRef Name="WebTeknologiListeId" />
+          </Key>
+          <Property Name="WebTeknologiListeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WebTeknologi" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CVVersjonArbeidserfaring">
+          <End Role="CVVersjon" Type="Self.CVVersjon" Multiplicity="1" />
+          <End Role="Arbeidserfaring" Type="Self.Arbeidserfaring" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CVVersjon">
+              <PropertyRef Name="CVVersjonId" />
+            </Principal>
+            <Dependent Role="Arbeidserfaring">
+              <PropertyRef Name="CVVersjonCVVersjonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CVVersjonKompetanse">
+          <End Role="Kompetanse" Type="Self.Kompetanse" Multiplicity="1" />
+          <End Role="CVVersjon" Type="Self.CVVersjon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kompetanse">
+              <PropertyRef Name="KompetanseId" />
+            </Principal>
+            <Dependent Role="CVVersjon">
+              <PropertyRef Name="Kompetanse_KompetanseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CVVersjonPerson">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="CVVersjon" Type="Self.CVVersjon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="CVVersjon">
+              <PropertyRef Name="Person_PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CVVersjonProsjekt">
+          <End Role="CVVersjon" Type="Self.CVVersjon" Multiplicity="1" />
+          <End Role="Prosjekt" Type="Self.Prosjekt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CVVersjon">
+              <PropertyRef Name="CVVersjonId" />
+            </Principal>
+            <Dependent Role="Prosjekt">
+              <PropertyRef Name="CVVersjonCVVersjonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CVVersjonUtdannelse">
+          <End Role="CVVersjon" Type="Self.CVVersjon" Multiplicity="1" />
+          <End Role="Utdannelse" Type="Self.Utdannelse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CVVersjon">
+              <PropertyRef Name="CVVersjonId" />
+            </Principal>
+            <Dependent Role="Utdannelse">
+              <PropertyRef Name="CVVersjonCVVersjonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedlemPerson">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="Medlem" Type="Self.Medlem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="Medlem">
+              <PropertyRef Name="Person_PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProsjektMedlem">
+          <End Role="Prosjekt" Type="Self.Prosjekt" Multiplicity="1" />
+          <End Role="Medlem" Type="Self.Medlem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Prosjekt">
+              <PropertyRef Name="ProsjektId" />
+            </Principal>
+            <Dependent Role="Medlem">
+              <PropertyRef Name="ProsjektProsjektId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="cvModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Arbeidserfaring" EntityType="Self.Arbeidserfaring" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CVVersjon" EntityType="Self.CVVersjon" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DatabasesystemListe" EntityType="Self.DatabasesystemListe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kompetanse" EntityType="Self.Kompetanse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Medlem" EntityType="Self.Medlem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OperativsystemListe" EntityType="Self.OperativsystemListe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProgrammeringsspråkListe" EntityType="Self.ProgrammeringsspråkListe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Prosjekt" EntityType="Self.Prosjekt" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RammeverkListe" EntityType="Self.RammeverkListe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ServersideListe" EntityType="Self.ServersideListe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SpråkListe" EntityType="Self.SpråkListe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Utdannelse" EntityType="Self.Utdannelse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WebTeknologiListe" EntityType="Self.WebTeknologiListe" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CVVersjonArbeidserfaring" Association="Self.FK_CVVersjonArbeidserfaring">
+            <End Role="CVVersjon" EntitySet="CVVersjon" />
+            <End Role="Arbeidserfaring" EntitySet="Arbeidserfaring" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CVVersjonKompetanse" Association="Self.FK_CVVersjonKompetanse">
+            <End Role="Kompetanse" EntitySet="Kompetanse" />
+            <End Role="CVVersjon" EntitySet="CVVersjon" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CVVersjonPerson" Association="Self.FK_CVVersjonPerson">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="CVVersjon" EntitySet="CVVersjon" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CVVersjonProsjekt" Association="Self.FK_CVVersjonProsjekt">
+            <End Role="CVVersjon" EntitySet="CVVersjon" />
+            <End Role="Prosjekt" EntitySet="Prosjekt" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CVVersjonUtdannelse" Association="Self.FK_CVVersjonUtdannelse">
+            <End Role="CVVersjon" EntitySet="CVVersjon" />
+            <End Role="Utdannelse" EntitySet="Utdannelse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedlemPerson" Association="Self.FK_MedlemPerson">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Medlem" EntitySet="Medlem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProsjektMedlem" Association="Self.FK_ProsjektMedlem">
+            <End Role="Prosjekt" EntitySet="Prosjekt" />
+            <End Role="Medlem" EntitySet="Medlem" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="cvModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -359,10 +498,10 @@
             <PropertyRef Name="PersonId" />
           </Key>
           <Property Name="PersonId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Fornavn" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Etternavn" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Stilling" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ÅrErfaring" Type="Int16" Nullable="false" />
+          <Property Name="Fornavn" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Etternavn" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="true" />
+          <Property Name="Stilling" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ÅrErfaring" Type="Int16" />
           <Property Name="Språk" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="true" />
           <Property Name="LagtTil" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Modifisert" Type="DateTime" Nullable="false" Precision="3" />
@@ -560,7 +699,115 @@
             <End Role="Prosjekt" EntitySet="Prosjekt" />
             <End Role="Medlem" EntitySet="Medlem" />
           </AssociationSet>
+          <EntitySet Name="C__MigrationHistory" EntityType="cvModel.C__MigrationHistory" />
+          <EntitySet Name="AspNetRoles" EntityType="cvModel.AspNetRoles" />
+          <EntitySet Name="AspNetUserClaims" EntityType="cvModel.AspNetUserClaims" />
+          <EntitySet Name="AspNetUserLogins" EntityType="cvModel.AspNetUserLogins" />
+          <EntitySet Name="AspNetUsers" EntityType="cvModel.AspNetUsers" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="cvModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="cvModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="cvModel.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="cvModel.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="cvModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="cvModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="cvModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="cvModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="AspNetRoles" Relationship="cvModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Type="cvModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="cvModel.AspNetUserClaims" Role="AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Type="cvModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="cvModel.AspNetUserLogins" Role="AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Type="cvModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
+          <End Type="cvModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -722,6 +969,69 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="cvModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="cvModel.AspNetRoles">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="cvModel.AspNetUserClaims">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="cvModel.AspNetUserLogins">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="cvModel.AspNetUsers">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="cvModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>

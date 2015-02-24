@@ -26,6 +26,14 @@
         <AssociationConnector Association="cvModel.FK_CVVersjonUtdannelse" ManuallyRouted="false" />
         <AssociationConnector Association="cvModel.FK_MedlemPerson" ManuallyRouted="false" />
         <AssociationConnector Association="cvModel.FK_ProsjektMedlem" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="cvModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="12.75" />
+        <EntityTypeShape EntityType="cvModel.AspNetRoles" Width="1.5" PointX="12.75" PointY="2.5" />
+        <EntityTypeShape EntityType="cvModel.AspNetUserClaims" Width="1.5" PointX="17.25" PointY="3.625" />
+        <EntityTypeShape EntityType="cvModel.AspNetUserLogins" Width="1.5" PointX="17.25" PointY="1" />
+        <EntityTypeShape EntityType="cvModel.AspNetUsers" Width="1.5" PointX="15" PointY="1.375" />
+        <AssociationConnector Association="cvModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="cvModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="cvModel.AspNetUserRoles" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

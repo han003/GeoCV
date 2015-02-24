@@ -11,7 +11,8 @@ namespace GeoCV
 
             // Home
             bundles.Add(new ScriptBundle("~/Bundles/js/home")
-                .Include("~/Scripts/jquery/*.js")
+                .Include("~/Scripts/jquery/jquery-{version}.js")
+                .Include("~/Scripts/jquery/jquery.validate.js")
                 .Include("~/Scripts/bootstrap/*.js")
                 .Include("~/Scripts/home.js"));
 
@@ -22,7 +23,8 @@ namespace GeoCV
 
             // Dashboard
             bundles.Add(new ScriptBundle("~/Bundles/js/dashboard")
-                .Include("~/Scripts/jquery/*.js")
+                .Include("~/Scripts/jquery/jquery-{version}.js")
+                .Include("~/Scripts/jquery/jquery.validate.js")
                 .Include("~/Scripts/bootstrap/*.js")
                 .Include("~/Scripts/dashboard.js"));
 
@@ -33,7 +35,8 @@ namespace GeoCV
 
             // Cv
             bundles.Add(new ScriptBundle("~/Bundles/js/cv")
-                .Include("~/Scripts/jquery/*.js")
+                .Include("~/Scripts/jquery/jquery-{version}.js")
+                .Include("~/Scripts/jquery/jquery.validate.js")
                 .Include("~/Scripts/bootstrap/*.js")
                 .Include("~/Scripts/bootstrap3-typeahead.js")
                 .Include("~/Scripts/cv/*.js"));
@@ -46,7 +49,8 @@ namespace GeoCV
 
             // Search
             bundles.Add(new ScriptBundle("~/Bundles/js/search")
-                .Include("~/Scripts/jquery/*.js")
+                .Include("~/Scripts/jquery/jquery-{version}.js")
+                .Include("~/Scripts/jquery/jquery.validate.js")
                 .Include("~/Scripts/bootstrap/*.js")
                 .Include("~/Scripts/search.js"));
 
@@ -57,7 +61,8 @@ namespace GeoCV
 
             // Customize
             bundles.Add(new ScriptBundle("~/Bundles/js/customize")
-                .Include("~/Scripts/jquery/*.js")
+                .Include("~/Scripts/jquery/jquery-{version}.js")
+                .Include("~/Scripts/jquery/jquery.validate.js")
                 .Include("~/Scripts/bootstrap/*.js")
                 .Include("~/Scripts/customize.js"));
 
@@ -68,7 +73,8 @@ namespace GeoCV
 
             // Employees
             bundles.Add(new ScriptBundle("~/Bundles/js/employees")
-                .Include("~/Scripts/jquery/*.js")
+                .Include("~/Scripts/jquery/jquery-{version}.js")
+                .Include("~/Scripts/jquery/jquery.validate.js")
                 .Include("~/Scripts/bootstrap/*.js")
                 .Include("~/Scripts/employees.js"));
 
@@ -79,7 +85,8 @@ namespace GeoCV
 
             // Register
             bundles.Add(new ScriptBundle("~/Bundles/js/register")
-                .Include("~/Scripts/jquery/*.js")
+                .Include("~/Scripts/jquery/jquery-{version}.js")
+                .Include("~/Scripts/jquery/jquery.validate.js")
                 .Include("~/Scripts/bootstrap/*.js")
                 .Include("~/Scripts/register.js"));
 
@@ -90,7 +97,8 @@ namespace GeoCV
 
             // Login
             bundles.Add(new ScriptBundle("~/Bundles/js/login")
-                .Include("~/Scripts/jquery/*.js")
+                .Include("~/Scripts/jquery/jquery-{version}.js")
+                .Include("~/Scripts/jquery/jquery.validate.js")
                 .Include("~/Scripts/bootstrap/*.js")
                 .Include("~/Scripts/login.js"));
 
@@ -101,7 +109,8 @@ namespace GeoCV
 
             // Manage
             bundles.Add(new ScriptBundle("~/Bundles/js/manage")
-                .Include("~/Scripts/jquery/*.js")
+                .Include("~/Scripts/jquery/jquery-{version}.js")
+                .Include("~/Scripts/jquery/jquery.validate.js")
                 .Include("~/Scripts/bootstrap/*.js")
                 .Include("~/Scripts/manage.js"));
 
@@ -112,7 +121,8 @@ namespace GeoCV
 
             // Change Password
             bundles.Add(new ScriptBundle("~/Bundles/js/changepass")
-                .Include("~/Scripts/jquery/*.js")
+                .Include("~/Scripts/jquery/jquery-{version}.js")
+                .Include("~/Scripts/jquery/jquery.validate.js")
                 .Include("~/Scripts/bootstrap/*.js")
                 .Include("~/Scripts/changepass.js"));
 

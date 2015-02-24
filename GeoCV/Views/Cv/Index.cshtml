@@ -4,7 +4,7 @@
 @model GeoCV.Models.CVVersjon
 
 @{
-    ViewBag.Title = Model.Person.Fornavn + " " + Model.Person.Etternavn + " - CV";
+    ViewBag.Title = "Min CV";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section css{
@@ -36,10 +36,22 @@
 <div class="row text-center">
     <div class="btn-group" role="group" aria-label="...">
         <button type="button" class="btn btn-success cv-nav-btn">Personlig informasjon</button>
-        <button type="button" class="btn btn-default cv-nav-btn">Nøkkekompetanse</button>
+        <button type="button" class="btn btn-default cv-nav-btn">Nøkkelkompetanse</button>
         <button type="button" class="btn btn-default cv-nav-btn">Utdannelse</button>
         <button type="button" class="btn btn-default cv-nav-btn">Arbeidserfaring</button>
         <button type="button" class="btn btn-default cv-nav-btn">Prosjekter</button>
+    </div>
+
+    <div class="btn-group col-lg-offset-1">
+        <button type="button" id="download-button" class="btn btn-primary">@Html.ActionLink("Last ned PDF", "Pdf", "Download", null, new { @id = "download-link" })</button>
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            <span class="caret"></span>
+            <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li><a>PDF</a></li>
+            <li><a>Word</a></li>
+        </ul>
     </div>
 </div>
 
@@ -462,8 +474,8 @@
 
 
                     <div class="form-group col-lg-12">
-                        <label>Prosjekt bedrift</label>
-                        <input type="text" class="form-control" placeholder="Prosjekt bedrift" autocomplete="off">
+                        <label>Kunde</label>
+                        <input type="text" class="form-control" placeholder="Kunde" autocomplete="off">
                     </div>
 
                     <div class="form-group col-lg-12">
@@ -529,25 +541,6 @@
                 <div><strong>Bedrift</strong> - Rolle</div>
                 <div>Beskrivelse</div>
             </div>
-        </div>
-    </div>
-
-</div>
-
-
-<div id="form-options" class="container">
-    <div>
-        <!-- Split button -->
-        <div class="btn-group">
-            <button type="button" id="download-button" class="btn btn-primary">@Html.ActionLink("Last ned PDF", "Pdf", "Download", null, new { @id = "download-link" })</button>
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                <span class="caret"></span>
-                <span class="sr-only">Toggle Dropdown</span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-                <li><a>PDF</a></li>
-                <li><a>Word</a></li>
-            </ul>
         </div>
     </div>
 

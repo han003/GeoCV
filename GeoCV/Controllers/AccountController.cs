@@ -168,10 +168,6 @@ namespace GeoCV.Controllers
                     Cv.AspNetUserId = user.Id;
 
                     Person CvPerson = new Person();
-                    CvPerson.Fornavn = "Arne";
-                    CvPerson.Etternavn = "Berntsen";
-                    CvPerson.Stilling = "Sjef";
-                    CvPerson.ÅrErfaring = 13;
                     CvPerson.LagtTil = Now;
                     CvPerson.Modifisert = Now;
 
