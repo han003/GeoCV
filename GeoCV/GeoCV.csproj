@@ -215,14 +215,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\CustomizeController.cs" />
     <Compile Include="Controllers\CvController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DownloadController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\ProjectController.cs" />
+    <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Global.asax.cs">
@@ -317,12 +316,6 @@
     <Content Include="Content\bootstrap.min.css">
       <DependentUpon>bootstrap.css</DependentUpon>
     </Content>
-    <Content Include="Content\customize.css">
-      <DependentUpon>customize.less</DependentUpon>
-    </Content>
-    <Content Include="Content\customize.min.css">
-      <DependentUpon>customize.css</DependentUpon>
-    </Content>
     <Content Include="Content\cv.css">
       <DependentUpon>cv.less</DependentUpon>
     </Content>
@@ -355,7 +348,6 @@
     <Content Include="Scripts\bootstrap\bootstrap.js" />
     <Content Include="ApplicationInsights.config" />
     <Content Include="Content\animate.less" />
-    <Content Include="Content\customize.less" />
     <Content Include="Content\cv.less" />
     <Content Include="Content\dashboard.less" />
     <Content Include="Content\main.less" />
@@ -363,9 +355,6 @@
     <Content Include="Content\search.less" />
     <Content Include="Content\animate.css.map">
       <DependentUpon>animate.css</DependentUpon>
-    </Content>
-    <Content Include="Content\customize.css.map">
-      <DependentUpon>customize.css</DependentUpon>
     </Content>
     <Content Include="Content\cv.css.map">
       <DependentUpon>cv.css</DependentUpon>
@@ -382,10 +371,6 @@
     <Content Include="Scripts\bootstrap\bootstrap3-typeahead.js" />
     <Content Include="Scripts\bootstrap\bootstrap3-typeahead.min.js">
       <DependentUpon>bootstrap3-typeahead.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\customize.js" />
-    <Content Include="Scripts\customize.min.js">
-      <DependentUpon>customize.js</DependentUpon>
     </Content>
     <Content Include="Scripts\cv\animations.js" />
     <Content Include="Scripts\cv\animations.min.js">
@@ -414,9 +399,6 @@
     <Content Include="Scripts\cv\cv.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js.map">
       <DependentUpon>bootstrap.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\customize.min.js.map">
-      <DependentUpon>customize.min.js</DependentUpon>
     </Content>
     <Content Include="Scripts\cv\animations.min.js.map">
       <DependentUpon>animations.min.js</DependentUpon>
@@ -583,6 +565,7 @@
     <Content Include="Scripts\stuff\respond.matchmedia.addListener.min.js.map">
       <DependentUpon>respond.matchmedia.addListener.min.js</DependentUpon>
     </Content>
+    <Content Include="Views\Projects\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

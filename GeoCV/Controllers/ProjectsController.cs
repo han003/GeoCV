@@ -4,13 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace CV.Controllers
+namespace GeoCV.Controllers
 {
-
-    [Authorize]
-    public class ProjectController : Controller
+    public class ProjectsController : Controller
     {
-        // GET: Project
+        // GET: Projects
         public ActionResult Index()
         {
             return View();
