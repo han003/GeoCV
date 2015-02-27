@@ -479,6 +479,7 @@
     <Content Include="Scripts\jquery\jquery.validate.unobtrusive.min.js">
       <DependentUpon>jquery.validate.unobtrusive.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\projects.js" />
     <Content Include="Scripts\stuff\modernizr-2.8.3.js" />
     <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\npm.min.js">
@@ -544,7 +545,6 @@
     <Content Include="Views\Cv\Index.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Employees\Index.cshtml" />
-    <Content Include="Views\Project\Index.cshtml" />
     <Content Include="Views\Report\Index.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Scripts\jquery\jquery.validate-vsdoc.min.js.map">

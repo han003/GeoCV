@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace GeoCV.Controllers
 {
+    [Authorize]
     public class ProjectsController : Controller
     {
         // GET: Projects
