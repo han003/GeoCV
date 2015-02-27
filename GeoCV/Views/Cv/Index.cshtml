@@ -26,8 +26,8 @@
 
             </div>
             <div class="modal-footer">
-                <button id="modalDontAddItem" type="button" class="btn btn-default" data-dismiss="modal">Ikke legg til</button>
-                <button id="modalAddItem" type="button" class="btn btn-primary">Legg til</button>
+                <button id="modalDontAddItem" type="button" class="btn btn-default" data-dismiss="modal">Nei</button>
+                <button id="modalAddItem" type="button" class="btn btn-success">OK</button>
             </div>
         </div>
     </div>
@@ -43,8 +43,8 @@
     </div>
 
     <div class="btn-group col-lg-offset-1">
-        <button type="button" id="download-button" class="btn btn-primary">@Html.ActionLink("Last ned PDF", "Pdf", "Download", null, new { @id = "download-link" })</button>
-        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        <button type="button" id="download-button" class="btn btn-success">@Html.ActionLink("Last ned PDF", "Pdf", "Download", null, new { @id = "download-link" })</button>
+        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
             <span class="caret"></span>
             <span class="sr-only">Toggle Dropdown</span>
         </button>
@@ -107,7 +107,7 @@
                             <input id="@Html.DisplayNameFor(m => Model.Person.Språk)-auto" type="text" class="form-control add-item-auto" placeholder="Legg til et nytt språk" data-provide="typeahead" autocomplete="off">
                         </div>
                         <div class="col-lg-1">
-                            <button id="@Html.DisplayNameFor(m => Model.Person.Språk)-btn" type="button" class="btn btn-primary add-item-btn" tabindex="-1">Legg til</button>
+                            <button id="@Html.DisplayNameFor(m => Model.Person.Språk)-btn" type="button" class="btn btn-success add-item-btn" tabindex="-1">Legg til</button>
                         </div>
                     </div>
 
@@ -141,7 +141,7 @@
                             <input id="@Html.DisplayNameFor(m => Model.Kompetanse.Programmeringsspråk)-auto" type="text" class="form-control add-item-auto" placeholder="Legg til et nytt programmeringsspråk" data-provide="typeahead" autocomplete="off">
                         </div>
                         <div class="col-lg-1">
-                            <button id="@Html.DisplayNameFor(m => Model.Kompetanse.Programmeringsspråk)-btn" type="button" class="btn btn-primary add-item-btn" tabindex="-1">Legg til</button>
+                            <button id="@Html.DisplayNameFor(m => Model.Kompetanse.Programmeringsspråk)-btn" type="button" class="btn btn-success add-item-btn" tabindex="-1">Legg til</button>
                         </div>
                     </div>
 
@@ -172,7 +172,7 @@
                             <input id="@Html.DisplayNameFor(m => Model.Kompetanse.Rammeverk)-auto" type="text" class="form-control add-item-auto" placeholder="Legg til et nytt rammeverk" data-provide="typeahead" autocomplete="off">
                         </div>
                         <div class="col-lg-1">
-                            <button id="@Html.DisplayNameFor(m => Model.Kompetanse.Rammeverk)-btn" type="button" class="btn btn-primary add-item-btn" tabindex="-1">Legg til</button>
+                            <button id="@Html.DisplayNameFor(m => Model.Kompetanse.Rammeverk)-btn" type="button" class="btn btn-success add-item-btn" tabindex="-1">Legg til</button>
                         </div>
                     </div>
 
@@ -203,7 +203,7 @@
                             <input id="@Html.DisplayNameFor(m => Model.Kompetanse.WebTeknologier)-auto" type="text" class="form-control add-item-auto" placeholder="Legg til en ny web-teknologi" data-provide="typeahead" autocomplete="off">
                         </div>
                         <div class="col-lg-1">
-                            <button id="@Html.DisplayNameFor(m => Model.Kompetanse.WebTeknologier)-btn" type="button" class="btn btn-primary add-item-btn" tabindex="-1">Legg til</button>
+                            <button id="@Html.DisplayNameFor(m => Model.Kompetanse.WebTeknologier)-btn" type="button" class="btn btn-success add-item-btn" tabindex="-1">Legg til</button>
                         </div>
                     </div>
 
@@ -234,7 +234,7 @@
                             <input id="@Html.DisplayNameFor(m => Model.Kompetanse.Databasesystemer)-auto" type="text" class="form-control add-item-auto" placeholder="Legg til et nytt databasesystem" data-provide="typeahead" autocomplete="off">
                         </div>
                         <div class="col-lg-1">
-                            <button id="@Html.DisplayNameFor(m => Model.Kompetanse.Databasesystemer)-btn" type="button" class="btn btn-primary add-item-btn" tabindex="-1">Legg til</button>
+                            <button id="@Html.DisplayNameFor(m => Model.Kompetanse.Databasesystemer)-btn" type="button" class="btn btn-success add-item-btn" tabindex="-1">Legg til</button>
                         </div>
                     </div>
 
@@ -265,7 +265,7 @@
                             <input id="@Html.DisplayNameFor(m => Model.Kompetanse.Serverside)-auto" type="text" class="form-control add-item-auto" placeholder="Legg til ny serverside" data-provide="typeahead" autocomplete="off">
                         </div>
                         <div class="col-lg-1">
-                            <button id="@Html.DisplayNameFor(m => Model.Kompetanse.Serverside)-btn" type="button" class="btn btn-primary add-item-btn" tabindex="-1">Legg til</button>
+                            <button id="@Html.DisplayNameFor(m => Model.Kompetanse.Serverside)-btn" type="button" class="btn btn-success add-item-btn" tabindex="-1">Legg til</button>
                         </div>
                     </div>
 
@@ -296,7 +296,7 @@
                             <input id="@Html.DisplayNameFor(m => Model.Kompetanse.Operativsystemer)-auto" type="text" class="form-control add-item-auto" placeholder="Legg til et nytt operativsystem" data-provide="typeahead" autocomplete="off">
                         </div>
                         <div class="col-lg-1">
-                            <button id="@Html.DisplayNameFor(m => Model.Kompetanse.Operativsystemer)-btn" type="button" class="btn btn-primary add-item-btn" tabindex="-1">Legg til</button>
+                            <button id="@Html.DisplayNameFor(m => Model.Kompetanse.Operativsystemer)-btn" type="button" class="btn btn-success add-item-btn" tabindex="-1">Legg til</button>
                         </div>
                     </div>
 
@@ -358,7 +358,7 @@
 
                     <div class="form-group">
                         <div class="col-lg-12">
-                            <button id="education-add-btn" class="btn btn-primary" type="button">Legg til ny utdannelse</button>
+                            <button id="education-add-btn" class="btn btn-success" type="button">Legg til ny utdannelse</button>
                         </div>
                     </div>
 
@@ -440,7 +440,7 @@
                     </div>
 
                     <div class="form-group col-lg-12">
-                        <button id="work-add-btn" class="btn btn-primary" type="button">Legg til arbeidserfaring</button>
+                        <button id="work-add-btn" class="btn btn-success" type="button">Legg til arbeidserfaring</button>
                     </div>
 
                 </div>
@@ -526,7 +526,7 @@
                     </div>
 
                     <div class="form-group col-lg-12">
-                        <button class="btn btn-primary" type="button">Legg til prosjekt</button>
+                        <button class="btn btn-success" type="button">Legg til prosjekt</button>
                     </div>
 
                 </div>
