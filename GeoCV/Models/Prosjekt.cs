@@ -21,15 +21,11 @@ namespace GeoCV.Models
     
         public int ProsjektId { get; set; }
         public string Navn { get; set; }
-        public string Bedrift { get; set; }
+        public string Kunde { get; set; }
         public string Beskrivelse { get; set; }
         public Nullable<short> Fra { get; set; }
         public Nullable<short> Til { get; set; }
-        public System.DateTime LagtTil { get; set; }
-        public System.DateTime Modifisert { get; set; }
-        public int CVVersjonCVVersjonId { get; set; }
     
-        public virtual CVVersjon CVVersjon { get; set; }
         public virtual ICollection<Medlem> Medlem { get; set; }
     }
 }

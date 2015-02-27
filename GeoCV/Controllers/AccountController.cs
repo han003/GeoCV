@@ -158,24 +158,17 @@ namespace GeoCV.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    cvEntities db = new cvEntities();
-                    // Create new CV
-                    DateTime Now = DateTime.Now;
+                    cvEntities1 db = new cvEntities1();
 
+                    // Create new CV
                     CVVersjon Cv = new CVVersjon();
-                    Cv.LagtTil = Now;
-                    Cv.Modifisert = Now;
                     Cv.AspNetUserId = user.Id;
 
                     Person CvPerson = new Person();
                     CvPerson.Fornavn = model.Fornavn;
                     CvPerson.Etternavn = model.Etternavn;
-                    CvPerson.LagtTil = Now;
-                    CvPerson.Modifisert = Now;
 
                     Kompetanse CvKompetanse = new Kompetanse();
-                    CvKompetanse.LagtTil = Now;
-                    CvKompetanse.Modifisert = Now;
 
                     Cv.Person = CvPerson;
                     Cv.Kompetanse = CvKompetanse;

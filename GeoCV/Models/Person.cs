@@ -26,8 +26,6 @@ namespace GeoCV.Models
         public string Stilling { get; set; }
         public Nullable<short> ÅrErfaring { get; set; }
         public string Språk { get; set; }
-        public System.DateTime LagtTil { get; set; }
-        public System.DateTime Modifisert { get; set; }
     
         public virtual ICollection<CVVersjon> CVVersjon { get; set; }
         public virtual ICollection<Medlem> Medlem { get; set; }

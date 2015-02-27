@@ -16,10 +16,8 @@ namespace GeoCV.Models
     {
         public int MedlemId { get; set; }
         public string Rolle { get; set; }
-        public string Start { get; set; }
-        public string Slutt { get; set; }
-        public System.DateTime LagtTil { get; set; }
-        public System.DateTime Modifisert { get; set; }
+        public short Start { get; set; }
+        public short Slutt { get; set; }
         public int ProsjektProsjektId { get; set; }
         public int Person_PersonId { get; set; }
     

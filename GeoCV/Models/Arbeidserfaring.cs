@@ -16,12 +16,10 @@ namespace GeoCV.Models
     {
         public int ArbeidserfaringId { get; set; }
         public string Arbeidsplass { get; set; }
-        public string Rolle { get; set; }
+        public string Stilling { get; set; }
         public string Beskrivelse { get; set; }
         public Nullable<short> Fra { get; set; }
         public Nullable<short> Til { get; set; }
-        public System.DateTime LagtTil { get; set; }
-        public System.DateTime Modifisert { get; set; }
         public int CVVersjonCVVersjonId { get; set; }
     
         public virtual CVVersjon CVVersjon { get; set; }

@@ -13,7 +13,7 @@ namespace CV.Controllers
     public class CvController : Controller
     {
 
-        private cvEntities db = new cvEntities();
+        private cvEntities1 db = new cvEntities1();
 
         public ActionResult Index()
         {
@@ -36,16 +36,11 @@ namespace CV.Controllers
 
             CVVersjon Cv = Item.FirstOrDefault();
 
-            // Current time
-            DateTime Now = DateTime.Now;
-
             // Utdannelse variables
             Utdannelse CvUtdannelse = new Utdannelse();
             CvUtdannelse.Beskrivelse = Beskrivelse;
             CvUtdannelse.Fra = Fra;
             CvUtdannelse.Til = Til;
-            CvUtdannelse.LagtTil = Now;
-            CvUtdannelse.Modifisert = Now;
 
             // Add
             Cv.Utdannelse.Add(CvUtdannelse);
@@ -62,18 +57,13 @@ namespace CV.Controllers
 
             CVVersjon Cv = Item.FirstOrDefault();
 
-            // Current time
-            DateTime Now = DateTime.Now;
-
             // Utdannelse variables
             Arbeidserfaring CvArbeid = new Arbeidserfaring();
             CvArbeid.Arbeidsplass = Arbeidsplass;
-            CvArbeid.Rolle = Rolle;
+            CvArbeid.Stilling = Rolle;
             CvArbeid.Beskrivelse = Beskrivelse;
             CvArbeid.Fra = Fra;
             CvArbeid.Til = Til;
-            CvArbeid.LagtTil = Now;
-            CvArbeid.Modifisert = Now;
 
             // Add
             Cv.Arbeidserfaring.Add(CvArbeid);

@@ -16,24 +16,19 @@ namespace GeoCV.Models
     {
         public CVVersjon()
         {
-            this.Beskrivelse = "Ingen beskrivelse";
             this.Arbeidserfaring = new HashSet<Arbeidserfaring>();
-            this.Prosjekt = new HashSet<Prosjekt>();
             this.Utdannelse = new HashSet<Utdannelse>();
         }
     
         public int CVVersjonId { get; set; }
         public string AspNetUserId { get; set; }
         public string Beskrivelse { get; set; }
-        public System.DateTime LagtTil { get; set; }
-        public System.DateTime Modifisert { get; set; }
         public int Person_PersonId { get; set; }
         public int Kompetanse_KompetanseId { get; set; }
     
         public virtual ICollection<Arbeidserfaring> Arbeidserfaring { get; set; }
         public virtual Kompetanse Kompetanse { get; set; }
         public virtual Person Person { get; set; }
-        public virtual ICollection<Prosjekt> Prosjekt { get; set; }
         public virtual ICollection<Utdannelse> Utdannelse { get; set; }
     }
 }
