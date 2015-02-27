@@ -553,6 +553,8 @@
       <DependentUpon>respond.matchmedia.addListener.min.js</DependentUpon>
     </Content>
     <Content Include="Views\Projects\Index.cshtml" />
+    <Content Include="Views\Projects\_AddNewProject.cshtml" />
+    <Content Include="Views\Projects\_ProjectsTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
