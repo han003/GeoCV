@@ -39,10 +39,5 @@ namespace GeoCV.Models
         public virtual DbSet<SpråkListe> SpråkListe { get; set; }
         public virtual DbSet<Utdannelse> Utdannelse { get; set; }
         public virtual DbSet<WebTeknologiListe> WebTeknologiListe { get; set; }
-        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
-        public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
-        public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
-        public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
-        public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
     }
 }

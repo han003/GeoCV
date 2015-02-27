@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 02/22/2015 20:47:16
--- Generated from EDMX file: C:\Users\Jago\Documents\Visual Studio 2013\Projects\GeoCV\GeoCV\Models\Database.edmx
+-- Date Created: 02/27/2015 13:16:07
+-- Generated from EDMX file: C:\Users\Joar\Source\Repos\GeoCV\GeoCV\Models\Database.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -108,7 +108,7 @@ GO
 CREATE TABLE [dbo].[CVVersjon] (
     [CVVersjonId] int IDENTITY(1,1) NOT NULL,
     [AspNetUserId] nvarchar(max)  NOT NULL,
-    [Beskrivelse] nvarchar(max)  NOT NULL,
+    [Beskrivelse] nvarchar(max)  NULL,
     [LagtTil] datetime  NOT NULL,
     [Modifisert] datetime  NOT NULL,
     [Person_PersonId] int  NOT NULL,
@@ -162,8 +162,8 @@ CREATE TABLE [dbo].[Person] (
     [PersonId] int IDENTITY(1,1) NOT NULL,
     [Fornavn] nvarchar(max)  NOT NULL,
     [Etternavn] nvarchar(max)  NOT NULL,
-    [Stilling] nvarchar(max)  NOT NULL,
-    [ÅrErfaring] smallint  NOT NULL,
+    [Stilling] nvarchar(max)  NULL,
+    [ÅrErfaring] smallint  NULL,
     [Språk] nvarchar(max)  NULL,
     [LagtTil] datetime  NOT NULL,
     [Modifisert] datetime  NOT NULL
@@ -181,7 +181,7 @@ GO
 CREATE TABLE [dbo].[Prosjekt] (
     [ProsjektId] int IDENTITY(1,1) NOT NULL,
     [Navn] nvarchar(max)  NULL,
-    [Bedrift] nvarchar(max)  NULL,
+    [Kunde] nvarchar(max)  NULL,
     [Beskrivelse] nvarchar(max)  NOT NULL,
     [Fra] smallint  NULL,
     [Til] smallint  NULL,

@@ -16,7 +16,6 @@ namespace GeoCV.Models
     {
         public CVVersjon()
         {
-            this.Beskrivelse = "Ingen beskrivelse";
             this.Arbeidserfaring = new HashSet<Arbeidserfaring>();
             this.Prosjekt = new HashSet<Prosjekt>();
             this.Utdannelse = new HashSet<Utdannelse>();
