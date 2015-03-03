@@ -1,0 +1,223 @@
+﻿@using System.Web.Optimization
+@using Microsoft.AspNet.Identity
+
+@model GeoCV.Models.CVVersjon
+
+@{
+    ViewBag.Title = "Nøkkelkompetanse";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section css{
+    @Styles.Render("~/Bundles/css/expertise")
+}
+@section scripts{
+    @Scripts.Render("~/Bundles/js/expertise")
+}
+
+
+<div class="container">
+    <div class="row">
+        <h2 class="col-lg-offset-1">Programmeringsspråk</h2>
+        <div class="panel panel-default col-lg-10 col-lg-offset-1">
+            <div class="panel-body">
+                <div class="form-horizontal">
+
+                    <div class="form-group">
+                        <div class="col-lg-10">
+                            <input id="@Html.DisplayNameFor(m => Model.Kompetanse.Programmeringsspråk)-auto" type="text" class="form-control add-item-auto" placeholder="Legg til et nytt programmeringsspråk" data-provide="typeahead" autocomplete="off">
+                        </div>
+                        <div class="col-lg-1">
+                            <button id="@Html.DisplayNameFor(m => Model.Kompetanse.Programmeringsspråk)-btn" type="button" class="btn btn-success add-item-btn" tabindex="-1">Legg til</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div id="@Html.DisplayNameFor(m => Model.Kompetanse.Programmeringsspråk)-group" class="col-lg-12 added-btn-group">
+                            @if (!string.IsNullOrEmpty(Model.Kompetanse.Programmeringsspråk))
+                            {
+                                foreach (var value in Model.Kompetanse.Programmeringsspråk.Split(';'))
+                                {
+                                    <button type="button" class="btn btn-info added-btn" tabindex="-1">@value</button>
+                                }
+
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <h2 class="col-lg-offset-1">Rammeverk</h2>
+        <div class="panel panel-default col-lg-10 col-lg-offset-1">
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-lg-10">
+                            <input id="@Html.DisplayNameFor(m => Model.Kompetanse.Rammeverk)-auto" type="text" class="form-control add-item-auto" placeholder="Legg til et nytt rammeverk" data-provide="typeahead" autocomplete="off">
+                        </div>
+                        <div class="col-lg-1">
+                            <button id="@Html.DisplayNameFor(m => Model.Kompetanse.Rammeverk)-btn" type="button" class="btn btn-success add-item-btn" tabindex="-1">Legg til</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div id="@Html.DisplayNameFor(m => Model.Kompetanse.Rammeverk)-group" class="col-lg-12 added-btn-group">
+                            @if (!string.IsNullOrEmpty(Model.Kompetanse.Rammeverk))
+                            {
+                                foreach (var value in Model.Kompetanse.Rammeverk.Split(';'))
+                                {
+                                    <button type="button" class="btn btn-info added-btn" tabindex="-1">@value</button>
+                                }
+
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container">
+    <div class="row">
+        <h2 class="col-lg-offset-1">Web-teknologier</h2>
+        <div class="panel panel-default col-lg-10 col-lg-offset-1">
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-lg-10">
+                            <input id="@Html.DisplayNameFor(m => Model.Kompetanse.WebTeknologier)-auto" type="text" class="form-control add-item-auto" placeholder="Legg til en ny web-teknologi" data-provide="typeahead" autocomplete="off">
+                        </div>
+                        <div class="col-lg-1">
+                            <button id="@Html.DisplayNameFor(m => Model.Kompetanse.WebTeknologier)-btn" type="button" class="btn btn-success add-item-btn" tabindex="-1">Legg til</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div id="@Html.DisplayNameFor(m => Model.Kompetanse.WebTeknologier)-group" class="col-lg-12 added-btn-group">
+                            @if (!string.IsNullOrEmpty(Model.Kompetanse.WebTeknologier))
+                            {
+                                foreach (var value in Model.Kompetanse.WebTeknologier.Split(';'))
+                                {
+                                    <button type="button" class="btn btn-info added-btn" tabindex="-1">@value</button>
+                                }
+
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container">
+    <div class="row">
+        <h2 class="col-lg-offset-1">Databasesystemer</h2>
+        <div class="panel panel-default col-lg-10 col-lg-offset-1">
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-lg-10">
+                            <input id="@Html.DisplayNameFor(m => Model.Kompetanse.Databasesystemer)-auto" type="text" class="form-control add-item-auto" placeholder="Legg til et nytt databasesystem" data-provide="typeahead" autocomplete="off">
+                        </div>
+                        <div class="col-lg-1">
+                            <button id="@Html.DisplayNameFor(m => Model.Kompetanse.Databasesystemer)-btn" type="button" class="btn btn-success add-item-btn" tabindex="-1">Legg til</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div id="@Html.DisplayNameFor(m => Model.Kompetanse.Databasesystemer)-group" class="col-lg-12 added-btn-group">
+                            @if (!string.IsNullOrEmpty(Model.Kompetanse.Databasesystemer))
+                            {
+                                foreach (var value in Model.Kompetanse.Databasesystemer.Split(';'))
+                                {
+                                    <button type="button" class="btn btn-info added-btn" tabindex="-1">@value</button>
+                                }
+
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container">
+    <div class="row">
+        <h2 class="col-lg-offset-1">Serverside</h2>
+        <div class="panel panel-default col-lg-10 col-lg-offset-1">
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-lg-10">
+                            <input id="@Html.DisplayNameFor(m => Model.Kompetanse.Serverside)-auto" type="text" class="form-control add-item-auto" placeholder="Legg til ny serverside" data-provide="typeahead" autocomplete="off">
+                        </div>
+                        <div class="col-lg-1">
+                            <button id="@Html.DisplayNameFor(m => Model.Kompetanse.Serverside)-btn" type="button" class="btn btn-success add-item-btn" tabindex="-1">Legg til</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div id="@Html.DisplayNameFor(m => Model.Kompetanse.Serverside)-group" class="col-lg-12 added-btn-group">
+                            @if (!string.IsNullOrEmpty(Model.Kompetanse.Serverside))
+                            {
+                                foreach (var value in Model.Kompetanse.Serverside.Split(';'))
+                                {
+                                    <button type="button" class="btn btn-info added-btn" tabindex="-1">@value</button>
+                                }
+
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container">
+    <div class="row">
+        <h2 class="col-lg-offset-1">Operativsystemer</h2>
+        <div class="panel panel-default col-lg-10 col-lg-offset-1">
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-lg-10">
+                            <input id="@Html.DisplayNameFor(m => Model.Kompetanse.Operativsystemer)-auto" type="text" class="form-control add-item-auto" placeholder="Legg til et nytt operativsystem" data-provide="typeahead" autocomplete="off">
+                        </div>
+                        <div class="col-lg-1">
+                            <button id="@Html.DisplayNameFor(m => Model.Kompetanse.Operativsystemer)-btn" type="button" class="btn btn-success add-item-btn" tabindex="-1">Legg til</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div id="@Html.DisplayNameFor(m => Model.Kompetanse.Operativsystemer)-group" class="col-lg-12 added-btn-group">
+                            @if (!string.IsNullOrEmpty(Model.Kompetanse.Operativsystemer))
+                            {
+                                foreach (var value in Model.Kompetanse.Operativsystemer.Split(';'))
+                                {
+                                    <button type="button" class="btn btn-info added-btn" tabindex="-1">@value</button>
+                                }
+
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
