@@ -5,12 +5,7 @@ $(document).ready(function () {
 })
 
 function refreshAutoLists() {
-    $.get('/Cv/GetLanguages', function (data) {
-        var autocomplete = $('#Språk-auto').typeahead();
-        autocomplete.data('typeahead').source = data;
-        autocomplete.data('json', data);
-        console.log(data);
-    }, 'json');
+    
 
 
     $.get('/Cv/GetProgrammingLanguages', function (data) {

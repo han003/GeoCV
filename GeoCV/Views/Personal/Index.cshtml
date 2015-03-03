@@ -1,0 +1,117 @@
+﻿@using System.Web.Optimization
+@using Microsoft.AspNet.Identity
+
+@model GeoCV.Models.CVVersjon
+
+@{
+    ViewBag.Title = "Personlig Informasjon";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section css{
+    @Styles.Render("~/Bundles/css/personal")
+}
+@section scripts{
+    @Scripts.Render("~/Bundles/js/personal")
+}
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Legg til</h4>
+            </div>
+            <div id="modalAddText" class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button id="modalDontAddItem" type="button" class="btn btn-default" data-dismiss="modal">Nei</button>
+                <button id="modalAddItem" type="button" class="btn btn-success">Ja</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container">
+    <div class="row">
+        <h2 class="col-lg-offset-1">Personlig Informasjon</h2>
+        <div class="panel panel-default col-lg-10 col-lg-offset-1">
+            <div class="panel-body">
+                <div class="form-horizontal">
+
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label>Fornavn</label>
+                            <input type="text" class="form-control update-txt" value="@Model.Person.Fornavn" id="@Html.DisplayNameFor(m => Model.Person.Fornavn)-txt" placeholder="Fornavn">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label>Etternavn</label>
+                            <input type="text" class="form-control update-txt" value="@Model.Person.Etternavn" id="@Html.DisplayNameFor(m => Model.Person.Etternavn)-txt" placeholder="Etternavn">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label>Stilling</label>
+                            <input type="text" class="form-control update-txt" value="@Model.Person.Stilling" id="@Html.DisplayNameFor(m => Model.Person.Stilling)-txt" placeholder="Stilling">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label>År erfaring</label>
+                            <input type="text" class="form-control update-txt" value="@Model.Person.ÅrErfaring" id="@Html.DisplayNameFor(m => Model.Person.ÅrErfaring)-txt" placeholder="År erfaring">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+
+        <h2 class="col-lg-offset-1">Språk</h2>
+
+        <div class="panel panel-default col-lg-10 col-lg-offset-1">
+            <div class="panel-body">
+
+                <div class="form-horizontal">
+
+                    <div class="form-group">
+                        <div class="col-lg-10">
+                            <input id="@Html.DisplayNameFor(m => Model.Person.Språk)-auto" type="text" class="form-control add-item-auto" placeholder="Legg til et nytt språk" data-provide="typeahead" autocomplete="off">
+                        </div>
+                        <div class="col-lg-1">
+                            <button id="@Html.DisplayNameFor(m => Model.Person.Språk)-btn" type="button" class="btn btn-success add-item-btn" tabindex="-1">Legg til</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div id="@Html.DisplayNameFor(m => Model.Person.Språk)-group" class="col-lg-12 added-btn-group">
+                            @if (!string.IsNullOrEmpty(Model.Person.Språk))
+                            {
+                                foreach (var value in Model.Person.Språk.Split(';'))
+                                {
+                                    <button type="button" class="btn btn-info added-btn" tabindex="-1">@value</button>
+                                }
+
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

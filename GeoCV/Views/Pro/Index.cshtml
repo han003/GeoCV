@@ -1,0 +1,59 @@
+﻿@using System.Web.Optimization
+@using Microsoft.AspNet.Identity
+
+@model GeoCV.Models.CVVersjon
+
+@{
+    ViewBag.Title = "Arbeidserfaring";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section css{
+    @Styles.Render("~/Bundles/css/pro")
+}
+@section scripts{
+    @Scripts.Render("~/Bundles/js/pro")
+}
+
+<div class="container">
+    <div class="row">
+        <h2 class="col-lg-offset-1">Prosjekter</h2>
+        <div class="panel panel-default col-lg-10 col-lg-offset-1">
+            <div class="panel-body">
+                <div class="form-horizontal">
+
+                    <div class="form-group col-lg-12">
+                        <label>Prosjekt</label>
+                        <input id="project-auto" type="text" class="form-control add-item-auto" data-provide="typeahead" autocomplete="off">
+                    </div>
+
+                    <div class="form-group col-lg-12">
+                        <label>Rolle</label>
+                        <input type="text" class="form-control" autocomplete="off">
+                    </div>
+
+                    <div class="form-group col-lg-12">
+                        <label>Beskrivelse</label>
+                        <input type="text" class="form-control" autocomplete="off">
+                    </div>
+
+                    <div class="form-group col-lg-12">
+                        <button class="btn btn-success" type="button">Legg til prosjekt</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="panel panel-info col-lg-10 col-lg-offset-1 added-panel">
+            <div class="panel-heading">Matte Proff (1991-1992)</div>
+            <div class="panel-body">
+                <div><strong>Ile Barneskole</strong> - Designer</div>
+                <div>Program for å lære barn matte</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

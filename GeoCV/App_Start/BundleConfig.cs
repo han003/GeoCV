@@ -18,7 +18,6 @@ namespace GeoCV
 
             bundles.Add(new StyleBundle("~/Bundles/css/home")
                 .Include("~/Content/bootstrap.css")
-                .Include("~/Content/main.css")
                 .Include("~/Content/home.css"));
 
             // Dashboard
@@ -30,22 +29,7 @@ namespace GeoCV
 
             bundles.Add(new StyleBundle("~/Bundles/css/dashboard")
                 .Include("~/Content/bootstrap.css")
-                .Include("~/Content/main.css")
                 .Include("~/Content/dashboard.css"));
-
-            // Cv
-            bundles.Add(new ScriptBundle("~/Bundles/js/cv")
-                .Include("~/Scripts/jquery/jquery-{version}.js")
-                .Include("~/Scripts/jquery/jquery.validate.js")
-                .Include("~/Scripts/bootstrap/*.js")
-                .Include("~/Scripts/bootstrap3-typeahead.js")
-                .Include("~/Scripts/cv/*.js"));
-
-            bundles.Add(new StyleBundle("~/Bundles/css/cv")
-                .Include("~/Content/bootstrap.css")
-                .Include("~/Content/animate.css")
-                .Include("~/Content/main.css")
-                .Include("~/Content/cv.css"));
 
             // Search
             bundles.Add(new ScriptBundle("~/Bundles/js/search")
@@ -56,7 +40,6 @@ namespace GeoCV
 
             bundles.Add(new StyleBundle("~/Bundles/css/search")
                 .Include("~/Content/bootstrap.css")
-                .Include("~/Content/main.css")
                 .Include("~/Content/search.css"));
 
             // Customize
@@ -68,7 +51,6 @@ namespace GeoCV
 
             bundles.Add(new StyleBundle("~/Bundles/css/customize")
                 .Include("~/Content/bootstrap.css")
-                .Include("~/Content/main.css")
                 .Include("~/Content/customize.css"));
 
             // Employees
@@ -80,10 +62,9 @@ namespace GeoCV
 
             bundles.Add(new StyleBundle("~/Bundles/css/employees")
                 .Include("~/Content/bootstrap.css")
-                .Include("~/Content/main.css")
                 .Include("~/Content/employees.css"));
 
-            // Projects
+            // Admin Projects
             bundles.Add(new ScriptBundle("~/Bundles/js/projects")
                 .Include("~/Scripts/jquery/jquery-{version}.js")
                 .Include("~/Scripts/jquery/jquery.validate.js")
@@ -92,7 +73,6 @@ namespace GeoCV
 
             bundles.Add(new StyleBundle("~/Bundles/css/projects")
                 .Include("~/Content/bootstrap.css")
-                .Include("~/Content/main.css")
                 .Include("~/Content/projects.css"));
 
             // Register
@@ -104,7 +84,6 @@ namespace GeoCV
 
             bundles.Add(new StyleBundle("~/Bundles/css/register")
                 .Include("~/Content/bootstrap.css")
-                .Include("~/Content/main.css")
                 .Include("~/Content/register.css"));
 
             // Login
@@ -116,7 +95,6 @@ namespace GeoCV
 
             bundles.Add(new StyleBundle("~/Bundles/css/login")
                 .Include("~/Content/bootstrap.css")
-                .Include("~/Content/main.css")
                 .Include("~/Content/login.css"));
 
             // Manage
@@ -128,7 +106,6 @@ namespace GeoCV
 
             bundles.Add(new StyleBundle("~/Bundles/css/manage")
                 .Include("~/Content/bootstrap.css")
-                .Include("~/Content/main.css")
                 .Include("~/Content/manage.css"));
 
             // Change Password
@@ -140,10 +117,69 @@ namespace GeoCV
 
             bundles.Add(new StyleBundle("~/Bundles/css/changepass")
                 .Include("~/Content/bootstrap.css")
-                .Include("~/Content/main.css")
                 .Include("~/Content/changepass.css"));
 
-            BundleTable.EnableOptimizations = true;
+            // Personal
+            bundles.Add(new ScriptBundle("~/Bundles/js/personal")
+                .Include("~/Scripts/jquery/jquery-{version}.js")
+                .Include("~/Scripts/jquery/jquery.validate.js")
+                .Include("~/Scripts/bootstrap/*.js")
+                .Include("~/Scripts/bootstrap3-typeahead.js")
+                .Include("~/Scripts/personal.js"));
+
+            bundles.Add(new StyleBundle("~/Bundles/css/personal")
+                .Include("~/Content/bootstrap.css")
+                .Include("~/Content/personal.css"));
+
+            // Expertise
+            bundles.Add(new ScriptBundle("~/Bundles/js/expertise")
+                .Include("~/Scripts/jquery/jquery-{version}.js")
+                .Include("~/Scripts/jquery/jquery.validate.js")
+                .Include("~/Scripts/bootstrap/*.js")
+                .Include("~/Scripts/bootstrap3-typeahead.js")
+                .Include("~/Scripts/expertise.js"));
+
+            bundles.Add(new StyleBundle("~/Bundles/css/expertise")
+                .Include("~/Content/bootstrap.css")
+                .Include("~/Content/expertise.css"));
+
+            // Education
+            bundles.Add(new ScriptBundle("~/Bundles/js/education")
+                .Include("~/Scripts/jquery/jquery-{version}.js")
+                .Include("~/Scripts/jquery/jquery.validate.js")
+                .Include("~/Scripts/bootstrap/*.js")
+                .Include("~/Scripts/bootstrap3-typeahead.js")
+                .Include("~/Scripts/education.js"));
+
+            bundles.Add(new StyleBundle("~/Bundles/css/education")
+                .Include("~/Content/bootstrap.css")
+                .Include("~/Content/education.css"));
+
+            // Work
+            bundles.Add(new ScriptBundle("~/Bundles/js/work")
+                .Include("~/Scripts/jquery/jquery-{version}.js")
+                .Include("~/Scripts/jquery/jquery.validate.js")
+                .Include("~/Scripts/bootstrap/*.js")
+                .Include("~/Scripts/bootstrap3-typeahead.js")
+                .Include("~/Scripts/work.js"));
+
+            bundles.Add(new StyleBundle("~/Bundles/css/work")
+                .Include("~/Content/bootstrap.css")
+                .Include("~/Content/work.css"));
+
+            // User Projects
+            bundles.Add(new ScriptBundle("~/Bundles/js/pro")
+                .Include("~/Scripts/jquery/jquery-{version}.js")
+                .Include("~/Scripts/jquery/jquery.validate.js")
+                .Include("~/Scripts/bootstrap/*.js")
+                .Include("~/Scripts/bootstrap3-typeahead.js")
+                .Include("~/Scripts/pro.js"));
+
+            bundles.Add(new StyleBundle("~/Bundles/css/pro")
+                .Include("~/Content/bootstrap.css")
+                .Include("~/Content/pro.css"));
+
+            // BundleTable.EnableOptimizations = true;
         }
     }
 }

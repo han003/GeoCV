@@ -221,12 +221,17 @@
     <Compile Include="Controllers\CvController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DownloadController.cs" />
+    <Compile Include="Controllers\EducationController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
+    <Compile Include="Controllers\ExpertiseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PersonalController.cs" />
+    <Compile Include="Controllers\ProController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\WorkController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -324,20 +329,18 @@
     </Content>
     <Content Include="Content\Images\favicon.png" />
     <Content Include="Content\Images\geomatikk logo.png" />
-    <Content Include="Content\main.css">
-      <DependentUpon>main.less</DependentUpon>
+    <Content Include="Content\projects.css">
+      <DependentUpon>projects.less</DependentUpon>
     </Content>
-    <Content Include="Content\main.min.css">
-      <DependentUpon>main.css</DependentUpon>
+    <Content Include="Content\projects.min.css">
+      <DependentUpon>projects.css</DependentUpon>
     </Content>
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap\bootstrap.js" />
     <Content Include="ApplicationInsights.config" />
     <Content Include="Content\animate.less" />
     <Content Include="Content\cv.less" />
     <Content Include="Content\dashboard.less" />
-    <Content Include="Content\main.less" />
     <Content Include="Content\home.less" />
     <Content Include="Content\search.less" />
     <Content Include="Content\animate.css.map">
@@ -359,10 +362,6 @@
     <Content Include="Scripts\bootstrap\bootstrap3-typeahead.min.js">
       <DependentUpon>bootstrap3-typeahead.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\cv\animations.js" />
-    <Content Include="Scripts\cv\animations.min.js">
-      <DependentUpon>animations.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\cv\cv-arbeid.js" />
     <Content Include="Scripts\cv\cv-arbeid.min.js">
       <DependentUpon>cv-arbeid.js</DependentUpon>
@@ -371,9 +370,9 @@
     <Content Include="Scripts\cv\cv-kompetanse.min.js">
       <DependentUpon>cv-kompetanse.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\cv\cv-personlig.js" />
-    <Content Include="Scripts\cv\cv-personlig.min.js">
-      <DependentUpon>cv-personlig.js</DependentUpon>
+    <Content Include="Scripts\personal.js" />
+    <Content Include="Scripts\cv-personlig.min.js">
+      <DependentUpon>personal.js</DependentUpon>
     </Content>
     <Content Include="Scripts\cv\cv-prosjekt.js" />
     <Content Include="Scripts\cv\cv-prosjekt.min.js">
@@ -387,16 +386,13 @@
     <Content Include="Scripts\bootstrap\bootstrap.min.js.map">
       <DependentUpon>bootstrap.min.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\cv\animations.min.js.map">
-      <DependentUpon>animations.min.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\cv\cv-arbeid.min.js.map">
       <DependentUpon>cv-arbeid.min.js</DependentUpon>
     </Content>
     <Content Include="Scripts\cv\cv-kompetanse.min.js.map">
       <DependentUpon>cv-kompetanse.min.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\cv\cv-personlig.min.js.map">
+    <Content Include="Scripts\cv-personlig.min.js.map">
       <DependentUpon>cv-personlig.min.js</DependentUpon>
     </Content>
     <Content Include="Scripts\cv\cv-prosjekt.min.js.map">
@@ -410,13 +406,6 @@
     </Content>
     <Content Include="Scripts\bootstrap\bootstrap3-typeahead.min.js.map">
       <DependentUpon>bootstrap3-typeahead.min.js</DependentUpon>
-    </Content>
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\main.css.map">
-      <DependentUpon>main.css</DependentUpon>
     </Content>
     <Content Include="Scripts\employees.min.js.map">
       <DependentUpon>employees.min.js</DependentUpon>
@@ -438,6 +427,10 @@
       <DependentUpon>Database.edmx</DependentUpon>
       <LastGenOutput>Database.cs</LastGenOutput>
     </Content>
+    <Content Include="Content\projects.less" />
+    <Content Include="Content\projects.css.map">
+      <DependentUpon>projects.css</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\geocv.pubxml" />
     <None Include="Scripts\jquery\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\cv\cv.min.js">
@@ -447,6 +440,7 @@
     <Content Include="Scripts\employees.min.js">
       <DependentUpon>employees.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\expertise.js" />
     <Content Include="Scripts\jquery\jquery-2.1.3.intellisense.min.js">
       <DependentUpon>jquery-2.1.3.intellisense.js</DependentUpon>
     </Content>
@@ -466,6 +460,7 @@
     <Content Include="Scripts\jquery\jquery.validate.unobtrusive.min.js">
       <DependentUpon>jquery.validate.unobtrusive.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\pro.js" />
     <Content Include="Scripts\projects.js" />
     <Content Include="Scripts\stuff\modernizr-2.8.3.js" />
     <Content Include="Scripts\npm.js" />
@@ -528,7 +523,6 @@
     <Content Include="Scripts\search.min.js.map">
       <DependentUpon>search.min.js</DependentUpon>
     </Content>
-    <Content Include="Views\Cv\Index.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Employees\Index.cshtml" />
     <Content Include="Views\Report\Index.cshtml" />
@@ -554,6 +548,11 @@
     <Content Include="Views\Projects\Index.cshtml" />
     <Content Include="Views\Projects\_AddNewProject.cshtml" />
     <Content Include="Views\Projects\_ProjectsTable.cshtml" />
+    <Content Include="Views\Personal\Index.cshtml" />
+    <Content Include="Views\Expertise\Index.cshtml" />
+    <Content Include="Views\Education\Index.cshtml" />
+    <Content Include="Views\Work\Index.cshtml" />
+    <Content Include="Views\Pro\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

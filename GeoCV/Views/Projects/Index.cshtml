@@ -1,5 +1,7 @@
 ﻿@using System.Web.Optimization
 
+@model IEnumerable<GeoCV.Models.Prosjekt>
+
 @{
     ViewBag.Title = "Prosjekt";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -13,4 +15,4 @@
 
 @Html.Partial("~/Views/Projects/_AddNewProject.cshtml")
 
-@Html.Partial("~/Views/Projects/_ProjectsTable.cshtml")
+@Html.Partial("~/Views/Projects/_ProjectsTable.cshtml", Model)
