@@ -1,0 +1,16 @@
+﻿@using System.Web.Optimization
+@using Microsoft.AspNet.Identity
+
+@model GeoCV.Models.CVVersjon
+
+@{
+    ViewBag.Title = "Innstillinger";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section css{
+    @Styles.Render("~/Bundles/css/settings")
+}
+@section scripts{
+    @Scripts.Render("~/Bundles/js/settings")
+}
+

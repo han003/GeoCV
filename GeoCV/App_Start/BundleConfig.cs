@@ -179,6 +179,17 @@ namespace GeoCV
                 .Include("~/Content/bootstrap.css")
                 .Include("~/Content/pro.css"));
 
+            // Settings
+            bundles.Add(new ScriptBundle("~/Bundles/js/settings")
+                .Include("~/Scripts/jquery/jquery-{version}.js")
+                .Include("~/Scripts/jquery/jquery.validate.js")
+                .Include("~/Scripts/bootstrap/*.js")
+                .Include("~/Scripts/settings.js"));
+
+            bundles.Add(new StyleBundle("~/Bundles/css/settings")
+                .Include("~/Content/bootstrap.css")
+                .Include("~/Content/settings.css"));
+
             // BundleTable.EnableOptimizations = true;
         }
     }
