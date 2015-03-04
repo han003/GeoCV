@@ -13,10 +13,10 @@ namespace GeoCV.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class cvEntities1 : DbContext
+    public partial class cvEntities2 : DbContext
     {
-        public cvEntities1()
-            : base("name=cvEntities1")
+        public cvEntities2()
+            : base("name=cvEntities2")
         {
         }
     

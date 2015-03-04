@@ -12,7 +12,7 @@ namespace CV.Controllers
     public class EmployeesController : Controller
     {
 
-        private cvEntities1 db = new cvEntities1();
+        private cvEntities2 db = new cvEntities2();
 
         // GET: Employees
         public ActionResult Index()

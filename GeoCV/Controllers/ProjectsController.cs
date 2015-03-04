@@ -11,7 +11,7 @@ namespace GeoCV.Controllers
     public class ProjectsController : Controller
     {
 
-        private cvEntities1 db = new cvEntities1();
+        private cvEntities2 db = new cvEntities2();
 
         // GET: Projects
         public ActionResult Index()

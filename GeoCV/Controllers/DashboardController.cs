@@ -15,7 +15,7 @@ namespace CV.Controllers
     [Authorize]
     public class DashboardController : Controller
     {
-        private cvEntities1 db = new cvEntities1();
+        private cvEntities2 db = new cvEntities2();
 
         public ActionResult Index()
         {

@@ -2,7 +2,7 @@
     refreshLanguages();
 })
 
-$('.update-txt').blur(function () {
+$('.update-txt').keyup(function () {
     update($(this));
 });
 

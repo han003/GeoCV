@@ -158,7 +158,7 @@ namespace GeoCV.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    cvEntities1 db = new cvEntities1();
+                    cvEntities2 db = new cvEntities2();
 
                     // Create new CV
                     CVVersjon Cv = new CVVersjon();

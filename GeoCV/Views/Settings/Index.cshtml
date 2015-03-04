@@ -1,4 +1,5 @@
 ﻿@using System.Web.Optimization
+@using System.Web.Mvc
 @using Microsoft.AspNet.Identity
 
 @model GeoCV.Models.CVVersjon
@@ -13,4 +14,86 @@
 @section scripts{
     @Scripts.Render("~/Bundles/js/settings")
 }
+
+<div class="content">
+    <div class="row">
+
+        <div class="col-lg-4">
+
+            <h2>Personlig</h2>
+
+            <hr />
+
+            <form class="form-horizontal">
+
+                @Html.Partial("_Partial", Model, new ViewDataDictionary { { "Setting", "Fornavn" } })
+
+                @Html.Partial("_Partial", Model, new ViewDataDictionary { { "Setting", "Mellomnavn" } })
+
+                @Html.Partial("_Partial", Model, new ViewDataDictionary { { "Setting", "Etternavn" } })
+
+                @Html.Partial("_Partial", Model, new ViewDataDictionary { { "Setting", "Stilling" } })
+
+                @Html.Partial("_Partial", Model, new ViewDataDictionary { { "Setting", "År Erfaring" } })
+
+                @Html.Partial("_Partial", Model, new ViewDataDictionary { { "Setting", "Språk" } })
+
+                @Html.Partial("_Partial", Model, new ViewDataDictionary { { "Setting", "Nasjonalitet" } })
+
+                @Html.Partial("_Partial", Model, new ViewDataDictionary { { "Setting", "Fødselsår" } })
+
+            </form>
+
+        </div>
+
+        <div class="col-lg-4">
+
+            <h2>Kompetanse</h2>
+
+            <hr />
+
+            <form class="form-horizontal">
+
+                @Html.Partial("_Partial", Model, new ViewDataDictionary { { "Setting", "Programmeringsspråk" } })
+
+                @Html.Partial("_Partial", Model, new ViewDataDictionary { { "Setting", "Rammeverk" } })
+
+                @Html.Partial("_Partial", Model, new ViewDataDictionary { { "Setting", "Web Teknologier" } })
+
+                @Html.Partial("_Partial", Model, new ViewDataDictionary { { "Setting", "Databasesystemer" } })
+
+                @Html.Partial("_Partial", Model, new ViewDataDictionary { { "Setting", "Serverside" } })
+
+                @Html.Partial("_Partial", Model, new ViewDataDictionary { { "Setting", "Operativsystemer" } })
+
+            </form>
+
+        </div>
+
+
+        <div class="col-lg-4">
+
+            <h2>Diverse</h2>
+
+            <hr />
+
+            <form class="form-horizontal">
+
+                @Html.Partial("_Partial", Model, new ViewDataDictionary { { "Setting", "Utdannelse" } })
+
+                @Html.Partial("_Partial", Model, new ViewDataDictionary { { "Setting", "Arbeidserfaring" } })
+
+                @Html.Partial("_Partial", Model, new ViewDataDictionary { { "Setting", "Prosjekter" } })
+
+            </form>
+
+        </div>
+
+        
+
+    </div>
+
+</div>
+
+
 

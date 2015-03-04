@@ -336,6 +336,12 @@
     <Content Include="Content\projects.min.css">
       <DependentUpon>projects.css</DependentUpon>
     </Content>
+    <Content Include="Content\settings.css">
+      <DependentUpon>settings.less</DependentUpon>
+    </Content>
+    <Content Include="Content\settings.min.css">
+      <DependentUpon>settings.css</DependentUpon>
+    </Content>
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap\bootstrap.js" />
     <Content Include="ApplicationInsights.config" />
@@ -411,6 +417,10 @@
     <Content Include="Scripts\employees.min.js.map">
       <DependentUpon>employees.min.js</DependentUpon>
     </Content>
+    <Content Include="Content\projects.less" />
+    <Content Include="Content\projects.css.map">
+      <DependentUpon>projects.css</DependentUpon>
+    </Content>
     <EntityDeploy Include="Models\Database.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Database.Designer.cs</LastGenOutput>
@@ -428,9 +438,9 @@
       <DependentUpon>Database.edmx</DependentUpon>
       <LastGenOutput>Database.cs</LastGenOutput>
     </Content>
-    <Content Include="Content\projects.less" />
-    <Content Include="Content\projects.css.map">
-      <DependentUpon>projects.css</DependentUpon>
+    <Content Include="Content\settings.less" />
+    <Content Include="Content\settings.css.map">
+      <DependentUpon>settings.css</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\geocv.pubxml" />
     <None Include="Scripts\jquery\jquery-2.1.3.intellisense.js" />
@@ -555,6 +565,7 @@
     <Content Include="Views\Work\Index.cshtml" />
     <Content Include="Views\Pro\Index.cshtml" />
     <Content Include="Views\Settings\Index.cshtml" />
+    <Content Include="Views\Settings\_Partial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
