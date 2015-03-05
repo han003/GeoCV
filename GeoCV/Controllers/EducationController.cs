@@ -10,7 +10,7 @@ namespace GeoCV.Controllers
 {
     public class EducationController : Controller
     {
-        private cvEntities2 db = new cvEntities2();
+        private cvEntities db = new cvEntities();
 
         // GET: Education
         public ActionResult Index()

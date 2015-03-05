@@ -15,7 +15,7 @@ namespace CV.Controllers
     [Authorize]
     public class DownloadController : Controller
     {
-        private cvEntities2 db = new cvEntities2();
+        private cvEntities db = new cvEntities();
 
         public ActionResult Pdf()
         {

@@ -262,6 +262,9 @@
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Innstillinger.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Kompetanse.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
@@ -421,6 +424,10 @@
     <Content Include="Content\projects.css.map">
       <DependentUpon>projects.css</DependentUpon>
     </Content>
+    <Content Include="Content\settings.less" />
+    <Content Include="Content\settings.css.map">
+      <DependentUpon>settings.css</DependentUpon>
+    </Content>
     <EntityDeploy Include="Models\Database.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Database.Designer.cs</LastGenOutput>
@@ -437,10 +444,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Database.edmx</DependentUpon>
       <LastGenOutput>Database.cs</LastGenOutput>
-    </Content>
-    <Content Include="Content\settings.less" />
-    <Content Include="Content\settings.css.map">
-      <DependentUpon>settings.css</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\geocv.pubxml" />
     <None Include="Scripts\jquery\jquery-2.1.3.intellisense.js" />
@@ -473,6 +476,7 @@
     </Content>
     <Content Include="Scripts\pro.js" />
     <Content Include="Scripts\projects.js" />
+    <Content Include="Scripts\settings.js" />
     <Content Include="Scripts\stuff\modernizr-2.8.3.js" />
     <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\npm.min.js">
@@ -566,6 +570,9 @@
     <Content Include="Views\Pro\Index.cshtml" />
     <Content Include="Views\Settings\Index.cshtml" />
     <Content Include="Views\Settings\_Partial.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

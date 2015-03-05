@@ -13,7 +13,7 @@ namespace CV.Controllers
     public class CvController : Controller
     {
 
-        private cvEntities2 db = new cvEntities2();
+        private cvEntities db = new cvEntities();
 
         public ActionResult Index()
         {

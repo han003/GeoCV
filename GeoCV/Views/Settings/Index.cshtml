@@ -26,21 +26,21 @@
 
             <form class="form-horizontal">
 
-                @Html.Partial("_Partial", Model, new ViewDataDictionary { { "Setting", "Fornavn" } })
+                @Html.Partial("_Partial", Model.Innstillinger.Fornavn, new ViewDataDictionary { { "Setting", "Fornavn" } })
 
-                @Html.Partial("_Partial", Model, new ViewDataDictionary { { "Setting", "Mellomnavn" } })
+                @Html.Partial("_Partial", Model.Innstillinger.Mellomnavn, new ViewDataDictionary { { "Setting", "Mellomnavn" } })
 
-                @Html.Partial("_Partial", Model, new ViewDataDictionary { { "Setting", "Etternavn" } })
+                @Html.Partial("_Partial", Model.Innstillinger.Etternavn, new ViewDataDictionary { { "Setting", "Etternavn" } })
 
-                @Html.Partial("_Partial", Model, new ViewDataDictionary { { "Setting", "Stilling" } })
+                @Html.Partial("_Partial", Model.Innstillinger.Stilling, new ViewDataDictionary { { "Setting", "Stilling" } })
 
-                @Html.Partial("_Partial", Model, new ViewDataDictionary { { "Setting", "År Erfaring" } })
+                @Html.Partial("_Partial", Model.Innstillinger.ÅrErfaring, new ViewDataDictionary { { "Setting", "År Erfaring" } })
 
-                @Html.Partial("_Partial", Model, new ViewDataDictionary { { "Setting", "Språk" } })
+                @Html.Partial("_Partial", Model.Innstillinger.Språk, new ViewDataDictionary { { "Setting", "Språk" } })
 
-                @Html.Partial("_Partial", Model, new ViewDataDictionary { { "Setting", "Nasjonalitet" } })
+                @Html.Partial("_Partial", Model.Innstillinger.Nasjonalitet, new ViewDataDictionary { { "Setting", "Nasjonalitet" } })
 
-                @Html.Partial("_Partial", Model, new ViewDataDictionary { { "Setting", "Fødselsår" } })
+                @Html.Partial("_Partial", Model.Innstillinger.Fødselsår, new ViewDataDictionary { { "Setting", "Fødselsår" } })
 
             </form>
 
@@ -54,17 +54,17 @@
 
             <form class="form-horizontal">
 
-                @Html.Partial("_Partial", Model, new ViewDataDictionary { { "Setting", "Programmeringsspråk" } })
+                @Html.Partial("_Partial", Model.Innstillinger.Programmeringsspråk, new ViewDataDictionary { { "Setting", "Programmeringsspråk" } })
 
-                @Html.Partial("_Partial", Model, new ViewDataDictionary { { "Setting", "Rammeverk" } })
+                @Html.Partial("_Partial", Model.Innstillinger.Rammeverk, new ViewDataDictionary { { "Setting", "Rammeverk" } })
 
-                @Html.Partial("_Partial", Model, new ViewDataDictionary { { "Setting", "Web Teknologier" } })
+                @Html.Partial("_Partial", Model.Innstillinger.WebTeknologier, new ViewDataDictionary { { "Setting", "Web Teknologier" } })
 
-                @Html.Partial("_Partial", Model, new ViewDataDictionary { { "Setting", "Databasesystemer" } })
+                @Html.Partial("_Partial", Model.Innstillinger.Databasesystemer, new ViewDataDictionary { { "Setting", "Databasesystemer" } })
 
-                @Html.Partial("_Partial", Model, new ViewDataDictionary { { "Setting", "Serverside" } })
+                @Html.Partial("_Partial", Model.Innstillinger.Serverside, new ViewDataDictionary { { "Setting", "Serverside" } })
 
-                @Html.Partial("_Partial", Model, new ViewDataDictionary { { "Setting", "Operativsystemer" } })
+                @Html.Partial("_Partial", Model.Innstillinger.Operativsystemer, new ViewDataDictionary { { "Setting", "Operativsystemer" } })
 
             </form>
 
@@ -79,11 +79,11 @@
 
             <form class="form-horizontal">
 
-                @Html.Partial("_Partial", Model, new ViewDataDictionary { { "Setting", "Utdannelse" } })
+                @Html.Partial("_Partial", Model.Innstillinger.Utdannelse, new ViewDataDictionary { { "Setting", "Utdannelse" } })
 
-                @Html.Partial("_Partial", Model, new ViewDataDictionary { { "Setting", "Arbeidserfaring" } })
+                @Html.Partial("_Partial", Model.Innstillinger.Arbeidserfaring, new ViewDataDictionary { { "Setting", "Arbeidserfaring" } })
 
-                @Html.Partial("_Partial", Model, new ViewDataDictionary { { "Setting", "Prosjekter" } })
+                @Html.Partial("_Partial", Model.Innstillinger.Prosjekter, new ViewDataDictionary { { "Setting", "Prosjekter" } })
 
             </form>
 

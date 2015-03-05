@@ -4,22 +4,24 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="80d70c8827c243bf88398c644c449124" Name="Diagram1">
-        <EntityTypeShape EntityType="cvModel.Arbeidserfaring" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="cvModel.CVVersjon" Width="1.5" PointX="3" PointY="4.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="cvModel.DatabasesystemListe" Width="1.5" PointX="7.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="cvModel.Kompetanse" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="cvModel.Medlem" Width="1.5" PointX="6" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="cvModel.OperativsystemListe" Width="1.5" PointX="0.75" PointY="9" IsExpanded="true" />
-        <EntityTypeShape EntityType="cvModel.Person" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="cvModel.ProgrammeringsspråkListe" Width="1.5" PointX="8.75" PointY="4" IsExpanded="true" />
-        <EntityTypeShape EntityType="cvModel.Prosjekt" Width="1.5" PointX="3.75" PointY="11.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="cvModel.RammeverkListe" Width="1.5" PointX="8.75" PointY="7" IsExpanded="true" />
-        <EntityTypeShape EntityType="cvModel.ServersideListe" Width="1.5" PointX="9.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="cvModel.SpråkListe" Width="1.5" PointX="7.75" PointY="10" IsExpanded="true" />
-        <EntityTypeShape EntityType="cvModel.Utdannelse" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="cvModel.WebTeknologiListe" Width="1.5" PointX="9.75" PointY="10" IsExpanded="true" />
+      <Diagram DiagramId="6a203a9d45214c6c911e9c395c895462" Name="Diagram1">
+        <EntityTypeShape EntityType="cvModel.Arbeidserfaring" Width="1.5" PointX="5.25" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="cvModel.CVVersjon" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="cvModel.DatabasesystemListe" Width="1.5" PointX="7.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="cvModel.Innstillinger" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="cvModel.Kompetanse" Width="1.5" PointX="0.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="cvModel.Medlem" Width="1.5" PointX="6" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="cvModel.OperativsystemListe" Width="1.5" PointX="8.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="cvModel.Person" Width="1.5" PointX="0.75" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="cvModel.ProgrammeringsspråkListe" Width="1.5" PointX="8.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="cvModel.Prosjekt" Width="1.5" PointX="3.75" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="cvModel.RammeverkListe" Width="1.5" PointX="9.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="cvModel.ServersideListe" Width="1.5" PointX="7.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="cvModel.SpråkListe" Width="1.5" PointX="9.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="cvModel.Utdannelse" Width="1.5" PointX="5.25" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="cvModel.WebTeknologiListe" Width="1.5" PointX="10.75" PointY="5.75" IsExpanded="true" />
         <AssociationConnector Association="cvModel.FK_CVVersjonArbeidserfaring" ManuallyRouted="false" />
+        <AssociationConnector Association="cvModel.FK_CVVersjonInnstillinger" ManuallyRouted="false" />
         <AssociationConnector Association="cvModel.FK_CVVersjonKompetanse" ManuallyRouted="false" />
         <AssociationConnector Association="cvModel.FK_CVVersjonPerson" ManuallyRouted="false" />
         <AssociationConnector Association="cvModel.FK_CVVersjonUtdannelse" ManuallyRouted="false" />
