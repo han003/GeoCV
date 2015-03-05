@@ -12,7 +12,6 @@
     @Scripts.Render("~/bundles/js/dashboard")
 }
 
-
 <div class="container">
     <div class="row">
 
@@ -46,35 +45,42 @@
             </div>
         </div>
 
-        <div class="col-lg-3">
-            <div class="panel panel-default">
+        @if (Model.Innstillinger.Utdannelse)
+        {
+            <div class="col-lg-3">
+                <div class="panel panel-default">
 
-                <a class="panel-link" href="~/Education/">
-                    <div class="panel-body">
-                        <i class="fa fa-graduation-cap"></i>
-                        <div>
-                            Utdannelse
+                    <a class="panel-link" href="~/Education/">
+                        <div class="panel-body">
+                            <i class="fa fa-graduation-cap"></i>
+                            <div>
+                                Utdannelse
+                            </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
 
+                </div>
             </div>
-        </div>
+        }
 
-        <div class="col-lg-3">
-            <div class="panel panel-default">
+        @if (Model.Innstillinger.Arbeidserfaring)
+        {
+            <div class="col-lg-3">
+                <div class="panel panel-default">
 
-                <a class="panel-link" href="~/Work/">
-                    <div class="panel-body">
-                        <i class="fa fa-building"></i>
-                        <div>
-                            Arbeidserfaring
+                    <a class="panel-link" href="~/Work/">
+                        <div class="panel-body">
+                            <i class="fa fa-building"></i>
+                            <div>
+                                Arbeidserfaring
+                            </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
 
+                </div>
             </div>
-        </div>
+        }
+
 
     </div>
 </div>
@@ -84,20 +90,24 @@
 <div class="container">
     <div class="row">
 
-        <div class="col-lg-3">
-            <div class="panel panel-default">
+        @if (Model.Innstillinger.Prosjekter)
+        {
+            <div class="col-lg-3">
+                <div class="panel panel-default">
 
-                <a class="panel-link" href="~/Pro/">
-                    <div class="panel-body">
-                        <i class="fa fa-folder-open"></i>
-                        <div>
-                            Prosjekter
+                    <a class="panel-link" href="~/Pro/">
+                        <div class="panel-body">
+                            <i class="fa fa-folder-open"></i>
+                            <div>
+                                Prosjekter
+                            </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
 
+                </div>
             </div>
-        </div>
+        }
+        
 
         <div class="col-lg-3">
             <div class="panel panel-default">
@@ -117,7 +127,7 @@
         <div class="col-lg-3">
             <div class="panel panel-default">
 
-                <a class="panel-link" href="/Download/Pdf">
+                <a class="panel-link" href="~/Download/Pdf">
                     <div class="panel-body">
                         <i class="fa fa-download"></i>
                         <div>

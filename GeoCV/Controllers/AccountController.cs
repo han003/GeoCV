@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using GeoCV.Models;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace GeoCV.Controllers
 {
@@ -157,7 +158,7 @@ namespace GeoCV.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-
+                    // Database
                     cvEntities db = new cvEntities();
 
                     // Create new CV
@@ -195,6 +196,33 @@ namespace GeoCV.Controllers
 
                     db.CVVersjon.Add(Cv);
                     db.SaveChanges();
+
+                    // Roles
+                    var rm = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
+                    var um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+
+                    // Employee role
+                    string EmployeeRole = "Ansatt";
+
+                    // If role doesn't exist
+                    if (!rm.RoleExists(EmployeeRole))
+                    {
+                        var RoleResult = rm.Create(new IdentityRole(EmployeeRole));
+                        if (!RoleResult.Succeeded)
+                        { // Error stuff
+                        };
+                    }
+
+                    // Add user to role
+                    um.AddToRole(user.Id, EmployeeRole);
+
+
+
+
+
+
+
+
 
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
