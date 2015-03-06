@@ -41,75 +41,54 @@
             <div class="panel-body">
                 <div class="form-horizontal">
 
-                    @if (Model.Innstillinger.Fornavn)
-                    {
-                        <div class="form-group">
-                            <div class="col-lg-12">
-                                <label>Fornavn</label>
-                                <input type="text" class="form-control update-txt" value="@Model.Person.Fornavn" id="@Html.DisplayNameFor(m => Model.Person.Fornavn)-txt">
-                            </div>
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label>Fornavn</label>
+                            <input type="text" class="form-control update-txt" value="@Model.Person.Fornavn" id="@Html.DisplayNameFor(m => Model.Person.Fornavn)-txt">
                         </div>
-                    }
+                    </div>
 
-                    @if (Model.Innstillinger.Mellomnavn)
-                    {
-                        <div class="form-group">
-                            <div class="col-lg-12">
-                                <label>Mellomnavn</label>
-                                <input type="text" class="form-control update-txt" value="@Model.Person.Mellomnavn" id="@Html.DisplayNameFor(m => Model.Person.Mellomnavn)-txt">
-                            </div>
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label>Mellomnavn</label>
+                            <input type="text" class="form-control update-txt" value="@Model.Person.Mellomnavn" id="@Html.DisplayNameFor(m => Model.Person.Mellomnavn)-txt">
                         </div>
-                    }
+                    </div>
 
-                    @if (Model.Innstillinger.Etternavn)
-                    {
-                        <div class="form-group">
-                            <div class="col-lg-12">
-                                <label>Etternavn</label>
-                                <input type="text" class="form-control update-txt" value="@Model.Person.Etternavn" id="@Html.DisplayNameFor(m => Model.Person.Etternavn)-txt">
-                            </div>
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label>Etternavn</label>
+                            <input type="text" class="form-control update-txt" value="@Model.Person.Etternavn" id="@Html.DisplayNameFor(m => Model.Person.Etternavn)-txt">
                         </div>
-                    }
+                    </div>
 
-                    @if (Model.Innstillinger.Nasjonalitet)
-                    {
-                        <div class="form-group">
-                            <div class="col-lg-12">
-                                <label>Nasjonalitet</label>
-                                <input type="text" class="form-control update-txt" value="@Model.Person.Nasjonalitet" id="@Html.DisplayNameFor(m => Model.Person.Nasjonalitet)-txt">
-                            </div>
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label>Nasjonalitet</label>
+                            <input type="text" class="form-control update-txt" value="@Model.Person.Nasjonalitet" id="@Html.DisplayNameFor(m => Model.Person.Nasjonalitet)-txt">
                         </div>
-                    }
+                    </div>
 
-                    @if (Model.Innstillinger.Fødselsår)
-                    {
-                        <div class="form-group">
-                            <div class="col-lg-12">
-                                <label>Fødselsår</label>
-                                <input type="text" class="form-control update-txt" value="@Model.Person.Fødselsår" id="@Html.DisplayNameFor(m => Model.Person.Fødselsår)-txt">
-                            </div>
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label>Fødselsår</label>
+                            <input type="text" class="form-control update-txt" value="@Model.Person.Fødselsår" id="@Html.DisplayNameFor(m => Model.Person.Fødselsår)-txt">
                         </div>
-                    }
+                    </div>
 
-                    @if (Model.Innstillinger.Stilling)
-                    {
-                        <div class="form-group">
-                            <div class="col-lg-12">
-                                <label>Stilling</label>
-                                <input type="text" class="form-control update-txt" value="@Model.Person.Stilling" id="@Html.DisplayNameFor(m => Model.Person.Stilling)-txt">
-                            </div>
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label>Stilling</label>
+                            <input type="text" class="form-control update-txt" value="@Model.Person.Stilling" id="@Html.DisplayNameFor(m => Model.Person.Stilling)-txt">
                         </div>
-                    }
+                    </div>
 
-                    @if (Model.Innstillinger.ÅrErfaring)
-                    {
-                        <div class="form-group">
-                            <div class="col-lg-12">
-                                <label>År erfaring</label>
-                                <input type="text" class="form-control update-txt" value="@Model.Person.ÅrErfaring" id="@Html.DisplayNameFor(m => Model.Person.ÅrErfaring)-txt">
-                            </div>
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label>År erfaring</label>
+                            <input type="text" class="form-control update-txt" value="@Model.Person.ÅrErfaring" id="@Html.DisplayNameFor(m => Model.Person.ÅrErfaring)-txt">
                         </div>
-                    }
+                    </div>
 
                 </div>
             </div>
@@ -117,46 +96,44 @@
     </div>
 </div>
 
-@if (Model.Innstillinger.Språk)
-{
-    <div class="container">
-        <div class="row">
 
-            <h2 class="col-lg-offset-1">Språk</h2>
+<div class="container">
+    <div class="row">
 
-            <div class="panel panel-default col-lg-10 col-lg-offset-1">
-                <div class="panel-body">
+        <h2 class="col-lg-offset-1">Språk</h2>
 
-                    <div class="form-horizontal">
+        <div class="panel panel-default col-lg-10 col-lg-offset-1">
+            <div class="panel-body">
 
-                        <div class="form-group">
-                            <div class="col-lg-10">
-                                <input id="@Html.DisplayNameFor(m => Model.Person.Språk)-auto" type="text" class="form-control add-item-auto" placeholder="Legg til et nytt språk" data-provide="typeahead" autocomplete="off">
-                            </div>
-                            <div class="col-lg-1">
-                                <button id="@Html.DisplayNameFor(m => Model.Person.Språk)-btn" type="button" class="btn btn-success add-item-btn" tabindex="-1">Legg til</button>
-                            </div>
+                <div class="form-horizontal">
+
+                    <div class="form-group">
+                        <div class="col-lg-10">
+                            <input id="@Html.DisplayNameFor(m => Model.Person.Språk)-auto" type="text" class="form-control add-item-auto" placeholder="Legg til et nytt språk" data-provide="typeahead" autocomplete="off">
                         </div>
-
-                        <div class="form-group">
-                            <div id="@Html.DisplayNameFor(m => Model.Person.Språk)-group" class="col-lg-12 added-btn-group">
-                                @if (!string.IsNullOrEmpty(Model.Person.Språk))
-                                {
-                                    foreach (var value in Model.Person.Språk.Split(';'))
-                                    {
-                                        <button type="button" class="btn btn-info added-btn" tabindex="-1">@value</button>
-                                    }
-
-                                }
-                            </div>
+                        <div class="col-lg-1">
+                            <button id="@Html.DisplayNameFor(m => Model.Person.Språk)-btn" type="button" class="btn btn-success add-item-btn" tabindex="-1">Legg til</button>
                         </div>
-
                     </div>
+
+                    <div class="form-group">
+                        <div id="@Html.DisplayNameFor(m => Model.Person.Språk)-group" class="col-lg-12 added-btn-group">
+                            @if (!string.IsNullOrEmpty(Model.Person.Språk))
+                            {
+                                foreach (var value in Model.Person.Språk.Split(';'))
+                                {
+                                    <button type="button" class="btn btn-info added-btn" tabindex="-1">@value</button>
+                                }
+
+                            }
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
-}
+</div>
 
 
 
