@@ -1,0 +1,18 @@
+﻿@using System.Web.Optimization
+
+@model IEnumerable<GeoCV.Models.Prosjekt>
+
+@{
+    ViewBag.Title = "Prosjekt";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section css{
+    @Styles.Render("~/bundles/css/projects")
+}
+@section scripts{
+    @Scripts.Render("~/bundles/js/projects")
+}
+
+@Html.Partial("~/Views/Projects/_AddNewProject.cshtml")
+
+@Html.Partial("~/Views/Projects/_ProjectsTable.cshtml", Model)

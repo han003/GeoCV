@@ -64,16 +64,16 @@ namespace GeoCV
                 .Include("~/Content/bootstrap.css")
                 .Include("~/Content/employees.css"));
 
-            // New Project
-            bundles.Add(new ScriptBundle("~/Bundles/js/newproject")
+            // Admin Projects
+            bundles.Add(new ScriptBundle("~/Bundles/js/projects")
                 .Include("~/Scripts/jquery/jquery-{version}.js")
                 .Include("~/Scripts/jquery/jquery.validate.js")
                 .Include("~/Scripts/bootstrap/*.js")
-                .Include("~/Scripts/newproject.js"));
+                .Include("~/Scripts/projects.js"));
 
-            bundles.Add(new StyleBundle("~/Bundles/css/newproject")
+            bundles.Add(new StyleBundle("~/Bundles/css/projects")
                 .Include("~/Content/bootstrap.css")
-                .Include("~/Content/newproject.css"));
+                .Include("~/Content/projects.css"));
 
             // Register
             bundles.Add(new ScriptBundle("~/Bundles/js/register")

@@ -8,18 +8,22 @@ using System.Web.Mvc;
 namespace GeoCV.Controllers
 {
     [Authorize]
-    public class NewProjectController : Controller
+    public class ProjectsController : Controller
     {
 
         private cvEntities db = new cvEntities();
 
-        // GET: NewProject
+        // GET: Projects
         public ActionResult Index()
         {
-            return View();
+            var Prosjekter = from a in db.Prosjekt
+                             orderby a.ProsjektId descending
+                             select a;
+
+            return View(Prosjekter);
         }
 
-        public ActionResult AddNewProject(string Kunde, string Navn, string Beskrivelse)
+        public void AddNewProject(string Kunde, string Navn, string Beskrivelse)
         {
             Prosjekt NewItem = new Prosjekt();
             NewItem.Kunde = Kunde;
@@ -30,8 +34,6 @@ namespace GeoCV.Controllers
             db.Prosjekt.Add(NewItem);
 
             db.SaveChanges();
-
-            return Json(NewItem.ProsjektId, JsonRequestBehavior.AllowGet);
         }
     }
 }

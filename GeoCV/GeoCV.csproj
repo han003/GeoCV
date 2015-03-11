@@ -226,9 +226,9 @@
     <Compile Include="Controllers\ExpertiseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\NewProjectController.cs" />
     <Compile Include="Controllers\PersonalController.cs" />
     <Compile Include="Controllers\ProController.cs" />
+    <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
@@ -333,11 +333,11 @@
     </Content>
     <Content Include="Content\Images\favicon.png" />
     <Content Include="Content\Images\geomatikk logo.png" />
-    <Content Include="Content\newproject.css">
-      <DependentUpon>newproject.less</DependentUpon>
+    <Content Include="Content\projects.css">
+      <DependentUpon>projects.less</DependentUpon>
     </Content>
-    <Content Include="Content\newproject.min.css">
-      <DependentUpon>newproject.css</DependentUpon>
+    <Content Include="Content\projects.min.css">
+      <DependentUpon>projects.css</DependentUpon>
     </Content>
     <Content Include="Content\settings.css">
       <DependentUpon>settings.less</DependentUpon>
@@ -420,9 +420,9 @@
     <Content Include="Scripts\employees.min.js.map">
       <DependentUpon>employees.min.js</DependentUpon>
     </Content>
-    <Content Include="Content\newproject.less" />
-    <Content Include="Content\newproject.css.map">
-      <DependentUpon>newproject.css</DependentUpon>
+    <Content Include="Content\projects.less" />
+    <Content Include="Content\projects.css.map">
+      <DependentUpon>projects.css</DependentUpon>
     </Content>
     <Content Include="Content\settings.less" />
     <Content Include="Content\settings.css.map">
@@ -475,10 +475,7 @@
       <DependentUpon>jquery.validate.unobtrusive.js</DependentUpon>
     </Content>
     <Content Include="Scripts\pro.js" />
-    <Content Include="Scripts\newproject.js" />
-    <Content Include="Scripts\newproject.min.js">
-      <DependentUpon>newproject.js</DependentUpon>
-    </Content>
+    <Content Include="Scripts\projects.js" />
     <Content Include="Scripts\settings.js" />
     <Content Include="Scripts\stuff\modernizr-2.8.3.js" />
     <Content Include="Scripts\npm.js" />
@@ -563,6 +560,9 @@
     <Content Include="Scripts\stuff\respond.matchmedia.addListener.min.js.map">
       <DependentUpon>respond.matchmedia.addListener.min.js</DependentUpon>
     </Content>
+    <Content Include="Views\Projects\Index.cshtml" />
+    <Content Include="Views\Projects\_AddNewProject.cshtml" />
+    <Content Include="Views\Projects\_ProjectsTable.cshtml" />
     <Content Include="Views\Personal\Index.cshtml" />
     <Content Include="Views\Expertise\Index.cshtml" />
     <Content Include="Views\Education\Index.cshtml" />
@@ -573,10 +573,6 @@
     <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
     <Content Include="Views\Manage\ManageLogins.cshtml" />
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
-    <Content Include="Scripts\newproject.min.js.map">
-      <DependentUpon>newproject.min.js</DependentUpon>
-    </Content>
-    <Content Include="Views\NewProject\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
