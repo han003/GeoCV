@@ -11,13 +11,13 @@ using Microsoft.Owin.Security;
 using GeoCV.Models;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace GeoCV.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
-        
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -25,7 +25,7 @@ namespace GeoCV.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -37,9 +37,9 @@ namespace GeoCV.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -123,7 +123,7 @@ namespace GeoCV.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -158,7 +158,8 @@ namespace GeoCV.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    cvEntities1 db = new cvEntities1();
+                    // Database
+                    cvEntities db = new cvEntities();
 
                     // Create new CV
                     CVVersjon Cv = new CVVersjon();
@@ -170,13 +171,66 @@ namespace GeoCV.Controllers
 
                     Kompetanse CvKompetanse = new Kompetanse();
 
+                    Innstillinger CvInnstillinger = new Innstillinger();
+                    CvInnstillinger.Fornavn = true;
+                    CvInnstillinger.Etternavn = true;
+                    CvInnstillinger.Mellomnavn = true;
+                    CvInnstillinger.Stilling = true;
+                    CvInnstillinger.ÅrErfaring = true;
+                    CvInnstillinger.Språk = true;
+                    CvInnstillinger.Nasjonalitet = true;
+                    CvInnstillinger.Fødselsår = true;
+                    CvInnstillinger.Programmeringsspråk = true;
+                    CvInnstillinger.Rammeverk = true;
+                    CvInnstillinger.WebTeknologier = true;
+                    CvInnstillinger.Databasesystemer = true;
+                    CvInnstillinger.Serverside = true;
+                    CvInnstillinger.Operativsystemer = true;
+                    CvInnstillinger.Utdannelse = true;
+                    CvInnstillinger.Arbeidserfaring = true;
+                    CvInnstillinger.Prosjekter = true;
+
                     Cv.Person = CvPerson;
                     Cv.Kompetanse = CvKompetanse;
+                    Cv.Innstillinger = CvInnstillinger;
 
                     db.CVVersjon.Add(Cv);
                     db.SaveChanges();
 
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    // Roles
+                    var rm = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
+                    var um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+
+                    // Employee role
+                    string EmployeeRole = "Ansatt";
+
+                    // If role doesn't exist
+                    if (!rm.RoleExists(EmployeeRole))
+                    {
+                        var RoleResult = rm.Create(new IdentityRole(EmployeeRole));
+                        if (!RoleResult.Succeeded)
+                        { // Error stuff
+                        };
+                    }
+
+                    // Add user to role
+                    um.AddToRole(user.Id, EmployeeRole);
+
+
+
+
+
+
+
+
+
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                    // Send an email with this link
+                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
                     return RedirectToAction("Index", "Dashboard");
                 }
                 AddErrors(result);
@@ -223,12 +277,11 @@ namespace GeoCV.Controllers
                     return View("ForgotPasswordConfirmation");
                 }
 
-                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                 // Send an email with this link
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
+                await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
             // If we got this far, something failed, redisplay form

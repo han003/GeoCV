@@ -10,7 +10,7 @@ namespace GeoCV.Controllers
 {
     public class ExpertiseController : Controller
     {
-        private cvEntities1 db = new cvEntities1();
+        private cvEntities db = new cvEntities();
 
         // GET: Expertise
         public ActionResult Index()

@@ -22,10 +22,13 @@ namespace GeoCV.Models
     
         public int PersonId { get; set; }
         public string Fornavn { get; set; }
+        public string Mellomnavn { get; set; }
         public string Etternavn { get; set; }
         public string Stilling { get; set; }
         public Nullable<short> ÅrErfaring { get; set; }
         public string Språk { get; set; }
+        public string Nasjonalitet { get; set; }
+        public Nullable<short> Fødselsår { get; set; }
     
         public virtual ICollection<CVVersjon> CVVersjon { get; set; }
         public virtual ICollection<Medlem> Medlem { get; set; }

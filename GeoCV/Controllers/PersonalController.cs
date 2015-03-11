@@ -12,7 +12,7 @@ namespace GeoCV.Controllers
     public class PersonalController : Controller
     {
 
-        private cvEntities1 db = new cvEntities1();
+        private cvEntities db = new cvEntities();
 
         // GET: Personal
         public ActionResult Index()
@@ -67,11 +67,23 @@ namespace GeoCV.Controllers
                     Cv.Person.Fornavn = Value;
                     break;
 
+                case "Mellomnavn":
+                    Cv.Person.Mellomnavn = Value;
+                    break;
+
                 case "Etternavn":
                     Cv.Person.Etternavn = Value;
                     break;
                 case "Stilling":
                     Cv.Person.Stilling = Value;
+                    break;
+
+                case "Fødselsår":
+                    Cv.Person.Fødselsår = Int16.Parse(Value);
+                    break;
+
+                case "Nasjonalitet":
+                    Cv.Person.Nasjonalitet = Value;
                     break;
 
                 case "ÅrErfaring":
@@ -80,30 +92,6 @@ namespace GeoCV.Controllers
 
                 case "Språk":
                     Cv.Person.Språk = Value;
-                    break;
-
-                case "Programmeringsspråk":
-                    Cv.Kompetanse.Programmeringsspråk = Value;
-                    break;
-
-                case "Rammeverk":
-                    Cv.Kompetanse.Rammeverk = Value;
-                    break;
-
-                case "WebTeknologier":
-                    Cv.Kompetanse.WebTeknologier = Value;
-                    break;
-
-                case "Databasesystemer":
-                    Cv.Kompetanse.Databasesystemer = Value;
-                    break;
-
-                case "Serverside":
-                    Cv.Kompetanse.Serverside = Value;
-                    break;
-
-                case "Operativsystemer":
-                    Cv.Kompetanse.Operativsystemer = Value;
                     break;
             }
 

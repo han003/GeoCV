@@ -1,15 +1,11 @@
-﻿$('#collapseProject').collapse({
-    toggle: false
-})
-
-$('#new-project-btn').click(function () {
+﻿$('#new-project-btn').click(function () {
 
     var customer = $('#project-customer').val();
     var name = $('#project-name').val();
     var description = $('#project-description').val();
 
     $.ajax({
-        url: '/Projects/AddNewProject',
+        url: '/NewProject/AddNewProject',
         data: { Kunde: customer, Navn: name, Beskrivelse: description },
         type: 'POST',
         beforeSend: function(){
@@ -21,13 +17,9 @@ $('#new-project-btn').click(function () {
             $('#project-description').val('');
             $('#new-project-btn').html('Opprett prosjekt');
 
-            $('tbody').prepend(' <tr>' +
-                                    '<td>' + name + '</td>' +
-                                    '<td>' + customer + '</td>' +
-                                    '<td>' + description + '</td>' +
-                                    '<td>' + (new Date).getFullYear() + '</td>' +
-                                    '<td>9999</td>' +
-                                '</tr>');
+            var link = '<a href="#">Her</a>';
+            $('.alert').html('<strong>' + name + ' lagt til!<br></strong> Klikk ' + link + ' for å legge til tekniske profiler og redigere prosjektet');
+            $('.alert-group').removeClass('hidden');
         }
     });
 

@@ -64,16 +64,16 @@ namespace GeoCV
                 .Include("~/Content/bootstrap.css")
                 .Include("~/Content/employees.css"));
 
-            // Admin Projects
-            bundles.Add(new ScriptBundle("~/Bundles/js/projects")
+            // New Project
+            bundles.Add(new ScriptBundle("~/Bundles/js/newproject")
                 .Include("~/Scripts/jquery/jquery-{version}.js")
                 .Include("~/Scripts/jquery/jquery.validate.js")
                 .Include("~/Scripts/bootstrap/*.js")
-                .Include("~/Scripts/projects.js"));
+                .Include("~/Scripts/newproject.js"));
 
-            bundles.Add(new StyleBundle("~/Bundles/css/projects")
+            bundles.Add(new StyleBundle("~/Bundles/css/newproject")
                 .Include("~/Content/bootstrap.css")
-                .Include("~/Content/projects.css"));
+                .Include("~/Content/newproject.css"));
 
             // Register
             bundles.Add(new ScriptBundle("~/Bundles/js/register")
@@ -178,6 +178,17 @@ namespace GeoCV
             bundles.Add(new StyleBundle("~/Bundles/css/pro")
                 .Include("~/Content/bootstrap.css")
                 .Include("~/Content/pro.css"));
+
+            // Settings
+            bundles.Add(new ScriptBundle("~/Bundles/js/settings")
+                .Include("~/Scripts/jquery/jquery-{version}.js")
+                .Include("~/Scripts/jquery/jquery.validate.js")
+                .Include("~/Scripts/bootstrap/*.js")
+                .Include("~/Scripts/settings.js"));
+
+            bundles.Add(new StyleBundle("~/Bundles/css/settings")
+                .Include("~/Content/bootstrap.css")
+                .Include("~/Content/settings.css"));
 
             // BundleTable.EnableOptimizations = true;
         }

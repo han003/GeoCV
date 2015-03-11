@@ -10,7 +10,7 @@ namespace GeoCV.Controllers
 {
     public class ProController : Controller
     {
-        private cvEntities1 db = new cvEntities1();
+        private cvEntities db = new cvEntities();
 
         // GET: Work
         public ActionResult Index()

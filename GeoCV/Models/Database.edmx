@@ -26,6 +26,7 @@
           <Property Name="Beskrivelse" Type="nvarchar(max)" />
           <Property Name="Person_PersonId" Type="int" Nullable="false" />
           <Property Name="Kompetanse_KompetanseId" Type="int" Nullable="false" />
+          <Property Name="Innstillinger_InnstillingerId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="DatabasesystemListe">
           <Key>
@@ -33,6 +34,29 @@
           </Key>
           <Property Name="DatabasesystemListeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Databasesystem" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Innstillinger">
+          <Key>
+            <PropertyRef Name="InnstillingerId" />
+          </Key>
+          <Property Name="InnstillingerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fornavn" Type="bit" Nullable="false" />
+          <Property Name="Mellomnavn" Type="bit" Nullable="false" />
+          <Property Name="Etternavn" Type="bit" Nullable="false" />
+          <Property Name="Stilling" Type="bit" Nullable="false" />
+          <Property Name="ÅrErfaring" Type="bit" Nullable="false" />
+          <Property Name="Språk" Type="bit" Nullable="false" />
+          <Property Name="Nasjonalitet" Type="bit" Nullable="false" />
+          <Property Name="Fødselsår" Type="bit" Nullable="false" />
+          <Property Name="Programmeringsspråk" Type="bit" Nullable="false" />
+          <Property Name="Rammeverk" Type="bit" Nullable="false" />
+          <Property Name="WebTeknologier" Type="bit" Nullable="false" />
+          <Property Name="Databasesystemer" Type="bit" Nullable="false" />
+          <Property Name="Serverside" Type="bit" Nullable="false" />
+          <Property Name="Operativsystemer" Type="bit" Nullable="false" />
+          <Property Name="Utdannelse" Type="bit" Nullable="false" />
+          <Property Name="Arbeidserfaring" Type="bit" Nullable="false" />
+          <Property Name="Prosjekter" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Kompetanse">
           <Key>
@@ -69,11 +93,14 @@
             <PropertyRef Name="PersonId" />
           </Key>
           <Property Name="PersonId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Fornavn" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Etternavn" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Stilling" Type="nvarchar(max)" />
+          <Property Name="Fornavn" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Mellomnavn" Type="nvarchar" MaxLength="50" />
+          <Property Name="Etternavn" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="Stilling" Type="nvarchar" MaxLength="50" />
           <Property Name="ÅrErfaring" Type="smallint" />
           <Property Name="Språk" Type="nvarchar(max)" />
+          <Property Name="Nasjonalitet" Type="nvarchar" MaxLength="40" />
+          <Property Name="Fødselsår" Type="smallint" />
         </EntityType>
         <EntityType Name="ProgrammeringsspråkListe">
           <Key>
@@ -144,6 +171,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CVVersjonInnstillinger">
+          <End Role="Innstillinger" Type="Self.Innstillinger" Multiplicity="1" />
+          <End Role="CVVersjon" Type="Self.CVVersjon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Innstillinger">
+              <PropertyRef Name="InnstillingerId" />
+            </Principal>
+            <Dependent Role="CVVersjon">
+              <PropertyRef Name="Innstillinger_InnstillingerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CVVersjonKompetanse">
           <End Role="Kompetanse" Type="Self.Kompetanse" Multiplicity="1" />
           <End Role="CVVersjon" Type="Self.CVVersjon" Multiplicity="*" />
@@ -208,6 +247,7 @@
           <EntitySet Name="Arbeidserfaring" EntityType="Self.Arbeidserfaring" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CVVersjon" EntityType="Self.CVVersjon" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DatabasesystemListe" EntityType="Self.DatabasesystemListe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Innstillinger" EntityType="Self.Innstillinger" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Kompetanse" EntityType="Self.Kompetanse" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Medlem" EntityType="Self.Medlem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OperativsystemListe" EntityType="Self.OperativsystemListe" Schema="dbo" store:Type="Tables" />
@@ -222,6 +262,10 @@
           <AssociationSet Name="FK_CVVersjonArbeidserfaring" Association="Self.FK_CVVersjonArbeidserfaring">
             <End Role="CVVersjon" EntitySet="CVVersjon" />
             <End Role="Arbeidserfaring" EntitySet="Arbeidserfaring" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CVVersjonInnstillinger" Association="Self.FK_CVVersjonInnstillinger">
+            <End Role="Innstillinger" EntitySet="Innstillinger" />
+            <End Role="CVVersjon" EntitySet="CVVersjon" />
           </AssociationSet>
           <AssociationSet Name="FK_CVVersjonKompetanse" Association="Self.FK_CVVersjonKompetanse">
             <End Role="Kompetanse" EntitySet="Kompetanse" />
@@ -271,7 +315,9 @@
           <Property Name="Beskrivelse" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Person_PersonId" Type="Int32" Nullable="false" />
           <Property Name="Kompetanse_KompetanseId" Type="Int32" Nullable="false" />
+          <Property Name="Innstillinger_InnstillingerId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Arbeidserfaring" Relationship="Self.FK_CVVersjonArbeidserfaring" FromRole="CVVersjon" ToRole="Arbeidserfaring" />
+          <NavigationProperty Name="Innstillinger" Relationship="Self.FK_CVVersjonInnstillinger" FromRole="CVVersjon" ToRole="Innstillinger" />
           <NavigationProperty Name="Kompetanse" Relationship="Self.FK_CVVersjonKompetanse" FromRole="CVVersjon" ToRole="Kompetanse" />
           <NavigationProperty Name="Person" Relationship="Self.FK_CVVersjonPerson" FromRole="CVVersjon" ToRole="Person" />
           <NavigationProperty Name="Utdannelse" Relationship="Self.FK_CVVersjonUtdannelse" FromRole="CVVersjon" ToRole="Utdannelse" />
@@ -282,6 +328,30 @@
           </Key>
           <Property Name="DatabasesystemListeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Databasesystem" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Innstillinger">
+          <Key>
+            <PropertyRef Name="InnstillingerId" />
+          </Key>
+          <Property Name="InnstillingerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fornavn" Type="Boolean" Nullable="false" />
+          <Property Name="Mellomnavn" Type="Boolean" Nullable="false" />
+          <Property Name="Etternavn" Type="Boolean" Nullable="false" />
+          <Property Name="Stilling" Type="Boolean" Nullable="false" />
+          <Property Name="ÅrErfaring" Type="Boolean" Nullable="false" />
+          <Property Name="Språk" Type="Boolean" Nullable="false" />
+          <Property Name="Nasjonalitet" Type="Boolean" Nullable="false" />
+          <Property Name="Fødselsår" Type="Boolean" Nullable="false" />
+          <Property Name="Programmeringsspråk" Type="Boolean" Nullable="false" />
+          <Property Name="Rammeverk" Type="Boolean" Nullable="false" />
+          <Property Name="WebTeknologier" Type="Boolean" Nullable="false" />
+          <Property Name="Databasesystemer" Type="Boolean" Nullable="false" />
+          <Property Name="Serverside" Type="Boolean" Nullable="false" />
+          <Property Name="Operativsystemer" Type="Boolean" Nullable="false" />
+          <Property Name="Utdannelse" Type="Boolean" Nullable="false" />
+          <Property Name="Arbeidserfaring" Type="Boolean" Nullable="false" />
+          <Property Name="Prosjekter" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="CVVersjon" Relationship="Self.FK_CVVersjonInnstillinger" FromRole="Innstillinger" ToRole="CVVersjon" />
         </EntityType>
         <EntityType Name="Kompetanse">
           <Key>
@@ -321,11 +391,14 @@
             <PropertyRef Name="PersonId" />
           </Key>
           <Property Name="PersonId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Fornavn" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Etternavn" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Stilling" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Fornavn" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Mellomnavn" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Etternavn" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Stilling" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ÅrErfaring" Type="Int16" />
           <Property Name="Språk" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Nasjonalitet" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="Fødselsår" Type="Int16" />
           <NavigationProperty Name="CVVersjon" Relationship="Self.FK_CVVersjonPerson" FromRole="Person" ToRole="CVVersjon" />
           <NavigationProperty Name="Medlem" Relationship="Self.FK_MedlemPerson" FromRole="Person" ToRole="Medlem" />
         </EntityType>
@@ -400,6 +473,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CVVersjonInnstillinger">
+          <End Role="Innstillinger" Type="Self.Innstillinger" Multiplicity="1" />
+          <End Role="CVVersjon" Type="Self.CVVersjon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Innstillinger">
+              <PropertyRef Name="InnstillingerId" />
+            </Principal>
+            <Dependent Role="CVVersjon">
+              <PropertyRef Name="Innstillinger_InnstillingerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CVVersjonKompetanse">
           <End Role="Kompetanse" Type="Self.Kompetanse" Multiplicity="1" />
           <End Role="CVVersjon" Type="Self.CVVersjon" Multiplicity="*" />
@@ -460,10 +545,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="cvEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="cvEntities3" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Arbeidserfaring" EntityType="Self.Arbeidserfaring" />
           <EntitySet Name="CVVersjon" EntityType="Self.CVVersjon" />
           <EntitySet Name="DatabasesystemListe" EntityType="Self.DatabasesystemListe" />
+          <EntitySet Name="Innstillinger" EntityType="Self.Innstillinger" />
           <EntitySet Name="Kompetanse" EntityType="Self.Kompetanse" />
           <EntitySet Name="Medlem" EntityType="Self.Medlem" />
           <EntitySet Name="OperativsystemListe" EntityType="Self.OperativsystemListe" />
@@ -478,6 +564,10 @@
           <AssociationSet Name="FK_CVVersjonArbeidserfaring" Association="Self.FK_CVVersjonArbeidserfaring">
             <End Role="CVVersjon" EntitySet="CVVersjon" />
             <End Role="Arbeidserfaring" EntitySet="Arbeidserfaring" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CVVersjonInnstillinger" Association="Self.FK_CVVersjonInnstillinger">
+            <End Role="Innstillinger" EntitySet="Innstillinger" />
+            <End Role="CVVersjon" EntitySet="CVVersjon" />
           </AssociationSet>
           <AssociationSet Name="FK_CVVersjonKompetanse" Association="Self.FK_CVVersjonKompetanse">
             <End Role="Kompetanse" EntitySet="Kompetanse" />
@@ -505,7 +595,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="cvModelStoreContainer" CdmEntityContainer="cvEntities1">
+        <EntityContainerMapping StorageEntityContainer="cvModelStoreContainer" CdmEntityContainer="cvEntities3">
           <EntitySetMapping Name="Arbeidserfaring">
             <EntityTypeMapping TypeName="cvModel.Arbeidserfaring">
               <MappingFragment StoreEntitySet="Arbeidserfaring">
@@ -527,6 +617,7 @@
                 <ScalarProperty Name="Beskrivelse" ColumnName="Beskrivelse" />
                 <ScalarProperty Name="Person_PersonId" ColumnName="Person_PersonId" />
                 <ScalarProperty Name="Kompetanse_KompetanseId" ColumnName="Kompetanse_KompetanseId" />
+                <ScalarProperty Name="Innstillinger_InnstillingerId" ColumnName="Innstillinger_InnstillingerId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -535,6 +626,30 @@
               <MappingFragment StoreEntitySet="DatabasesystemListe">
                 <ScalarProperty Name="DatabasesystemListeId" ColumnName="DatabasesystemListeId" />
                 <ScalarProperty Name="Databasesystem" ColumnName="Databasesystem" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Innstillinger">
+            <EntityTypeMapping TypeName="cvModel.Innstillinger">
+              <MappingFragment StoreEntitySet="Innstillinger">
+                <ScalarProperty Name="InnstillingerId" ColumnName="InnstillingerId" />
+                <ScalarProperty Name="Fornavn" ColumnName="Fornavn" />
+                <ScalarProperty Name="Mellomnavn" ColumnName="Mellomnavn" />
+                <ScalarProperty Name="Etternavn" ColumnName="Etternavn" />
+                <ScalarProperty Name="Stilling" ColumnName="Stilling" />
+                <ScalarProperty Name="ÅrErfaring" ColumnName="ÅrErfaring" />
+                <ScalarProperty Name="Språk" ColumnName="Språk" />
+                <ScalarProperty Name="Nasjonalitet" ColumnName="Nasjonalitet" />
+                <ScalarProperty Name="Fødselsår" ColumnName="Fødselsår" />
+                <ScalarProperty Name="Programmeringsspråk" ColumnName="Programmeringsspråk" />
+                <ScalarProperty Name="Rammeverk" ColumnName="Rammeverk" />
+                <ScalarProperty Name="WebTeknologier" ColumnName="WebTeknologier" />
+                <ScalarProperty Name="Databasesystemer" ColumnName="Databasesystemer" />
+                <ScalarProperty Name="Serverside" ColumnName="Serverside" />
+                <ScalarProperty Name="Operativsystemer" ColumnName="Operativsystemer" />
+                <ScalarProperty Name="Utdannelse" ColumnName="Utdannelse" />
+                <ScalarProperty Name="Arbeidserfaring" ColumnName="Arbeidserfaring" />
+                <ScalarProperty Name="Prosjekter" ColumnName="Prosjekter" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -576,10 +691,13 @@
               <MappingFragment StoreEntitySet="Person">
                 <ScalarProperty Name="PersonId" ColumnName="PersonId" />
                 <ScalarProperty Name="Fornavn" ColumnName="Fornavn" />
+                <ScalarProperty Name="Mellomnavn" ColumnName="Mellomnavn" />
                 <ScalarProperty Name="Etternavn" ColumnName="Etternavn" />
                 <ScalarProperty Name="Stilling" ColumnName="Stilling" />
                 <ScalarProperty Name="ÅrErfaring" ColumnName="ÅrErfaring" />
                 <ScalarProperty Name="Språk" ColumnName="Språk" />
+                <ScalarProperty Name="Nasjonalitet" ColumnName="Nasjonalitet" />
+                <ScalarProperty Name="Fødselsår" ColumnName="Fødselsår" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

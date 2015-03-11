@@ -25,8 +25,10 @@ namespace GeoCV.Models
         public string Beskrivelse { get; set; }
         public int Person_PersonId { get; set; }
         public int Kompetanse_KompetanseId { get; set; }
+        public int Innstillinger_InnstillingerId { get; set; }
     
         public virtual ICollection<Arbeidserfaring> Arbeidserfaring { get; set; }
+        public virtual Innstillinger Innstillinger { get; set; }
         public virtual Kompetanse Kompetanse { get; set; }
         public virtual Person Person { get; set; }
         public virtual ICollection<Utdannelse> Utdannelse { get; set; }
