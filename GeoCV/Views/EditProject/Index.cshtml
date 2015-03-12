@@ -1,0 +1,16 @@
+﻿@using System.Web.Optimization
+
+@model GeoCV.Models.Prosjekt
+
+@{
+    ViewBag.Title = "Rediger Prosjekt";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section css{
+    @Styles.Render("~/bundles/css/editproject")
+}
+@section scripts{
+    @Scripts.Render("~/bundles/js/editproject")
+}
+
+@Model.Navn
