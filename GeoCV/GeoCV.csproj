@@ -218,6 +218,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminRolesController.cs" />
     <Compile Include="Controllers\CvController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DownloadController.cs" />
@@ -327,6 +328,12 @@
     <Content Include="Content\dashboard.min.css">
       <DependentUpon>dashboard.css</DependentUpon>
     </Content>
+    <Content Include="Content\editproject.css">
+      <DependentUpon>editproject.less</DependentUpon>
+    </Content>
+    <Content Include="Content\editproject.min.css">
+      <DependentUpon>editproject.css</DependentUpon>
+    </Content>
     <Content Include="Content\home.css">
       <DependentUpon>home.less</DependentUpon>
     </Content>
@@ -348,6 +355,7 @@
       <DependentUpon>settings.css</DependentUpon>
     </Content>
     <Content Include="Global.asax" />
+    <Content Include="Scripts\adminroles.js" />
     <Content Include="Scripts\bootstrap\bootstrap.js" />
     <Content Include="ApplicationInsights.config" />
     <Content Include="Content\animate.less" />
@@ -383,7 +391,16 @@
       <DependentUpon>cv-kompetanse.js</DependentUpon>
     </Content>
     <Content Include="Scripts\editproject.js" />
+    <Content Include="Scripts\editproject.min.js">
+      <DependentUpon>editproject.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\expertise.min.js">
+      <DependentUpon>expertise.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\newproject.js" />
+    <Content Include="Scripts\newproject.min.js">
+      <DependentUpon>newproject.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\personal.js" />
     <Content Include="Scripts\cv-personlig.min.js">
       <DependentUpon>personal.js</DependentUpon>
@@ -449,7 +466,17 @@
       <DependentUpon>Database.edmx</DependentUpon>
       <LastGenOutput>Database.cs</LastGenOutput>
     </Content>
+    <Content Include="Content\editproject.less" />
+    <Content Include="Content\editproject.css.map">
+      <DependentUpon>editproject.css</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\geocv.pubxml" />
+    <Content Include="Scripts\editproject.min.js.map">
+      <DependentUpon>editproject.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\expertise.min.js.map">
+      <DependentUpon>expertise.min.js</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\cv\cv.min.js">
       <DependentUpon>cv.js</DependentUpon>
@@ -478,9 +505,21 @@
     <Content Include="Scripts\jquery\jquery.validate.unobtrusive.min.js">
       <DependentUpon>jquery.validate.unobtrusive.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\personal.min.js">
+      <DependentUpon>personal.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\pro.js" />
+    <Content Include="Scripts\pro.min.js">
+      <DependentUpon>pro.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\projects.js" />
+    <Content Include="Scripts\projects.min.js">
+      <DependentUpon>projects.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\settings.js" />
+    <Content Include="Scripts\settings.min.js">
+      <DependentUpon>settings.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\stuff\modernizr-2.8.3.js" />
     <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\npm.min.js">
@@ -565,7 +604,6 @@
       <DependentUpon>respond.matchmedia.addListener.min.js</DependentUpon>
     </Content>
     <Content Include="Views\Projects\Index.cshtml" />
-    <Content Include="Views\Projects\_ProjectsTable.cshtml" />
     <Content Include="Views\Personal\Index.cshtml" />
     <Content Include="Views\Expertise\Index.cshtml" />
     <Content Include="Views\Education\Index.cshtml" />
@@ -578,6 +616,22 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\NewProject\Index.cshtml" />
     <Content Include="Views\EditProject\Index.cshtml" />
+    <Content Include="Scripts\newproject.min.js.map">
+      <DependentUpon>newproject.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\personal.min.js.map">
+      <DependentUpon>personal.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\pro.min.js.map">
+      <DependentUpon>pro.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\projects.min.js.map">
+      <DependentUpon>projects.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\settings.min.js.map">
+      <DependentUpon>settings.min.js</DependentUpon>
+    </Content>
+    <Content Include="Views\AdminRoles\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -212,6 +212,18 @@ namespace GeoCV
                 .Include("~/Content/bootstrap.css")
                 .Include("~/Content/settings.css"));
 
+            // Admin Roles
+            bundles.Add(new ScriptBundle("~/Bundles/js/adminroles")
+                .Include("~/Scripts/jquery/jquery-{version}.js")
+                .Include("~/Scripts/jquery/jquery.validate.js")
+                .Include("~/Scripts/bootstrap/*.js")
+                .Include("~/Scripts/bootstrap3-typeahead.js")
+                .Include("~/Scripts/adminroles.js"));
+
+            bundles.Add(new StyleBundle("~/Bundles/css/adminroles")
+                .Include("~/Content/bootstrap.css")
+                .Include("~/Content/adminroles.css"));
+
             // BundleTable.EnableOptimizations = true;
         }
     }

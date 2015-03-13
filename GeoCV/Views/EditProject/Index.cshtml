@@ -15,107 +15,175 @@
 
 
 <div class="container">
+
     <div class="row">
-        <div class="col-lg-6">
 
-            <h2 class="title" id="@Model.ProsjektId">Rediger Prosjekt</h2>
-            <hr />
 
-            <div class="form-horizontal">
+        <div class="col-lg-12">
 
-                <div class="form-group">
-                    <div class="col-lg-12">
-                        <label>Navn</label>
-                        <input type="text" class="form-control update-txt" value="@Model.Navn" id="@Html.DisplayNameFor(m => Model.Navn)-txt">
+            <div role="tabpanel">
+
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#rediger-prosjekt" aria-controls="rediger-prosjekt" role="tab" data-toggle="tab">Rediger Prosjekt</a></li>
+                    <li role="presentation"><a href="#tekniske-profiler" aria-controls="tekniske-profiler" role="tab" data-toggle="tab">Tekniske Profiler</a></li>
+                    <li role="presentation"><a href="#ny-teknisk-profil" aria-controls="ny-teknisk-profil" role="tab" data-toggle="tab">Ny Teknisk Profil</a></li>
+                    <li role="presentation"><a href="#medlemmer" aria-controls="medlemmer" role="tab" data-toggle="tab">Medlemmer</a></li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="rediger-prosjekt">
+
+                        <div class="row">
+                            <div class="col-lg-12">
+
+                                <div class="form-horizontal">
+
+                                    <div class="form-group">
+                                        <div class="col-lg-12">
+                                            <label>Navn</label>
+                                            <input type="text" class="form-control update-txt" value="@Model.Navn" id="@Html.DisplayNameFor(m => Model.Navn)-txt">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-lg-12">
+                                            <label>Kunde</label>
+                                            <input type="text" class="form-control update-txt" value="@Model.Kunde" id="@Html.DisplayNameFor(m => Model.Kunde)-txt">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-lg-12">
+                                            <label>Beskrivelse</label>
+                                            <input type="text" class="form-control update-txt" value="@Model.Beskrivelse" id="@Html.DisplayNameFor(m => Model.Beskrivelse)-txt">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-lg-12">
+                                            <label>Fra</label>
+                                            <select class="form-control">
+                                                <option>Placeholder</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-lg-12">
+                                            <label>Til</label>
+                                            <select class="form-control">
+                                                <option>Placeholder</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <div class="col-lg-12">
-                        <label>Kunde</label>
-                        <input type="text" class="form-control update-txt" value="@Model.Kunde" id="@Html.DisplayNameFor(m => Model.Kunde)-txt">
+
+
+
+
+                    <div role="tabpanel" class="tab-pane" id="tekniske-profiler">
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                Tekniske profiler
+
+                            </div>
+                        </div>
+
+
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <div class="col-lg-12">
-                        <label>Beskrivelse</label>
-                        <input type="text" class="form-control update-txt" value="@Model.Beskrivelse" id="@Html.DisplayNameFor(m => Model.Beskrivelse)-txt">
+
+
+                    <div role="tabpanel" class="tab-pane" id="ny-teknisk-profil">
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                Ny teknisk profil
+
+                            </div>
+                        </div>
+
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <div class="col-lg-12">
-                        <label>Fra</label>
-                        <select class="form-control">
-                            <option>Placeholder</option>
-                        </select>
-                    </div>
-                </div>
 
-                <div class="form-group">
-                    <div class="col-lg-12">
-                        <label>Til</label>
-                        <select class="form-control">
-                            <option>Placeholder</option>
-                        </select>
+
+                    <div role="tabpanel" class="tab-pane" id="medlemmer">
+
+                        <div class="row">
+                            <div class="col-lg-12">
+
+
+                                <table class="table table-hover table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <td>
+                                                <strong>Navn</strong>
+                                            </td>
+                                            <td>
+                                                <strong>Rolle</strong>
+                                            </td>
+                                            <td>
+                                                <strong>Start</strong>
+                                            </td>
+                                            <td>
+                                                <strong>Slutt</strong>
+                                            </td>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                        @foreach (var Item in Model.Medlem)
+                                        {
+                                            <tr>
+                                                <td>@Item.Person.Fornavn @Item.Person.Etternavn</td>
+                                                <td>@Item.Rolle</td>
+                                                <td>@Item.Start</td>
+                                                <td>@Item.Slutt</td>
+                                            </tr>
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
                     </div>
                 </div>
 
             </div>
 
         </div>
-        
-        <div class="col-lg-6">
 
-            <h2>Teknsike Profiler</h2>
-            <hr />
-
-        </div>
 
     </div>
 
-    <div class="row">
-        <div class="col-lg-12">
 
-            <h2>Medlemmer</h2>
-            <hr />
 
-            <table class="table table-hover table-bordered">
-                <thead>
-                    <tr>
-                        <td>
-                            <strong>Navn</strong>
-                        </td>
-                        <td>
-                            <strong>Rolle</strong>
-                        </td>
-                        <td>
-                            <strong>Start</strong>
-                        </td>
-                        <td>
-                            <strong>Slutt</strong>
-                        </td>
-                    </tr>
-                </thead>
 
-                <tbody>
 
-                    @foreach (var Item in Model.Medlem)
-                    {
-                        <tr>
-                            <td>@Item.Person.Fornavn @Item.Person.Etternavn</td>
-                            <td>@Item.Rolle</td>
-                            <td>@Item.Start</td>
-                            <td>@Item.Slutt</td>
-                        </tr>
-                    }
 
-                </tbody>
-            </table>
-        </div>
-        
-    </div>
+
+
+
+
+
+
+
+
+
+
 </div>
 
 

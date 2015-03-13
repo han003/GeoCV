@@ -198,23 +198,23 @@ namespace GeoCV.Controllers
                     db.SaveChanges();
 
                     // Roles
-                    var rm = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
-                    var um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
-
+                    var RoleMan = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
+                    var UserMan = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+                    
                     // Employee role
                     string EmployeeRole = "Ansatt";
 
                     // If role doesn't exist
-                    if (!rm.RoleExists(EmployeeRole))
+                    if (!RoleMan.RoleExists(EmployeeRole))
                     {
-                        var RoleResult = rm.Create(new IdentityRole(EmployeeRole));
+                        var RoleResult = RoleMan.Create(new IdentityRole(EmployeeRole));
                         if (!RoleResult.Succeeded)
                         { // Error stuff
                         };
                     }
 
                     // Add user to role
-                    um.AddToRole(user.Id, EmployeeRole);
+                    UserMan.AddToRole(user.Id, EmployeeRole);
 
 
 

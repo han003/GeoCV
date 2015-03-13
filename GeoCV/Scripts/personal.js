@@ -6,6 +6,10 @@ $('.update-txt').keyup(function () {
     update($(this));
 });
 
+$("#Språk-auto").on("click", function () {
+    $(this).typeahead('open');
+});
+
 function update(element) {
 
     var tableColumn = element.attr('id').substring(0, element.attr('id').indexOf('-'));
@@ -22,7 +26,6 @@ function refreshLanguages() {
         var autocomplete = $('#Språk-auto').typeahead();
         autocomplete.data('typeahead').source = data;
         autocomplete.data('json', data);
-        console.log(data);
     }, 'json');
 }
 
