@@ -1,4 +1,4 @@
-﻿body {
-  overflow-y: scroll;
+﻿table tr[href] {
+  cursor: pointer;
 }
 /*# sourceMappingURL=projects.css.map */

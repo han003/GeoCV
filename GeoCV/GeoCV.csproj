@@ -382,6 +382,8 @@
     <Content Include="Scripts\cv\cv-kompetanse.min.js">
       <DependentUpon>cv-kompetanse.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\editproject.js" />
+    <Content Include="Scripts\newproject.js" />
     <Content Include="Scripts\personal.js" />
     <Content Include="Scripts\cv-personlig.min.js">
       <DependentUpon>personal.js</DependentUpon>
@@ -563,7 +565,6 @@
       <DependentUpon>respond.matchmedia.addListener.min.js</DependentUpon>
     </Content>
     <Content Include="Views\Projects\Index.cshtml" />
-    <Content Include="Views\Projects\_AddNewProject.cshtml" />
     <Content Include="Views\Projects\_ProjectsTable.cshtml" />
     <Content Include="Views\Personal\Index.cshtml" />
     <Content Include="Views\Expertise\Index.cshtml" />

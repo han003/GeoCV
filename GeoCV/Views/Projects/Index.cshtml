@@ -3,7 +3,7 @@
 @model IEnumerable<GeoCV.Models.Prosjekt>
 
 @{
-    ViewBag.Title = "Prosjekt";
+    ViewBag.Title = "Prosjekter";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section css{
@@ -13,4 +13,50 @@
     @Scripts.Render("~/bundles/js/projects")
 }
 
-@Html.Partial("~/Views/Projects/_ProjectsTable.cshtml", Model)
+<div class="container">
+    <div class="row">
+
+        <div class="form-group">
+            <input type="text" class="form-control" id="search-project" placeholder="Søk etter prosjekt">
+        </div>
+
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <td>
+                        <strong>Prosjekt</strong>
+                    </td>
+                    <td>
+                        <strong>Kunde</strong>
+                    </td>
+                    <td>
+                        <strong>Beskrivelse</strong>
+                    </td>
+                    <td>
+                        <strong>Fra</strong>
+                    </td>
+                    <td>
+                        <strong>Til</strong>
+                    </td>
+                </tr>
+            </thead>
+
+            <tbody>
+                
+                @foreach (var Item in Model)
+                {
+                        <tr href="~/EditProject/@Item.ProsjektId">
+                            <td>@Item.Navn</td>
+                            <td>@Item.Kunde</td>
+                            <td>@Item.Beskrivelse</td>
+                            <td>@Item.Fra</td>
+                            <td>@Item.Til</td>
+                        </tr>
+                }
+
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
