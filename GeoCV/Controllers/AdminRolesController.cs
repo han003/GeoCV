@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace GeoCV.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminRolesController : Controller
     {
         // GET: AdminRoles
@@ -20,20 +21,27 @@ namespace GeoCV.Controllers
         }
 
         [HttpPost]
-        public void AddNewRole(string RoleName)
+        public void AddRole(string RoleName)
         {
+            // Roles
             var RoleMan = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
-            IdentityRole Role = new IdentityRole();
-            Role.Name = RoleName;
-            RoleMan.Create(Role);
+
+            // If role doesn't exist
+            if (!RoleMan.RoleExists(RoleName))
+            {
+                var RoleResult = RoleMan.Create(new IdentityRole(RoleName));
+                if (!RoleResult.Succeeded)
+                { 
+                    // Error stuff
+                };
+            }
         }
 
         [HttpPost]
         public void DeleteRole(string RoleName)
         {
             var RoleMan = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
-            IdentityRole Role = new IdentityRole();
-            Role.Name = RoleName;
+            var Role = RoleMan.FindByName(RoleName);
             RoleMan.Delete(Role);
         }
     }

@@ -334,6 +334,12 @@
     <Content Include="Content\editproject.min.css">
       <DependentUpon>editproject.css</DependentUpon>
     </Content>
+    <Content Include="Content\education.css">
+      <DependentUpon>education.less</DependentUpon>
+    </Content>
+    <Content Include="Content\education.min.css">
+      <DependentUpon>education.css</DependentUpon>
+    </Content>
     <Content Include="Content\home.css">
       <DependentUpon>home.less</DependentUpon>
     </Content>
@@ -342,6 +348,7 @@
     </Content>
     <Content Include="Content\Images\favicon.png" />
     <Content Include="Content\Images\geomatikk logo.png" />
+    <Content Include="Content\Images\textured_paper.png" />
     <Content Include="Content\projects.css">
       <DependentUpon>projects.less</DependentUpon>
     </Content>
@@ -356,6 +363,9 @@
     </Content>
     <Content Include="Global.asax" />
     <Content Include="Scripts\adminroles.js" />
+    <Content Include="Scripts\adminroles.min.js">
+      <DependentUpon>adminroles.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\bootstrap\bootstrap.js" />
     <Content Include="ApplicationInsights.config" />
     <Content Include="Content\animate.less" />
@@ -382,18 +392,11 @@
     <Content Include="Scripts\bootstrap\bootstrap3-typeahead.min.js">
       <DependentUpon>bootstrap3-typeahead.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\cv\cv-arbeid.js" />
-    <Content Include="Scripts\cv\cv-arbeid.min.js">
-      <DependentUpon>cv-arbeid.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\cv\cv-kompetanse.js" />
-    <Content Include="Scripts\cv\cv-kompetanse.min.js">
-      <DependentUpon>cv-kompetanse.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\editproject.js" />
     <Content Include="Scripts\editproject.min.js">
       <DependentUpon>editproject.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\education.js" />
     <Content Include="Scripts\expertise.min.js">
       <DependentUpon>expertise.js</DependentUpon>
     </Content>
@@ -405,35 +408,11 @@
     <Content Include="Scripts\cv-personlig.min.js">
       <DependentUpon>personal.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\cv\cv-prosjekt.js" />
-    <Content Include="Scripts\cv\cv-prosjekt.min.js">
-      <DependentUpon>cv-prosjekt.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\cv\cv-utdannelse.js" />
-    <Content Include="Scripts\cv\cv-utdannelse.min.js">
-      <DependentUpon>cv-utdannelse.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\cv\cv.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js.map">
       <DependentUpon>bootstrap.min.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\cv\cv-arbeid.min.js.map">
-      <DependentUpon>cv-arbeid.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\cv\cv-kompetanse.min.js.map">
-      <DependentUpon>cv-kompetanse.min.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\cv-personlig.min.js.map">
       <DependentUpon>cv-personlig.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\cv\cv-prosjekt.min.js.map">
-      <DependentUpon>cv-prosjekt.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\cv\cv-utdannelse.min.js.map">
-      <DependentUpon>cv-utdannelse.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\cv\cv.min.js.map">
-      <DependentUpon>cv.min.js</DependentUpon>
     </Content>
     <Content Include="Scripts\bootstrap\bootstrap3-typeahead.min.js.map">
       <DependentUpon>bootstrap3-typeahead.min.js</DependentUpon>
@@ -470,6 +449,10 @@
     <Content Include="Content\editproject.css.map">
       <DependentUpon>editproject.css</DependentUpon>
     </Content>
+    <Content Include="Content\education.less" />
+    <Content Include="Content\education.css.map">
+      <DependentUpon>education.css</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\geocv.pubxml" />
     <Content Include="Scripts\editproject.min.js.map">
       <DependentUpon>editproject.min.js</DependentUpon>
@@ -477,10 +460,10 @@
     <Content Include="Scripts\expertise.min.js.map">
       <DependentUpon>expertise.min.js</DependentUpon>
     </Content>
-    <None Include="Scripts\jquery\jquery-2.1.3.intellisense.js" />
-    <Content Include="Scripts\cv\cv.min.js">
-      <DependentUpon>cv.js</DependentUpon>
+    <Content Include="Scripts\adminroles.min.js.map">
+      <DependentUpon>adminroles.min.js</DependentUpon>
     </Content>
+    <None Include="Scripts\jquery\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\employees.js" />
     <Content Include="Scripts\employees.min.js">
       <DependentUpon>employees.js</DependentUpon>
@@ -551,7 +534,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -632,6 +614,7 @@
       <DependentUpon>settings.min.js</DependentUpon>
     </Content>
     <Content Include="Views\AdminRoles\Index.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

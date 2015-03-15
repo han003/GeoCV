@@ -32,13 +32,19 @@
     </div>
 </div>
 
+<div role="tabpanel">
 
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#personal-info-tab" aria-controls="personal-info-tab" role="tab" data-toggle="tab">Personlig Informasjon</a></li>
+        <li role="presentation"><a href="#language-tab" aria-controls="language-tab" role="tab" data-toggle="tab">Språk</a></li>
+    </ul>
 
-<div class="container">
-    <div class="row">
-        <h2 class="col-lg-offset-1">Personlig Informasjon</h2>
-        <div class="panel panel-default col-lg-10 col-lg-offset-1">
-            <div class="panel-body">
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="personal-info-tab">
+
+            <div class="row col-lg-12">
                 <div class="form-horizontal">
 
 
@@ -94,50 +100,49 @@
 
                 </div>
             </div>
+
+
         </div>
-    </div>
-</div>
 
-@if (Model.Innstillinger.Språk)
-{
-    <div class="container">
-        <div class="row">
 
-            <h2 class="col-lg-offset-1">Språk</h2>
+        <div role="tabpanel" class="tab-pane" id="language-tab">
 
-            <div class="panel panel-default col-lg-10 col-lg-offset-1">
-                <div class="panel-body">
 
-                    <div class="form-horizontal">
+            <div class="row col-lg-12">
+                <div class="form-horizontal">
 
-                        <div class="form-group">
-                            <div class="col-lg-10">
-                                <input id="@Html.DisplayNameFor(m => Model.Person.Språk)-auto" type="text" class="form-control add-item-auto typeahead" data-provide="typeahead" autocomplete="off">
-                            </div>
-                            <div class="col-lg-1">
-                                <button id="@Html.DisplayNameFor(m => Model.Person.Språk)-btn" type="button" class="btn btn-success add-item-btn" tabindex="-1">Legg til</button>
-                            </div>
+                    <div class="form-group">
+                        <div class="col-lg-10">
+                            <input id="@Html.DisplayNameFor(m => Model.Person.Språk)-auto" type="text" class="form-control add-item-auto typeahead" data-provide="typeahead" autocomplete="off">
                         </div>
+                        <div class="col-lg-1">
+                            <button id="@Html.DisplayNameFor(m => Model.Person.Språk)-btn" type="button" class="btn btn-success add-item-btn" tabindex="-1">Legg til</button>
+                        </div>
+                    </div>
 
-                        <div class="form-group">
-                            <div id="@Html.DisplayNameFor(m => Model.Person.Språk)-group" class="col-lg-12 added-btn-group">
-                                @if (!string.IsNullOrEmpty(Model.Person.Språk))
+                    <div class="form-group">
+                        <div id="@Html.DisplayNameFor(m => Model.Person.Språk)-group" class="col-lg-12 added-btn-group">
+                            @if (!string.IsNullOrEmpty(Model.Person.Språk))
+                            {
+                                foreach (var value in Model.Person.Språk.Split(';'))
                                 {
-                                    foreach (var value in Model.Person.Språk.Split(';'))
-                                    {
-                                        <button type="button" class="btn btn-info added-btn" tabindex="-1">@value</button>
-                                    }
-
+                                    <button type="button" class="btn btn-info added-btn" tabindex="-1">@value</button>
                                 }
-                            </div>
-                        </div>
 
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-}
+</div>
+
+
+
+
+
+
 
 
 

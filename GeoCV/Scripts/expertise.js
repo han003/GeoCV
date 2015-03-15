@@ -1,6 +1,42 @@
-﻿function refreshLanguages() {
-    $.get('/Personal/GetLanguages', function (data) {
-        var autocomplete = $('#Språk-auto').typeahead();
+﻿/////////////////// GET AUTO COMPLETE ITEMS
+
+$(document).ready(function () {
+    refreshAutoLists();
+})
+
+function refreshAutoLists() {
+    $.get('/Expertise/GetProgrammingLanguages', function (data) {
+        var autocomplete = $('#Programmeringsspråk-auto').typeahead();
+        autocomplete.data('typeahead').source = data;
+        autocomplete.data('json', data);
+    }, 'json');
+
+    $.get('/Expertise/GetFrameworks', function (data) {
+        var autocomplete = $('#Rammeverk-auto').typeahead();
+        autocomplete.data('typeahead').source = data;
+        autocomplete.data('json', data);
+    }, 'json');
+
+    $.get('/Expertise/GetWebTechnologies', function (data) {
+        var autocomplete = $('#WebTeknologier-auto').typeahead();
+        autocomplete.data('typeahead').source = data;
+        autocomplete.data('json', data);
+    }, 'json');
+
+    $.get('/Expertise/GetDatabaseSystems', function (data) {
+        var autocomplete = $('#Databasesystemer-auto').typeahead();
+        autocomplete.data('typeahead').source = data;
+        autocomplete.data('json', data);
+    }, 'json');
+
+    $.get('/Expertise/GetServerside', function (data) {
+        var autocomplete = $('#Serverside-auto').typeahead();
+        autocomplete.data('typeahead').source = data;
+        autocomplete.data('json', data);
+    }, 'json');
+
+    $.get('/Expertise/GetOperatingSystems', function (data) {
+        var autocomplete = $('#Operativsystemer-auto').typeahead();
         autocomplete.data('typeahead').source = data;
         autocomplete.data('json', data);
     }, 'json');
@@ -99,8 +135,8 @@ $('#modalAddItem').click(function () {
 
 function insertAutoItem(databaseUpdateColumn, userAutoInput) {
     console.log('Inserting ' + userAutoInput + ' into ' + databaseUpdateColumn)
-    $.post('/Personal/InsertItem', { Insert: databaseUpdateColumn, Value: userAutoInput }, function () {
-        refreshLanguages();
+    $.post('/Expertise/InsertItem', { Insert: databaseUpdateColumn, Value: userAutoInput }, function () {
+        refreshAutoLists();
     });
 }
 
@@ -121,5 +157,5 @@ function updateDatabase() {
     console.log("Value: " + newValue);
 
     // Update
-    $.post('/Personal/Update', { Update: databaseUpdateColumn, Value: newValue });
+    $.post('/Expertise/Update', { Update: databaseUpdateColumn, Value: newValue });
 }

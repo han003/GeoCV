@@ -3,7 +3,6 @@
         var autocomplete = $('#project-auto').typeahead();
         autocomplete.data('typeahead').source = data;
         autocomplete.data('json', data);
-        console.log(data);
     }, 'json');
 })
 

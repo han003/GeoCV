@@ -31,17 +31,20 @@
                     <td>
                         <strong>Etternavn</strong>
                     </td>
+                    <td>
+                        <strong>Rolle</strong>
+                    </td>
                 </tr>
             </thead>
 
             <tbody>
 
-                @foreach (var value in Model)
+                @foreach (var Item in Model)
                 {
                     <tr>
-                        <td>@value.Person.Fornavn</td>
-                        <td>@value.Person.Etternavn</td>
-                        <td>Rediger</td>
+                        <td>@Item.Person.Fornavn</td>
+                        <td>@Item.Person.Etternavn</td>
+                        <td></td>
                         <td></td>
                         <td></td>
                     </tr>
