@@ -219,7 +219,6 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminRolesController.cs" />
-    <Compile Include="Controllers\CvController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DownloadController.cs" />
     <Compile Include="Controllers\EditProjectController.cs" />
@@ -296,6 +295,9 @@
     <Compile Include="Models\SpråkListe.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TekniskProfil.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Utdannelse.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
@@ -348,7 +350,7 @@
     </Content>
     <Content Include="Content\Images\favicon.png" />
     <Content Include="Content\Images\geomatikk logo.png" />
-    <Content Include="Content\Images\textured_paper.png" />
+    <Content Include="Content\Images\shattered.png" />
     <Content Include="Content\myprojects.css">
       <DependentUpon>myprojects.less</DependentUpon>
     </Content>

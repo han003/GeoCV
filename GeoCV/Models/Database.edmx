@@ -420,6 +420,7 @@
           <Property Name="Fra" Type="Int16" />
           <Property Name="Til" Type="Int16" />
           <NavigationProperty Name="Medlem" Relationship="Self.FK_ProsjektMedlem" FromRole="Prosjekt" ToRole="Medlem" />
+          <NavigationProperty Name="TekniskProfil" Relationship="cvModel.ProsjektTekniskProfil" FromRole="Prosjekt" ToRole="TekniskProfil" />
         </EntityType>
         <EntityType Name="RammeverkListe">
           <Key>
@@ -589,7 +590,34 @@
             <End Role="Prosjekt" EntitySet="Prosjekt" />
             <End Role="Medlem" EntitySet="Medlem" />
           </AssociationSet>
+          <EntitySet Name="TekniskProfil" EntityType="cvModel.TekniskProfil" />
+          <AssociationSet Name="ProsjektTekniskProfil" Association="cvModel.ProsjektTekniskProfil">
+            <End Role="Prosjekt" EntitySet="Prosjekt" />
+            <End Role="TekniskProfil" EntitySet="TekniskProfil" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="TekniskProfil">
+          <Key>
+            <PropertyRef Name="TekniskProfilId" />
+          </Key>
+          <Property Name="TekniskProfilId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Navn" Type="String" Nullable="false" Unicode="true" MaxLength="50" />
+          <Property Name="Elementer" Type="String" Nullable="false" Unicode="true" />
+          <NavigationProperty Name="Prosjekt" Relationship="cvModel.ProsjektTekniskProfil" FromRole="TekniskProfil" ToRole="Prosjekt" />
+          <Property Name="ProsjektProsjektId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="ProsjektTekniskProfil">
+          <End Type="cvModel.Prosjekt" Role="Prosjekt" Multiplicity="1" />
+          <End Type="cvModel.TekniskProfil" Role="TekniskProfil" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Prosjekt">
+              <PropertyRef Name="ProsjektId" />
+            </Principal>
+            <Dependent Role="TekniskProfil">
+              <PropertyRef Name="ProsjektProsjektId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

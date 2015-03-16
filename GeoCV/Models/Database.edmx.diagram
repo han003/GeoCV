@@ -27,6 +27,8 @@
         <AssociationConnector Association="cvModel.FK_CVVersjonUtdannelse" ManuallyRouted="false" />
         <AssociationConnector Association="cvModel.FK_MedlemPerson" ManuallyRouted="false" />
         <AssociationConnector Association="cvModel.FK_ProsjektMedlem" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="cvModel.TekniskProfil" Width="1.5" PointX="8" PointY="13.75" />
+        <AssociationConnector Association="cvModel.ProsjektTekniskProfil" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

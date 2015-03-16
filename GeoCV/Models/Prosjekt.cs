@@ -17,6 +17,7 @@ namespace GeoCV.Models
         public Prosjekt()
         {
             this.Medlem = new HashSet<Medlem>();
+            this.TekniskProfil = new HashSet<TekniskProfil>();
         }
     
         public int ProsjektId { get; set; }
@@ -27,5 +28,6 @@ namespace GeoCV.Models
         public Nullable<short> Til { get; set; }
     
         public virtual ICollection<Medlem> Medlem { get; set; }
+        public virtual ICollection<TekniskProfil> TekniskProfil { get; set; }
     }
 }

@@ -1,4 +1,11 @@
 ﻿.tab-content {
-  margin-top: 28px;
+  padding: 15px;
+  border: 1px solid #dddddd;
+  border-top: none;
+  background: rgba(0, 0, 0, 0.35);
+  color: white;
+}
+.input-group span {
+  min-width: 60px;
 }
 /*# sourceMappingURL=editproject.css.map */
