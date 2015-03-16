@@ -14,83 +14,102 @@
     @Scripts.Render("~/Bundles/js/work")
 }
 
-<div class="container">
-    <div class="row">
-        <h2 class="col-lg-offset-1">Arbeidserfaring</h2>
-        <div class="panel panel-default col-lg-10 col-lg-offset-1">
-            <div class="panel-body">
-                <div class="form-horizontal">
+<div class="row">
+    <div class="col-lg-12">
 
 
-                    <div class="form-group col-lg-12">
-                        <label>Arbeidsplass</label>
-                        <input id="text-work-place" type="text" class="form-control" placeholder="Arbeidsplass" autocomplete="off">
-                    </div>
+        <div role="tabpanel">
 
-                    <div class="form-group col-lg-12">
-                        <label>Stilling</label>
-                        <input id="text-work-role" type="text" class="form-control" placeholder="Stilling" autocomplete="off">
-                    </div>
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#my-work-tab" aria-controls="my-work-tab" role="tab" data-toggle="tab">Min Arbeidserfaring</a></li>
+                <li role="presentation"><a href="#new-work-tab" aria-controls="new-work-tab" role="tab" data-toggle="tab">Legg Til Arbeidserfaring</a></li>
+            </ul>
 
-                    <div class="form-group col-lg-12">
-                        <label>Beskrivelse</label>
-                        <input id="text-work-description" type="text" class="form-control" placeholder="Beskrivelse" autocomplete="off">
-                    </div>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="my-work-tab">
 
-                    <div class="form-group col-lg-12">
-                        <div class="checkbox">
-                            <label>
-                                <input id="current-job-check" type="checkbox"> Nåværende posisjon
-                            </label>
+                    @foreach (var Value in Model.Arbeidserfaring)
+                    {
+                        @Value.Arbeidsplass <br />
+                        @Value.Beskrivelse    <br />
+                        @Value.Stilling    <br />
+                        @Value.Fra    <br />
+                        @Value.Til
+                    }
+
+                </div>
+
+                <div role="tabpanel" class="tab-pane" id="new-work-tab">
+
+                    <div class="form-horizontal">
+
+
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>Arbeidsplass</label>
+                                <input id="text-work-place" type="text" class="form-control" placeholder="Arbeidsplass" autocomplete="off">
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group col-lg-3">
-                        <div class="input-group">
-                            <span class="input-group-addon">Fra</span>
-                            <select id="work-select-from" class="form-control">
-                                @for (var i = 0; i < 70; i++)
-                                {
-                                    <option>@(@DateTime.Now.Year - i)</option>
-                                }
-                            </select>
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>Stilling</label>
+                                <input id="text-work-role" type="text" class="form-control" placeholder="Stilling" autocomplete="off">
+                            </div>
                         </div>
-                    </div>
 
-                    <div id="select-job-year-to" class="form-group col-lg-3">
-                        <div class="input-group">
-                            <span class="input-group-addon">Til</span>
-                            <select id="work-select-to" class="form-control">
-                                @for (var i = 0; i < 70; i++)
-                                {
-                                    <option>@(@DateTime.Now.Year - i)</option>
-                                }
-                            </select>
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>Beskrivelse</label>
+                                <input id="text-work-description" type="text" class="form-control" placeholder="Beskrivelse" autocomplete="off">
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group col-lg-12">
-                        <button id="work-add-btn" class="btn btn-success" type="button">Legg til arbeidserfaring</button>
+                        <div class="form-group col-lg-2">
+                            <div class="input-group">
+                                <span class="input-group-addon">Fra</span>
+                                <select id="work-select-from" class="form-control">
+                                    @for (var i = 0; i <= 100; i++)
+                                    {
+                                        <option>@(@DateTime.Now.Year - i)</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-lg-2">
+                            <div class="input-group">
+                                <span class="input-group-addon">Til</span>
+                                <select id="work-select-to" class="form-control">
+                                    @for (var i = 0; i <= 100; i++)
+                                    {
+                                        <option>@(@DateTime.Now.Year - i)</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <button id="work-add-btn" class="btn btn-success" type="button">Legg til arbeidserfaring</button>
+                            </div>
+                        </div>
+
                     </div>
 
                 </div>
             </div>
+
         </div>
-    </div>
 
-    <div id="work-group">
-        @foreach (var value in Model.Arbeidserfaring)
-        {
-            <div class="container">
-                <div class="panel panel-info col-lg-10 col-lg-offset-1 added-panel">
-                    <div class="panel-heading">@value.Fra - @value.Til</div>
-                    <div class="panel-body">
-                        <div><strong>@value.Arbeidsplass</strong> - @value.Stilling</div>
-                        <div><small>@value.Beskrivelse</small></div>
-                    </div>
-                </div>
-            </div>
-        }
-    </div>
 
+    </div>
 </div>
+
+
+
+
+
+

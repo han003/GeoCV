@@ -64,7 +64,7 @@
                             <div class="input-group">
                                 <span class="input-group-addon">Fra</span>
                                 <select id="education-select-from" class="form-control">
-                                    @for (var i = 0; i < 70; i++)
+                                    @for (var i = 0; i <= 100; i++)
                                     {
                                         <option>@(@DateTime.Now.Year - i)</option>
                                     }
@@ -76,7 +76,7 @@
                             <div class="input-group">
                                 <span class="input-group-addon">Til</span>
                                 <select id="education-select-to" class="form-control">
-                                    @for (var i = 0; i < 70; i++)
+                                    @for (var i = 0; i <= 100; i++)
                                     {
                                         <option>@(@DateTime.Now.Year - i)</option>
                                     }
@@ -94,7 +94,7 @@
 
                 </div>
 
-                
+
             </div>
 
         </div>

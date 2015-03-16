@@ -230,7 +230,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\NewProjectController.cs" />
     <Compile Include="Controllers\PersonalController.cs" />
-    <Compile Include="Controllers\ProController.cs" />
+    <Compile Include="Controllers\MyProjectsController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
@@ -349,6 +349,12 @@
     <Content Include="Content\Images\favicon.png" />
     <Content Include="Content\Images\geomatikk logo.png" />
     <Content Include="Content\Images\textured_paper.png" />
+    <Content Include="Content\myprojects.css">
+      <DependentUpon>myprojects.less</DependentUpon>
+    </Content>
+    <Content Include="Content\myprojects.min.css">
+      <DependentUpon>myprojects.css</DependentUpon>
+    </Content>
     <Content Include="Content\projects.css">
       <DependentUpon>projects.less</DependentUpon>
     </Content>
@@ -360,6 +366,12 @@
     </Content>
     <Content Include="Content\settings.min.css">
       <DependentUpon>settings.css</DependentUpon>
+    </Content>
+    <Content Include="Content\work.css">
+      <DependentUpon>work.less</DependentUpon>
+    </Content>
+    <Content Include="Content\work.min.css">
+      <DependentUpon>work.css</DependentUpon>
     </Content>
     <Content Include="Global.asax" />
     <Content Include="Scripts\adminroles.js" />
@@ -397,6 +409,9 @@
       <DependentUpon>editproject.js</DependentUpon>
     </Content>
     <Content Include="Scripts\education.js" />
+    <Content Include="Scripts\education.min.js">
+      <DependentUpon>education.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\expertise.min.js">
       <DependentUpon>expertise.js</DependentUpon>
     </Content>
@@ -453,6 +468,14 @@
     <Content Include="Content\education.css.map">
       <DependentUpon>education.css</DependentUpon>
     </Content>
+    <Content Include="Content\work.less" />
+    <Content Include="Content\work.css.map">
+      <DependentUpon>work.css</DependentUpon>
+    </Content>
+    <Content Include="Content\myprojects.less" />
+    <Content Include="Content\myprojects.css.map">
+      <DependentUpon>myprojects.css</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\geocv.pubxml" />
     <Content Include="Scripts\editproject.min.js.map">
       <DependentUpon>editproject.min.js</DependentUpon>
@@ -462,6 +485,9 @@
     </Content>
     <Content Include="Scripts\adminroles.min.js.map">
       <DependentUpon>adminroles.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\education.min.js.map">
+      <DependentUpon>education.min.js</DependentUpon>
     </Content>
     <None Include="Scripts\jquery\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\employees.js" />
@@ -491,9 +517,9 @@
     <Content Include="Scripts\personal.min.js">
       <DependentUpon>personal.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\pro.js" />
-    <Content Include="Scripts\pro.min.js">
-      <DependentUpon>pro.js</DependentUpon>
+    <Content Include="Scripts\myprojects.js" />
+    <Content Include="Scripts\myprojects.min.js">
+      <DependentUpon>myprojects.js</DependentUpon>
     </Content>
     <Content Include="Scripts\projects.js" />
     <Content Include="Scripts\projects.min.js">
@@ -522,6 +548,10 @@
     </Content>
     <Content Include="Scripts\stuff\respond.min.js">
       <DependentUpon>respond.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\work.js" />
+    <Content Include="Scripts\work.min.js">
+      <DependentUpon>work.js</DependentUpon>
     </Content>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -590,7 +620,7 @@
     <Content Include="Views\Expertise\Index.cshtml" />
     <Content Include="Views\Education\Index.cshtml" />
     <Content Include="Views\Work\Index.cshtml" />
-    <Content Include="Views\Pro\Index.cshtml" />
+    <Content Include="Views\MyProjects\Index.cshtml" />
     <Content Include="Views\Settings\Index.cshtml" />
     <Content Include="Views\Settings\_Partial.cshtml" />
     <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
@@ -604,8 +634,8 @@
     <Content Include="Scripts\personal.min.js.map">
       <DependentUpon>personal.min.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\pro.min.js.map">
-      <DependentUpon>pro.min.js</DependentUpon>
+    <Content Include="Scripts\myprojects.min.js.map">
+      <DependentUpon>myprojects.min.js</DependentUpon>
     </Content>
     <Content Include="Scripts\projects.min.js.map">
       <DependentUpon>projects.min.js</DependentUpon>
@@ -615,6 +645,9 @@
     </Content>
     <Content Include="Views\AdminRoles\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Scripts\work.min.js.map">
+      <DependentUpon>work.min.js</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
