@@ -141,6 +141,15 @@
           <Property Name="SpråkId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Språk" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="TekniskProfil">
+          <Key>
+            <PropertyRef Name="TekniskProfilId" />
+          </Key>
+          <Property Name="TekniskProfilId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Navn" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Elementer" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ProsjektProsjektId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Utdannelse">
           <Key>
             <PropertyRef Name="UtdannelseId" />
@@ -243,6 +252,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ProsjektTekniskProfil">
+          <End Role="Prosjekt" Type="Self.Prosjekt" Multiplicity="1" />
+          <End Role="TekniskProfil" Type="Self.TekniskProfil" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Prosjekt">
+              <PropertyRef Name="ProsjektId" />
+            </Principal>
+            <Dependent Role="TekniskProfil">
+              <PropertyRef Name="ProsjektProsjektId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="cvModelStoreContainer">
           <EntitySet Name="Arbeidserfaring" EntityType="Self.Arbeidserfaring" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CVVersjon" EntityType="Self.CVVersjon" Schema="dbo" store:Type="Tables" />
@@ -257,6 +278,7 @@
           <EntitySet Name="RammeverkListe" EntityType="Self.RammeverkListe" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ServersideListe" EntityType="Self.ServersideListe" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SpråkListe" EntityType="Self.SpråkListe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TekniskProfil" EntityType="Self.TekniskProfil" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Utdannelse" EntityType="Self.Utdannelse" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WebTeknologiListe" EntityType="Self.WebTeknologiListe" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_CVVersjonArbeidserfaring" Association="Self.FK_CVVersjonArbeidserfaring">
@@ -286,6 +308,10 @@
           <AssociationSet Name="FK_ProsjektMedlem" Association="Self.FK_ProsjektMedlem">
             <End Role="Prosjekt" EntitySet="Prosjekt" />
             <End Role="Medlem" EntitySet="Medlem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProsjektTekniskProfil" Association="Self.FK_ProsjektTekniskProfil">
+            <End Role="Prosjekt" EntitySet="Prosjekt" />
+            <End Role="TekniskProfil" EntitySet="TekniskProfil" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -420,7 +446,7 @@
           <Property Name="Fra" Type="Int16" />
           <Property Name="Til" Type="Int16" />
           <NavigationProperty Name="Medlem" Relationship="Self.FK_ProsjektMedlem" FromRole="Prosjekt" ToRole="Medlem" />
-          <NavigationProperty Name="TekniskProfil" Relationship="cvModel.ProsjektTekniskProfil" FromRole="Prosjekt" ToRole="TekniskProfil" />
+          <NavigationProperty Name="TekniskProfil" Relationship="Self.FK_ProsjektTekniskProfil" FromRole="Prosjekt" ToRole="TekniskProfil" />
         </EntityType>
         <EntityType Name="RammeverkListe">
           <Key>
@@ -442,6 +468,16 @@
           </Key>
           <Property Name="SpråkId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Språk" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TekniskProfil">
+          <Key>
+            <PropertyRef Name="TekniskProfilId" />
+          </Key>
+          <Property Name="TekniskProfilId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Navn" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Elementer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProsjektProsjektId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Prosjekt" Relationship="Self.FK_ProsjektTekniskProfil" FromRole="TekniskProfil" ToRole="Prosjekt" />
         </EntityType>
         <EntityType Name="Utdannelse">
           <Key>
@@ -546,7 +582,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="cvEntities3" annotation:LazyLoadingEnabled="true">
+        <Association Name="FK_ProsjektTekniskProfil">
+          <End Role="Prosjekt" Type="Self.Prosjekt" Multiplicity="1" />
+          <End Role="TekniskProfil" Type="Self.TekniskProfil" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Prosjekt">
+              <PropertyRef Name="ProsjektId" />
+            </Principal>
+            <Dependent Role="TekniskProfil">
+              <PropertyRef Name="ProsjektProsjektId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="cvEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Arbeidserfaring" EntityType="Self.Arbeidserfaring" />
           <EntitySet Name="CVVersjon" EntityType="Self.CVVersjon" />
           <EntitySet Name="DatabasesystemListe" EntityType="Self.DatabasesystemListe" />
@@ -560,6 +608,7 @@
           <EntitySet Name="RammeverkListe" EntityType="Self.RammeverkListe" />
           <EntitySet Name="ServersideListe" EntityType="Self.ServersideListe" />
           <EntitySet Name="SpråkListe" EntityType="Self.SpråkListe" />
+          <EntitySet Name="TekniskProfil" EntityType="Self.TekniskProfil" />
           <EntitySet Name="Utdannelse" EntityType="Self.Utdannelse" />
           <EntitySet Name="WebTeknologiListe" EntityType="Self.WebTeknologiListe" />
           <AssociationSet Name="FK_CVVersjonArbeidserfaring" Association="Self.FK_CVVersjonArbeidserfaring">
@@ -590,40 +639,17 @@
             <End Role="Prosjekt" EntitySet="Prosjekt" />
             <End Role="Medlem" EntitySet="Medlem" />
           </AssociationSet>
-          <EntitySet Name="TekniskProfil" EntityType="cvModel.TekniskProfil" />
-          <AssociationSet Name="ProsjektTekniskProfil" Association="cvModel.ProsjektTekniskProfil">
+          <AssociationSet Name="FK_ProsjektTekniskProfil" Association="Self.FK_ProsjektTekniskProfil">
             <End Role="Prosjekt" EntitySet="Prosjekt" />
             <End Role="TekniskProfil" EntitySet="TekniskProfil" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="TekniskProfil">
-          <Key>
-            <PropertyRef Name="TekniskProfilId" />
-          </Key>
-          <Property Name="TekniskProfilId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Navn" Type="String" Nullable="false" Unicode="true" MaxLength="50" />
-          <Property Name="Elementer" Type="String" Nullable="false" Unicode="true" />
-          <NavigationProperty Name="Prosjekt" Relationship="cvModel.ProsjektTekniskProfil" FromRole="TekniskProfil" ToRole="Prosjekt" />
-          <Property Name="ProsjektProsjektId" Type="Int32" Nullable="false" />
-        </EntityType>
-        <Association Name="ProsjektTekniskProfil">
-          <End Type="cvModel.Prosjekt" Role="Prosjekt" Multiplicity="1" />
-          <End Type="cvModel.TekniskProfil" Role="TekniskProfil" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Prosjekt">
-              <PropertyRef Name="ProsjektId" />
-            </Principal>
-            <Dependent Role="TekniskProfil">
-              <PropertyRef Name="ProsjektProsjektId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="cvModelStoreContainer" CdmEntityContainer="cvEntities3">
+        <EntityContainerMapping StorageEntityContainer="cvModelStoreContainer" CdmEntityContainer="cvEntities">
           <EntitySetMapping Name="Arbeidserfaring">
             <EntityTypeMapping TypeName="cvModel.Arbeidserfaring">
               <MappingFragment StoreEntitySet="Arbeidserfaring">
@@ -770,6 +796,16 @@
               <MappingFragment StoreEntitySet="SpråkListe">
                 <ScalarProperty Name="SpråkId" ColumnName="SpråkId" />
                 <ScalarProperty Name="Språk" ColumnName="Språk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TekniskProfil">
+            <EntityTypeMapping TypeName="cvModel.TekniskProfil">
+              <MappingFragment StoreEntitySet="TekniskProfil">
+                <ScalarProperty Name="TekniskProfilId" ColumnName="TekniskProfilId" />
+                <ScalarProperty Name="Navn" ColumnName="Navn" />
+                <ScalarProperty Name="Elementer" ColumnName="Elementer" />
+                <ScalarProperty Name="ProsjektProsjektId" ColumnName="ProsjektProsjektId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

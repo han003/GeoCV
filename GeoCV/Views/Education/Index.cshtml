@@ -32,12 +32,21 @@
 
                 <div role="tabpanel" class="tab-pane active" id="my-education-tab">
 
-                    @foreach (var Value in Model.Utdannelse)
-                    {
-                        @Value.Studiested <br />
-                        @Value.Fra    <br />
-                        @Value.Til    <br />
-                        @Value.Beskrivelse <br />
+                    @{
+                        var number = 0;
+                        
+                        foreach (var Value in Model.Utdannelse)
+                        {
+                            if (number > 0)
+                            {
+                                <hr />
+                            }
+                            <h2>@Value.Fra - @Value.Til</h2>
+                            <h4>@Value.Studiested</h4>
+                            <h4>@Value.Beskrivelse</h4>
+
+                            number++;
+                        }
                     }
 
                 </div>

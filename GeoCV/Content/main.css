@@ -2,9 +2,10 @@
   padding: 15px;
   border: 1px solid #dddddd;
   border-top: none;
-  background: #d9edff;
+  background: rgba(0, 0, 0, 0.35);
+  color: white;
 }
 .input-group span {
   min-width: 60px;
 }
-/*# sourceMappingURL=myprojects.css.map */
+/*# sourceMappingURL=main.css.map */

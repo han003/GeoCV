@@ -30,13 +30,21 @@
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="my-work-tab">
 
-                    @foreach (var Value in Model.Arbeidserfaring)
-                    {
-                        @Value.Arbeidsplass <br />
-                        @Value.Beskrivelse    <br />
-                        @Value.Stilling    <br />
-                        @Value.Fra    <br />
-                        @Value.Til
+                    @{
+                        var number = 0;
+
+                        foreach (var Value in Model.Arbeidserfaring)
+                        {
+                            if (number > 0)
+                            {
+                                <hr />
+                            }
+                            <h2>@Value.Fra - @Value.Til</h2>
+                            <h4>@Value.Arbeidsplass - @Value.Stilling</h4>
+                            <h4>@Value.Beskrivelse</h4>
+
+                            number++;
+                        }
                     }
 
                 </div>

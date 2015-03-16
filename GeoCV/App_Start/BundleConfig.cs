@@ -18,6 +18,7 @@ namespace GeoCV
 
             bundles.Add(new StyleBundle("~/Bundles/css/home")
                 .Include("~/Content/bootstrap.css")
+                .Include("~/Content/main.css")
                 .Include("~/Content/home.css"));
 
             // Dashboard
@@ -29,6 +30,7 @@ namespace GeoCV
 
             bundles.Add(new StyleBundle("~/Bundles/css/dashboard")
                 .Include("~/Content/bootstrap.css")
+                .Include("~/Content/main.css")
                 .Include("~/Content/dashboard.css"));
 
             // Search
@@ -40,6 +42,7 @@ namespace GeoCV
 
             bundles.Add(new StyleBundle("~/Bundles/css/search")
                 .Include("~/Content/bootstrap.css")
+                .Include("~/Content/main.css")
                 .Include("~/Content/search.css"));
 
             // Customize
@@ -51,6 +54,7 @@ namespace GeoCV
 
             bundles.Add(new StyleBundle("~/Bundles/css/customize")
                 .Include("~/Content/bootstrap.css")
+                .Include("~/Content/main.css")
                 .Include("~/Content/customize.css"));
 
             // Employees
@@ -62,6 +66,7 @@ namespace GeoCV
 
             bundles.Add(new StyleBundle("~/Bundles/css/employees")
                 .Include("~/Content/bootstrap.css")
+                .Include("~/Content/main.css")
                 .Include("~/Content/employees.css"));
 
             // Admin Projects
@@ -73,6 +78,7 @@ namespace GeoCV
 
             bundles.Add(new StyleBundle("~/Bundles/css/projects")
                 .Include("~/Content/bootstrap.css")
+                .Include("~/Content/main.css")
                 .Include("~/Content/projects.css"));
 
             // Register
@@ -84,6 +90,7 @@ namespace GeoCV
 
             bundles.Add(new StyleBundle("~/Bundles/css/register")
                 .Include("~/Content/bootstrap.css")
+                .Include("~/Content/main.css")
                 .Include("~/Content/register.css"));
 
             // Login
@@ -95,6 +102,7 @@ namespace GeoCV
 
             bundles.Add(new StyleBundle("~/Bundles/css/login")
                 .Include("~/Content/bootstrap.css")
+                .Include("~/Content/main.css")
                 .Include("~/Content/login.css"));
 
             // Manage
@@ -106,6 +114,7 @@ namespace GeoCV
 
             bundles.Add(new StyleBundle("~/Bundles/css/manage")
                 .Include("~/Content/bootstrap.css")
+                .Include("~/Content/main.css")
                 .Include("~/Content/manage.css"));
 
             // Change Password
@@ -117,6 +126,7 @@ namespace GeoCV
 
             bundles.Add(new StyleBundle("~/Bundles/css/changepass")
                 .Include("~/Content/bootstrap.css")
+                .Include("~/Content/main.css")
                 .Include("~/Content/changepass.css"));
 
             // Personal
@@ -129,6 +139,7 @@ namespace GeoCV
 
             bundles.Add(new StyleBundle("~/Bundles/css/personal")
                 .Include("~/Content/bootstrap.css")
+                .Include("~/Content/main.css")
                 .Include("~/Content/personal.css"));
 
             // Expertise
@@ -141,6 +152,7 @@ namespace GeoCV
 
             bundles.Add(new StyleBundle("~/Bundles/css/expertise")
                 .Include("~/Content/bootstrap.css")
+                .Include("~/Content/main.css")
                 .Include("~/Content/expertise.css"));
 
             // Education
@@ -153,6 +165,7 @@ namespace GeoCV
 
             bundles.Add(new StyleBundle("~/Bundles/css/education")
                 .Include("~/Content/bootstrap.css")
+                .Include("~/Content/main.css")
                 .Include("~/Content/education.css"));
 
             // Work
@@ -165,6 +178,7 @@ namespace GeoCV
 
             bundles.Add(new StyleBundle("~/Bundles/css/work")
                 .Include("~/Content/bootstrap.css")
+                .Include("~/Content/main.css")
                 .Include("~/Content/work.css"));
 
             // My Projects
@@ -177,6 +191,7 @@ namespace GeoCV
 
             bundles.Add(new StyleBundle("~/Bundles/css/myprojects")
                 .Include("~/Content/bootstrap.css")
+                .Include("~/Content/main.css")
                 .Include("~/Content/myprojects.css"));
 
             // New Project
@@ -188,6 +203,7 @@ namespace GeoCV
 
             bundles.Add(new StyleBundle("~/Bundles/css/newproject")
                 .Include("~/Content/bootstrap.css")
+                .Include("~/Content/main.css")
                 .Include("~/Content/newproject.css"));
 
             // Edit Project
@@ -199,6 +215,7 @@ namespace GeoCV
 
             bundles.Add(new StyleBundle("~/Bundles/css/editproject")
                 .Include("~/Content/bootstrap.css")
+                .Include("~/Content/main.css")
                 .Include("~/Content/editproject.css"));
 
             // Settings
@@ -210,6 +227,7 @@ namespace GeoCV
 
             bundles.Add(new StyleBundle("~/Bundles/css/settings")
                 .Include("~/Content/bootstrap.css")
+                .Include("~/Content/main.css")
                 .Include("~/Content/settings.css"));
 
             // Admin Roles
@@ -222,6 +240,7 @@ namespace GeoCV
 
             bundles.Add(new StyleBundle("~/Bundles/css/adminroles")
                 .Include("~/Content/bootstrap.css")
+                .Include("~/Content/main.css")
                 .Include("~/Content/adminroles.css"));
 
             // BundleTable.EnableOptimizations = true;

@@ -318,29 +318,11 @@
     <Content Include="Content\bootstrap.min.css">
       <DependentUpon>bootstrap.css</DependentUpon>
     </Content>
-    <Content Include="Content\cv.css">
-      <DependentUpon>cv.less</DependentUpon>
-    </Content>
-    <Content Include="Content\cv.min.css">
-      <DependentUpon>cv.css</DependentUpon>
-    </Content>
     <Content Include="Content\dashboard.css">
       <DependentUpon>dashboard.less</DependentUpon>
     </Content>
     <Content Include="Content\dashboard.min.css">
       <DependentUpon>dashboard.css</DependentUpon>
-    </Content>
-    <Content Include="Content\editproject.css">
-      <DependentUpon>editproject.less</DependentUpon>
-    </Content>
-    <Content Include="Content\editproject.min.css">
-      <DependentUpon>editproject.css</DependentUpon>
-    </Content>
-    <Content Include="Content\education.css">
-      <DependentUpon>education.less</DependentUpon>
-    </Content>
-    <Content Include="Content\education.min.css">
-      <DependentUpon>education.css</DependentUpon>
     </Content>
     <Content Include="Content\home.css">
       <DependentUpon>home.less</DependentUpon>
@@ -351,11 +333,11 @@
     <Content Include="Content\Images\favicon.png" />
     <Content Include="Content\Images\geomatikk logo.png" />
     <Content Include="Content\Images\shattered.png" />
-    <Content Include="Content\myprojects.css">
-      <DependentUpon>myprojects.less</DependentUpon>
+    <Content Include="Content\main.css">
+      <DependentUpon>main.less</DependentUpon>
     </Content>
-    <Content Include="Content\myprojects.min.css">
-      <DependentUpon>myprojects.css</DependentUpon>
+    <Content Include="Content\main.min.css">
+      <DependentUpon>main.css</DependentUpon>
     </Content>
     <Content Include="Content\projects.css">
       <DependentUpon>projects.less</DependentUpon>
@@ -369,13 +351,17 @@
     <Content Include="Content\settings.min.css">
       <DependentUpon>settings.css</DependentUpon>
     </Content>
-    <Content Include="Content\work.css">
-      <DependentUpon>work.less</DependentUpon>
-    </Content>
-    <Content Include="Content\work.min.css">
-      <DependentUpon>work.css</DependentUpon>
-    </Content>
     <Content Include="Global.asax" />
+    <Content Include="Models\Database.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Database.edmx</DependentUpon>
+      <LastGenOutput>Database.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Database.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Database.edmx</DependentUpon>
+      <LastGenOutput>Database.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\adminroles.js" />
     <Content Include="Scripts\adminroles.min.js">
       <DependentUpon>adminroles.js</DependentUpon>
@@ -383,15 +369,11 @@
     <Content Include="Scripts\bootstrap\bootstrap.js" />
     <Content Include="ApplicationInsights.config" />
     <Content Include="Content\animate.less" />
-    <Content Include="Content\cv.less" />
     <Content Include="Content\dashboard.less" />
     <Content Include="Content\home.less" />
     <Content Include="Content\search.less" />
     <Content Include="Content\animate.css.map">
       <DependentUpon>animate.css</DependentUpon>
-    </Content>
-    <Content Include="Content\cv.css.map">
-      <DependentUpon>cv.css</DependentUpon>
     </Content>
     <Content Include="Content\dashboard.css.map">
       <DependentUpon>dashboard.css</DependentUpon>
@@ -449,34 +431,12 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Database.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\Database.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Database.edmx</DependentUpon>
-      <LastGenOutput>Database.Context.cs</LastGenOutput>
-    </Content>
     <Content Include="Models\Database.edmx.diagram">
       <DependentUpon>Database.edmx</DependentUpon>
     </Content>
-    <Content Include="Models\Database.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Database.edmx</DependentUpon>
-      <LastGenOutput>Database.cs</LastGenOutput>
-    </Content>
-    <Content Include="Content\editproject.less" />
-    <Content Include="Content\editproject.css.map">
-      <DependentUpon>editproject.css</DependentUpon>
-    </Content>
-    <Content Include="Content\education.less" />
-    <Content Include="Content\education.css.map">
-      <DependentUpon>education.css</DependentUpon>
-    </Content>
-    <Content Include="Content\work.less" />
-    <Content Include="Content\work.css.map">
-      <DependentUpon>work.css</DependentUpon>
-    </Content>
-    <Content Include="Content\myprojects.less" />
-    <Content Include="Content\myprojects.css.map">
-      <DependentUpon>myprojects.css</DependentUpon>
+    <Content Include="Content\main.less" />
+    <Content Include="Content\main.css.map">
+      <DependentUpon>main.css</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\geocv.pubxml" />
     <Content Include="Scripts\editproject.min.js.map">

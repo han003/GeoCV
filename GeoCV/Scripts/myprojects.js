@@ -9,7 +9,7 @@
 $('#project-add-btn').click(function () {
 
     var project = $('#project-auto').val();
-    var role = $('#project-role-txt').val();
+    var role = $('#project-role-select').val();
 
     console.log('Prosjekt: ' + project);
     console.log('Rolle: ' + role);
