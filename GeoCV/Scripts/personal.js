@@ -1,13 +1,18 @@
-﻿$(document).ready(function () {
+﻿$.get('/Personal/GetLanguages', function (data) {
+    $(function () {
+        $("#Språk-auto").typeahead({
+            minLength: 0,
+            source: data
+        });
+    });
+}, 'json');
+
+$(document).ready(function () {
     refreshLanguages();
 })
 
 $('.update-txt').keyup(function () {
     update($(this));
-});
-
-$("#Språk-auto").on("click", function () {
-    $(this).typeahead('open');
 });
 
 function update(element) {

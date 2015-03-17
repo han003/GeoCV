@@ -1,0 +1,44 @@
+﻿@using System.Web.Optimization
+@using Microsoft.AspNet.Identity
+
+@model IEnumerable<GeoCV.Models.Feedback>
+
+@{
+    ViewBag.Title = "Feedback";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section css{
+    @Styles.Render("~/Bundles/css/feedback")
+}
+@section scripts{
+    @Scripts.Render("~/Bundles/js/feedback")
+}
+
+<div class="row">
+    <div class="col-lg-12">
+
+        <h2>Gi feedback</h2>
+
+        <textarea class="form-control" id="message-text" rows="6" placeholder="Skriv her"></textarea>
+
+        <button id="send-feedback">Send</button>
+
+
+        <br /><br />
+
+        <h6><strong>PS: denne feedback siden er bare midlertidig, og ikke en del av den endelige versjonen! Takk for feedback!</strong></h6>
+
+        @if (User.IsInRole("Admin"))
+        {
+            foreach (var Feedback in Model)
+            {
+                <hr />
+                <h3>@Feedback.Person - @Feedback.Dato</h3>
+                <h5>@Feedback.Beskjed</h5>
+
+            }
+        }
+        
+
+    </div>
+</div>

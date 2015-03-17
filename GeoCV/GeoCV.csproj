@@ -225,6 +225,7 @@
     <Compile Include="Controllers\EducationController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\ExpertiseController.cs" />
+    <Compile Include="Controllers\FeedbackController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\NewProjectController.cs" />
@@ -242,7 +243,22 @@
     <Compile Include="Models\Arbeidserfaring.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AspNetRoles.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserClaims.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserLogins.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUsers.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CVVersjon.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C__MigrationHistory.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Database.Context.cs">
@@ -261,6 +277,9 @@
       <DependentUpon>Database.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\DatabasesystemListe.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Feedback.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
@@ -399,6 +418,10 @@
     <Content Include="Scripts\expertise.min.js">
       <DependentUpon>expertise.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\feedback.js" />
+    <Content Include="Scripts\feedback.min.js">
+      <DependentUpon>feedback.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\newproject.js" />
     <Content Include="Scripts\newproject.min.js">
       <DependentUpon>newproject.js</DependentUpon>
@@ -427,16 +450,16 @@
     <Content Include="Content\settings.css.map">
       <DependentUpon>settings.css</DependentUpon>
     </Content>
+    <Content Include="Content\main.less" />
+    <Content Include="Content\main.css.map">
+      <DependentUpon>main.css</DependentUpon>
+    </Content>
     <EntityDeploy Include="Models\Database.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Database.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <Content Include="Models\Database.edmx.diagram">
       <DependentUpon>Database.edmx</DependentUpon>
-    </Content>
-    <Content Include="Content\main.less" />
-    <Content Include="Content\main.css.map">
-      <DependentUpon>main.css</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\geocv.pubxml" />
     <Content Include="Scripts\editproject.min.js.map">
@@ -450,6 +473,9 @@
     </Content>
     <Content Include="Scripts\education.min.js.map">
       <DependentUpon>education.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\feedback.min.js.map">
+      <DependentUpon>feedback.min.js</DependentUpon>
     </Content>
     <None Include="Scripts\jquery\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\employees.js" />
@@ -610,6 +636,7 @@
     <Content Include="Scripts\work.min.js.map">
       <DependentUpon>work.min.js</DependentUpon>
     </Content>
+    <Content Include="Views\Feedback\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -30,6 +30,7 @@ namespace GeoCV.Controllers
         public ActionResult GetLanguages()
         {
             var Item = from a in db.SpråkListe
+                       orderby a.Språk ascending
                        select a.Språk;
 
             return Json(Item, JsonRequestBehavior.AllowGet);

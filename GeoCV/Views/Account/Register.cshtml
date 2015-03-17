@@ -50,6 +50,13 @@
                         @Html.PasswordFor(m => m.Password, new { @class = "form-control", autocomplete = "off" })
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-2">
+                        <h6>Passord må inneholde minst 6 tegn, minst en liten bokstav (a-å), minst en stor bokstav (A-Å) og minst ett tall (0-9).</h6>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
                     <div class="col-md-10">
