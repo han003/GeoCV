@@ -202,7 +202,7 @@ namespace GeoCV.Controllers
                     var UserMan = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
                     
                     // Employee role
-                    string EmployeeRole = "Admin";
+                    string EmployeeRole = "Ansatt";
 
                     // If role doesn't exist
                     if (!RoleMan.RoleExists(EmployeeRole))

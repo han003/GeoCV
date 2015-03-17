@@ -152,8 +152,7 @@ namespace GeoCV
 
             bundles.Add(new StyleBundle("~/Bundles/css/expertise")
                 .Include("~/Content/bootstrap.css")
-                .Include("~/Content/main.css")
-                .Include("~/Content/expertise.css"));
+                .Include("~/Content/main.css"));
 
             // Education
             bundles.Add(new ScriptBundle("~/Bundles/js/education")
@@ -165,8 +164,7 @@ namespace GeoCV
 
             bundles.Add(new StyleBundle("~/Bundles/css/education")
                 .Include("~/Content/bootstrap.css")
-                .Include("~/Content/main.css")
-                .Include("~/Content/education.css"));
+                .Include("~/Content/main.css"));
 
             // Work
             bundles.Add(new ScriptBundle("~/Bundles/js/work")
@@ -178,8 +176,7 @@ namespace GeoCV
 
             bundles.Add(new StyleBundle("~/Bundles/css/work")
                 .Include("~/Content/bootstrap.css")
-                .Include("~/Content/main.css")
-                .Include("~/Content/work.css"));
+                .Include("~/Content/main.css"));
 
             // My Projects
             bundles.Add(new ScriptBundle("~/Bundles/js/myprojects")
@@ -191,8 +188,7 @@ namespace GeoCV
 
             bundles.Add(new StyleBundle("~/Bundles/css/myprojects")
                 .Include("~/Content/bootstrap.css")
-                .Include("~/Content/main.css")
-                .Include("~/Content/myprojects.css"));
+                .Include("~/Content/main.css"));
 
             // New Project
             bundles.Add(new ScriptBundle("~/Bundles/js/newproject")
