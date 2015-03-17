@@ -29,6 +29,7 @@ namespace GeoCV.Controllers
         public ActionResult GetProjects()
         {
             var Item = from a in db.Prosjekt
+                       orderby a.Navn ascending
                        select a.Navn;
 
             return Json(Item, JsonRequestBehavior.AllowGet);

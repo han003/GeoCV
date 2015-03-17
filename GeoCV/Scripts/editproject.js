@@ -1,79 +1,41 @@
 ﻿$(document).ready(function () {
+    getProjects();
+})
+
+function getProjects() {
     $.get('/EditProject/GetElements', function (data) {
-        var autocomplete = $('#tech-auto').typeahead();
-        autocomplete.data('typeahead').source = data;
-        autocomplete.data('json', data);
+        $(function () {
+            $("#tech-auto").typeahead({
+                minLength: 0,
+                source: data
+            });
+        });
+
+        $("#tech-load").addClass('hidden');
+        $("#tech-form").removeClass('hidden');
+
+        $("#tech-auto").data('json', data);
     }, 'json');
-})
-
-$('.update-txt').keyup(function () {
-    update($(this));
-});
-
-function update(element) {
-
-    var tableColumn = element.attr('id').substring(0, element.attr('id').indexOf('-'));
-    var newValue = element.val();
-    var Id = $('.title').attr('id');
-
-    console.log("Table: " + tableColumn);
-    console.log("Value: " + newValue);
-
-    $.post('/EditProject/Update', { Id: Id, Update: tableColumn, Value: newValue });
-
 }
 
-$('#tech-add-btn').click(function () {
-    var element = $('#tech-auto').val();
-    $('#tech-group').append('<button type="button" class="btn btn-info added-btn" tabindex="-1">' + element + '</button>');
-
-    var element = $('#tech-auto').val('');
-});
-
-
-/////////////////////////////////////////////////////////////////////////////////
-
-
-$.get('/Personal/GetLanguages', function (data) {
-    console.log(data);
-    $("#test").typeahead({ source: data });
-}, 'json');
-
-$("#test").on("click", function () {
-    $(this).typeahead('open');
-});
-
-$(document).ready(function () {
-    refreshLanguages();
-})
-
 $('.update-txt').keyup(function () {
-    update($(this));
+    updateProjectInfo($(this));
 });
 
-$("#Språk-auto").on("click", function () {
-    $(this).typeahead('open');
-});
-
-function update(element) {
+function updateProjectInfo(element) {
 
     var tableColumn = element.attr('id').substring(0, element.attr('id').indexOf('-'));
     var newValue = element.val();
 
-    console.log("Table: " + tableColumn);
+    // Finn ID
+    var id = window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1);
+
+    console.log("Id: " + id);
     console.log("Value: " + newValue);
 
-    $.post('/Personal/Update', { Update: tableColumn, Value: newValue });
-}
+    $.post('/EditProject/UpdateProjectInfo', { Id: id, Update: tableColumn, Value: newValue });
 
-function refreshLanguages() {
-    $.get('/Personal/GetLanguages', function (data) {
-        var autocomplete = $('#Språk-auto').typeahead();
-        autocomplete.data('typeahead').source = data;
-        autocomplete.data('json', data);
-    }, 'json');
 }
-
 
 //////////////////// INSERT NEW AUTO STUFF
 
@@ -82,12 +44,12 @@ var userAutoInput;
 var databaseUpdateColumn;
 
 // What happens when add button is clicked
-$('.add-item-btn').click(function () {
+$('#tech-add-btn').click(function () {
     addItem($(this));
 });
 
 // What happens when the Enter key is pressed
-$('.add-item-auto').keypress(function (event) {
+$('#tech-auto').keypress(function (event) {
     var keycode = (event.keyCode ? event.keyCode : event.which);
     if (keycode == '13') {
         addItem($(this));
@@ -101,7 +63,6 @@ $('body').on('click', '.added-btn', function () {
     databaseUpdateColumn = databaseUpdateColumn.substring(0, databaseUpdateColumn.indexOf('-'));
 
     $(this).remove();
-    updateDatabase();
 });
 
 function addItem(element) {
@@ -124,10 +85,6 @@ function addItem(element) {
     if (itemExists(userAutoInput, json)) {
         $('#' + databaseUpdateColumn + '-group').append('<button type="button" class="btn btn-info added-btn" tabindex="-1">' + userAutoInput + '</button>');
         autoTextfield.val('');
-        updateDatabase();
-    } else {
-        $('#modalAddText').append('<code>' + userAutoInput + '</code> finnes ikke i databasen, vil legge den til?');
-        $('#myModal').modal();
     }
 }
 
@@ -142,38 +99,8 @@ function itemExists(userAutoInput, json) {
     return exists;
 }
 
-// Reset the text in the modal whenever the modal is hidden
-$('#myModal').on('hidden.bs.modal', function (event) {
-    $('#modalAddText').text('');
-});
-
-// If modal button to add is clicked, add new item to database
-$('#modalAddItem').click(function () {
-    // Insert into database
-    insertAutoItem(databaseUpdateColumn, userAutoInput);
-
-    // Hide modal
-    $('#myModal').modal('hide');
-
-    // Append the new button
-    $('#' + databaseUpdateColumn + '-group').append('<button type="button" class="btn btn-info added-btn" tabindex="-1">' + userAutoInput + '</button>');
-
-    // Erase the text in the autocomplete textfield
-    autoTextfield.val('');
-
-    // Update field in database
-    updateDatabase();
-});
-
-function insertAutoItem(databaseUpdateColumn, userAutoInput) {
-    console.log('Inserting ' + userAutoInput + ' into ' + databaseUpdateColumn)
-    $.post('/Personal/InsertItem', { Insert: databaseUpdateColumn, Value: userAutoInput }, function () {
-        refreshLanguages();
-    });
-}
-
-function updateDatabase() {
-
+// What happens when add button is clicked
+$('#tech-save-btn').click(function () {
     // Empty var to hold text
     var newValue = '';
 
@@ -188,8 +115,21 @@ function updateDatabase() {
     console.log("Table: " + databaseUpdateColumn);
     console.log("Value: " + newValue);
 
+    // Finn ID
+    var id = window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1);
+
+    var navn = $('#tech-name').val();
+
     // Update
-    $.post('/Personal/Update', { Update: databaseUpdateColumn, Value: newValue });
-}
-
-
+    $.ajax({
+        url: '/EditProject/AddTechProfile',
+        data: { Id: id, Navn: navn, Elementer: newValue },
+        type: 'POST',
+        success: function (data) {
+            $('#tech-group').html('');
+            $('#tech-name').val('');
+            $('#tech-auto').val('');
+            alert('temp alert: la til ny profil');
+        }
+    });
+});

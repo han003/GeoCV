@@ -6,39 +6,93 @@ $(document).ready(function () {
 
 function refreshAutoLists() {
     $.get('/Expertise/GetProgrammingLanguages', function (data) {
-        var autocomplete = $('#Programmeringsspråk-auto').typeahead();
-        autocomplete.data('typeahead').source = data;
-        autocomplete.data('json', data);
+        console.log(data);
+        $(function () {
+            $("#Programmeringsspråk-auto").typeahead({
+                minLength: 0,
+                source: data
+            });
+        });
+
+        $("#Programmeringsspråk-load").addClass('hidden');
+        $("#Programmeringsspråk-form").removeClass('hidden');
+
+        $("#Programmeringsspråk-auto").data('json', data);
     }, 'json');
 
     $.get('/Expertise/GetFrameworks', function (data) {
-        var autocomplete = $('#Rammeverk-auto').typeahead();
-        autocomplete.data('typeahead').source = data;
-        autocomplete.data('json', data);
+        console.log(data);
+        $(function () {
+            $("#Rammeverk-auto").typeahead({
+                minLength: 0,
+                source: data
+            });
+        });
+
+        $("#Rammeverk-load").addClass('hidden');
+        $("#Rammeverk-form").removeClass('hidden');
+
+        $("#Rammeverk-auto").data('json', data);
     }, 'json');
 
     $.get('/Expertise/GetWebTechnologies', function (data) {
-        var autocomplete = $('#WebTeknologier-auto').typeahead();
-        autocomplete.data('typeahead').source = data;
-        autocomplete.data('json', data);
+        console.log(data);
+        $(function () {
+            $("#WebTeknologier-auto").typeahead({
+                minLength: 0,
+                source: data
+            });
+        });
+
+        $("#WebTeknologier-load").addClass('hidden');
+        $("#WebTeknologier-form").removeClass('hidden');
+
+        $("#WebTeknologier-auto").data('json', data);
     }, 'json');
 
     $.get('/Expertise/GetDatabaseSystems', function (data) {
-        var autocomplete = $('#Databasesystemer-auto').typeahead();
-        autocomplete.data('typeahead').source = data;
-        autocomplete.data('json', data);
+        console.log(data);
+        $(function () {
+            $("#Databasesystemer-auto").typeahead({
+                minLength: 0,
+                source: data
+            });
+        });
+
+        $("#Databasesystemer-load").addClass('hidden');
+        $("#Databasesystemer-form").removeClass('hidden');
+
+        $("#Databasesystemer-auto").data('json', data);
     }, 'json');
 
     $.get('/Expertise/GetServerside', function (data) {
-        var autocomplete = $('#Serverside-auto').typeahead();
-        autocomplete.data('typeahead').source = data;
-        autocomplete.data('json', data);
+        console.log(data);
+        $(function () {
+            $("#Serverside-auto").typeahead({
+                minLength: 0,
+                source: data
+            });
+        });
+
+        $("#Serverside-load").addClass('hidden');
+        $("#Serverside-form").removeClass('hidden');
+
+        $("#Serverside-auto").data('json', data);
     }, 'json');
 
     $.get('/Expertise/GetOperatingSystems', function (data) {
-        var autocomplete = $('#Operativsystemer-auto').typeahead();
-        autocomplete.data('typeahead').source = data;
-        autocomplete.data('json', data);
+        console.log(data);
+        $(function () {
+            $("#Operativsystemer-auto").typeahead({
+                minLength: 0,
+                source: data
+            });
+        });
+
+        $("#Operativsystemer-load").addClass('hidden');
+        $("#Operativsystemer-form").removeClass('hidden');
+
+        $("#Operativsystemer-auto").data('json', data);
     }, 'json');
 }
 

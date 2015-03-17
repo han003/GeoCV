@@ -30,6 +30,7 @@ namespace GeoCV.Controllers
         public ActionResult GetProgrammingLanguages()
         {
             var Item = from a in db.ProgrammeringsspråkListe
+                       orderby a.Programmeringsspråk ascending
                        select a.Programmeringsspråk;
 
             return Json(Item, JsonRequestBehavior.AllowGet);
@@ -39,6 +40,7 @@ namespace GeoCV.Controllers
         public ActionResult GetFrameworks()
         {
             var Item = from a in db.RammeverkListe
+                       orderby a.Rammeverk ascending
                        select a.Rammeverk;
 
             return Json(Item, JsonRequestBehavior.AllowGet);
@@ -48,6 +50,7 @@ namespace GeoCV.Controllers
         public ActionResult GetWebTechnologies()
         {
             var Item = from a in db.WebTeknologiListe
+                       orderby a.WebTeknologi ascending
                        select a.WebTeknologi;
 
             return Json(Item, JsonRequestBehavior.AllowGet);
@@ -57,6 +60,7 @@ namespace GeoCV.Controllers
         public ActionResult GetDatabaseSystems()
         {
             var Item = from a in db.DatabasesystemListe
+                       orderby a.Databasesystem ascending
                        select a.Databasesystem;
 
             return Json(Item, JsonRequestBehavior.AllowGet);
@@ -66,6 +70,7 @@ namespace GeoCV.Controllers
         public ActionResult GetServerside()
         {
             var Item = from a in db.ServersideListe
+                       orderby a.Serverside ascending
                        select a.Serverside;
 
             return Json(Item, JsonRequestBehavior.AllowGet);
@@ -75,6 +80,7 @@ namespace GeoCV.Controllers
         public ActionResult GetOperatingSystems()
         {
             var Item = from a in db.OperativsystemListe
+                       orderby a.Operativsystem ascending
                        select a.Operativsystem;
 
             return Json(Item, JsonRequestBehavior.AllowGet);

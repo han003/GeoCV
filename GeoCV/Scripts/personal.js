@@ -1,14 +1,5 @@
-﻿$.get('/Personal/GetLanguages', function (data) {
-    $(function () {
-        $("#Språk-auto").typeahead({
-            minLength: 0,
-            source: data
-        });
-    });
-}, 'json');
-
-$(document).ready(function () {
-    refreshLanguages();
+﻿$(document).ready(function () {
+    getLanguages();
 })
 
 $('.update-txt').keyup(function () {
@@ -26,11 +17,19 @@ function update(element) {
     $.post('/Personal/Update', { Update: tableColumn, Value: newValue });
 }
 
-function refreshLanguages() {
+function getLanguages() {
     $.get('/Personal/GetLanguages', function (data) {
-        var autocomplete = $('#Språk-auto').typeahead();
-        autocomplete.data('typeahead').source = data;
-        autocomplete.data('json', data);
+        $(function () {
+            $("#Språk-auto").typeahead({
+                minLength: 0,
+                source: data
+            });
+        });
+
+        $("#Språk-load").addClass('hidden');
+        $("#Språk-form").removeClass('hidden');
+
+        $("#Språk-auto").data('json', data);
     }, 'json');
 }
 

@@ -23,7 +23,7 @@ namespace GeoCV.Controllers
         }
 
         [HttpPost]
-        public void Update(int Id, string Update, string Value)
+        public void UpdateProjectInfo(int Id, string Update, string Value)
         {
             var Item = from a in db.Prosjekt
                        where a.ProsjektId.Equals(Id)
@@ -100,6 +100,25 @@ namespace GeoCV.Controllers
 
             // Send listen som et JSON elemnt til View
             return Json(ElementListe, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpPost]
+        public void AddTechProfile(int Id, string Navn, string Elementer)
+        {
+            var Item = from a in db.Prosjekt
+                       where a.ProsjektId.Equals(Id)
+                       select a;
+
+            Prosjekt Pro = Item.FirstOrDefault();
+
+            TekniskProfil NyTekniskProfil = new TekniskProfil();
+            NyTekniskProfil.Navn = Navn;
+            NyTekniskProfil.Elementer = Elementer;
+
+            Pro.TekniskProfil.Add(NyTekniskProfil);
+
+            db.SaveChanges();
         }
 
     }

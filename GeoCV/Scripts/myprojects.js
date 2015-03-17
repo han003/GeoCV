@@ -1,8 +1,16 @@
 ﻿$(document).ready(function () {
     $.get('/MyProjects/GetProjects', function (data) {
-        var autocomplete = $('#project-auto').typeahead();
-        autocomplete.data('typeahead').source = data;
-        autocomplete.data('json', data);
+        $(function () {
+            $("#project-auto").typeahead({
+                minLength: 0,
+                source: data
+            });
+        });
+
+        $("#project-load").addClass('hidden');
+        $("#project-form").removeClass('hidden');
+
+        $("#project-auto").data('json', data);
     }, 'json');
 })
 
@@ -14,7 +22,15 @@ $('#project-add-btn').click(function () {
     console.log('Prosjekt: ' + project);
     console.log('Rolle: ' + role);
 
-    $.post('/MyProjects/AddNewProject', { Prosjekt: project, Rolle: role });
+    $.ajax({
+        url: '/MyProjects/AddNewProject',
+        data: { Prosjekt: project, Rolle: role },
+        type: 'POST',
+        success: function (data) {
+            $('#project-auto').val('');
+            alert('temp alert box: lagt til!');
+        }
+    });
 
 });
 
