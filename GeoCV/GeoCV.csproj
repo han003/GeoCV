@@ -593,7 +593,6 @@
     <Content Include="Views\Expertise\Index.cshtml" />
     <Content Include="Views\Education\Index.cshtml" />
     <Content Include="Views\Work\Index.cshtml" />
-    <Content Include="Views\MyProjects\Index.cshtml" />
     <Content Include="Views\Settings\Index.cshtml" />
     <Content Include="Views\Settings\_Partial.cshtml" />
     <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
@@ -622,6 +621,7 @@
       <DependentUpon>work.min.js</DependentUpon>
     </Content>
     <Content Include="Views\Feedback\Index.cshtml" />
+    <Content Include="Views\MyProjects\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

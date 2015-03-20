@@ -1,0 +1,93 @@
+﻿@using System.Web.Optimization
+@using Microsoft.AspNet.Identity
+
+@model GeoCV.Models.CVVersjon
+
+@{
+    ViewBag.Title = "Nøkkelkompetanse";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section css{
+    @Styles.Render("~/Bundles/css/expertise")
+}
+@section scripts{
+    @Scripts.Render("~/Bundles/js/expertise")
+}
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Legg til</h4>
+            </div>
+            <div id="modalAddText" class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button id="modalDontAddItem" type="button" class="btn btn-default" data-dismiss="modal">Nei</button>
+                <button id="modalAddItem" type="button" class="btn btn-success">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+
+
+
+        <div role="tabpanel">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#my-projects" aria-controls="my-projects" role="tab" data-toggle="tab">Prosjekter</a></li>
+                <li role="presentation"><a href="#new-project" aria-controls="new-project" role="tab" data-toggle="tab">Lag nytt prosjekt</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="my-projects">
+
+                    <h2>1991 - 1991</h2>
+                    <h4>prosjekt1 - Test Rolle 1</h4>
+                    <h4>beskrivelse av prosjekt1</h4>
+
+
+                </div>
+
+
+                <div role="tabpanel" class="tab-pane" id="new-project">
+
+                    <h3 id="project-load">Laster inn <i class="fa fa-spinner fa-pulse"></i></h3>
+
+                    <div id="project-form" class="form-horizontal hidden">
+
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>Prosjekt</label>
+                                <input id="project-auto" type="text" class="form-control add-item-auto typeahead" placeholder="Søk etter prosjekt" data-provide="typeahead" autocomplete="off">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>Rolle</label>
+                                <select id="project-role-select" class="form-control">
+                                    <option>Utvikler</option>
+                                    <option>Test Rolle 1</option>
+                                    <option>Test Rolle 2</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <button id="project-add-btn" class="btn btn-success" type="button">Legg til prosjekt</button>
+                            </div>
+                        </div>
+                      
+            </div>
+        </div>
+    </div>
+</div>

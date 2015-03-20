@@ -23,40 +23,69 @@
         </div>
         <hr />
 
-        <div class="form-group">
-            <input type="text" class="form-control" id="search-employee" placeholder="Søk etter ansatt">
+        <div role="tabpanel">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#ansatte" aria-controls="ansatte" role="tab" data-toggle="tab">Ansatte</a></li>
+                <li role="presentation"><a href="#ny-ansatt" aria-controls="ny-ansatt" role="tab" data-toggle="tab">Ny ansatt</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="ansatte">
+
+
+
+                    <table class="table table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <td>
+                                    <strong>Fornavn</strong>
+                                </td>
+                                <td>
+                                    <strong>Etternavn</strong>
+                                </td>
+                                <td>
+                                    <strong>Rolle</strong>
+                                </td>
+                            </tr>
+                        </thead>
+
+
+                    </table>
+
+                </div>
+
+                <div role="tabpanel" class="tab-pane" id="ny-ansatt">
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="search" placeholder="Fornavn">
+                        <input type="text" class="form-control" id="search" placeholder="Etternavn">
+                        <input type="text" class="form-control" id="search" placeholder="E-post">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="search" placeholder="Brukernavn">
+                        <input type="text" class="form-control" id="search" placeholder="Passord">
+                    </div>
+
+                    <select id="role-select" class="form-control">
+                        <option>Administrator</option>
+                        <option>Bruker</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-12">
+                    <button id="ny-ansatt" class="btn btn-success" type="button">Ny ansatt</button>
+                </div>
+            </div>
+
         </div>
 
-        <table class="table table-hover table-bordered">
-            <thead>
-                <tr>
-                    <td>
-                        <strong>Fornavn</strong>
-                    </td>
-                    <td>
-                        <strong>Etternavn</strong>
-                    </td>
-                    <td>
-                        <strong>Rolle</strong>
-                    </td>
-                </tr>
-            </thead>
 
-            <tbody>
-
-                @foreach (var Item in Model)
-                {
-                    <tr>
-                        <td>@Item.Person.Fornavn</td>
-                        <td>@Item.Person.Etternavn</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                }
-
-            </tbody>
-        </table>
 
     </div>
 </div>
