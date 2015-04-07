@@ -52,7 +52,7 @@
                             <div class="form-horizontal">
                                 <div class="form-group">
                                     <div class="col-lg-12">
-                                        <label><font size="+1" color="black">Fornavn</label></font>
+                                        <label>Fornavn</label>
                                         <input type="text" class="form-control update-txt" value="@Model.Person.Fornavn" id="@Html.DisplayNameFor(m => Model.Person.Fornavn)-txt">
                                     </div>
                                 </div>
@@ -60,44 +60,61 @@
 
                                 <div class="form-group">
                                     <div class="col-lg-12">
-                                        <label><font size="+1" color="black">Mellomnavn</label></font>
+                                        <label>Mellomnavn</label>
                                         <input type="text" class="form-control update-txt" value="@Model.Person.Mellomnavn" id="@Html.DisplayNameFor(m => Model.Person.Mellomnavn)-txt">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <div class="col-lg-12">
-                                        <label><font size="+1" color="black">Etternavn</label></font>
+                                        <label>Etternavn</label>
                                         <input type="text" class="form-control update-txt" value="@Model.Person.Etternavn" id="@Html.DisplayNameFor(m => Model.Person.Etternavn)-txt">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <div class="col-lg-12">
-                                        <label><font size="+1" color="black">Nasjonalitet</label></font>
-                                        <select class="form-control bfh-countries" data-country="NO"></select>
-                                   <!--     <input type="text" class="form-control update-txt" value="@Model.Person.Nasjonalitet" id="@Html.DisplayNameFor(m => Model.Person.Nasjonalitet)-txt">   -->
+                                        <label>Nasjonalitet</label>
+                                        <select class="form-control">
+                                            <option>Dansk</option>
+                                            <option>Engelsk</option>
+                                            <option>Finsk</option>
+                                            <option>Fransk</option>
+                                            <option selected>Norsk</option>
+                                            <option>Svensk</option>
+                                        </select>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <div class="col-lg-12">
-                                        <label><font size="+1" color="black">Fødselsår</label></font>
-                                        <input type="text" class="form-control update-txt" value="@Model.Person.Fødselsår" id="@Html.DisplayNameFor(m => Model.Person.Fødselsår)-txt">
+                                        <label>Fødselsår</label>
+                                        <input id="birthday-date" class="form-control update-txt" type="date">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <div class="col-lg-12">
-                                        <label><font size="+1" color="black">Stilling</label></font>
-                                        <input type="text" class="form-control update-txt" value="@Model.Person.Stilling" id="@Html.DisplayNameFor(m => Model.Person.Stilling)-txt">
+                                        <label>Stilling</label>
+                                        <select class="form-control">
+                                            <option>Stilling 1</option>
+                                            <option>Stilling 2</option>
+                                            <option>Stilling 3</option>
+                                        </select>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <div class="col-lg-12">
-                                        <label><font size="+1" color="black">År erfaring</label></font>
+                                        <label>År Erfaring Før Oppstart I Geomatikk</label>
                                         <input type="text" class="form-control update-txt" value="@Model.Person.ÅrErfaring" id="@Html.DisplayNameFor(m => Model.Person.ÅrErfaring)-txt">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-lg-12">
+                                        <label>Startdato I Geomatikk</label>
+                                        <input id="geomatikk-start-date" class="form-control update-txt" type="date">
                                     </div>
                                 </div>
 

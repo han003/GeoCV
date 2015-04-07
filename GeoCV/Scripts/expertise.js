@@ -164,6 +164,22 @@ function itemExists(userAutoInput, json) {
     return exists;
 }
 
+// Enter key when the modal is visible
+$(document).keypress(function (event) {
+    var keycode = (event.keyCode ? event.keyCode : event.which);
+    if (keycode == '13' && $('#myModal').is(":visible")) {
+        addToDatabase();
+    }
+});
+
+// Close modal if Esc is pressed
+$(document).keypress(function (event) {
+    var keycode = (event.keyCode ? event.keyCode : event.which);
+    if (keycode == '27' && $('#myModal').is(":visible")) {
+        $('#myModal').modal('hide');
+    }
+});
+
 // Reset the text in the modal whenever the modal is hidden
 $('#myModal').on('hidden.bs.modal', function (event) {
     $('#modalAddText').text('');
@@ -171,6 +187,11 @@ $('#myModal').on('hidden.bs.modal', function (event) {
 
 // If modal button to add is clicked, add new item to database
 $('#modalAddItem').click(function () {
+    addToDatabase();
+});
+
+// Add new item to the database
+function addToDatabase() {
     // Insert into database
     insertAutoItem(databaseUpdateColumn, userAutoInput);
 
@@ -185,7 +206,7 @@ $('#modalAddItem').click(function () {
 
     // Update field in database
     updateDatabase();
-});
+}
 
 function insertAutoItem(databaseUpdateColumn, userAutoInput) {
     console.log('Inserting ' + userAutoInput + ' into ' + databaseUpdateColumn)

@@ -328,6 +328,12 @@
     <Content Include="Content\dashboard.min.css">
       <DependentUpon>dashboard.css</DependentUpon>
     </Content>
+    <Content Include="Content\employees.css">
+      <DependentUpon>employees.less</DependentUpon>
+    </Content>
+    <Content Include="Content\employees.min.css">
+      <DependentUpon>employees.css</DependentUpon>
+    </Content>
     <Content Include="Content\home.css">
       <DependentUpon>home.less</DependentUpon>
     </Content>
@@ -410,6 +416,9 @@
     <Content Include="Scripts\feedback.min.js">
       <DependentUpon>feedback.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\myprojects.min.js">
+      <DependentUpon>myprojects.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\newproject.js" />
     <Content Include="Scripts\newproject.min.js">
       <DependentUpon>newproject.js</DependentUpon>
@@ -448,6 +457,10 @@
     </EntityDeploy>
     <Content Include="Models\Database.edmx.diagram">
       <DependentUpon>Database.edmx</DependentUpon>
+    </Content>
+    <Content Include="Content\employees.less" />
+    <Content Include="Content\employees.css.map">
+      <DependentUpon>employees.css</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\geocv %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\geocv.pubxml" />
@@ -617,6 +630,9 @@
     </Content>
     <Content Include="Views\Feedback\Index.cshtml" />
     <Content Include="Views\MyProjects\Index.cshtml" />
+    <Content Include="Scripts\myprojects.min.js.map">
+      <DependentUpon>myprojects.min.js</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
