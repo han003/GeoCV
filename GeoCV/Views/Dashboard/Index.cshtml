@@ -137,7 +137,7 @@
 
                 <a class="panel-link" href="/Download/Word">
                     <div class="panel-body">
-                        <i class="fa fa-file-word-o"></i>
+                        <i class="fa fa-file-word-o fa-flip-horizontal"></i>
                         <div>
                             Last ned Word
                         </div>
@@ -146,6 +146,43 @@
 
             </div>
         </div>
+
+@if (User.IsInRole("Admin")) { 
+        
+        <div class="col-lg-3">
+            <div class="panel panel-default">
+
+                <a class="panel-link" href="/Search/">
+                    <div class="panel-body">
+                        <i class="fa fa-search"></i>
+                        <div>
+                            SØK
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+        
+        
+       
+        
+            <div class="col-lg-3">
+                <div class="panel panel-default">
+
+                    <a class="panel-link" href="/Employees/">
+                        <div class="panel-body">
+                            <i class="fa fa-users"></i>
+                            <div>
+                                Ansatte
+                            </div>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+           
+        }
 
     </div>
 </div>

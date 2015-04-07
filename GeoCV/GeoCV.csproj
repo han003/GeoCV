@@ -392,13 +392,16 @@
     <Content Include="Scripts\bootstrap\bootstrap3-typeahead.min.js">
       <DependentUpon>bootstrap3-typeahead.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\bootstrap\bootstrapformhelpers\css\bootstrap-formhelpers.css" />
+    <Content Include="Scripts\bootstrap\bootstrapformhelpers\css\bootstrap-formhelpers.min.css" />
+    <Content Include="Scripts\bootstrap\bootstrapformhelpers\img\bootstrap-formhelpers-countries.flags-LICENSE.txt" />
+    <Content Include="Scripts\bootstrap\bootstrapformhelpers\img\bootstrap-formhelpers-countries.flags.png" />
+    <Content Include="Scripts\bootstrap\bootstrapformhelpers\img\bootstrap-formhelpers-currencies.flags.png" />
+    <Content Include="Scripts\bootstrap\bootstrapformhelpers\img\bootstrap-formhelpers-googlefonts.png" />
+    <Content Include="Scripts\bootstrap\bootstrapformhelpers\js\bootstrap-formhelpers.js" />
     <Content Include="Scripts\editproject.js" />
     <Content Include="Scripts\editproject.min.js">
       <DependentUpon>editproject.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\education.js" />
-    <Content Include="Scripts\education.min.js">
-      <DependentUpon>education.js</DependentUpon>
     </Content>
     <Content Include="Scripts\expertise.min.js">
       <DependentUpon>expertise.js</DependentUpon>
@@ -446,6 +449,7 @@
     <Content Include="Models\Database.edmx.diagram">
       <DependentUpon>Database.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\geocv %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\geocv.pubxml" />
     <Content Include="Scripts\editproject.min.js.map">
       <DependentUpon>editproject.min.js</DependentUpon>
@@ -455,9 +459,6 @@
     </Content>
     <Content Include="Scripts\adminroles.min.js.map">
       <DependentUpon>adminroles.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\education.min.js.map">
-      <DependentUpon>education.min.js</DependentUpon>
     </Content>
     <Content Include="Scripts\feedback.min.js.map">
       <DependentUpon>feedback.min.js</DependentUpon>
@@ -491,9 +492,6 @@
       <DependentUpon>personal.js</DependentUpon>
     </Content>
     <Content Include="Scripts\myprojects.js" />
-    <Content Include="Scripts\myprojects.min.js">
-      <DependentUpon>myprojects.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\projects.js" />
     <Content Include="Scripts\projects.min.js">
       <DependentUpon>projects.js</DependentUpon>
@@ -593,7 +591,6 @@
     <Content Include="Views\Expertise\Index.cshtml" />
     <Content Include="Views\Education\Index.cshtml" />
     <Content Include="Views\Work\Index.cshtml" />
-    <Content Include="Views\MyProjects\Index.cshtml" />
     <Content Include="Views\Settings\Index.cshtml" />
     <Content Include="Views\Settings\_Partial.cshtml" />
     <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
@@ -607,9 +604,6 @@
     <Content Include="Scripts\personal.min.js.map">
       <DependentUpon>personal.min.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\myprojects.min.js.map">
-      <DependentUpon>myprojects.min.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\projects.min.js.map">
       <DependentUpon>projects.min.js</DependentUpon>
     </Content>
@@ -622,6 +616,7 @@
       <DependentUpon>work.min.js</DependentUpon>
     </Content>
     <Content Include="Views\Feedback\Index.cshtml" />
+    <Content Include="Views\MyProjects\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
