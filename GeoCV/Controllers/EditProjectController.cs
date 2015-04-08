@@ -53,53 +53,13 @@ namespace GeoCV.Controllers
         [HttpGet]
         public ActionResult GetElements()
         {
-            // Opprett liste
-            var ElementListe = new List<String>();
-
             // Velg alle programmeringsspråk i databasen
-            var Programmeringsspråk = from a in db.ProgrammeringsspråkListe
-                                      select a.Programmeringsspråk;
-
-            // Legg til i listen
-            ElementListe.AddRange(Programmeringsspråk.ToList());
-
-            // Velg alle rammeverk i databasen
-            var Rammeverk = from a in db.RammeverkListe
-                            select a.Rammeverk;
-
-            // Legg til i listen
-            ElementListe.AddRange(Rammeverk.ToList());
-
-            // Velg alle webteknologier i databasen
-            var Webteknologier = from a in db.WebTeknologiListe
-                                 select a.WebTeknologi;
-
-            // Legg til i listen
-            ElementListe.AddRange(Webteknologier.ToList());
-
-            // Velg alle databasesystemer i databasen
-            var Databasesystemer = from a in db.DatabasesystemListe
-                                   select a.Databasesystem;
-
-            // Legg til i listen
-            ElementListe.AddRange(Databasesystemer.ToList());
-
-            // Velg alle serverside i databasen
-            var Serverside = from a in db.ServersideListe
-                                   select a.Serverside;
-
-            // Legg til i listen
-            ElementListe.AddRange(Serverside.ToList());
-
-            // Velg alle operativsystemer i databasen
-            var Operativsystemer = from a in db.OperativsystemListe
-                                   select a.Operativsystem;
-
-            // Legg til i listen
-            ElementListe.AddRange(Operativsystemer.ToList());
+            var Items = from a in db.ListeKatalog
+                        orderby a.Element ascending
+                        select a.Element;
 
             // Send listen som et JSON elemnt til View
-            return Json(ElementListe, JsonRequestBehavior.AllowGet);
+            return Json(Items, JsonRequestBehavior.AllowGet);
         }
 
 

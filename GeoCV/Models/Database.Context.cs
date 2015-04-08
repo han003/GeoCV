@@ -27,20 +27,14 @@ namespace GeoCV.Models
     
         public virtual DbSet<Arbeidserfaring> Arbeidserfaring { get; set; }
         public virtual DbSet<CVVersjon> CVVersjon { get; set; }
-        public virtual DbSet<DatabasesystemListe> DatabasesystemListe { get; set; }
         public virtual DbSet<Feedback> Feedback { get; set; }
         public virtual DbSet<Innstillinger> Innstillinger { get; set; }
         public virtual DbSet<Kompetanse> Kompetanse { get; set; }
         public virtual DbSet<Medlem> Medlem { get; set; }
-        public virtual DbSet<OperativsystemListe> OperativsystemListe { get; set; }
         public virtual DbSet<Person> Person { get; set; }
-        public virtual DbSet<ProgrammeringsspråkListe> ProgrammeringsspråkListe { get; set; }
         public virtual DbSet<Prosjekt> Prosjekt { get; set; }
-        public virtual DbSet<RammeverkListe> RammeverkListe { get; set; }
-        public virtual DbSet<ServersideListe> ServersideListe { get; set; }
-        public virtual DbSet<SpråkListe> SpråkListe { get; set; }
         public virtual DbSet<TekniskProfil> TekniskProfil { get; set; }
         public virtual DbSet<Utdannelse> Utdannelse { get; set; }
-        public virtual DbSet<WebTeknologiListe> WebTeknologiListe { get; set; }
+        public virtual DbSet<ListeKatalog> ListeKatalog { get; set; }
     }
 }

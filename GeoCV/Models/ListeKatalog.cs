@@ -12,9 +12,10 @@ namespace GeoCV.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class SpråkListe
+    public partial class ListeKatalog
     {
-        public int SpråkId { get; set; }
-        public string Språk { get; set; }
+        public int ListeKatalogId { get; set; }
+        public string Element { get; set; }
+        public string Katalog { get; set; }
     }
 }

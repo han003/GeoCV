@@ -71,7 +71,7 @@
 
                                 <div class="form-group">
                                     <div id="@Html.DisplayNameFor(m => Model.Kompetanse.Programmeringsspråk)-group" class="col-lg-12 added-btn-group">
-                                        @if (!string.IsNullOrEmpty(Model.Kompetanse.Programmeringsspråk))
+                                        @if(!string.IsNullOrEmpty(Model.Kompetanse.Programmeringsspråk))
                                         {
                                             foreach (var value in Model.Kompetanse.Programmeringsspråk.Split(';'))
                                             {

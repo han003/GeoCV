@@ -41,6 +41,8 @@ $('#ny-ansatt-btn').click(function () {
     var Passord = $('#Passord-txt').val();
     var Rolle = $('#role-select').val();
 
+    console.log('Rolle: ' + Rolle);
+
     $.ajax({
         url: '/Employees/NewEmployee',
         data: { Fornavn: Fornavn, Etternavn: Etternavn, Epost: Epost, Passord: Passord, Rolle: Rolle },

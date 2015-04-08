@@ -29,9 +29,10 @@ namespace GeoCV.Controllers
         [HttpGet]
         public ActionResult GetProgrammingLanguages()
         {
-            var Item = from a in db.ProgrammeringsspråkListe
-                       orderby a.Programmeringsspråk ascending
-                       select a.Programmeringsspråk;
+            var Item = from a in db.ListeKatalog
+                       where a.Katalog == "ProgrammeringsSpråk"
+                       orderby a.Element ascending
+                       select a.Element;
 
             return Json(Item, JsonRequestBehavior.AllowGet);
         }
@@ -39,9 +40,10 @@ namespace GeoCV.Controllers
         [HttpGet]
         public ActionResult GetFrameworks()
         {
-            var Item = from a in db.RammeverkListe
-                       orderby a.Rammeverk ascending
-                       select a.Rammeverk;
+            var Item = from a in db.ListeKatalog
+                       where a.Katalog == "Rammeverk"
+                       orderby a.Element ascending
+                       select a.Element;
 
             return Json(Item, JsonRequestBehavior.AllowGet);
         }
@@ -49,9 +51,10 @@ namespace GeoCV.Controllers
         [HttpGet]
         public ActionResult GetWebTechnologies()
         {
-            var Item = from a in db.WebTeknologiListe
-                       orderby a.WebTeknologi ascending
-                       select a.WebTeknologi;
+            var Item = from a in db.ListeKatalog
+                       where a.Katalog == "Webteknologi"
+                       orderby a.Element ascending
+                       select a.Element;
 
             return Json(Item, JsonRequestBehavior.AllowGet);
         }
@@ -59,9 +62,10 @@ namespace GeoCV.Controllers
         [HttpGet]
         public ActionResult GetDatabaseSystems()
         {
-            var Item = from a in db.DatabasesystemListe
-                       orderby a.Databasesystem ascending
-                       select a.Databasesystem;
+            var Item = from a in db.ListeKatalog
+                       where a.Katalog == "Databasesystem"
+                       orderby a.Element ascending
+                       select a.Element;
 
             return Json(Item, JsonRequestBehavior.AllowGet);
         }
@@ -69,9 +73,10 @@ namespace GeoCV.Controllers
         [HttpGet]
         public ActionResult GetServerside()
         {
-            var Item = from a in db.ServersideListe
-                       orderby a.Serverside ascending
-                       select a.Serverside;
+            var Item = from a in db.ListeKatalog
+                       where a.Katalog == "Serverside"
+                       orderby a.Element ascending
+                       select a.Element;
 
             return Json(Item, JsonRequestBehavior.AllowGet);
         }
@@ -79,9 +84,10 @@ namespace GeoCV.Controllers
         [HttpGet]
         public ActionResult GetOperatingSystems()
         {
-            var Item = from a in db.OperativsystemListe
-                       orderby a.Operativsystem ascending
-                       select a.Operativsystem;
+            var Item = from a in db.ListeKatalog
+                       where a.Katalog == "Operativsystem"
+                       orderby a.Element ascending
+                       select a.Element;
 
             return Json(Item, JsonRequestBehavior.AllowGet);
         }
@@ -89,42 +95,10 @@ namespace GeoCV.Controllers
         [HttpPost]
         public void InsertItem(string Insert, string Value)
         {
-            if (Insert == "Programmeringsspråk")
-            {
-                ProgrammeringsspråkListe NewItem = new ProgrammeringsspråkListe();
-                NewItem.Programmeringsspråk = Value;
-                db.ProgrammeringsspråkListe.Add(NewItem);
-            }
-            else if (Insert == "Rammeverk")
-            {
-                RammeverkListe NewItem = new RammeverkListe();
-                NewItem.Rammeverk = Value;
-                db.RammeverkListe.Add(NewItem);
-            }
-            else if (Insert == "WebTeknologier")
-            {
-                WebTeknologiListe NewItem = new WebTeknologiListe();
-                NewItem.WebTeknologi = Value;
-                db.WebTeknologiListe.Add(NewItem);
-            }
-            else if (Insert == "Databasesystemer")
-            {
-                DatabasesystemListe NewItem = new DatabasesystemListe();
-                NewItem.Databasesystem = Value;
-                db.DatabasesystemListe.Add(NewItem);
-            }
-            else if (Insert == "Serverside")
-            {
-                ServersideListe NewItem = new ServersideListe();
-                NewItem.Serverside = Value;
-                db.ServersideListe.Add(NewItem);
-            }
-            else if (Insert == "Operativsystemer")
-            {
-                OperativsystemListe NewItem = new OperativsystemListe();
-                NewItem.Operativsystem = Value;
-                db.OperativsystemListe.Add(NewItem);
-            }
+            ListeKatalog NewItem = new ListeKatalog();
+            NewItem.Katalog = Insert;
+            NewItem.Element = Value;
+            db.ListeKatalog.Add(NewItem);
 
             db.SaveChanges();
         }

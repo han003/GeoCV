@@ -29,9 +29,10 @@ namespace GeoCV.Controllers
         [HttpGet]
         public ActionResult GetLanguages()
         {
-            var Item = from a in db.SpråkListe
-                       orderby a.Språk ascending
-                       select a.Språk;
+            var Item = from a in db.ListeKatalog
+                       where a.Katalog == "Språk"
+                       orderby a.Element ascending
+                       select a.Element;
 
             return Json(Item, JsonRequestBehavior.AllowGet);
         }
@@ -39,12 +40,10 @@ namespace GeoCV.Controllers
         [HttpPost]
         public void InsertItem(string Insert, string Value)
         {
-            if (Insert == "Språk")
-            {
-                SpråkListe NewItem = new SpråkListe();
-                NewItem.Språk = Value;
-                db.SpråkListe.Add(NewItem);
-            }
+            ListeKatalog NewItem = new ListeKatalog();
+            NewItem.Katalog = Insert;
+            NewItem.Element = Value;
+            db.ListeKatalog.Add(NewItem);
 
             db.SaveChanges();
         }
