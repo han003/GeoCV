@@ -219,6 +219,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\DatabaseController.cs" />
     <Compile Include="Controllers\DownloadController.cs" />
     <Compile Include="Controllers\EditProjectController.cs" />
     <Compile Include="Controllers\EducationController.cs" />
@@ -324,6 +325,12 @@
     <Content Include="Content\dashboard.min.css">
       <DependentUpon>dashboard.css</DependentUpon>
     </Content>
+    <Content Include="Content\database.css">
+      <DependentUpon>database.less</DependentUpon>
+    </Content>
+    <Content Include="Content\database.min.css">
+      <DependentUpon>database.css</DependentUpon>
+    </Content>
     <Content Include="Content\employees.css">
       <DependentUpon>employees.less</DependentUpon>
     </Content>
@@ -401,6 +408,10 @@
     <Content Include="Scripts\bootstrap\bootstrapformhelpers\img\bootstrap-formhelpers-currencies.flags.png" />
     <Content Include="Scripts\bootstrap\bootstrapformhelpers\img\bootstrap-formhelpers-googlefonts.png" />
     <Content Include="Scripts\bootstrap\bootstrapformhelpers\js\bootstrap-formhelpers.js" />
+    <Content Include="Scripts\database.js" />
+    <Content Include="Scripts\database.min.js">
+      <DependentUpon>database.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\editproject.js" />
     <Content Include="Scripts\editproject.min.js">
       <DependentUpon>editproject.js</DependentUpon>
@@ -462,6 +473,10 @@
     <Content Include="Models\Database.edmx.diagram">
       <DependentUpon>Database.edmx</DependentUpon>
     </Content>
+    <Content Include="Content\database.less" />
+    <Content Include="Content\database.css.map">
+      <DependentUpon>database.css</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\geocv %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\geocv.pubxml" />
     <Content Include="Scripts\editproject.min.js.map">
@@ -478,6 +493,9 @@
     </Content>
     <Content Include="Scripts\education.min.js.map">
       <DependentUpon>education.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\database.min.js.map">
+      <DependentUpon>database.min.js</DependentUpon>
     </Content>
     <None Include="Scripts\jquery\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\employees.js" />
@@ -626,7 +644,6 @@
     <Content Include="Scripts\settings.min.js.map">
       <DependentUpon>settings.min.js</DependentUpon>
     </Content>
-    <Content Include="Views\AdminRoles\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\work.min.js.map">
       <DependentUpon>work.min.js</DependentUpon>
@@ -636,6 +653,7 @@
     <Content Include="Scripts\myprojects.min.js.map">
       <DependentUpon>myprojects.min.js</DependentUpon>
     </Content>
+    <Content Include="Views\Database\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

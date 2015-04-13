@@ -252,6 +252,19 @@ namespace GeoCV
                 .Include("~/Content/main.css")
                 .Include("~/Content/feedback.css"));
 
+            // Database
+            bundles.Add(new ScriptBundle("~/Bundles/js/database")
+                .Include("~/Scripts/jquery/jquery-{version}.js")
+                .Include("~/Scripts/jquery/jquery.validate.js")
+                .Include("~/Scripts/bootstrap/*.js")
+                .Include("~/Scripts/bootstrap3-typeahead.js")
+                .Include("~/Scripts/database.js"));
+
+            bundles.Add(new StyleBundle("~/Bundles/css/database")
+                .Include("~/Content/bootstrap.css")
+                .Include("~/Content/main.css")
+                .Include("~/Content/database.css"));
+
             // BundleTable.EnableOptimizations = true;
         }
     }

@@ -1,0 +1,97 @@
+﻿@using System.Web.Optimization
+
+@model GeoCV.Models.Prosjekt
+
+@{
+    ViewBag.Title = "Database";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section css{
+    @Styles.Render("~/bundles/css/database")
+}
+@section scripts{
+    @Scripts.Render("~/bundles/js/database")
+}
+
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Rediger</h4>
+            </div>
+            <div id="EditModalAddText" class="modal-body">
+
+                <h4 id="editLoader">Jobber <i class="fa fa-spinner fa-pulse"></i></h4>
+                <input id="edit-txt" type="text" class="form-control" autocomplete="off">
+
+            </div>
+            <div class="modal-footer">
+                <button id="editmodalDontAddItem" type="button" class="btn btn-default" data-dismiss="modal">Avslutt (Esc)</button>
+                <button id="editmodalAddItem" type="button" class="btn btn-success">Endre (Enter)</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="row">
+    <div class="col-lg-12">
+
+
+
+        <div role="tabpanel">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#edit-elem-tab" aria-controls="edit-elem-tab" role="tab" data-toggle="tab">Rediger element</a></li>
+                <li role="presentation"><a href="#add-elem-tab" aria-controls="add-elem-tab" role="tab" data-toggle="tab">Legg til element</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="edit-elem-tab">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <input id="filter-txt" type="text" class="form-control" placeholder="Filter" autocomplete="off">
+
+                            <h3 id="edit-elem-load">Laster inn <i class="fa fa-spinner fa-pulse"></i></h3>
+
+                            <table class="table table-hover table-bordered hidden">
+                                <thead>
+                                    <tr>
+                                        <td>
+                                            <strong>Element</strong>
+                                        </td>
+                                        <td>
+                                            <strong>Katalog</strong>
+                                        </td>
+                                        <td>
+                                            <strong>Slett</strong>
+                                        </td>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+
+
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div role="tabpanel" class="tab-pane" id="add-elem-tab">
+                    <div class="row">
+                        <div class="col-lg-12">
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
