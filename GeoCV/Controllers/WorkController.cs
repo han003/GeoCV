@@ -16,7 +16,7 @@ namespace GeoCV.Controllers
         // GET: Work
         public ActionResult Index()
         {
-            string UserId = User.Identity.GetUserId();
+            string UserId = (Session["ShadowUser"] != null) ? Session["ShadowUser"].ToString() : User.Identity.GetUserId();
 
             var Item = from a in db.CVVersjon
                        where a.AspNetUserId.Equals(UserId)
@@ -28,7 +28,7 @@ namespace GeoCV.Controllers
         [HttpPost]
         public void AddNewWork(string Arbeidsplass, string Stilling, string Beskrivelse, Int16 Fra, Int16 Til)
         {
-            string UserId = User.Identity.GetUserId();
+            string UserId = (Session["ShadowUser"] != null) ? Session["ShadowUser"].ToString() : User.Identity.GetUserId();
 
             var Item = from a in db.CVVersjon
                        where a.AspNetUserId.Equals(UserId)

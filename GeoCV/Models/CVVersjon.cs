@@ -22,6 +22,7 @@ namespace GeoCV.Models
     
         public int CVVersjonId { get; set; }
         public string AspNetUserId { get; set; }
+        public bool Aktiv { get; set; }
         public string Beskrivelse { get; set; }
         public int Person_PersonId { get; set; }
         public int Kompetanse_KompetanseId { get; set; }

@@ -44,10 +44,10 @@
                             <li><a href="~/Personal/">Personlig Informasjon</a></li>
                             <li><a href="~/Expertise/">Nøkkelkompetanse</a></li>
 
-                                <li><a href="~/Education/">Utdannelse</a></li>
-                                <li><a href="~/Work/">Arbeidserfaring</a></li>
-                                <li><a href="~/MyProjects/">Prosjekter</a></li>
-                            
+                            <li><a href="~/Education/">Utdannelse</a></li>
+                            <li><a href="~/Work/">Arbeidserfaring</a></li>
+                            <li><a href="~/MyProjects/">Prosjekter</a></li>
+
                             <li class="divider"></li>
                             <li><a href="~/Settings/">Innstillinger</a></li>
                             <li class="divider"></li>
@@ -70,6 +70,11 @@
                                 <li><a href="~/Search/">Søk</a></li>
                             </ul>
                         </li>
+
+                        if(Session["ShadowUser"] != null){
+                            <li>@Html.ActionLink("Surfer som " + Session["ShadowUserName"], "EndSession", "Dashboard")</li>
+                        }
+
                     }
 
                 </ul>

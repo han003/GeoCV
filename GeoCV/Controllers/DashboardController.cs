@@ -8,6 +8,7 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using System.Net;
 
 namespace CV.Controllers
 {
@@ -26,6 +27,15 @@ namespace CV.Controllers
                        select a;
 
             return View(Item.FirstOrDefault());
+        }
+
+
+
+        public ActionResult EndSession()
+        {
+            Session.Abandon();
+
+            return RedirectToAction("Index", "Dashboard");
         }
 
     }

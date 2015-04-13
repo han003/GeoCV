@@ -147,28 +147,12 @@
             </div>
         </div>
 
-@if (User.IsInRole("Admin")) { 
-        
-        <div class="col-lg-3">
-            <div class="panel panel-default">
 
-                <a class="panel-link" href="/Search/">
-                    <div class="panel-body">
-                        <i class="fa fa-search"></i>
-                        <div>
-                            SØK
-                        </div>
-                    </div>
-                </a>
+        @if (User.IsInRole("Admin"))
+        {
 
-            </div>
-        </div>
-        
-        
-       
-        
             <div class="col-lg-3">
-                <div class="panel panel-default">
+                <div class="panel panel-default admin">
 
                     <a class="panel-link" href="/Employees/">
                         <div class="panel-body">
@@ -181,7 +165,58 @@
 
                 </div>
             </div>
-           
+
+
+    <div class="col-lg-3">
+        <div class="panel panel-default admin">
+
+            <a class="panel-link" href="~/NewProject/">
+                <div class="panel-body">
+                    <i class="fa fa-plus-square"></i>
+                    <div>
+                        Nytt Prosjekt
+                    </div>
+                </div>
+            </a>
+
+        </div>
+    </div>
+
+    <div class="col-lg-3">
+        <div class="panel panel-default admin">
+
+            <a class="panel-link" href="~/Projects/">
+                <div class="panel-body">
+                    <i class="fa fa-folder-open"></i>
+                    <div>
+                        Alle Prosjekter
+                    </div>
+                </div>
+            </a>
+
+        </div>
+    </div>
+
+            <div class="col-lg-3">
+                <div class="panel panel-default admin">
+
+                    <a class="panel-link" href="/Search/">
+                        <div class="panel-body">
+                            <i class="fa fa-search"></i>
+                            <div>
+                                Søk
+                            </div>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+
+
+
+
+            
+
         }
 
     </div>

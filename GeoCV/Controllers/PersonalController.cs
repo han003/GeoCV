@@ -17,7 +17,7 @@ namespace GeoCV.Controllers
         // GET: Personal
         public ActionResult Index()
         {
-            string UserId = User.Identity.GetUserId();
+            string UserId = (Session["ShadowUser"] != null) ? Session["ShadowUser"].ToString() : User.Identity.GetUserId();
 
             var Item = from a in db.CVVersjon
                        where a.AspNetUserId.Equals(UserId)
@@ -53,7 +53,7 @@ namespace GeoCV.Controllers
         public void Update(string Update, string Value)
         {
 
-            string UserId = User.Identity.GetUserId();
+            string UserId = (Session["ShadowUser"] != null) ? Session["ShadowUser"].ToString() : User.Identity.GetUserId();
 
             var Item = from a in db.CVVersjon
                        where a.AspNetUserId.Equals(UserId)

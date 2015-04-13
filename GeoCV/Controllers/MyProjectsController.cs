@@ -16,7 +16,7 @@ namespace GeoCV.Controllers
         // GET: Work
         public ActionResult Index()
         {
-            string UserId = User.Identity.GetUserId();
+            string UserId = (Session["ShadowUser"] != null) ? Session["ShadowUser"].ToString() : User.Identity.GetUserId();
 
             var Item = from a in db.CVVersjon
                        where a.AspNetUserId.Equals(UserId)
@@ -39,7 +39,7 @@ namespace GeoCV.Controllers
         public void AddNewProject(string Prosjekt, string Rolle)
         {
             // Hent ID til bruker som er innlogget
-            string UserId = User.Identity.GetUserId();
+            string UserId = (Session["ShadowUser"] != null) ? Session["ShadowUser"].ToString() : User.Identity.GetUserId();
 
             // Hent CVVersjon til innlogget bruker
             var CvQuery = from a in db.CVVersjon

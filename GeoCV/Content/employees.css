@@ -1,4 +1,7 @@
 ﻿.table-hover > tbody > tr:hover {
   cursor: pointer;
 }
+a {
+  color: white;
+}
 /*# sourceMappingURL=employees.css.map */

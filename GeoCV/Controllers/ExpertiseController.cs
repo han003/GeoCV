@@ -16,7 +16,7 @@ namespace GeoCV.Controllers
         // GET: Expertise
         public ActionResult Index()
         {
-            string UserId = User.Identity.GetUserId();
+            string UserId = (Session["ShadowUser"] != null) ? Session["ShadowUser"].ToString() : User.Identity.GetUserId();
 
             var Item = from a in db.CVVersjon
                        where a.AspNetUserId.Equals(UserId)
@@ -52,7 +52,7 @@ namespace GeoCV.Controllers
         public ActionResult GetWebTechnologies()
         {
             var Item = from a in db.ListeKatalog
-                       where a.Katalog == "Webteknologi"
+                       where a.Katalog == "Webteknologier"
                        orderby a.Element ascending
                        select a.Element;
 
@@ -63,7 +63,7 @@ namespace GeoCV.Controllers
         public ActionResult GetDatabaseSystems()
         {
             var Item = from a in db.ListeKatalog
-                       where a.Katalog == "Databasesystem"
+                       where a.Katalog == "Databasesystemer"
                        orderby a.Element ascending
                        select a.Element;
 
@@ -85,7 +85,7 @@ namespace GeoCV.Controllers
         public ActionResult GetOperatingSystems()
         {
             var Item = from a in db.ListeKatalog
-                       where a.Katalog == "Operativsystem"
+                       where a.Katalog == "Operativsystemer"
                        orderby a.Element ascending
                        select a.Element;
 
@@ -107,7 +107,7 @@ namespace GeoCV.Controllers
         public void Update(string Update, string Value)
         {
 
-            string UserId = User.Identity.GetUserId();
+            string UserId = (Session["ShadowUser"] != null) ? Session["ShadowUser"].ToString() : User.Identity.GetUserId();
 
             var Item = from a in db.CVVersjon
                        where a.AspNetUserId.Equals(UserId)

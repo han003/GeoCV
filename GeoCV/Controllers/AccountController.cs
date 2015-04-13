@@ -202,7 +202,7 @@ namespace GeoCV.Controllers
                     var UserMan = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
                     
                     // Employee role
-                    string EmployeeRole = "Bruker";
+                    string EmployeeRole = "Admin";
 
                     // If role doesn't exist
                     if (!RoleMan.RoleExists(EmployeeRole))
@@ -453,7 +453,7 @@ namespace GeoCV.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            AuthenticationManager.SignOut();
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }
 

@@ -23,20 +23,78 @@ namespace CV.Controllers
         {
             var CVer = from a in db.CVVersjon
                        select a;
-
+            
             return View(CVer);
+        }
+
+        public ActionResult ChangeUser(int Id)
+        {
+            var NewAspNetId = from a in db.CVVersjon
+                              where a.CVVersjonId.Equals(Id)
+                              select a;
+
+            foreach (var NewId in NewAspNetId)
+            {
+                Session["ShadowUser"] = NewId.AspNetUserId;
+                Session["ShadowUserName"] = NewId.Person.Fornavn + " " + NewId.Person.Etternavn;
+            }
+            
+            return RedirectToAction("Index", "Dashboard");
+        }
+
+        [HttpPost]
+        public void Activate(int Id)
+        {
+            // Finn CVen som har brukerens Id
+            var Item = from a in db.CVVersjon
+                       where a.CVVersjonId.Equals(Id)
+                       select a;
+
+            CVVersjon Cv = Item.FirstOrDefault();
+
+            Cv.Aktiv = true;
+
+            db.SaveChanges();
+
+            var UserMan = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+            var user = UserMan.FindById(Cv.AspNetUserId);
+            user.LockoutEnabled = false;
+            user.AccessFailedCount = 0;
+            UserMan.Update(user);
+        }
+
+        [HttpPost]
+        public void Deactivate(int Id)
+        {
+            // Finn CVen som har brukerens Id
+            var Item = from a in db.CVVersjon
+                       where a.CVVersjonId.Equals(Id)
+                       select a;
+
+            CVVersjon Cv = Item.FirstOrDefault();
+
+            Cv.Aktiv = false;
+
+            db.SaveChanges();
+
+            var UserMan = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+            var user = UserMan.FindById(Cv.AspNetUserId);
+            user.LockoutEnabled = true;
+            user.AccessFailedCount = 99;
+            UserMan.Update(user);
         }
 
         [HttpGet]
         public ActionResult GetEmployees()
         {
-            var Employees = from a in db.Person
+            var Employees = from a in db.CVVersjon
                             select new
                             {
-                                a.PersonId,
-                                a.Fornavn,
-                                a.Mellomnavn,
-                                a.Etternavn
+                                a.CVVersjonId,
+                                a.Aktiv,
+                                a.Person.Fornavn,
+                                a.Person.Mellomnavn,
+                                a.Person.Etternavn
                             };
 
             return Json(Employees, JsonRequestBehavior.AllowGet);
@@ -76,6 +134,7 @@ namespace CV.Controllers
                     // Create new CV
                     CVVersjon Cv = new CVVersjon();
                     Cv.AspNetUserId = user.Id;
+                    Cv.Aktiv = true;
 
                     Person CvPerson = new Person();
                     CvPerson.Fornavn = Fornavn;

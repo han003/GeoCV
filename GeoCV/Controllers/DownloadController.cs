@@ -20,7 +20,7 @@ namespace CV.Controllers
         public ActionResult Pdf()
         {
 
-            string UserId = User.Identity.GetUserId();
+            string UserId = (Session["ShadowUser"] != null) ? Session["ShadowUser"].ToString()  : User.Identity.GetUserId();
 
             var Item = from a in db.CVVersjon
                        where a.AspNetUserId.Equals(UserId)

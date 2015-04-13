@@ -5,6 +5,8 @@ $(document).ready(function () {
 })
 
 function refreshAutoLists() {
+    console.log('Database...');
+
     $.get('/Expertise/GetProgrammingLanguages', function (data) {
         console.log(data);
         $(function () {
