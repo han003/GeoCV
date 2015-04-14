@@ -74,5 +74,16 @@ namespace GeoCV.Controllers
 
             db.SaveChanges();
         }
+
+        [HttpPost]
+        public void AddElement(string NyttElement, string Katalog)
+        {
+            ListeKatalog NewItem = new ListeKatalog();
+            NewItem.Katalog = Katalog;
+            NewItem.Element = NyttElement;
+            db.ListeKatalog.Add(NewItem);
+
+            db.SaveChanges();
+        }
     }
 }

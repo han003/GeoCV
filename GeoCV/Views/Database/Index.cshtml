@@ -57,7 +57,7 @@
                         <div class="col-lg-12">
                             <input id="filter-txt" type="text" class="form-control" placeholder="Filter" autocomplete="off">
 
-                            <h3 id="edit-elem-load">Laster inn <i class="fa fa-spinner fa-pulse"></i></h3>
+                            <h4 id="edit-elem-load">Laster inn <i class="fa fa-spinner fa-pulse"></i></h4>
 
                             <table class="table table-hover table-bordered hidden">
                                 <thead>
@@ -83,13 +83,42 @@
                 </div>
 
                 <div role="tabpanel" class="tab-pane" id="add-elem-tab">
-                    <div class="row">
-                        <div class="col-lg-12">
+                    <div id="new-element-row" class="row">
+                        <div class="col-lg-3">
 
+                            <select id="katalog-select" class="form-control">
+                                <option id="Programmeringsspråk">Programmeringsspråk</option>
+                                <option id="Rammeverk">Rammeverk</option>
+                                <option id="WebTeknologier">Web Teknologi</option>
+                                <option id="Databasesystemer">Databasesystem</option>
+                                <option id="Serversystemer">Serversystem</option>
+                                <option id="Operativsystemer">Operativsystem</option>
+                                <option id="Språk">Språk</option>
+                                <option id="Stillinger">Stilling</option>
+                                <option id="Annet">Annet</option>
+                            </select>
 
+                        </div>
+                        <div class="col-lg-7">
+
+                            <input id="new-item-txt" type="text" class="form-control" autocomplete="off" placeholder="Nytt element">
+
+                        </div>
+                        <div class="col-lg-2">
+
+                            <button id="add-item-btn" type="button" class="btn btn-primary">Legg til</button>
 
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div id="new-element-loading" class="col-lg-12 hidden">
+
+                            <h4>Legger til.. <i class="fa fa-spinner fa-pulse"></i></h4>
+
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>

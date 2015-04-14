@@ -28,7 +28,8 @@ namespace GeoCV.Models
         public Nullable<short> ÅrErfaring { get; set; }
         public string Språk { get; set; }
         public string Nasjonalitet { get; set; }
-        public Nullable<short> Fødselsår { get; set; }
+        public Nullable<System.DateTime> Fødselsår { get; set; }
+        public Nullable<System.DateTime> StartDato { get; set; }
     
         public virtual ICollection<CVVersjon> CVVersjon { get; set; }
         public virtual ICollection<Medlem> Medlem { get; set; }

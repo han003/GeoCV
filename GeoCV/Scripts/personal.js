@@ -2,12 +2,13 @@
     getLanguages();
 })
 
+$.datepicker.setDefaults($.datepicker.regional['nb']);
+
 $('.update-txt').keyup(function () {
     update($(this));
 });
 
 function update(element) {
-
     var tableColumn = element.attr('id').substring(0, element.attr('id').indexOf('-'));
     var newValue = element.val();
 
@@ -32,6 +33,114 @@ function getLanguages() {
         $("#Språk-auto").data('json', data);
     }, 'json');
 }
+
+$.ajax({
+    url: '/Personal/GetStillinger',
+    type: 'GET',
+    success: function (alleStillinger) {
+        console.log(alleStillinger);
+
+        $.ajax({
+            url: '/Personal/GetValgtStilling',
+            type: 'GET',
+            success: function (valgtStilling) {
+                console.log(valgtStilling);
+
+                var template = '';
+                var stillingMatch = false;
+
+                $.each(alleStillinger, function (index, value) {
+
+                    var stilling = value['Element'];
+                    var stillingId = value['ListeKatalogId'];
+
+                    if (valgtStilling == stillingId) {
+                        stillingMatch = true;
+                        template += '<option selected id="stilling-' + stillingId + '">' + stilling + '</option>';
+                    } else {
+                        template += '<option id="stilling-' + stillingId + '">' + stilling + '</option>';
+                    }
+                });
+
+                if (!stillingMatch) {
+                    template += '<option id="ingen-stilling" selected>Stilling ikke valgt</option>';
+                }
+
+                $('#stillinger-select').html(template);
+                $('#stillinger-select').removeAttr('disabled');
+            }
+        });
+
+    }
+});
+
+$('#stillinger-select').on('change', function (e) {
+    var optionSelected = $("option:selected", this).attr('id');
+    var id = optionSelected.substring(optionSelected.indexOf('-')+1, optionSelected.length);
+
+    console.log(id);
+
+    // Update
+    $.post('/Personal/Update', { Update: 'Stilling', Value: id });
+});
+
+////////////  BURSDAG
+
+$("#birthday-date").datepicker({
+    changeMonth: true,
+    changeYear: true,
+    dateFormat: 'd MM yy'
+});
+
+$.get('/Personal/GetBursdag', function (data) {
+    var dag = data.split(' ')[0].split('.')[0];
+    var mnd = data.split(' ')[0].split('.')[1] - 1;
+    var år = data.split(' ')[0].split('.')[2];
+
+    var Bursdag = new Date(år, mnd, dag);
+
+    console.log('Bursdag: ' + Bursdag);
+    $('#birthday-date').datepicker('setDate', Bursdag);
+}, 'json');
+
+$('#birthday-date').on('change', function (e) {
+
+    var birthday = $(this).val();
+
+    console.log(birthday);
+
+    // Update
+    $.post('/Personal/UpdateBirthdate', { Value: birthday });
+});
+
+////////////  START DATO
+
+$("#geomatikk-start-date").datepicker({
+    changeMonth: true,
+    changeYear: true,
+    dateFormat: 'd MM yy'
+});
+
+$.get('/Personal/GetStartDato', function (data) {
+    var dag = data.split(' ')[0].split('.')[0];
+    var mnd = data.split(' ')[0].split('.')[1] - 1;
+    var år = data.split(' ')[0].split('.')[2];
+
+    var StartDato = new Date(år, mnd, dag);
+
+    console.log('Start Dato: ' + StartDato);
+    $('#geomatikk-start-date').datepicker('setDate', StartDato);
+}, 'json');
+
+$('#geomatikk-start-date').on('change', function (e) {
+
+    var startDato = $(this).val();
+
+    console.log(startDato);
+
+    // Update
+    $.post('/Personal/UpdateStartDato', { Value: startDato });
+});
 
 
 //////////////////// INSERT NEW AUTO STUFF

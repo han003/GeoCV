@@ -133,12 +133,14 @@ namespace GeoCV
             bundles.Add(new ScriptBundle("~/Bundles/js/personal")
                 .Include("~/Scripts/jquery/jquery-{version}.js")
                 .Include("~/Scripts/jquery/jquery.validate.js")
+                .Include("~/Scripts/jquery-ui/*.js")
                 .Include("~/Scripts/bootstrap/*.js")
-                .Include("~/Scripts/bootstrap3-typeahead.js")
                 .Include("~/Scripts/personal.js"));
+            
 
             bundles.Add(new StyleBundle("~/Bundles/css/personal")
                 .Include("~/Content/bootstrap.css")
+                .Include("~/Content/jquery-ui/*.css")
                 .Include("~/Content/main.css")
                 .Include("~/Content/personal.css"));
 
@@ -147,7 +149,6 @@ namespace GeoCV
                 .Include("~/Scripts/jquery/jquery-{version}.js")
                 .Include("~/Scripts/jquery/jquery.validate.js")
                 .Include("~/Scripts/bootstrap/*.js")
-                .Include("~/Scripts/bootstrap3-typeahead.js")
                 .Include("~/Scripts/expertise.js"));
 
             bundles.Add(new StyleBundle("~/Bundles/css/expertise")
@@ -159,7 +160,6 @@ namespace GeoCV
                 .Include("~/Scripts/jquery/jquery-{version}.js")
                 .Include("~/Scripts/jquery/jquery.validate.js")
                 .Include("~/Scripts/bootstrap/*.js")
-                .Include("~/Scripts/bootstrap3-typeahead.js")
                 .Include("~/Scripts/education.js"));
 
             bundles.Add(new StyleBundle("~/Bundles/css/education")
@@ -171,7 +171,6 @@ namespace GeoCV
                 .Include("~/Scripts/jquery/jquery-{version}.js")
                 .Include("~/Scripts/jquery/jquery.validate.js")
                 .Include("~/Scripts/bootstrap/*.js")
-                .Include("~/Scripts/bootstrap3-typeahead.js")
                 .Include("~/Scripts/work.js"));
 
             bundles.Add(new StyleBundle("~/Bundles/css/work")
@@ -183,7 +182,6 @@ namespace GeoCV
                 .Include("~/Scripts/jquery/jquery-{version}.js")
                 .Include("~/Scripts/jquery/jquery.validate.js")
                 .Include("~/Scripts/bootstrap/*.js")
-                .Include("~/Scripts/bootstrap3-typeahead.js")
                 .Include("~/Scripts/myprojects.js"));
 
             bundles.Add(new StyleBundle("~/Bundles/css/myprojects")
@@ -231,7 +229,6 @@ namespace GeoCV
                 .Include("~/Scripts/jquery/jquery-{version}.js")
                 .Include("~/Scripts/jquery/jquery.validate.js")
                 .Include("~/Scripts/bootstrap/*.js")
-                .Include("~/Scripts/bootstrap3-typeahead.js")
                 .Include("~/Scripts/adminroles.js"));
 
             bundles.Add(new StyleBundle("~/Bundles/css/adminroles")
@@ -244,7 +241,6 @@ namespace GeoCV
                 .Include("~/Scripts/jquery/jquery-{version}.js")
                 .Include("~/Scripts/jquery/jquery.validate.js")
                 .Include("~/Scripts/bootstrap/*.js")
-                .Include("~/Scripts/bootstrap3-typeahead.js")
                 .Include("~/Scripts/feedback.js"));
 
             bundles.Add(new StyleBundle("~/Bundles/css/feedback")
@@ -257,7 +253,6 @@ namespace GeoCV
                 .Include("~/Scripts/jquery/jquery-{version}.js")
                 .Include("~/Scripts/jquery/jquery.validate.js")
                 .Include("~/Scripts/bootstrap/*.js")
-                .Include("~/Scripts/bootstrap3-typeahead.js")
                 .Include("~/Scripts/database.js"));
 
             bundles.Add(new StyleBundle("~/Bundles/css/database")

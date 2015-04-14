@@ -1,39 +1,12 @@
 ﻿$(document).ready(function () {
-
-    $.ajax({
-        url: '/Database/GetEditData',
-        type: 'GET',
-        success: function (data) {
-            console.log(data);
-
-            var template = '';
-
-            $.each(data, function (index, value) {
-
-                var id = value['ListeKatalogId'];
-                var element = value['Element'];
-                var katalog = value['Katalog'];
-
-                // For valg av tekst å bruke
-                template += '<tr id="' + id + '">' +
-                                '<td>' + element + '</td>' +
-                                '<td>' + katalog + '</td>' +
-                                '<td><a class="del-link">Slett</a></td>' +
-                            '</tr>';
-
-            });
-
-            $('tbody').html(template);
-
-            $("#edit-elem-load").addClass('hidden');
-            $("table").removeClass('hidden');
-        }
-    });
-
+    refreshTable();
 });
 
 $('#filter-txt').keyup(function () {
+    refreshTable();
+});
 
+function refreshTable() {
     $("#edit-elem-load").removeClass('hidden');
     $("table").addClass('hidden');
 
@@ -69,8 +42,7 @@ $('#filter-txt').keyup(function () {
             $("table").removeClass('hidden');
         }
     });
-
-});
+}
 
 $(document).on('click', '.del-link', function () {
 
@@ -97,6 +69,10 @@ $(document).on('click', '.del-link', function () {
 
 });
 
+$('#editModal').on('shown.bs.modal', function (e) {
+    $('#edit-txt').focus();
+})
+
 $(document).on('click', 'tr', function () {
 
     var elementId = $(this).closest('tr').attr('id');
@@ -115,6 +91,37 @@ $(document).on('click', 'tr', function () {
     $('#editLoader').addClass('hidden');
 
     $('#editModal').modal();
+});
+
+$(document).on('click', '#add-item-btn', function () {
+
+    var element = $('#new-item-txt').val();
+    var katalog = $('#katalog-select option:selected').attr('id');
+
+    console.log('Legg til "' + element + '" i katalogen "' + katalog + '"');
+
+    $.ajax({
+        url: '/Database/AddElement',
+        data: { NyttElement: element, Katalog: katalog },
+        type: 'POST',
+        beforeSend: function () {
+
+            $('#new-element-row').addClass('hidden');
+            $('#new-element-loading').removeClass('hidden');
+
+
+        },
+        success: function () {
+            console.log('Lagt til');
+
+            refreshTable();
+
+            $('#new-item-txt').val('');
+            $('#new-element-row').removeClass('hidden');
+            $('#new-element-loading').addClass('hidden');
+        }
+    });
+
 });
 
 

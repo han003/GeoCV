@@ -165,7 +165,8 @@
           <Property Name="ÅrErfaring" Type="smallint" />
           <Property Name="Språk" Type="nvarchar(max)" />
           <Property Name="Nasjonalitet" Type="nvarchar" MaxLength="40" />
-          <Property Name="Fødselsår" Type="smallint" />
+          <Property Name="Fødselsår" Type="date" />
+          <Property Name="StartDato" Type="date" />
         </EntityType>
         <EntityType Name="Prosjekt">
           <Key>
@@ -590,7 +591,8 @@
           <Property Name="ÅrErfaring" Type="Int16" />
           <Property Name="Språk" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Nasjonalitet" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
-          <Property Name="Fødselsår" Type="Int16" />
+          <Property Name="Fødselsår" Type="DateTime" Precision="0" />
+          <Property Name="StartDato" Type="DateTime" Precision="0" />
           <NavigationProperty Name="CVVersjon" Relationship="Self.FK_CVVersjonPerson" FromRole="Person" ToRole="CVVersjon" />
           <NavigationProperty Name="Medlem" Relationship="Self.FK_MedlemPerson" FromRole="Person" ToRole="Medlem" />
         </EntityType>
@@ -986,6 +988,7 @@
                 <ScalarProperty Name="Språk" ColumnName="Språk" />
                 <ScalarProperty Name="Nasjonalitet" ColumnName="Nasjonalitet" />
                 <ScalarProperty Name="Fødselsår" ColumnName="Fødselsår" />
+                <ScalarProperty Name="StartDato" ColumnName="StartDato" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

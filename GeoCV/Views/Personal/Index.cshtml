@@ -32,6 +32,8 @@
     </div>
 </div>
 
+            
+
 <div class="row">
     <div class="col-lg-12">
 
@@ -47,11 +49,13 @@
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="personal-info-tab">
 
+                    
+
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-horizontal">
                                 <div class="form-group">
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-6">
                                         <label>Fornavn</label>
                                         <input type="text" class="form-control update-txt" value="@Model.Person.Fornavn" id="@Html.DisplayNameFor(m => Model.Person.Fornavn)-txt">
                                     </div>
@@ -59,21 +63,21 @@
 
 
                                 <div class="form-group">
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-6">
                                         <label>Mellomnavn</label>
                                         <input type="text" class="form-control update-txt" value="@Model.Person.Mellomnavn" id="@Html.DisplayNameFor(m => Model.Person.Mellomnavn)-txt">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-6">
                                         <label>Etternavn</label>
                                         <input type="text" class="form-control update-txt" value="@Model.Person.Etternavn" id="@Html.DisplayNameFor(m => Model.Person.Etternavn)-txt">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-4">
                                         <label>Nasjonalitet</label>
                                         <select class="form-control">
                                             <option>Dansk</option>
@@ -87,34 +91,32 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-4">
                                         <label>Fødselsår</label>
-                                        <input id="birthday-date" class="form-control update-txt" type="date">
+                                        <input id="birthday-date" class="form-control" type="text">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-4">
                                         <label>Stilling</label>
-                                        <select class="form-control">
-                                            <option>Stilling 1</option>
-                                            <option>Stilling 2</option>
-                                            <option>Stilling 3</option>
+                                        <select id="stillinger-select" class="form-control" disabled>
+                                            <option id="stilling-load">Henter stillinger.. <i class="fa fa-spinner fa-pulse"></i></option>
                                         </select>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <div class="col-lg-12">
-                                        <label>År Erfaring Før Oppstart I Geomatikk</label>
+                                    <div class="col-lg-4">
+                                        <label>År erfaring før oppstart i Geomatikk</label>
                                         <input type="text" class="form-control update-txt" value="@Model.Person.ÅrErfaring" id="@Html.DisplayNameFor(m => Model.Person.ÅrErfaring)-txt">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <div class="col-lg-12">
-                                        <label>Startdato I Geomatikk</label>
-                                        <input id="geomatikk-start-date" class="form-control update-txt" type="date">
+                                    <div class="col-lg-4">
+                                        <label>Startdato i Geomatikk</label>
+                                        <input id="geomatikk-start-date" class="form-control" type="text">
                                     </div>
                                 </div>
 
@@ -129,7 +131,7 @@
 
                     <div class="row">
                         <div class="col-lg-12">
-                            <h3 id="Språk-load">Laster inn <i class="fa fa-spinner fa-pulse"></i></h3>
+                            <h4 id="Språk-load">Laster inn <i class="fa fa-spinner fa-pulse"></i></h4>
 
                             <div id="Språk-form" class="form-horizontal hidden">
 
