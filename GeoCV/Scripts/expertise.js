@@ -1,101 +1,59 @@
-﻿/////////////////// GET AUTO COMPLETE ITEMS
+﻿$(document).ready(function () {
 
-$(document).ready(function () {
-    refreshAutoLists();
+    var kataloger = [
+    'Programmeringsspråk',
+    'Rammeverk',
+    'WebTeknologier',
+    'Databasesystemer',
+    'Serverside',
+    'Operativsystemer'
+    ];
+
+    $.each(kataloger, function (index, element) {
+        getKatalog(element);
+    });
 })
 
-function refreshAutoLists() {
-    $.get('/Expertise/GetProgrammingLanguages', function (data) {
-        console.log(data);
-        $(function () {
-            $("#Programmeringsspråk-auto").typeahead({
-                minLength: 0,
-                source: data
+function getKatalog(katalog) {
+
+    $.ajax({
+        url: '/Expertise/GetElements',
+        data: { Katalog: katalog },
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            console.log(data)
+
+            var elementArray = new Array();
+            var idArray = new Array();
+
+            $.each(data[1], function (index, value) {
+                elementArray.push(value['Element']);
+                idArray.push(value['ListeKatalogId']);
+
+                $.each(data[0][0].split(';'), function (index, element) {
+                    if (value['ListeKatalogId'] == element) {
+                        $('#' + katalog + '-group').append('<button id="' + katalog + '-' + value['ListeKatalogId'] + '" type="button" class="btn btn-info added-btn" tabindex="-1">' + value['Element'] + '</button>');
+                    }
+
+                });
             });
-        });
 
-        $("#Programmeringsspråk-load").addClass('hidden');
-        $("#Programmeringsspråk-form").removeClass('hidden');
-
-        $("#Programmeringsspråk-auto").data('json', data);
-    }, 'json');
-
-    $.get('/Expertise/GetFrameworks', function (data) {
-        console.log(data);
-        $(function () {
-            $("#Rammeverk-auto").typeahead({
-                minLength: 0,
-                source: data
+            $(function () {
+                $('#' + katalog + '-auto').typeahead({
+                    minLength: 0,
+                    source: elementArray
+                });
             });
-        });
 
-        $("#Rammeverk-load").addClass('hidden');
-        $("#Rammeverk-form").removeClass('hidden');
+            $('#' + katalog + '-load').addClass('hidden');
+            $('#' + katalog + '-form').removeClass('hidden');
 
-        $("#Rammeverk-auto").data('json', data);
-    }, 'json');
-
-    $.get('/Expertise/GetWebTechnologies', function (data) {
-        console.log(data);
-        $(function () {
-            $("#WebTeknologier-auto").typeahead({
-                minLength: 0,
-                source: data
-            });
-        });
-
-        $("#WebTeknologier-load").addClass('hidden');
-        $("#WebTeknologier-form").removeClass('hidden');
-
-        $("#WebTeknologier-auto").data('json', data);
-    }, 'json');
-
-    $.get('/Expertise/GetDatabaseSystems', function (data) {
-        console.log(data);
-        $(function () {
-            $("#Databasesystemer-auto").typeahead({
-                minLength: 0,
-                source: data
-            });
-        });
-
-        $("#Databasesystemer-load").addClass('hidden');
-        $("#Databasesystemer-form").removeClass('hidden');
-
-        $("#Databasesystemer-auto").data('json', data);
-    }, 'json');
-
-    $.get('/Expertise/GetServerside', function (data) {
-        console.log(data);
-        $(function () {
-            $("#Serverside-auto").typeahead({
-                minLength: 0,
-                source: data
-            });
-        });
-
-        $("#Serverside-load").addClass('hidden');
-        $("#Serverside-form").removeClass('hidden');
-
-        $("#Serverside-auto").data('json', data);
-    }, 'json');
-
-    $.get('/Expertise/GetOperatingSystems', function (data) {
-        console.log(data);
-        $(function () {
-            $("#Operativsystemer-auto").typeahead({
-                minLength: 0,
-                source: data
-            });
-        });
-
-        $("#Operativsystemer-load").addClass('hidden');
-        $("#Operativsystemer-form").removeClass('hidden');
-
-        $("#Operativsystemer-auto").data('json', data);
-    }, 'json');
+            $('#' + katalog + '-auto').data('element', elementArray);
+            $('#' + katalog + '-auto').data('elementId', idArray);
+        }
+    });
 }
-
 
 //////////////////// INSERT NEW AUTO STUFF
 
@@ -118,7 +76,6 @@ $('.add-item-auto').keypress(function (event) {
 
 // What happens when removing a button
 $('body').on('click', '.added-btn', function () {
-
     databaseUpdateColumn = $(this).parent().attr('id');
     databaseUpdateColumn = databaseUpdateColumn.substring(0, databaseUpdateColumn.indexOf('-'));
 
@@ -130,106 +87,47 @@ function addItem(element) {
     databaseUpdateColumn = element.attr('id');
     databaseUpdateColumn = databaseUpdateColumn.substring(0, databaseUpdateColumn.indexOf('-'));
 
-    console.log('Column: ' + databaseUpdateColumn)
-
-    // Get textfield
+    // Hent rett tekstfelt
     autoTextfield = $('#' + databaseUpdateColumn + '-auto');
 
-    // Get value
-    userAutoInput = autoTextfield.val();
+    // Legg til ny knapp med valgt element
+    appendNewElement(autoTextfield.val());
 
-    console.log('Value: ' + userAutoInput)
+    // Fjern teksten fra input
+    $('#' + databaseUpdateColumn + '-auto').val('');
 
-    // Check if the value is already in the database
-    var json = autoTextfield.data('json');
-
-    if (itemExists(userAutoInput, json)) {
-        $('#' + databaseUpdateColumn + '-group').append('<button type="button" class="btn btn-info added-btn" tabindex="-1">' + userAutoInput + '</button>');
-        autoTextfield.val('');
-        updateDatabase();
-    } else {
-        $('#modalAddText').append('<code>' + userAutoInput + '</code> finnes ikke i databasen, vil legge den til?');
-        $('#myModal').modal();
-    }
-}
-
-// Check if item exsists in the json data
-function itemExists(userAutoInput, json) {
-    var exists = false;
-    $.each(json, function (name, value) {
-        if (userAutoInput.toLowerCase() == value.toLowerCase()) {
-            exists = true;
-        }
-    });
-    return exists;
-}
-
-// Enter key when the modal is visible
-$(document).keypress(function (event) {
-    var keycode = (event.keyCode ? event.keyCode : event.which);
-    if (keycode == '13' && $('#myModal').is(":visible")) {
-        addToDatabase();
-    }
-});
-
-// Close modal if Esc is pressed
-$(document).keypress(function (event) {
-    var keycode = (event.keyCode ? event.keyCode : event.which);
-    if (keycode == '27' && $('#myModal').is(":visible")) {
-        $('#myModal').modal('hide');
-    }
-});
-
-// Reset the text in the modal whenever the modal is hidden
-$('#myModal').on('hidden.bs.modal', function (event) {
-    $('#modalAddText').text('');
-});
-
-// If modal button to add is clicked, add new item to database
-$('#modalAddItem').click(function () {
-    addToDatabase();
-});
-
-// Add new item to the database
-function addToDatabase() {
-    // Insert into database
-    insertAutoItem(databaseUpdateColumn, userAutoInput);
-
-    // Hide modal
-    $('#myModal').modal('hide');
-
-    // Append the new button
-    $('#' + databaseUpdateColumn + '-group').append('<button type="button" class="btn btn-info added-btn" tabindex="-1">' + userAutoInput + '</button>');
-
-    // Erase the text in the autocomplete textfield
-    autoTextfield.val('');
-
-    // Update field in database
+    // Oppdater databasen
     updateDatabase();
 }
 
-function insertAutoItem(databaseUpdateColumn, userAutoInput) {
-    console.log('Inserting ' + userAutoInput + ' into ' + databaseUpdateColumn)
-    $.post('/Expertise/InsertItem', { Insert: databaseUpdateColumn, Value: userAutoInput }, function () {
-        refreshAutoLists();
+function appendNewElement(userAutoInput) {
+    var elementArray = autoTextfield.data('element');
+    var idArray = autoTextfield.data('elementId');
+
+    $.each(elementArray, function (index, value) {
+        if (userAutoInput == value) {
+            $('#' + databaseUpdateColumn + '-group').append('<button id="' + databaseUpdateColumn + '-' + idArray[index] + '" type="button" class="btn btn-info added-btn" tabindex="-1">' + value + '</button>');
+        }
     });
 }
 
 function updateDatabase() {
 
-    // Empty var to hold text
+    // Tom variabel for å holde teksten
     var newValue = '';
 
-    // Loop through all buttons
+    // Gå gjennom alle knappene å legg IDene i en string
     $('#' + databaseUpdateColumn + '-group button').each(function () {
-        newValue += $(this).text() + ';';
+        var idstring = $(this).attr('id');
+        var id = idstring.substring(idstring.indexOf('-') + 1);
+        newValue += id + ';';
     });
 
-    // Remove last ;
+    // Fjern siste ';' fra stringen
     newValue = newValue.substring(0, newValue.length - 1);
 
-    console.log("Table: " + databaseUpdateColumn);
-    console.log("Value: " + newValue);
+    console.log('Table: ' + databaseUpdateColumn);
+    console.log('Value: ' + newValue);
 
     // Update
     $.post('/Expertise/Update', { Update: databaseUpdateColumn, Value: newValue });

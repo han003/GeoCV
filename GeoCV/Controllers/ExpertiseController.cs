@@ -27,80 +27,103 @@ namespace GeoCV.Controllers
 
 
         [HttpGet]
-        public ActionResult GetProgrammingLanguages()
+        public ActionResult GetElements(string Katalog)
         {
-            var Item = from a in db.ListeKatalog
-                       where a.Katalog == "ProgrammeringsSpråk"
-                       orderby a.Element ascending
-                       select a.Element;
+            // Hent ID til bruker
+            string UserId = (Session["ShadowUser"] != null) ? Session["ShadowUser"].ToString() : User.Identity.GetUserId();
 
-            return Json(Item, JsonRequestBehavior.AllowGet);
+            IQueryable Bruker = Enumerable.Empty<IQueryable>().AsQueryable();
+
+            switch (Katalog)
+            {
+                case "Programmeringsspråk":
+                    Bruker = GetProgrammeringsspråk(UserId);
+                    break;
+                case "Rammeverk":
+                    Bruker = GetRammeverk(UserId);
+                    break;
+                case "WebTeknologier":
+                    Bruker = GetWebteknologier(UserId);
+                    break;
+                case "Databasesystemer":
+                    Bruker = GetDatabasesystemer(UserId);
+                    break;
+                case "Serverside":
+                    Bruker = GetServerside(UserId);
+                    break;
+                case "Operativsystemer":
+                    Bruker = GetOperativsystemer(UserId);
+                    break;
+            }
+
+            var Element = from a in db.ListeKatalog
+                          where a.Katalog == Katalog
+                          orderby a.Element ascending
+                          select new
+                          {
+                              a.ListeKatalogId,
+                              a.Element
+                          };
+
+            List<IQueryable> Kombinert = new List<IQueryable>();
+            Kombinert.Add(Bruker);
+            Kombinert.Add(Element);
+
+            return Json(Kombinert, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpGet]
-        public ActionResult GetFrameworks()
+        private IQueryable GetProgrammeringsspråk(string UserId)
         {
-            var Item = from a in db.ListeKatalog
-                       where a.Katalog == "Rammeverk"
-                       orderby a.Element ascending
-                       select a.Element;
+            var Bruker = from a in db.CVVersjon
+                         where a.AspNetUserId.Equals(UserId)
+                         select a.Kompetanse.Programmeringsspråk;
 
-            return Json(Item, JsonRequestBehavior.AllowGet);
+            return Bruker;
         }
 
-        [HttpGet]
-        public ActionResult GetWebTechnologies()
+        private IQueryable GetRammeverk(string UserId)
         {
-            var Item = from a in db.ListeKatalog
-                       where a.Katalog == "Webteknologier"
-                       orderby a.Element ascending
-                       select a.Element;
+            var Bruker = from a in db.CVVersjon
+                         where a.AspNetUserId.Equals(UserId)
+                         select a.Kompetanse.Rammeverk;
 
-            return Json(Item, JsonRequestBehavior.AllowGet);
+            return Bruker;
         }
 
-        [HttpGet]
-        public ActionResult GetDatabaseSystems()
+        private IQueryable GetWebteknologier(string UserId)
         {
-            var Item = from a in db.ListeKatalog
-                       where a.Katalog == "Databasesystemer"
-                       orderby a.Element ascending
-                       select a.Element;
+            var Bruker = from a in db.CVVersjon
+                         where a.AspNetUserId.Equals(UserId)
+                         select a.Kompetanse.WebTeknologier;
 
-            return Json(Item, JsonRequestBehavior.AllowGet);
+            return Bruker;
         }
 
-        [HttpGet]
-        public ActionResult GetServerside()
+        private IQueryable GetDatabasesystemer(string UserId)
         {
-            var Item = from a in db.ListeKatalog
-                       where a.Katalog == "Serverside"
-                       orderby a.Element ascending
-                       select a.Element;
+            var Bruker = from a in db.CVVersjon
+                         where a.AspNetUserId.Equals(UserId)
+                         select a.Kompetanse.Databasesystemer;
 
-            return Json(Item, JsonRequestBehavior.AllowGet);
+            return Bruker;
         }
 
-        [HttpGet]
-        public ActionResult GetOperatingSystems()
+        private IQueryable GetServerside(string UserId)
         {
-            var Item = from a in db.ListeKatalog
-                       where a.Katalog == "Operativsystemer"
-                       orderby a.Element ascending
-                       select a.Element;
+            var Bruker = from a in db.CVVersjon
+                         where a.AspNetUserId.Equals(UserId)
+                         select a.Kompetanse.Serverside;
 
-            return Json(Item, JsonRequestBehavior.AllowGet);
+            return Bruker;
         }
 
-        [HttpPost]
-        public void InsertItem(string Insert, string Value)
+        private IQueryable GetOperativsystemer(string UserId)
         {
-            ListeKatalog NewItem = new ListeKatalog();
-            NewItem.Katalog = Insert;
-            NewItem.Element = Value;
-            db.ListeKatalog.Add(NewItem);
+            var Bruker = from a in db.CVVersjon
+                         where a.AspNetUserId.Equals(UserId)
+                         select a.Kompetanse.Operativsystemer;
 
-            db.SaveChanges();
+            return Bruker;
         }
 
         [HttpPost]
