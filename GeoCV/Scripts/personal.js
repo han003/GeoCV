@@ -12,25 +12,42 @@ function update(element) {
     var tableColumn = element.attr('id').substring(0, element.attr('id').indexOf('-'));
     var newValue = element.val();
 
-    console.log("Table: " + tableColumn);
-    console.log("Value: " + newValue);
+    console.log('Ny verdi: ' + newValue);
 
     $.post('/Personal/Update', { Update: tableColumn, Value: newValue });
 }
 
 function getLanguages() {
     $.get('/Personal/GetLanguages', function (data) {
+
+        console.log(data);
+        var språkarray = new Array();
+        var idarray = new Array();
+
+        $.each(data[1], function (index, value) {
+            språkarray.push(value['Element']);
+            idarray.push(value['ListeKatalogId']);
+
+            $.each(data[0][0].split(';'), function (index, brukerspråk) {
+                if (value['ListeKatalogId'] == brukerspråk) {
+                    $('#Språk-group').append('<button id="språk-' + value['ListeKatalogId'] + '" type="button" class="btn btn-info added-btn" tabindex="-1">' + value['Element'] + '</button>');
+                }
+
+            });
+        });
+
         $(function () {
             $("#Språk-auto").typeahead({
                 minLength: 0,
-                source: data
+                source: språkarray
             });
         });
 
         $("#Språk-load").addClass('hidden');
         $("#Språk-form").removeClass('hidden');
 
-        $("#Språk-auto").data('json', data);
+        $("#Språk-auto").data('språk', språkarray);
+        $("#Språk-auto").data('språkid', idarray);
     }, 'json');
 }
 
@@ -38,13 +55,11 @@ $.ajax({
     url: '/Personal/GetStillinger',
     type: 'GET',
     success: function (alleStillinger) {
-        console.log(alleStillinger);
 
         $.ajax({
             url: '/Personal/GetValgtStilling',
             type: 'GET',
             success: function (valgtStilling) {
-                console.log(valgtStilling);
 
                 var template = '';
                 var stillingMatch = false;
@@ -86,18 +101,14 @@ $('#stillinger-select').on('change', function (e) {
 
 ////////////  BURSDAG
 
-$("#birthday-date").datepicker({
+$('#birthday-date, #geomatikk-start-date').datepicker({
     changeMonth: true,
     changeYear: true,
     dateFormat: 'd MM yy'
 });
 
 $.get('/Personal/GetBursdag', function (data) {
-    var dag = data.split(' ')[0].split('.')[0];
-    var mnd = data.split(' ')[0].split('.')[1] - 1;
-    var år = data.split(' ')[0].split('.')[2];
-
-    var Bursdag = new Date(år, mnd, dag);
+    var Bursdag = createDate(data);
 
     console.log('Bursdag: ' + Bursdag);
     $('#birthday-date').datepicker('setDate', Bursdag);
@@ -115,18 +126,8 @@ $('#birthday-date').on('change', function (e) {
 
 ////////////  START DATO
 
-$("#geomatikk-start-date").datepicker({
-    changeMonth: true,
-    changeYear: true,
-    dateFormat: 'd MM yy'
-});
-
 $.get('/Personal/GetStartDato', function (data) {
-    var dag = data.split(' ')[0].split('.')[0];
-    var mnd = data.split(' ')[0].split('.')[1] - 1;
-    var år = data.split(' ')[0].split('.')[2];
-
-    var StartDato = new Date(år, mnd, dag);
+    var StartDato = createDate(data);
 
     console.log('Start Dato: ' + StartDato);
     $('#geomatikk-start-date').datepicker('setDate', StartDato);
@@ -142,6 +143,14 @@ $('#geomatikk-start-date').on('change', function (e) {
     $.post('/Personal/UpdateStartDato', { Value: startDato });
 });
 
+function createDate(data) {
+    var dag = data.split(' ')[0].split('.')[0];
+    var mnd = data.split(' ')[0].split('.')[1] - 1;
+    var år = data.split(' ')[0].split('.')[2];
+
+    return new Date(år, mnd, dag);
+}
+
 
 //////////////////// INSERT NEW AUTO STUFF
 
@@ -149,12 +158,12 @@ var autoTextfield;
 var userAutoInput;
 var databaseUpdateColumn;
 
-// What happens when add button is clicked
+// Hva som skjer når man trykker på 'legg til' knappen
 $('.add-item-btn').click(function () {
     addItem($(this));
 });
 
-// What happens when the Enter key is pressed
+// Hva som skjer når man trykker på enter når tekstfeltet har fokus
 $('.add-item-auto').keypress(function (event) {
     var keycode = (event.keyCode ? event.keyCode : event.which);
     if (keycode == '13') {
@@ -162,9 +171,8 @@ $('.add-item-auto').keypress(function (event) {
     }
 });
 
-// What happens when removing a button
+// Hva som skjer når man klikker på en knapp for å fjerne den
 $('body').on('click', '.added-btn', function () {
-
     databaseUpdateColumn = $(this).parent().attr('id');
     databaseUpdateColumn = databaseUpdateColumn.substring(0, databaseUpdateColumn.indexOf('-'));
 
@@ -176,85 +184,47 @@ function addItem(element) {
     databaseUpdateColumn = element.attr('id');
     databaseUpdateColumn = databaseUpdateColumn.substring(0, databaseUpdateColumn.indexOf('-'));
 
-    console.log('Column: ' + databaseUpdateColumn)
-
-    // Get textfield
+    // Hent rett tekstfelt
     autoTextfield = $('#' + databaseUpdateColumn + '-auto');
 
-    // Get value
-    userAutoInput = autoTextfield.val();
+    // Legg til ny knapp med valgt element
+    appendNewLanguage(autoTextfield.val());
 
-    console.log('Value: ' + userAutoInput)
+    // Fjern teksten fra input
+    $('#' + databaseUpdateColumn + '-auto').val('');
 
-    // Check if the value is already in the database
-    var json = autoTextfield.data('json');
-
-    if (itemExists(userAutoInput, json)) {
-        $('#' + databaseUpdateColumn + '-group').append('<button type="button" class="btn btn-info added-btn" tabindex="-1">' + userAutoInput + '</button>');
-        autoTextfield.val('');
-        updateDatabase();
-    } else {
-        $('#modalAddText').append('<code>' + userAutoInput + '</code> finnes ikke i databasen, vil legge den til?');
-        $('#myModal').modal();
-    }
-}
-
-// Check if item exsists in the json data
-function itemExists(userAutoInput, json) {
-    var exists = false;
-    $.each(json, function (name, value) {
-        if (userAutoInput.toLowerCase() == value.toLowerCase()) {
-            exists = true;
-        }
-    });
-    return exists;
-}
-
-// Reset the text in the modal whenever the modal is hidden
-$('#myModal').on('hidden.bs.modal', function (event) {
-    $('#modalAddText').text('');
-});
-
-// If modal button to add is clicked, add new item to database
-$('#modalAddItem').click(function () {
-    // Insert into database
-    insertAutoItem(databaseUpdateColumn, userAutoInput);
-
-    // Hide modal
-    $('#myModal').modal('hide');
-
-    // Append the new button
-    $('#' + databaseUpdateColumn + '-group').append('<button type="button" class="btn btn-info added-btn" tabindex="-1">' + userAutoInput + '</button>');
-
-    // Erase the text in the autocomplete textfield
-    autoTextfield.val('');
-
-    // Update field in database
+    // Oppdater databasen
     updateDatabase();
-});
+}
 
-function insertAutoItem(databaseUpdateColumn, userAutoInput) {
-    console.log('Inserting ' + userAutoInput + ' into ' + databaseUpdateColumn)
-    $.post('/Personal/InsertItem', { Insert: databaseUpdateColumn, Value: userAutoInput }, function () {
-        refreshLanguages();
+function appendNewLanguage(userAutoInput) {
+    var språkarray = autoTextfield.data('språk');
+    var idarray = autoTextfield.data('språkid');
+
+    $.each(språkarray, function (index, value) {
+        if (userAutoInput == value) {
+            $('#' + databaseUpdateColumn + '-group').append('<button id="språk-' + idarray[index] + '" type="button" class="btn btn-info added-btn" tabindex="-1">' + value + '</button>');
+        }
     });
 }
 
 function updateDatabase() {
 
-    // Empty var to hold text
+    // Tom variabel for å holde teksten
     var newValue = '';
 
-    // Loop through all buttons
+    // Gå gjennom alle knappene å legg IDene i en string
     $('#' + databaseUpdateColumn + '-group button').each(function () {
-        newValue += $(this).text() + ';';
+        var idstring = $(this).attr('id');
+        var id = idstring.substring(idstring.indexOf('-') + 1);
+        newValue += id + ';';
     });
 
-    // Remove last ;
+    // Fjern siste ';' fra stringen
     newValue = newValue.substring(0, newValue.length - 1);
 
-    console.log("Table: " + databaseUpdateColumn);
-    console.log("Value: " + newValue);
+    console.log('Table: ' + databaseUpdateColumn);
+    console.log('Value: ' + newValue);
 
     // Update
     $.post('/Personal/Update', { Update: databaseUpdateColumn, Value: newValue });

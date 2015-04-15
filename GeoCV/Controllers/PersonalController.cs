@@ -29,12 +29,26 @@ namespace GeoCV.Controllers
         [HttpGet]
         public ActionResult GetLanguages()
         {
-            var Item = from a in db.ListeKatalog
-                       where a.Katalog == "Språk"
-                       orderby a.Element ascending
-                       select a.Element;
+            string UserId = (Session["ShadowUser"] != null) ? Session["ShadowUser"].ToString() : User.Identity.GetUserId();
 
-            return Json(Item, JsonRequestBehavior.AllowGet);
+            var BrukerSpråk = from a in db.CVVersjon
+                              where a.AspNetUserId.Equals(UserId)
+                              select a.Person.Språk;
+
+            var Språk = from a in db.ListeKatalog
+                        where a.Katalog == "Språk"
+                        orderby a.Element ascending
+                        select new
+                        {
+                            a.ListeKatalogId,
+                            a.Element
+                        };
+
+            List<IQueryable> Kombinert = new List<IQueryable>();
+            Kombinert.Add(BrukerSpråk);
+            Kombinert.Add(Språk);
+
+            return Json(Kombinert, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -116,17 +130,6 @@ namespace GeoCV.Controllers
             CVVersjon Cv = Item.FirstOrDefault();
 
             Cv.Person.StartDato = Value;
-
-            db.SaveChanges();
-        }
-
-        [HttpPost]
-        public void InsertItem(string Insert, string Value)
-        {
-            ListeKatalog NewItem = new ListeKatalog();
-            NewItem.Katalog = Insert;
-            NewItem.Element = Value;
-            db.ListeKatalog.Add(NewItem);
 
             db.SaveChanges();
         }
