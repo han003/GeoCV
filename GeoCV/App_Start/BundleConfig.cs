@@ -176,6 +176,7 @@ namespace GeoCV
 
             bundles.Add(new StyleBundle("~/Bundles/css/work")
                 .Include("~/Content/bootstrap.css")
+                .Include("~/Content/work.css")
                 .Include("~/Content/main.css"));
 
             // My Projects

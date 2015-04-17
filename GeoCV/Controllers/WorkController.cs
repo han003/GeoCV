@@ -9,32 +9,18 @@ using Microsoft.AspNet.Identity;
 namespace GeoCV.Controllers
 {
     [Authorize]
-    public class WorkController : Controller
+    public class WorkController : BaseController
     {
-        private cvEntities db = new cvEntities();
-
         // GET: Work
         public ActionResult Index()
         {
-            string UserId = (Session["ShadowUser"] != null) ? Session["ShadowUser"].ToString() : User.Identity.GetUserId();
-
-            var Item = from a in db.CVVersjon
-                       where a.AspNetUserId.Equals(UserId)
-                       select a;
-
-            return View(Item.FirstOrDefault());
+            return View();
         }
 
         [HttpPost]
         public void AddNewWork(string Arbeidsplass, string Stilling, string Beskrivelse, Int16 Fra, Int16 Til)
         {
-            string UserId = (Session["ShadowUser"] != null) ? Session["ShadowUser"].ToString() : User.Identity.GetUserId();
-
-            var Item = from a in db.CVVersjon
-                       where a.AspNetUserId.Equals(UserId)
-                       select a;
-
-            CVVersjon Cv = Item.FirstOrDefault();
+            CVVersjon Cv = GetUserCV();
 
             Arbeidserfaring NewItem = new Arbeidserfaring();
             NewItem.Arbeidsplass = Arbeidsplass;
@@ -44,6 +30,85 @@ namespace GeoCV.Controllers
             NewItem.Til = Til;
 
             Cv.Arbeidserfaring.Add(NewItem);
+
+            db.SaveChanges();
+        }
+
+        [HttpGet]
+        public ActionResult GetArbeidserfaring()
+        {
+            var Arbeidserfaring = GetUserCV().Arbeidserfaring;
+
+            List<Arbeidserfaring> ArbeidserfaringList = new List<Arbeidserfaring>();
+
+            foreach (var Item in Arbeidserfaring)
+            {
+                Arbeidserfaring NyArbeidserfaring = new Arbeidserfaring();
+                NyArbeidserfaring.ArbeidserfaringId = Item.ArbeidserfaringId;
+                NyArbeidserfaring.Arbeidsplass = Item.Arbeidsplass;
+                NyArbeidserfaring.Stilling = Item.Stilling;
+                NyArbeidserfaring.Beskrivelse = Item.Beskrivelse;
+                NyArbeidserfaring.Fra = Item.Fra;
+                NyArbeidserfaring.Til = Item.Til;
+
+                ArbeidserfaringList.Add(NyArbeidserfaring);
+            }
+
+            return Json(ArbeidserfaringList, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public void DeleteElement(int Id)
+        {
+            var Arbeidserfaring = GetUserCV().Arbeidserfaring;
+
+            Arbeidserfaring ValgtArbeidserfaring = new Arbeidserfaring();
+
+            foreach (var Item in Arbeidserfaring)
+            {
+                if (Item.ArbeidserfaringId == Id)
+                {
+                    ValgtArbeidserfaring = Item;
+                }
+            }
+
+            db.Arbeidserfaring.Remove(ValgtArbeidserfaring);
+            db.SaveChanges();
+        }
+
+        [HttpPost]
+        public void ChangeElement(int Id, string NewValue, string Kolonne)
+        {
+            var Arbeidserfaring = GetUserCV().Arbeidserfaring;
+
+            foreach (var Item in Arbeidserfaring)
+            {
+                if (Item.ArbeidserfaringId == Id)
+                {
+                    switch (Kolonne)
+                    {
+                        case "Arbeidsplass":
+                            Item.Arbeidsplass = NewValue;
+                            break;
+
+                        case "Stilling":
+                            Item.Stilling = NewValue;
+                            break;
+
+                        case "Beskrivelse":
+                            Item.Beskrivelse = NewValue;
+                            break;
+
+                        case "Fra":
+                            Item.Fra = Int16.Parse(NewValue);
+                            break;
+
+                        case "Til":
+                            Item.Til = Int16.Parse(NewValue);
+                            break;
+                    }
+                }
+            }
 
             db.SaveChanges();
         }

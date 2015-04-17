@@ -220,6 +220,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DatabaseController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DownloadController.cs" />
     <Compile Include="Controllers\EditProjectController.cs" />
     <Compile Include="Controllers\EducationController.cs" />
@@ -395,6 +396,12 @@
     <Content Include="Content\settings.min.css">
       <DependentUpon>settings.css</DependentUpon>
     </Content>
+    <Content Include="Content\work.css">
+      <DependentUpon>work.less</DependentUpon>
+    </Content>
+    <Content Include="Content\work.min.css">
+      <DependentUpon>work.css</DependentUpon>
+    </Content>
     <Content Include="Global.asax" />
     <Content Include="Models\Database.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -522,6 +529,10 @@
     <Content Include="Content\education.less" />
     <Content Include="Content\education.css.map">
       <DependentUpon>education.css</DependentUpon>
+    </Content>
+    <Content Include="Content\work.less" />
+    <Content Include="Content\work.css.map">
+      <DependentUpon>work.css</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\geocv %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\geocv.pubxml" />
@@ -712,6 +723,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Default\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

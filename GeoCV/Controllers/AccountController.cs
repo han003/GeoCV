@@ -16,7 +16,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 namespace GeoCV.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
@@ -158,9 +158,6 @@ namespace GeoCV.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    // Database
-                    cvEntities db = new cvEntities();
-
                     // Create new CV
                     CVVersjon Cv = new CVVersjon();
                     Cv.AspNetUserId = user.Id;
