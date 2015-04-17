@@ -14,6 +14,9 @@ function update(element) {
 
     console.log('Ny verdi: ' + newValue);
 
+    // Oppdater surfer navn hvis man redigerer en annen bruker enn seg selv
+    $('#shadowBrukerLink').html('Surfer som ' + $('#Fornavn-txt').val() + ' ' + $('#Etternavn-txt').val());
+
     $.post('/Personal/Update', { Update: tableColumn, Value: newValue });
 }
 
@@ -28,12 +31,16 @@ function getLanguages() {
             språkarray.push(value['Element']);
             idarray.push(value['ListeKatalogId']);
 
-            $.each(data[0][0].split(';'), function (index, brukerspråk) {
-                if (value['ListeKatalogId'] == brukerspråk) {
-                    $('#Språk-group').append('<button id="språk-' + value['ListeKatalogId'] + '" type="button" class="btn btn-info added-btn" tabindex="-1">' + value['Element'] + '</button>');
-                }
-
-            });
+            try {
+                $.each(data[0][0].split(';'), function (index, brukerspråk) {
+                    if (value['ListeKatalogId'] == brukerspråk) {
+                        $('#Språk-group').append('<button id="språk-' + value['ListeKatalogId'] + '" type="button" class="btn btn-info added-btn" tabindex="-1">' + value['Element'] + '</button>');
+                    }
+                });
+            }
+            catch (e) {
+                console.log(e); 
+            }
         });
 
         $(function () {

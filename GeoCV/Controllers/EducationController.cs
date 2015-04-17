@@ -11,32 +11,18 @@ namespace GeoCV.Controllers
 {
 
     [Authorize]
-    public class EducationController : Controller
+    public class EducationController : BaseController
     {
-        private cvEntities db = new cvEntities();
-
         // GET: Education
         public ActionResult Index()
         {
-            string UserId = (Session["ShadowUser"] != null) ? Session["ShadowUser"].ToString() : User.Identity.GetUserId();
-
-            var Item = from a in db.CVVersjon
-                       where a.AspNetUserId.Equals(UserId)
-                       select a;
-
-            return View(Item.FirstOrDefault());
+            return View();
         }
 
         [HttpGet]
         public ActionResult GetUtdannelse()
         {
-            string UserId = (Session["ShadowUser"] != null) ? Session["ShadowUser"].ToString() : User.Identity.GetUserId();
-
-            var Data = from a in db.CVVersjon
-                       where a.AspNetUserId.Equals(UserId)
-                       select a;
-
-            var Utdannelse = Data.FirstOrDefault().Utdannelse;
+            var Utdannelse = GetUserCV().Utdannelse;
 
             List<Utdannelse> UtdannelseList = new List<Utdannelse>();
 
@@ -58,13 +44,7 @@ namespace GeoCV.Controllers
         [HttpPost]
         public void AddNewEducation(string Skole, string Beskrivelse, Int16 Fra, Int16 Til)
         {
-            string UserId = (Session["ShadowUser"] != null) ? Session["ShadowUser"].ToString() : User.Identity.GetUserId();
-
-            var Item = from a in db.CVVersjon
-                       where a.AspNetUserId.Equals(UserId)
-                       select a;
-
-            CVVersjon Cv = Item.FirstOrDefault();
+            CVVersjon Cv = GetUserCV();
 
             Utdannelse NewItem = new Utdannelse();
             NewItem.Studiested = Skole;
@@ -80,13 +60,7 @@ namespace GeoCV.Controllers
         [HttpPost]
         public void DeleteElement(int Id)
         {
-            string UserId = (Session["ShadowUser"] != null) ? Session["ShadowUser"].ToString() : User.Identity.GetUserId();
-
-            var Data = from a in db.CVVersjon
-                       where a.AspNetUserId.Equals(UserId)
-                       select a;
-
-            var Utdannelse = Data.FirstOrDefault().Utdannelse;
+            var Utdannelse = GetUserCV().Utdannelse;
 
             Utdannelse ValgtUtdannelse = new Utdannelse();
 
@@ -105,13 +79,7 @@ namespace GeoCV.Controllers
         [HttpPost]
         public void ChangeElement(int Id, string NewValue, string Kolonne)
         {
-            string UserId = (Session["ShadowUser"] != null) ? Session["ShadowUser"].ToString() : User.Identity.GetUserId();
-
-            var Data = from a in db.CVVersjon
-                       where a.AspNetUserId.Equals(UserId)
-                       select a;
-
-            var Utdannelse = Data.FirstOrDefault().Utdannelse;
+            var Utdannelse = GetUserCV().Utdannelse;
 
             foreach (var Item in Utdannelse)
             {

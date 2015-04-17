@@ -9,24 +9,15 @@ using Microsoft.AspNet.Identity;
 namespace GeoCV.Controllers
 {
     [Authorize]
-    public class MyProjectsController : Controller
+    public class MyProjectsController : BaseController
     {
-        private cvEntities db = new cvEntities();
-
-        // GET: Work
         public ActionResult Index()
         {
-            string UserId = (Session["ShadowUser"] != null) ? Session["ShadowUser"].ToString() : User.Identity.GetUserId();
-
-            var Item = from a in db.CVVersjon
-                       where a.AspNetUserId.Equals(UserId)
-                       select a;
-
-            return View(Item.FirstOrDefault());
+            return View();
         }
 
         [HttpGet]
-        public ActionResult GetProjects()
+        public ActionResult GetEksisterendeProsjekter()
         {
             var Item = from a in db.Prosjekt
                        orderby a.Navn ascending
@@ -38,20 +29,12 @@ namespace GeoCV.Controllers
         [HttpPost]
         public void AddNewProject(string Prosjekt, string Rolle)
         {
-            // Hent ID til bruker som er innlogget
-            string UserId = (Session["ShadowUser"] != null) ? Session["ShadowUser"].ToString() : User.Identity.GetUserId();
-
-            // Hent CVVersjon til innlogget bruker
-            var CvQuery = from a in db.CVVersjon
-                       where a.AspNetUserId.Equals(UserId)
-                       select a;
-
-            CVVersjon CvDb = CvQuery.FirstOrDefault();
+            CVVersjon Cv = GetUserCV();
 
             // Hent valgt prosjekt
             var ProsjektQuery = from a in db.Prosjekt
-                           where a.Navn.Equals(Prosjekt)
-                           select a;
+                                where a.Navn.Equals(Prosjekt)
+                                select a;
 
             Prosjekt ProsjektDb = ProsjektQuery.FirstOrDefault();
 
@@ -60,11 +43,11 @@ namespace GeoCV.Controllers
             NyMedlem.Rolle = Rolle;
             NyMedlem.Start = 1991;
             NyMedlem.Slutt = 1991;
-            NyMedlem.Person = CvDb.Person;
+            NyMedlem.Person = Cv.Person;
             NyMedlem.Prosjekt = ProsjektDb;
 
             // Legg til medlem
-            CvDb.Person.Medlem.Add(NyMedlem);
+            Cv.Person.Medlem.Add(NyMedlem);
 
             // Lagre endringer
             db.SaveChanges();

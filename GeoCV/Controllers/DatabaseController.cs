@@ -7,11 +7,8 @@ using System.Web.Mvc;
 
 namespace GeoCV.Controllers
 {
-    public class DatabaseController : Controller
+    public class DatabaseController : BaseController
     {
-
-        private cvEntities db = new cvEntities();
-
         // GET: Database
         public ActionResult Index()
         {
@@ -19,21 +16,7 @@ namespace GeoCV.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetEditData()
-        {
-            var Data = from a in db.ListeKatalog
-                       select new
-                       {
-                           a.ListeKatalogId,
-                           a.Katalog,
-                           a.Element
-                       };
-
-            return Json(Data, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpGet]
-        public ActionResult FilterElements(string Filter)
+        public ActionResult GetDatabase(string Filter)
         {
             var Data = from a in db.ListeKatalog
                        where a.Element.Contains(Filter)

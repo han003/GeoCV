@@ -13,7 +13,7 @@ function refreshTable() {
     var filter = $('#filter-txt').val();
 
     $.ajax({
-        url: '/Database/FilterElements',
+        url: '/Database/GetDatabase',
         data: { Filter: filter },
         type: 'GET',
         success: function (data) {

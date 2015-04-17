@@ -9,27 +9,19 @@ using Microsoft.AspNet.Identity;
 namespace GeoCV.Controllers
 {
     [Authorize]
-    public class PersonalController : Controller
+    public class PersonalController : BaseController
     {
-
-        private cvEntities db = new cvEntities();
 
         // GET: Personal
         public ActionResult Index()
         {
-            string UserId = (Session["ShadowUser"] != null) ? Session["ShadowUser"].ToString() : User.Identity.GetUserId();
-
-            var Item = from a in db.CVVersjon
-                       where a.AspNetUserId.Equals(UserId)
-                       select a;
-
-            return View(Item.FirstOrDefault());
+            return View(GetUserCV());
         }
 
         [HttpGet]
         public ActionResult GetLanguages()
         {
-            string UserId = (Session["ShadowUser"] != null) ? Session["ShadowUser"].ToString() : User.Identity.GetUserId();
+            string UserId = GetAspNetUserID();
 
             var BrukerSpråk = from a in db.CVVersjon
                               where a.AspNetUserId.Equals(UserId)
@@ -82,11 +74,7 @@ namespace GeoCV.Controllers
         [HttpGet]
         public ActionResult GetValgtStilling()
         {
-            string UserId = (Session["ShadowUser"] != null) ? Session["ShadowUser"].ToString() : User.Identity.GetUserId();
-            
-            var ValgtStilling = from a in db.CVVersjon
-                                where a.AspNetUserId.Equals(UserId)
-                                select a.Person.Stilling;
+            var ValgtStilling = GetUserCV().Person.Stilling;
 
             return Json(ValgtStilling, JsonRequestBehavior.AllowGet);
         }
@@ -94,11 +82,7 @@ namespace GeoCV.Controllers
         [HttpGet]
         public ActionResult GetValgtNasjonalitet()
         {
-            string UserId = (Session["ShadowUser"] != null) ? Session["ShadowUser"].ToString() : User.Identity.GetUserId();
-
-            var ValgtNasjonalitet = from a in db.CVVersjon
-                                    where a.AspNetUserId.Equals(UserId)
-                                    select a.Person.Nasjonalitet;
+            var ValgtNasjonalitet = GetUserCV().Person.Nasjonalitet;
 
             return Json(ValgtNasjonalitet, JsonRequestBehavior.AllowGet);
         }
@@ -106,25 +90,15 @@ namespace GeoCV.Controllers
         [HttpGet]
         public ActionResult GetBursdag()
         {
-            string UserId = (Session["ShadowUser"] != null) ? Session["ShadowUser"].ToString() : User.Identity.GetUserId();
+            var Bursdag = GetUserCV().Person.Fødselsår;
 
-            var Bursdag = from a in db.CVVersjon
-                          where a.AspNetUserId.Equals(UserId)
-                          select a.Person.Fødselsår;
-
-            return Json(Bursdag.FirstOrDefault().ToString(), JsonRequestBehavior.AllowGet);
+            return Json(Bursdag.ToString(), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public void UpdateBirthdate(DateTime Value)
         {
-            string UserId = (Session["ShadowUser"] != null) ? Session["ShadowUser"].ToString() : User.Identity.GetUserId();
-
-            var Item = from a in db.CVVersjon
-                       where a.AspNetUserId.Equals(UserId)
-                       select a;
-
-            CVVersjon Cv = Item.FirstOrDefault();
+            CVVersjon Cv = GetUserCV();
 
             Cv.Person.Fødselsår = Value;
 
@@ -135,25 +109,15 @@ namespace GeoCV.Controllers
         [HttpGet]
         public ActionResult GetStartDato()
         {
-            string UserId = (Session["ShadowUser"] != null) ? Session["ShadowUser"].ToString() : User.Identity.GetUserId();
+            var StartDato = GetUserCV().Person.StartDato;
 
-            var StartDato = from a in db.CVVersjon
-                            where a.AspNetUserId.Equals(UserId)
-                            select a.Person.StartDato;
-
-            return Json(StartDato.FirstOrDefault().ToString(), JsonRequestBehavior.AllowGet);
+            return Json(StartDato.ToString(), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public void UpdateStartDato(DateTime Value)
         {
-            string UserId = (Session["ShadowUser"] != null) ? Session["ShadowUser"].ToString() : User.Identity.GetUserId();
-
-            var Item = from a in db.CVVersjon
-                       where a.AspNetUserId.Equals(UserId)
-                       select a;
-
-            CVVersjon Cv = Item.FirstOrDefault();
+            CVVersjon Cv = GetUserCV();
 
             Cv.Person.StartDato = Value;
 
@@ -163,19 +127,13 @@ namespace GeoCV.Controllers
         [HttpPost]
         public void Update(string Update, string Value)
         {
-
-            string UserId = (Session["ShadowUser"] != null) ? Session["ShadowUser"].ToString() : User.Identity.GetUserId();
-
-            var Item = from a in db.CVVersjon
-                       where a.AspNetUserId.Equals(UserId)
-                       select a;
-
-            CVVersjon Cv = Item.FirstOrDefault();
+            CVVersjon Cv = GetUserCV();
 
             switch (Update)
             {
                 case "Fornavn":
                     Cv.Person.Fornavn = Value;
+                    Session["ShadowUserName"] = Value + " " + Cv.Person.Etternavn;
                     break;
 
                 case "Mellomnavn":
@@ -184,6 +142,7 @@ namespace GeoCV.Controllers
 
                 case "Etternavn":
                     Cv.Person.Etternavn = Value;
+                    Session["ShadowUserName"] = Cv.Person.Fornavn + " " + Value;
                     break;
                 case "Stilling":
                     Cv.Person.Stilling = Value;

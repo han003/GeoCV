@@ -10,33 +10,17 @@ using Microsoft.AspNet.Identity.EntityFramework;
 namespace GeoCV.Controllers
 {
     [Authorize]
-    public class SettingsController : Controller
+    public class SettingsController : BaseController
     {
-        private cvEntities db = new cvEntities();
-
-        // GET: Settings
         public ActionResult Index()
         {
-            string UserId = (Session["ShadowUser"] != null) ? Session["ShadowUser"].ToString() : User.Identity.GetUserId();
-
-            var Item = from a in db.CVVersjon
-                       where a.AspNetUserId.Equals(UserId)
-                       select a;
-
-            return View(Item.FirstOrDefault());
+            return View(GetUserCV());
         }
 
         [HttpPost]
         public void Update(string Update, Boolean Value)
         {
-
-            string UserId = (Session["ShadowUser"] != null) ? Session["ShadowUser"].ToString() : User.Identity.GetUserId();
-
-            var Item = from a in db.CVVersjon
-                       where a.AspNetUserId.Equals(UserId)
-                       select a;
-
-            CVVersjon Cv = Item.FirstOrDefault();
+            CVVersjon Cv = GetUserCV();
 
             switch (Update)
             {

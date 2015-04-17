@@ -30,22 +30,6 @@
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="my-projects">
 
-                    @{
-                        var number = 0;
-
-                        foreach (var Value in Model.Person.Medlem)
-                        {
-                            if (number > 0)
-                            {
-                                <hr />
-                            }
-                            <h2>@Value.Start - @Value.Slutt</h2>
-                            <h4>@Value.Prosjekt.Navn - @Value.Rolle</h4>
-                            <h4>@Value.Prosjekt.Beskrivelse</h4>
-
-                            number++;
-                        }
-                    }
 
                 </div>
 

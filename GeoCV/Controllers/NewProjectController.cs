@@ -8,10 +8,8 @@ using System.Web.Mvc;
 namespace GeoCV.Controllers
 {
     [Authorize]
-    public class NewProjectController : Controller
+    public class NewProjectController : BaseController
     {
-        private cvEntities db = new cvEntities();
-
         // GET: NewProject
         public ActionResult Index()
         {

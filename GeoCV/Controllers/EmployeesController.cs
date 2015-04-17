@@ -9,15 +9,12 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
-namespace CV.Controllers
+namespace GeoCV.Controllers
 {
 
     [Authorize]
-    public class EmployeesController : Controller
+    public class EmployeesController : BaseController
     {
-
-        private cvEntities db = new cvEntities();
-
         // GET: Employees
         public ActionResult Index()
         {
@@ -29,15 +26,17 @@ namespace CV.Controllers
 
         public ActionResult ChangeUser(int Id)
         {
-            var NewAspNetId = from a in db.CVVersjon
-                              where a.CVVersjonId.Equals(Id)
-                              select a;
+            // Finn ansatt med riktig ID
+            var Query = from a in db.CVVersjon
+                        where a.CVVersjonId.Equals(Id)
+                        select a;
 
-            foreach (var NewId in NewAspNetId)
-            {
-                Session["ShadowUser"] = NewId.AspNetUserId;
-                Session["ShadowUserName"] = NewId.Person.Fornavn + " " + NewId.Person.Etternavn;
-            }
+            // Velg ansatt
+            var NewUser = Query.FirstOrDefault();
+
+            // Opprett en session som valgt ansatt
+            Session["ShadowUser"] = NewUser.AspNetUserId;
+            Session["ShadowUserName"] = NewUser.Person.Fornavn + " " + NewUser.Person.Etternavn;
             
             return RedirectToAction("Index", "Dashboard");
         }
@@ -45,7 +44,7 @@ namespace CV.Controllers
         [HttpPost]
         public void Activate(int Id)
         {
-            // Finn CVen som har brukerens Id
+            // Finn CVen som har brukerens ID
             var Item = from a in db.CVVersjon
                        where a.CVVersjonId.Equals(Id)
                        select a;
@@ -59,7 +58,6 @@ namespace CV.Controllers
             var UserMan = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
             var user = UserMan.FindById(Cv.AspNetUserId);
             user.LockoutEnabled = false;
-            user.AccessFailedCount = 0;
             UserMan.Update(user);
         }
 
@@ -80,7 +78,7 @@ namespace CV.Controllers
             var UserMan = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
             var user = UserMan.FindById(Cv.AspNetUserId);
             user.LockoutEnabled = true;
-            user.AccessFailedCount = 99;
+            user.LockoutEndDateUtc = DateTime.Now.AddYears(100);
             UserMan.Update(user);
         }
 
@@ -128,9 +126,6 @@ namespace CV.Controllers
 
                 if (result.Succeeded)
                 {
-                    // Database
-                    cvEntities db = new cvEntities();
-
                     // Create new CV
                     CVVersjon Cv = new CVVersjon();
                     Cv.AspNetUserId = user.Id;

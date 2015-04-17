@@ -9,14 +9,12 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 
-namespace CV.Controllers
+namespace GeoCV.Controllers
 {
 
     [Authorize]
-    public class DownloadController : Controller
+    public class DownloadController : BaseController
     {
-        private cvEntities db = new cvEntities();
-
         public ActionResult Word()
         {
 
@@ -36,14 +34,7 @@ namespace CV.Controllers
 
         public ActionResult Pdf()
         {
-
-            string UserId = (Session["ShadowUser"] != null) ? Session["ShadowUser"].ToString()  : User.Identity.GetUserId();
-
-            var Item = from a in db.CVVersjon
-                       where a.AspNetUserId.Equals(UserId)
-                       select a;
-
-            CVVersjon Cv = Item.FirstOrDefault();
+            CVVersjon Cv = GetUserCV();
 
             string FileName = Cv.Person.Fornavn + " " + Cv.Person.Etternavn + " - CV";
 

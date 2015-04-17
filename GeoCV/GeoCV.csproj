@@ -233,8 +233,6 @@
     <Compile Include="Controllers\PersonalController.cs" />
     <Compile Include="Controllers\MyProjectsController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
-    <Compile Include="Controllers\ReportController.cs" />
-    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\WorkController.cs" />
     <Compile Include="Global.asax.cs">
@@ -663,8 +661,6 @@
     </Content>
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Employees\Index.cshtml" />
-    <Content Include="Views\Report\Index.cshtml" />
-    <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Scripts\jquery\jquery.validate-vsdoc.min.js.map">
       <DependentUpon>jquery.validate-vsdoc.min.js</DependentUpon>
     </Content>
@@ -723,7 +719,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Default\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

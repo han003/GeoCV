@@ -32,12 +32,17 @@ function getKatalog(katalog) {
                 elementArray.push(value['Element']);
                 idArray.push(value['ListeKatalogId']);
 
-                $.each(data[0][0].split(';'), function (index, element) {
-                    if (value['ListeKatalogId'] == element) {
-                        $('#' + katalog + '-group').append('<button id="' + katalog + '-' + value['ListeKatalogId'] + '" type="button" class="btn btn-info added-btn" tabindex="-1">' + value['Element'] + '</button>');
-                    }
+                try {
+                    $.each(data[0][0].split(';'), function (index, element) {
+                        if (value['ListeKatalogId'] == element) {
+                            $('#' + katalog + '-group').append('<button id="' + katalog + '-' + value['ListeKatalogId'] + '" type="button" class="btn btn-info added-btn" tabindex="-1">' + value['Element'] + '</button>');
+                        }
+                    });
+                }
+                catch (e) {
+                    console.log(e);
+                }
 
-                });
             });
 
             $(function () {

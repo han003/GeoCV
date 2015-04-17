@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    $.get('/MyProjects/GetProjects', function (data) {
+    $.get('/MyProjects/GetEksisterendeProsjekter', function (data) {
         $(function () {
             $("#project-auto").typeahead({
                 minLength: 0,

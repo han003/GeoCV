@@ -73,7 +73,7 @@
                         </li>
 
                         if(Session["ShadowUser"] != null){
-                            <li>@Html.ActionLink("Surfer som " + Session["ShadowUserName"], "EndSession", "Dashboard")</li>
+                            <li>@Html.ActionLink("Surfer som " + Session["ShadowUserName"], "EndSession", "Dashboard", null, new { id = "shadowBrukerLink" })</li>
                         }
 
                     }

@@ -9,27 +9,26 @@ namespace GeoCV.Controllers
 {
 
     [Authorize(Roles = "Admin")]
-    public class EditProjectController : Controller
+    public class EditProjectController : BaseController
     {
-        private cvEntities db = new cvEntities();
-
-        public ActionResult Index(int Id)
+        private Prosjekt GetProsjekt(int Id)
         {
             var Item = from a in db.Prosjekt
                        where a.ProsjektId.Equals(Id)
                        select a;
 
-            return View(Item.FirstOrDefault());
+            return Item.FirstOrDefault();
+        }
+
+        public ActionResult Index(int Id)
+        {
+            return View(GetProsjekt(Id));
         }
 
         [HttpPost]
         public void UpdateProjectInfo(int Id, string Update, string Value)
         {
-            var Item = from a in db.Prosjekt
-                       where a.ProsjektId.Equals(Id)
-                       select a;
-
-            Prosjekt Pro = Item.FirstOrDefault();
+            Prosjekt Pro = GetProsjekt(Id);
 
             switch (Update)
             {
@@ -53,8 +52,11 @@ namespace GeoCV.Controllers
         [HttpGet]
         public ActionResult GetElements()
         {
-            // Velg alle programmeringsspråk i databasen
+            // Hent alt relatert til prosjekt fra databasen
             var Items = from a in db.ListeKatalog
+                        where a.Katalog != "Stillinger" && 
+                              a.Katalog != "Nasjonaliteter" && 
+                              a.Katalog != "Språk"
                         orderby a.Element ascending
                         select a.Element;
 
@@ -66,11 +68,7 @@ namespace GeoCV.Controllers
         [HttpPost]
         public void AddTechProfile(int Id, string Navn, string Elementer)
         {
-            var Item = from a in db.Prosjekt
-                       where a.ProsjektId.Equals(Id)
-                       select a;
-
-            Prosjekt Pro = Item.FirstOrDefault();
+            Prosjekt Pro = GetProsjekt(Id);
 
             TekniskProfil NyTekniskProfil = new TekniskProfil();
             NyTekniskProfil.Navn = Navn;

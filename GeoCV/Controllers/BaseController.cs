@@ -12,9 +12,14 @@ namespace GeoCV.Controllers
     {
         public cvEntities db = new cvEntities();
 
+        public string GetAspNetUserID()
+        {
+            return (Session["ShadowUser"] != null) ? Session["ShadowUser"].ToString() : User.Identity.GetUserId();
+        }
+
         public CVVersjon GetUserCV()
         {
-            string UserId = (Session["ShadowUser"] != null) ? Session["ShadowUser"].ToString() : User.Identity.GetUserId();
+            string UserId = GetAspNetUserID();
 
             var Data = from a in db.CVVersjon
                        where a.AspNetUserId.Equals(UserId)

@@ -9,20 +9,12 @@ using Microsoft.AspNet.Identity;
 namespace GeoCV.Controllers
 {
     [Authorize]
-    public class ExpertiseController : Controller
+    public class ExpertiseController : BaseController
     {
-        private cvEntities db = new cvEntities();
-
         // GET: Expertise
         public ActionResult Index()
         {
-            string UserId = (Session["ShadowUser"] != null) ? Session["ShadowUser"].ToString() : User.Identity.GetUserId();
-
-            var Item = from a in db.CVVersjon
-                       where a.AspNetUserId.Equals(UserId)
-                       select a;
-
-            return View(Item.FirstOrDefault());
+            return View();
         }
 
 
@@ -30,7 +22,7 @@ namespace GeoCV.Controllers
         public ActionResult GetElements(string Katalog)
         {
             // Hent ID til bruker
-            string UserId = (Session["ShadowUser"] != null) ? Session["ShadowUser"].ToString() : User.Identity.GetUserId();
+            string UserId = GetAspNetUserID();
 
             IQueryable Bruker = Enumerable.Empty<IQueryable>().AsQueryable();
 
@@ -141,14 +133,7 @@ namespace GeoCV.Controllers
         [HttpPost]
         public void Update(string Update, string Value)
         {
-
-            string UserId = (Session["ShadowUser"] != null) ? Session["ShadowUser"].ToString() : User.Identity.GetUserId();
-
-            var Item = from a in db.CVVersjon
-                       where a.AspNetUserId.Equals(UserId)
-                       select a;
-
-            CVVersjon Cv = Item.FirstOrDefault();
+            CVVersjon Cv = GetUserCV();
 
             switch (Update)
             {
