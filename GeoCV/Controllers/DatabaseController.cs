@@ -22,12 +22,12 @@ namespace GeoCV.Controllers
         public ActionResult GetEditData()
         {
             var Data = from a in db.ListeKatalog
-                            select new
-                            {
-                                a.ListeKatalogId,
-                                a.Katalog,
-                                a.Element
-                            };
+                       select new
+                       {
+                           a.ListeKatalogId,
+                           a.Katalog,
+                           a.Element
+                       };
 
             return Json(Data, JsonRequestBehavior.AllowGet);
         }
@@ -78,12 +78,19 @@ namespace GeoCV.Controllers
         [HttpPost]
         public void AddElement(string NyttElement, string Katalog)
         {
-            ListeKatalog NewItem = new ListeKatalog();
-            NewItem.Katalog = Katalog;
-            NewItem.Element = NyttElement;
-            db.ListeKatalog.Add(NewItem);
+            var Data = from a in db.ListeKatalog
+                       where a.Element.Equals(NyttElement) && a.Katalog.Equals(Katalog)
+                       select a;
 
-            db.SaveChanges();
+            if (Data.Count() == 0)
+            {
+                ListeKatalog NewItem = new ListeKatalog();
+                NewItem.Katalog = Katalog;
+                NewItem.Element = NyttElement;
+                db.ListeKatalog.Add(NewItem);
+
+                db.SaveChanges();
+            }
         }
     }
 }

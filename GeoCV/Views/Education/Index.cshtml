@@ -14,6 +14,32 @@
     @Scripts.Render("~/Bundles/js/education")
 }
 
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Rediger</h4>
+            </div>
+            <div id="EditModalAddText" class="modal-body">
+
+                <h4 id="editLoader">Jobber <i class="fa fa-spinner fa-pulse"></i></h4>
+                <input id="edit-txt" type="text" class="form-control" autocomplete="off">
+                <select id="modal-select" class="form-control">
+                    @for (var i = 0; i <= 100; i++)
+                    {
+                        <option>@(@DateTime.Now.Year - i)</option>
+                    }
+                </select>
+
+            </div>
+            <div class="modal-footer">
+                <button id="editmodalDontAddItem" type="button" class="btn btn-default" data-dismiss="modal">Avslutt (Esc)</button>
+                <button id="editmodalAddItem" type="button" class="btn btn-success">Endre (Enter)</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="row">
     <div class="col-lg-12">
@@ -32,23 +58,27 @@
 
                 <div role="tabpanel" class="tab-pane active" id="my-education-tab">
 
-                    @{
-                        var number = 0;
-                        
-                        foreach (var Value in Model.Utdannelse)
-                        {
-                            if (number > 0)
-                            {
-                                <hr />
-                            }
-                            <h2>@Value.Fra - @Value.Til</h2>
-                            <h4>@Value.Studiested</h4>
-                            <h4>@Value.Beskrivelse</h4>
+                    <div class="row">
+                        <div class="col-lg-12">
 
-                            number++;
-                        }
-                    }
+                            <h4 id="elem-load">Laster utdannelse.. <i class="fa fa-spinner fa-pulse"></i></h4>
 
+                            <table id="education-table" class="table table-hover table-bordered hidden">
+                                <thead>
+                                    <tr>
+                                        <th>Studiested</th>
+                                        <th>Beskrivelse</th>
+                                        <th>Fra</th>
+                                        <th>Til</th>
+                                        <th>Slett</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+
+
+                            </table>
+                        </div>
+                    </div>
                 </div>
 
                 <div role="tabpanel" class="tab-pane" id="new-education-tab">

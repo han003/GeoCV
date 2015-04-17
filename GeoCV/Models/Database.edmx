@@ -133,6 +133,7 @@
           <Property Name="Databasesystemer" Type="nvarchar(max)" />
           <Property Name="Serverside" Type="nvarchar(max)" />
           <Property Name="Operativsystemer" Type="nvarchar(max)" />
+          <Property Name="Annet" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="ListeKatalog">
           <Key>
@@ -556,6 +557,7 @@
           <Property Name="Databasesystemer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Serverside" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Operativsystemer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Annet" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="CVVersjon" Relationship="Self.FK_CVVersjonKompetanse" FromRole="Kompetanse" ToRole="CVVersjon" />
         </EntityType>
         <EntityType Name="ListeKatalog">
@@ -952,6 +954,7 @@
                 <ScalarProperty Name="Databasesystemer" ColumnName="Databasesystemer" />
                 <ScalarProperty Name="Serverside" ColumnName="Serverside" />
                 <ScalarProperty Name="Operativsystemer" ColumnName="Operativsystemer" />
+                <ScalarProperty Name="Annet" ColumnName="Annet" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

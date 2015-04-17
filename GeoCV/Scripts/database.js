@@ -7,8 +7,8 @@ $('#filter-txt').keyup(function () {
 });
 
 function refreshTable() {
-    $("#edit-elem-load").removeClass('hidden');
-    $("table").addClass('hidden');
+    $('#edit-elem-load').removeClass('hidden');
+    $('table').addClass('hidden');
 
     var filter = $('#filter-txt').val();
 
@@ -29,17 +29,17 @@ function refreshTable() {
 
                 // For valg av tekst å bruke
                 template += '<tr id="' + id + '">' +
-                                '<td>' + element + '</td>' +
-                                '<td>' + katalog + '</td>' +
-                                '<td><a class="del-link">Slett</a></td>' +
+                                '<td class="element-td col-lg-5">' + element + '</td>' +
+                                '<td class="katalog-td col-lg-5">' + katalog + '</td>' +
+                                '<td><a class="del-link col-lg-2">Slett</a></td>' +
                             '</tr>';
 
             });
 
             $('tbody').html(template);
 
-            $("#edit-elem-load").addClass('hidden');
-            $("table").removeClass('hidden');
+            $('#edit-elem-load').addClass('hidden');
+            $('table').removeClass('hidden');
         }
     });
 }
@@ -73,7 +73,7 @@ $('#editModal').on('shown.bs.modal', function (e) {
     $('#edit-txt').focus();
 })
 
-$(document).on('click', 'tr', function () {
+$(document).on('click', '.element-td', function () {
 
     var elementId = $(this).closest('tr').attr('id');
 
@@ -94,7 +94,18 @@ $(document).on('click', 'tr', function () {
 });
 
 $(document).on('click', '#add-item-btn', function () {
+    addNewItem();
+});
 
+// What happens when the Enter key is pressed
+$('#new-item-txt').keypress(function (event) {
+    var keycode = (event.keyCode ? event.keyCode : event.which);
+    if (keycode == '13') {
+        addNewItem();
+    }
+});
+
+function addNewItem() {
     var element = $('#new-item-txt').val();
     var katalog = $('#katalog-select option:selected').attr('id');
 
@@ -119,10 +130,11 @@ $(document).on('click', '#add-item-btn', function () {
             $('#new-item-txt').val('');
             $('#new-element-row').removeClass('hidden');
             $('#new-element-loading').addClass('hidden');
+
+            $('#new-item-txt').focus();
         }
     });
-
-});
+}
 
 
 // Enter key when the modal is visible
@@ -136,14 +148,6 @@ $(document).keypress(function (event) {
 // If modal button to add is clicked, add new item to database
 $('#editmodalAddItem').click(function () {
     changeElement();
-});
-
-// Close modal if Esc is pressed
-$(document).keypress(function (event) {
-    var keycode = (event.keyCode ? event.keyCode : event.which);
-    if (keycode == '27' && $('#editModal').is(":visible")) {
-        $('#editModal').modal('hide');
-    }
 });
 
 function changeElement() {

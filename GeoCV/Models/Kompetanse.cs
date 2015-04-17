@@ -26,6 +26,7 @@ namespace GeoCV.Models
         public string Databasesystemer { get; set; }
         public string Serverside { get; set; }
         public string Operativsystemer { get; set; }
+        public string Annet { get; set; }
     
         public virtual ICollection<CVVersjon> CVVersjon { get; set; }
     }

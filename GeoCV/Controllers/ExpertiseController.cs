@@ -54,6 +54,9 @@ namespace GeoCV.Controllers
                 case "Operativsystemer":
                     Bruker = GetOperativsystemer(UserId);
                     break;
+                case "Annet":
+                    Bruker = GetAnnet(UserId);
+                    break;
             }
 
             var Element = from a in db.ListeKatalog
@@ -126,6 +129,15 @@ namespace GeoCV.Controllers
             return Bruker;
         }
 
+        private IQueryable GetAnnet(string UserId)
+        {
+            var Bruker = from a in db.CVVersjon
+                         where a.AspNetUserId.Equals(UserId)
+                         select a.Kompetanse.Annet;
+
+            return Bruker;
+        }
+
         [HttpPost]
         public void Update(string Update, string Value)
         {
@@ -162,6 +174,10 @@ namespace GeoCV.Controllers
 
                 case "Operativsystemer":
                     Cv.Kompetanse.Operativsystemer = Value;
+                    break;
+
+                case "Annet":
+                    Cv.Kompetanse.Annet = Value;
                     break;
             }
 

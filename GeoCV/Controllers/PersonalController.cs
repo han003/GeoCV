@@ -66,6 +66,20 @@ namespace GeoCV.Controllers
         }
 
         [HttpGet]
+        public ActionResult GetNasjonaliteter()
+        {
+            var Nasjonaliteter = from a in db.ListeKatalog
+                                 where a.Katalog == "Nasjonaliteter"
+                                 select new
+                                 {
+                                     a.ListeKatalogId,
+                                     a.Element
+                                 };
+
+            return Json(Nasjonaliteter, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
         public ActionResult GetValgtStilling()
         {
             string UserId = (Session["ShadowUser"] != null) ? Session["ShadowUser"].ToString() : User.Identity.GetUserId();
@@ -75,6 +89,18 @@ namespace GeoCV.Controllers
                                 select a.Person.Stilling;
 
             return Json(ValgtStilling, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult GetValgtNasjonalitet()
+        {
+            string UserId = (Session["ShadowUser"] != null) ? Session["ShadowUser"].ToString() : User.Identity.GetUserId();
+
+            var ValgtNasjonalitet = from a in db.CVVersjon
+                                    where a.AspNetUserId.Equals(UserId)
+                                    select a.Person.Nasjonalitet;
+
+            return Json(ValgtNasjonalitet, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]

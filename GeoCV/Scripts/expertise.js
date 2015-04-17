@@ -6,7 +6,8 @@
     'WebTeknologier',
     'Databasesystemer',
     'Serverside',
-    'Operativsystemer'
+    'Operativsystemer',
+    'Annet'
     ];
 
     $.each(kataloger, function (index, element) {
@@ -70,7 +71,8 @@ $('.add-item-btn').click(function () {
 $('.add-item-auto').keypress(function (event) {
     var keycode = (event.keyCode ? event.keyCode : event.which);
     if (keycode == '13') {
-        addItem($(this));
+        addItem($(this))
+        $(this).blur();
     }
 });
 
@@ -84,20 +86,23 @@ $('body').on('click', '.added-btn', function () {
 });
 
 function addItem(element) {
+
     databaseUpdateColumn = element.attr('id');
     databaseUpdateColumn = databaseUpdateColumn.substring(0, databaseUpdateColumn.indexOf('-'));
 
-    // Hent rett tekstfelt
-    autoTextfield = $('#' + databaseUpdateColumn + '-auto');
+    if (isDuplicate()) {
+        // Hent rett tekstfelt
+        autoTextfield = $('#' + databaseUpdateColumn + '-auto');
 
-    // Legg til ny knapp med valgt element
-    appendNewElement(autoTextfield.val());
+        // Legg til ny knapp med valgt element
+        appendNewElement(autoTextfield.val());
+
+        // Oppdater databasen
+        updateDatabase();
+    }
 
     // Fjern teksten fra input
     $('#' + databaseUpdateColumn + '-auto').val('');
-
-    // Oppdater databasen
-    updateDatabase();
 }
 
 function appendNewElement(userAutoInput) {
@@ -131,4 +136,44 @@ function updateDatabase() {
 
     // Update
     $.post('/Expertise/Update', { Update: databaseUpdateColumn, Value: newValue });
+}
+
+function isDuplicate() {
+
+    // Variabel for å sjekke om det et duplikat
+    var dupe = false;
+
+    // Tom variabel for å holde teksten
+    var newValue = '';
+    var newId = '';
+
+    // Gå gjennom alle knappene å legg IDene i en string
+    $('#' + databaseUpdateColumn + '-group button').each(function () {
+        var idstring = $(this).attr('id');
+        var id = idstring.substring(idstring.indexOf('-') + 1);
+        newValue += id + ';';
+    });
+
+    // Hent rett tekstfelt
+    autoTextfield = $('#' + databaseUpdateColumn + '-auto');
+
+    // Tekst fra input
+    var userAutoInput = autoTextfield.val();
+
+    // Arrayer
+    var elementArray = autoTextfield.data('element');
+    var idArray = autoTextfield.data('elementId');
+
+    // Finn ID
+    $.each(elementArray, function (index, value) {
+        if (userAutoInput == value) {
+            newId = idArray[index];
+        }
+    });
+
+    if (newValue.indexOf(newId) == -1) {
+        dupe = true;
+    }
+
+    return dupe;
 }

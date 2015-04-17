@@ -46,8 +46,8 @@ function getLanguages() {
         $("#Språk-load").addClass('hidden');
         $("#Språk-form").removeClass('hidden');
 
-        $("#Språk-auto").data('språk', språkarray);
-        $("#Språk-auto").data('språkid', idarray);
+        $("#Språk-auto").data('element', språkarray);
+        $("#Språk-auto").data('elementId', idarray);
     }, 'json');
 }
 
@@ -89,6 +89,45 @@ $.ajax({
     }
 });
 
+$.ajax({
+    url: '/Personal/GetNasjonaliteter',
+    type: 'GET',
+    success: function (alleNasjonaliteter) {
+
+        $.ajax({
+            url: '/Personal/GetValgtNasjonalitet',
+            type: 'GET',
+            success: function (valgtNasjonalitet) {
+
+                var template = '';
+                var nasjonalitetIdMatch = false;
+
+                $.each(alleNasjonaliteter, function (index, value) {
+
+                    var nasjonalitet = value['Element'];
+                    var nasjonalitetId = value['ListeKatalogId'];
+
+                    if (valgtNasjonalitet == nasjonalitetId) {
+                        nasjonalitetIdMatch = true;
+                        template += '<option selected id="nasjonalitet-' + nasjonalitetId + '">' + nasjonalitet + '</option>';
+                    } else {
+                        template += '<option id="nasjonalitet-' + nasjonalitetId + '">' + nasjonalitet + '</option>';
+                    }
+                });
+
+                if (!nasjonalitetIdMatch) {
+                    template += '<option id="ingen-nasjonalitet" selected>Nasjonalitet ikke valgt</option>';
+                }
+
+                $('#nasjonalitet-select').html(template);
+                $('#nasjonalitet-select').removeAttr('disabled');
+            }
+        });
+
+    }
+});
+
+// Stilling endring
 $('#stillinger-select').on('change', function (e) {
     var optionSelected = $("option:selected", this).attr('id');
     var id = optionSelected.substring(optionSelected.indexOf('-')+1, optionSelected.length);
@@ -97,6 +136,17 @@ $('#stillinger-select').on('change', function (e) {
 
     // Update
     $.post('/Personal/Update', { Update: 'Stilling', Value: id });
+});
+
+// Nasjonalitet endring
+$('#nasjonalitet-select').on('change', function (e) {
+    var optionSelected = $("option:selected", this).attr('id');
+    var id = optionSelected.substring(optionSelected.indexOf('-') + 1, optionSelected.length);
+
+    console.log(id);
+
+    // Update
+    $.post('/Personal/Update', { Update: 'Nasjonalitet', Value: id });
 });
 
 ////////////  BURSDAG
@@ -184,22 +234,24 @@ function addItem(element) {
     databaseUpdateColumn = element.attr('id');
     databaseUpdateColumn = databaseUpdateColumn.substring(0, databaseUpdateColumn.indexOf('-'));
 
-    // Hent rett tekstfelt
-    autoTextfield = $('#' + databaseUpdateColumn + '-auto');
+    if (isDuplicate()) {
+        // Hent rett tekstfelt
+        autoTextfield = $('#' + databaseUpdateColumn + '-auto');
 
-    // Legg til ny knapp med valgt element
-    appendNewLanguage(autoTextfield.val());
+        // Legg til ny knapp med valgt element
+        appendNewLanguage(autoTextfield.val());
+
+        // Oppdater databasen
+        updateDatabase();
+    }
 
     // Fjern teksten fra input
     $('#' + databaseUpdateColumn + '-auto').val('');
-
-    // Oppdater databasen
-    updateDatabase();
 }
 
 function appendNewLanguage(userAutoInput) {
-    var språkarray = autoTextfield.data('språk');
-    var idarray = autoTextfield.data('språkid');
+    var språkarray = autoTextfield.data('element');
+    var idarray = autoTextfield.data('elementId');
 
     $.each(språkarray, function (index, value) {
         if (userAutoInput == value) {
@@ -228,4 +280,44 @@ function updateDatabase() {
 
     // Update
     $.post('/Personal/Update', { Update: databaseUpdateColumn, Value: newValue });
+}
+
+function isDuplicate() {
+
+    // Variabel for å sjekke om det et duplikat
+    var dupe = false;
+
+    // Tom variabel for å holde teksten
+    var newValue = '';
+    var newId = '';
+
+    // Gå gjennom alle knappene å legg IDene i en string
+    $('#' + databaseUpdateColumn + '-group button').each(function () {
+        var idstring = $(this).attr('id');
+        var id = idstring.substring(idstring.indexOf('-') + 1);
+        newValue += id + ';';
+    });
+
+    // Hent rett tekstfelt
+    autoTextfield = $('#' + databaseUpdateColumn + '-auto');
+
+    // Tekst fra input
+    var userAutoInput = autoTextfield.val();
+
+    // Arrayer
+    var elementArray = autoTextfield.data('element');
+    var idArray = autoTextfield.data('elementId');
+
+    // Finn ID
+    $.each(elementArray, function (index, value) {
+        if (userAutoInput == value) {
+            newId = idArray[index];
+        }
+    });
+
+    if (newValue.indexOf(newId) == -1) {
+        dupe = true;
+    }
+
+    return dupe;
 }
