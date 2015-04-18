@@ -1,5 +1,14 @@
 ﻿$(document).ready(function () {
 
+    getAnsatte();
+
+});
+
+function getAnsatte() {
+
+    $('#employee-load').removeClass('hidden');
+    $('table').addClass('hidden');
+
     $.ajax({
         url: '/Employees/GetEmployees',
         dataType: 'json',
@@ -17,28 +26,27 @@
                 var etternavn = (value['Etternavn'] != null) ? value['Etternavn'] : '';
                 var id = value['CVVersjonId'];
                 var aktiv = value['Aktiv'];
-                
+
                 // For valg av tekst å bruke
-                var aktivTekst = (aktiv) ? '<td>Aktiv (<a class="deactivate-link">Deaktiver</a>)</td>' : '<td>Ikke Aktiv (<a class="activate-link">Aktiver</a>)</td>';
+                var aktivTekst = (aktiv) ? '<td class="col-lg-2">Aktiv (<a class="deactivate-link">Deaktiver</a>)</td>' : '<td class="col-lg-2">Ikke Aktiv (<a class="activate-link">Aktiver</a>)</td>';
 
                 template += '<tr id="' + id + '">' +
-                                '<td>' + fornavn + '</td>' +
-                                '<td>' + mellomnavn + '</td>' +
-                                '<td>' + etternavn + '</td>' +
+                                '<td class="col-lg-3">' + fornavn + '</td>' +
+                                '<td class="col-lg-3">' + etternavn + '</td>' +
                                 aktivTekst +
-                                '<td><a href="ChangeUser/' + id + '">Rediger bruker</a></td>' +
+                                '<td class="col-lg-2"><a href="ChangeUser/' + id + '">Rediger bruker</a></td>' +
+                                '<td class="col-lg-2"><a class="del-link col-lg-2">Slett</a></td>' +
                             '</tr>';
 
             });
 
             $('tbody').html(template);
 
-            $("#employee-load").addClass('hidden');
-            $("table").removeClass('hidden');
+            $('#employee-load').addClass('hidden');
+            $('table').removeClass('hidden');
         }
     });
-
-});
+}
 
 
 $('#ny-ansatt-btn').click(function () {
@@ -52,11 +60,13 @@ $('#ny-ansatt-btn').click(function () {
     console.log('Rolle: ' + Rolle);
 
     $.ajax({
-        url: '/Employees/NewEmployee',
+        url: '/Employees/RegistrerNyAnsatt',
         data: { Fornavn: Fornavn, Etternavn: Etternavn, Epost: Epost, Passord: Passord, Rolle: Rolle },
         type: 'POST',
         success: function (data) {
-            console.log('Success');
+            // Gå til første tab
+            $('#ansatte-tabs li:eq(0) a').tab('show');
+            getAnsatte();
         }
     });
 
@@ -108,4 +118,29 @@ $(document).on('click', '.activate-link', function () {
         }
     });
     
+});
+
+$(document).on('click', '.del-link', function () {
+
+    console.log('Deleting..');
+
+    var elementId = $(this).closest('tr').attr('id');
+    var trElement = $(this).closest('tr');
+    var tdElement = $(this).closest('td');
+
+    tdElement.html('Sletter <i class="fa fa-circle-o-notch fa-spin"></i>');
+
+    console.log('Id: ' + elementId);
+
+    $.ajax({
+        url: '/Employees/SlettBruker',
+        data: { Id: elementId },
+        type: 'POST',
+        success: function () {
+            console.log('Success');
+
+            trElement.remove();
+        }
+    });
+
 });

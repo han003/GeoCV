@@ -19,7 +19,7 @@ namespace GeoCV.Controllers
         {
             var CVer = from a in db.CVVersjon
                        select a;
-            
+
             return View(CVer);
         }
 
@@ -36,7 +36,7 @@ namespace GeoCV.Controllers
             // Opprett en session som valgt ansatt
             Session["ShadowUser"] = NewUser.AspNetUserId;
             Session["ShadowUserName"] = NewUser.Person.Fornavn + " " + NewUser.Person.Etternavn;
-            
+
             return RedirectToAction("Index", "Dashboard");
         }
 
@@ -57,6 +57,7 @@ namespace GeoCV.Controllers
             var UserMan = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
             var user = UserMan.FindById(Cv.AspNetUserId);
             user.LockoutEnabled = false;
+            user.LockoutEndDateUtc = null;
             UserMan.Update(user);
         }
 
@@ -85,6 +86,7 @@ namespace GeoCV.Controllers
         public ActionResult GetEmployees()
         {
             var Employees = from a in db.CVVersjon
+                            orderby a.CVVersjonId descending
                             select new
                             {
                                 a.CVVersjonId,
@@ -97,13 +99,35 @@ namespace GeoCV.Controllers
             return Json(Employees, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public void SlettBruker(int Id)
+        {
+            // Finn riktig CV
+            var Item = from a in db.CVVersjon
+                       where a.CVVersjonId.Equals(Id)
+                       select a;
+
+            CVVersjon Cv = Item.FirstOrDefault();
+
+            // Slett bruker fra AspNet databasen
+            var UserMan = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+            var user = UserMan.FindById(Cv.AspNetUserId);
+            UserMan.Delete(user);
+
+            // Slett CV
+            db.CVVersjon.Remove(Cv);
+
+            // Lagre
+            db.SaveChanges();
+        }
+
         [HttpGet]
         public ActionResult Search(string Search)
         {
             var Employees = from a in db.Person
                             where a.Fornavn.Contains(Search) || a.Etternavn.Contains(Search)
                             select new
-                            { 
+                            {
                                 a.PersonId,
                                 a.Fornavn,
                                 a.Etternavn,
@@ -114,72 +138,73 @@ namespace GeoCV.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> NewEmployee(String Fornavn, String Etternavn, String Epost, String Passord, String Rolle)
+        public async Task<ActionResult> RegistrerNyAnsatt(String Fornavn, String Etternavn, String Epost, String Passord, String Rolle)
         {
             // Roles
             var RoleMan = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
             var UserMan = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+            UserMan.UserLockoutEnabledByDefault = false;
 
-                var user = new ApplicationUser { UserName = Epost, Email = Epost };
-                var result = await UserMan.CreateAsync(user, Passord);
+            var user = new ApplicationUser { UserName = Epost, Email = Epost };
+            var result = await UserMan.CreateAsync(user, Passord);
 
-                if (result.Succeeded)
+            if (result.Succeeded)
+            {
+                // Create new CV
+                CVVersjon Cv = new CVVersjon();
+                Cv.AspNetUserId = user.Id;
+                Cv.Aktiv = true;
+
+                Person CvPerson = new Person();
+                CvPerson.Fornavn = Fornavn;
+                CvPerson.Etternavn = Etternavn;
+
+                Kompetanse CvKompetanse = new Kompetanse();
+
+                Innstillinger CvInnstillinger = new Innstillinger();
+                CvInnstillinger.Fornavn = true;
+                CvInnstillinger.Etternavn = true;
+                CvInnstillinger.Mellomnavn = true;
+                CvInnstillinger.Stilling = true;
+                CvInnstillinger.ÅrErfaring = true;
+                CvInnstillinger.Språk = true;
+                CvInnstillinger.Nasjonalitet = true;
+                CvInnstillinger.Fødselsår = true;
+                CvInnstillinger.Programmeringsspråk = true;
+                CvInnstillinger.Rammeverk = true;
+                CvInnstillinger.WebTeknologier = true;
+                CvInnstillinger.Databasesystemer = true;
+                CvInnstillinger.Serverside = true;
+                CvInnstillinger.Operativsystemer = true;
+                CvInnstillinger.Utdannelse = true;
+                CvInnstillinger.Arbeidserfaring = true;
+                CvInnstillinger.Prosjekter = true;
+
+                Cv.Person = CvPerson;
+                Cv.Kompetanse = CvKompetanse;
+                Cv.Innstillinger = CvInnstillinger;
+
+                db.CVVersjon.Add(Cv);
+                db.SaveChanges();
+
+                // Employee role
+                string EmployeeRole = Rolle;
+
+                // If role doesn't exist
+                if (!RoleMan.RoleExists(EmployeeRole))
                 {
-                    // Create new CV
-                    CVVersjon Cv = new CVVersjon();
-                    Cv.AspNetUserId = user.Id;
-                    Cv.Aktiv = true;
-
-                    Person CvPerson = new Person();
-                    CvPerson.Fornavn = Fornavn;
-                    CvPerson.Etternavn = Etternavn;
-
-                    Kompetanse CvKompetanse = new Kompetanse();
-
-                    Innstillinger CvInnstillinger = new Innstillinger();
-                    CvInnstillinger.Fornavn = true;
-                    CvInnstillinger.Etternavn = true;
-                    CvInnstillinger.Mellomnavn = true;
-                    CvInnstillinger.Stilling = true;
-                    CvInnstillinger.ÅrErfaring = true;
-                    CvInnstillinger.Språk = true;
-                    CvInnstillinger.Nasjonalitet = true;
-                    CvInnstillinger.Fødselsår = true;
-                    CvInnstillinger.Programmeringsspråk = true;
-                    CvInnstillinger.Rammeverk = true;
-                    CvInnstillinger.WebTeknologier = true;
-                    CvInnstillinger.Databasesystemer = true;
-                    CvInnstillinger.Serverside = true;
-                    CvInnstillinger.Operativsystemer = true;
-                    CvInnstillinger.Utdannelse = true;
-                    CvInnstillinger.Arbeidserfaring = true;
-                    CvInnstillinger.Prosjekter = true;
-
-                    Cv.Person = CvPerson;
-                    Cv.Kompetanse = CvKompetanse;
-                    Cv.Innstillinger = CvInnstillinger;
-
-                    db.CVVersjon.Add(Cv);
-                    db.SaveChanges();
-
-                    // Employee role
-                    string EmployeeRole = Rolle;
-
-                    // If role doesn't exist
-                    if (!RoleMan.RoleExists(EmployeeRole))
+                    var RoleResult = RoleMan.Create(new IdentityRole(EmployeeRole));
+                    if (!RoleResult.Succeeded)
                     {
-                        var RoleResult = RoleMan.Create(new IdentityRole(EmployeeRole));
-                        if (!RoleResult.Succeeded)
-                        { 
-                            // Error stuff
-                        };
-                    }
-
-                    // Add user to role
-                    UserMan.AddToRole(user.Id, EmployeeRole);
+                        // Error stuff
+                    };
                 }
 
-                return null;
+                // Add user to role
+                UserMan.AddToRole(user.Id, EmployeeRole);
             }
+
+            return null;
         }
     }
+}

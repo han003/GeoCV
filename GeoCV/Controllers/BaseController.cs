@@ -5,6 +5,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using System.Threading.Tasks;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace GeoCV.Controllers
 {
@@ -28,5 +30,6 @@ namespace GeoCV.Controllers
 
             return Data.FirstOrDefault();
         }
+
     }
 }
