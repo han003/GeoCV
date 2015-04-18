@@ -381,6 +381,12 @@
     <Content Include="Content\main.min.css">
       <DependentUpon>main.css</DependentUpon>
     </Content>
+    <Content Include="Content\personal.css">
+      <DependentUpon>personal.less</DependentUpon>
+    </Content>
+    <Content Include="Content\personal.min.css">
+      <DependentUpon>personal.css</DependentUpon>
+    </Content>
     <Content Include="Content\projects.css">
       <DependentUpon>projects.less</DependentUpon>
     </Content>
@@ -526,6 +532,10 @@
     <Content Include="Content\work.less" />
     <Content Include="Content\work.css.map">
       <DependentUpon>work.css</DependentUpon>
+    </Content>
+    <Content Include="Content\personal.less" />
+    <Content Include="Content\personal.css.map">
+      <DependentUpon>personal.css</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\geocv %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\geocv.pubxml" />

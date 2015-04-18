@@ -26,75 +26,91 @@
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="personal-info-tab">
 
+            <div class="form-horizontal">
 
-
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="form-horizontal">
-                        <div class="form-group">
-                            <div class="col-lg-6">
-                                <label>Fornavn</label>
-                                <input type="text" class="form-control update-txt" value="@Model.Person.Fornavn" id="@Html.DisplayNameFor(m => Model.Person.Fornavn)-txt">
-                            </div>
-                        </div>
-
-
-                        <div class="form-group">
-                            <div class="col-lg-6">
-                                <label>Mellomnavn</label>
-                                <input type="text" class="form-control update-txt" value="@Model.Person.Mellomnavn" id="@Html.DisplayNameFor(m => Model.Person.Mellomnavn)-txt">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-lg-6">
-                                <label>Etternavn</label>
-                                <input type="text" class="form-control update-txt" value="@Model.Person.Etternavn" id="@Html.DisplayNameFor(m => Model.Person.Etternavn)-txt">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-lg-4">
-                                <label>Nasjonalitet</label>
-                                <select id="nasjonalitet-select" class="form-control">
-                                    <option id="stilling-load">Henter nasjonaliteter.. <i class="fa fa-spinner fa-pulse"></i></option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-lg-4">
-                                <label>Fødselsår</label>
-                                <input id="birthday-date" class="form-control" type="text">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-lg-4">
-                                <label>Stilling</label>
-                                <select id="stillinger-select" class="form-control" disabled>
-                                    <option id="stilling-load">Henter stillinger.. <i class="fa fa-spinner fa-pulse"></i></option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-lg-4">
-                                <label>År erfaring før oppstart i Geomatikk</label>
-                                <input type="text" class="form-control update-txt" value="@Model.Person.ÅrErfaring" id="@Html.DisplayNameFor(m => Model.Person.ÅrErfaring)-txt">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-lg-4">
-                                <label>Startdato i Geomatikk</label>
-                                <input id="geomatikk-start-date" class="form-control" type="text">
-                            </div>
-                        </div>
-
+                <div class="form-group">
+                    <label for="@Html.DisplayNameFor(m => Model.Person.Fornavn)-txt" class="col-lg-2 control-label">Fornavn</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control update-txt col-lg-8" value="@Model.Person.Fornavn" id="@Html.DisplayNameFor(m => Model.Person.Fornavn)-txt">
+                    </div>
+                    <div id="@Html.DisplayNameFor(m => Model.Person.Fornavn)-label" class="col-lg-2 update-label hidden">
+                        <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <label for="@Html.DisplayNameFor(m => Model.Person.Mellomnavn)-txt" class="col-lg-2 control-label">Mellomnavn</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control update-txt col-lg-8" value="@Model.Person.Mellomnavn" id="@Html.DisplayNameFor(m => Model.Person.Mellomnavn)-txt">
+                    </div>
+                    <div id="@Html.DisplayNameFor(m => Model.Person.Mellomnavn)-label" class="col-lg-2 update-label hidden">
+                        <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="@Html.DisplayNameFor(m => Model.Person.Etternavn)-txt" class="col-lg-2 control-label">Etternavn</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control update-txt col-lg-8" value="@Model.Person.Etternavn" id="@Html.DisplayNameFor(m => Model.Person.Etternavn)-txt">
+                    </div>
+                    <div id="@Html.DisplayNameFor(m => Model.Person.Etternavn)-label" class="col-lg-2 update-label hidden">
+                        <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="nasjonalitet-select" class="col-lg-2 control-label">Nasjonalitet</label>
+                    <div class="col-lg-8">
+                        <select id="nasjonalitet-select" class="form-control">
+                            <option id="nasjonalitet-load">Henter nasjonaliteter.. <i class="fa fa-spinner fa-pulse"></i></option>
+                        </select>
+                    </div>
+                    <div id="Nasjonalitet-label" class="col-lg-2 update-label hidden">
+                        <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="birthday-date" class="col-lg-2 control-label">Fødselsår</label>
+                    <div class="col-lg-8">
+                        <input id="birthday-date" class="form-control" type="text">
+                    </div>
+                    <div id="Fødselsår-label" class="col-lg-2 update-label hidden">
+                        <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="stillinger-select" class="col-lg-2 control-label">Stilling</label>
+                    <div class="col-lg-8">
+                        <select id="stillinger-select" class="form-control">
+                            <option id="stilling-load">Henter stillinger.. <i class="fa fa-spinner fa-pulse"></i></option>
+                        </select>
+                    </div>
+                    <div id="Stilling-label" class="col-lg-2 update-label hidden">
+                        <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="@Html.DisplayNameFor(m => Model.Person.ÅrErfaring)-txt" class="col-lg-2 control-label">År erfaring før Geomatikk</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control update-txt col-lg-8" value="@Model.Person.ÅrErfaring" id="@Html.DisplayNameFor(m => Model.Person.ÅrErfaring)-txt">
+                    </div>
+                    <div id="ÅrErfaring-label" class="col-lg-2 update-label hidden">
+                        <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="geomatikk-start-date" class="col-lg-2 control-label">Startdato i Geomatikk</label>
+                    <div class="col-lg-8">
+                        <input id="geomatikk-start-date" class="form-control" type="text">
+                    </div>
+                    <div id="StartDato-label" class="col-lg-2 update-label hidden">
+                        <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
+                    </div>
+                </div>
             </div>
         </div>
 

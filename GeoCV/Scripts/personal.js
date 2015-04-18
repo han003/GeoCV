@@ -5,19 +5,32 @@
 $.datepicker.setDefaults($.datepicker.regional['nb']);
 
 $('.update-txt').keyup(function () {
-    update($(this));
+    var tableColumn = $(this).attr('id').substring(0, $(this).attr('id').indexOf('-'));
+    var newValue = $(this).val();
+
+    update(tableColumn, newValue);
 });
 
-function update(element) {
-    var tableColumn = element.attr('id').substring(0, element.attr('id').indexOf('-'));
-    var newValue = element.val();
-
-    console.log('Ny verdi: ' + newValue);
-
+function update(tableColumn, newValue) {
     // Oppdater surfer navn hvis man redigerer en annen bruker enn seg selv
     $('#shadowBrukerLink').html('Surfer som ' + $('#Fornavn-txt').val() + ' ' + $('#Etternavn-txt').val());
 
-    $.post('/Personal/Update', { Update: tableColumn, Value: newValue });
+    $.ajax({
+        url: '/Personal/Update',
+        data: { Update: tableColumn, Value: newValue },
+        type: 'POST',
+        beforeSend: function () {
+
+            // Vis oppdatering
+            $('#' + tableColumn + '-label').removeClass('hidden');
+        },
+        success: function () {
+            console.log('Lagt til');
+
+            // Skjul oppdatering
+            $('#' + tableColumn + '-label').addClass('hidden');
+        }
+    });
 }
 
 function getLanguages() {
@@ -142,7 +155,7 @@ $('#stillinger-select').on('change', function (e) {
     console.log(id);
 
     // Update
-    $.post('/Personal/Update', { Update: 'Stilling', Value: id });
+    update('Stilling', id)
 });
 
 // Nasjonalitet endring
@@ -153,7 +166,7 @@ $('#nasjonalitet-select').on('change', function (e) {
     console.log(id);
 
     // Update
-    $.post('/Personal/Update', { Update: 'Nasjonalitet', Value: id });
+    update('Nasjonalitet', id)
 });
 
 ////////////  BURSDAG
@@ -178,7 +191,7 @@ $('#birthday-date').on('change', function (e) {
     console.log(birthday);
 
     // Update
-    $.post('/Personal/UpdateBirthdate', { Value: birthday });
+    update('Fødselsår', birthday);
 });
 
 ////////////  START DATO
@@ -197,7 +210,7 @@ $('#geomatikk-start-date').on('change', function (e) {
     console.log(startDato);
 
     // Update
-    $.post('/Personal/UpdateStartDato', { Value: startDato });
+    update('StartDato', startDato);
 });
 
 function createDate(data) {

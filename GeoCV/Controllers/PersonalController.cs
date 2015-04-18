@@ -95,33 +95,12 @@ namespace GeoCV.Controllers
             return Json(Bursdag.ToString(), JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
-        public void UpdateBirthdate(DateTime Value)
-        {
-            CVVersjon Cv = GetUserCV();
-
-            Cv.Person.Fødselsår = Value;
-
-            db.SaveChanges();
-        }
-
-
         [HttpGet]
         public ActionResult GetStartDato()
         {
             var StartDato = GetUserCV().Person.StartDato;
 
             return Json(StartDato.ToString(), JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpPost]
-        public void UpdateStartDato(DateTime Value)
-        {
-            CVVersjon Cv = GetUserCV();
-
-            Cv.Person.StartDato = Value;
-
-            db.SaveChanges();
         }
 
         [HttpPost]
@@ -158,6 +137,14 @@ namespace GeoCV.Controllers
 
                 case "Språk":
                     Cv.Person.Språk = Value;
+                    break;
+
+                case "Fødselsår":
+                    Cv.Person.Fødselsår = DateTime.Parse(Value);
+                    break;
+
+                case "StartDato":
+                    Cv.Person.StartDato = DateTime.Parse(Value);
                     break;
             }
 
