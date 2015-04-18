@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace GeoCV.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class DatabaseController : BaseController
     {
         // GET: Database

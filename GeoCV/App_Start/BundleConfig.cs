@@ -5,7 +5,6 @@ namespace GeoCV
 {
     public class BundleConfig
     {
-        // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
 
@@ -32,30 +31,6 @@ namespace GeoCV
                 .Include("~/Content/bootstrap.css")
                 .Include("~/Content/main.css")
                 .Include("~/Content/dashboard.css"));
-
-            // Search
-            bundles.Add(new ScriptBundle("~/Bundles/js/search")
-                .Include("~/Scripts/jquery/jquery-{version}.js")
-                .Include("~/Scripts/jquery/jquery.validate.js")
-                .Include("~/Scripts/bootstrap/*.js")
-                .Include("~/Scripts/search.js"));
-
-            bundles.Add(new StyleBundle("~/Bundles/css/search")
-                .Include("~/Content/bootstrap.css")
-                .Include("~/Content/main.css")
-                .Include("~/Content/search.css"));
-
-            // Customize
-            bundles.Add(new ScriptBundle("~/Bundles/js/customize")
-                .Include("~/Scripts/jquery/jquery-{version}.js")
-                .Include("~/Scripts/jquery/jquery.validate.js")
-                .Include("~/Scripts/bootstrap/*.js")
-                .Include("~/Scripts/customize.js"));
-
-            bundles.Add(new StyleBundle("~/Bundles/css/customize")
-                .Include("~/Content/bootstrap.css")
-                .Include("~/Content/main.css")
-                .Include("~/Content/customize.css"));
 
             // Employees
             bundles.Add(new ScriptBundle("~/Bundles/js/employees")
@@ -190,18 +165,6 @@ namespace GeoCV
                 .Include("~/Content/bootstrap.css")
                 .Include("~/Content/main.css"));
 
-            // New Project
-            bundles.Add(new ScriptBundle("~/Bundles/js/newproject")
-                .Include("~/Scripts/jquery/jquery-{version}.js")
-                .Include("~/Scripts/jquery/jquery.validate.js")
-                .Include("~/Scripts/bootstrap/*.js")
-                .Include("~/Scripts/newproject.js"));
-
-            bundles.Add(new StyleBundle("~/Bundles/css/newproject")
-                .Include("~/Content/bootstrap.css")
-                .Include("~/Content/main.css")
-                .Include("~/Content/newproject.css"));
-
             // Edit Project
             bundles.Add(new ScriptBundle("~/Bundles/js/editproject")
                 .Include("~/Scripts/jquery/jquery-{version}.js")
@@ -225,18 +188,6 @@ namespace GeoCV
                 .Include("~/Content/bootstrap.css")
                 .Include("~/Content/main.css")
                 .Include("~/Content/settings.css"));
-
-            // Admin Roles
-            bundles.Add(new ScriptBundle("~/Bundles/js/adminroles")
-                .Include("~/Scripts/jquery/jquery-{version}.js")
-                .Include("~/Scripts/jquery/jquery.validate.js")
-                .Include("~/Scripts/bootstrap/*.js")
-                .Include("~/Scripts/adminroles.js"));
-
-            bundles.Add(new StyleBundle("~/Bundles/css/adminroles")
-                .Include("~/Content/bootstrap.css")
-                .Include("~/Content/main.css")
-                .Include("~/Content/adminroles.css"));
 
             // Feedback
             bundles.Add(new ScriptBundle("~/Bundles/js/feedback")

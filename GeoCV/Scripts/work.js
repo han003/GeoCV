@@ -16,7 +16,7 @@ $('#work-add-btn').click(function () {
         data: { Arbeidsplass: workplace, Stilling: role, Beskrivelse: description, Fra: from, Til: to },
         type: 'POST',
         beforeSend: function () {
-            $('#work-add-btn').html('<i class="fa fa-spinner fa-pulse"></i>');
+            $('#work-add-btn').html('<i class="fa fa-circle-o-notch fa-spin"></i>');
         },
         success: function (data) {
 
@@ -82,7 +82,7 @@ $(document).on('click', '.del-link', function () {
     var trElement = $(this).closest('tr');
     var tdElement = $(this).closest('td');
 
-    tdElement.html('Sletter <i class="fa fa-spinner fa-pulse"></i>');
+    tdElement.html('Sletter <i class="fa fa-circle-o-notch fa-spin"></i>');
 
     console.log('Id: ' + elementId);
 

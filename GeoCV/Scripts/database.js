@@ -52,7 +52,7 @@ $(document).on('click', '.del-link', function () {
     var trElement = $(this).closest('tr');
     var tdElement = $(this).closest('td');
 
-    tdElement.html('Sletter <i class="fa fa-spinner fa-pulse"></i>');
+    tdElement.html('Sletter <i class="fa fa-circle-o-notch fa-spin"></i>');
 
     console.log('Id: ' + elementId);
 

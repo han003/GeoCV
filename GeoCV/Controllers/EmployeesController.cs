@@ -11,8 +11,7 @@ using System.Web.Mvc;
 
 namespace GeoCV.Controllers
 {
-
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class EmployeesController : BaseController
     {
         // GET: Employees

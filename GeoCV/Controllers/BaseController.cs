@@ -8,6 +8,7 @@ using Microsoft.AspNet.Identity;
 
 namespace GeoCV.Controllers
 {
+    [Authorize]
     public class BaseController : Controller
     {
         public cvEntities db = new cvEntities();

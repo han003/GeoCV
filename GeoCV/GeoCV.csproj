@@ -229,7 +229,6 @@
     <Compile Include="Controllers\FeedbackController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\NewProjectController.cs" />
     <Compile Include="Controllers\PersonalController.cs" />
     <Compile Include="Controllers\MyProjectsController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
@@ -477,10 +476,6 @@
     <Content Include="Scripts\myprojects.min.js">
       <DependentUpon>myprojects.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\newproject.js" />
-    <Content Include="Scripts\newproject.min.js">
-      <DependentUpon>newproject.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\personal.js" />
     <Content Include="Scripts\cv-personlig.min.js">
       <DependentUpon>personal.js</DependentUpon>
@@ -689,11 +684,7 @@
     <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
     <Content Include="Views\Manage\ManageLogins.cshtml" />
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
-    <Content Include="Views\NewProject\Index.cshtml" />
     <Content Include="Views\EditProject\Index.cshtml" />
-    <Content Include="Scripts\newproject.min.js.map">
-      <DependentUpon>newproject.min.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\personal.min.js.map">
       <DependentUpon>personal.min.js</DependentUpon>
     </Content>
