@@ -32,10 +32,10 @@ function getAnsatte() {
 
                 template += '<tr id="' + id + '">' +
                                 '<td class="col-lg-3">' + fornavn + '</td>' +
-                                '<td class="col-lg-3">' + etternavn + '</td>' +
+                                '<td class="col-lg-4">' + etternavn + '</td>' +
                                 aktivTekst +
                                 '<td class="col-lg-2"><a href="ChangeUser/' + id + '">Rediger bruker</a></td>' +
-                                '<td class="col-lg-2"><a class="del-link col-lg-2">Slett</a></td>' +
+                                '<td class="col-lg-1"><a class="del-link col-lg-2">Slett</a></td>' +
                             '</tr>';
 
             });
@@ -55,7 +55,7 @@ $('#ny-ansatt-btn').click(function () {
     var Etternavn = $('#Etternavn-txt').val();
     var Epost = $('#Epost-txt').val();
     var Passord = $('#Passord-txt').val();
-    var Rolle = $('#role-select').val();
+    var Rolle = $('#Rolle-select').val();
 
     console.log('Rolle: ' + Rolle);
 
@@ -63,10 +63,24 @@ $('#ny-ansatt-btn').click(function () {
         url: '/Employees/RegistrerNyAnsatt',
         data: { Fornavn: Fornavn, Etternavn: Etternavn, Epost: Epost, Passord: Passord, Rolle: Rolle },
         type: 'POST',
+        beforeSend: function () {
+
+            $('#ny-ansatt-btn').html('Legger til <i class="fa fa-spinner fa-pulse"></i>');
+
+        },
         success: function (data) {
             // Gå til første tab
             $('#ansatte-tabs li:eq(0) a').tab('show');
+
+            // Rydd opp
+            $('input').val('');
+            $('#Rolle-select').val('Bruker');
+            $('#ny-ansatt-btn').html('Legg til');
+
             getAnsatte();
+        },
+        error: function (data) {
+            console.log(data);
         }
     });
 

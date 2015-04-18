@@ -15,106 +15,111 @@
     @Scripts.Render("~/bundles/js/employees")
 }
 
-<div class="container">
-    <div class="row">
+<div role="tabpanel">
 
-        <div role="tabpanel">
+    <!-- Nav tabs -->
+    <ul id="ansatte-tabs" class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#ansatte" aria-controls="ansatte" role="tab" data-toggle="tab">Ansatte</a></li>
+        <li role="presentation"><a href="#ny-ansatt" aria-controls="ny-ansatt" role="tab" data-toggle="tab">Ny Ansatt</a></li>
+    </ul>
 
-            <!-- Nav tabs -->
-            <ul id="ansatte-tabs" class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#ansatte" aria-controls="ansatte" role="tab" data-toggle="tab">Ansatte</a></li>
-                <li role="presentation"><a href="#ny-ansatt" aria-controls="ny-ansatt" role="tab" data-toggle="tab">Ny Ansatt</a></li>
-            </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="ansatte">
 
-            <!-- Tab panes -->
-            <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="ansatte">
+            <h4 id="employee-load">Laster inn ansatte <i class="fa fa-circle-o-notch fa-spin"></i></h4>
 
-                    <h4 id="employee-load">Laster inn ansatte <i class="fa fa-circle-o-notch fa-spin"></i></h4>
-
-                    <table class="table table-hover table-bordered hidden">
-                        <thead>
-                            <tr>
-                                <th>Fornavn</th>
-                                <th>Etternavn</th>
-                                <th>Status</th>
-                                <th>CV</th>
-                                <th>Slett</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            
-                        </tbody>
+            <table class="table table-hover table-bordered hidden">
+                <thead>
+                    <tr>
+                        <th>Fornavn</th>
+                        <th>Etternavn</th>
+                        <th>Status</th>
+                        <th>CV</th>
+                        <th>Slett</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
 
 
-                    </table>
+            </table>
 
-                </div>
-
-                <div role="tabpanel" class="tab-pane" id="ny-ansatt">
-
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-horizontal">
-
-                                <div class="form-group">
-                                    <div class="col-lg-12">
-                                        <label>Fornavn</label>
-                                        <input type="text" class="form-control update-txt" id="Fornavn-txt">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-lg-12">
-                                        <label>Etternavn</label>
-                                        <input type="text" class="form-control update-txt" id="Etternavn-txt">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-lg-12">
-                                        <label>Epost</label>
-                                        <input type="text" class="form-control update-txt" id="Epost-txt">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-lg-12">
-                                        <label>Passord</label>
-                                        <input type="password" class="form-control update-txt" id="Passord-txt">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-lg-12">
-                                        <label>Gjenta Passord</label>
-                                        <input type="password" class="form-control update-txt" id="Gjenta-Passord-txt">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-lg-12">
-                                        <label>Rolle</label>
-                                        <select id="role-select" class="form-control">
-                                            <option>Admin</option>
-                                            <option selected>Bruker</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-lg-12">
-                                        <button id="ny-ansatt-btn" class="btn btn-success" type="button">Legg til</button>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
 
+        <div role="tabpanel" class="tab-pane" id="ny-ansatt">
 
+            <div class="form-horizontal">
+
+                <div class="form-group">
+                    <label for="Fornavn-txt" class="col-lg-2 control-label">Fornavn</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control col-lg-8" id="Fornavn-txt">
+                    </div>
+                    <div id="Fornavn-label" class="col-lg-2 side-label hidden">
+                        <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="Etternavn-txt" class="col-lg-2 control-label">Etternavn</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control col-lg-8" id="Etternavn-txt">
+                    </div>
+                    <div id="Etternavn-label" class="col-lg-2 side-label hidden">
+                        <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="Epost-txt" class="col-lg-2 control-label">Epost</label>
+                    <div class="col-lg-8">
+                        <input type="email" class="form-control col-lg-8" id="Epost-txt">
+                    </div>
+                    <div id="Epost-label" class="col-lg-2 side-label hidden">
+                        <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="Passord-txt" class="col-lg-2 control-label">Passord</label>
+                    <div class="col-lg-8">
+                        <input type="password" class="form-control col-lg-8" id="Passord-txt">
+                    </div>
+                    <div id="Passord-label" class="col-lg-2 side-label hidden">
+                        <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="Gjenta-Passord-txt" class="col-lg-2 control-label">Gjenta passord</label>
+                    <div class="col-lg-8">
+                        <input type="password" class="form-control col-lg-8" id="Gjenta-Passord-txt">
+                    </div>
+                    <div id="Gjenta-Passord-label" class="col-lg-2 side-label hidden">
+                        <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="Rolle-select" class="col-lg-2 control-label">Rolle</label>
+                    <div class="col-lg-8">
+                        <select id="Rolle-select" class="form-control">
+                            <option>Admin</option>
+                            <option selected>Bruker</option>
+                        </select>
+                    </div>
+                    <div id="Rolle-label" class="col-lg-2 side-label hidden">
+                        <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <button id="ny-ansatt-btn" class="btn btn-success" type="button">Legg til</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
 </div>
