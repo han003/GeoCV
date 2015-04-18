@@ -54,7 +54,9 @@ namespace GeoCV.Controllers
                 ArbeidserfaringList.Add(NyArbeidserfaring);
             }
 
-            return Json(ArbeidserfaringList, JsonRequestBehavior.AllowGet);
+            List<Arbeidserfaring> SortertListe = ArbeidserfaringList.OrderByDescending(a => a.Fra).ToList();
+
+            return Json(SortertListe, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

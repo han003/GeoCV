@@ -30,7 +30,15 @@ namespace GeoCV.Controllers
             // return File(Bytes, "application/pdf", FileName + ".pdf");
         }
 
+        private Font NormalFont(int Tekststørrelse)
+        {
+            return FontFactory.GetFont("Verdana", Tekststørrelse);
+        }
 
+        private Font FetFont(int Tekststørrelse)
+        {
+            return FontFactory.GetFont("Verdana", Tekststørrelse, Font.BOLD);
+        }
 
         public ActionResult Pdf()
         {
@@ -46,7 +54,6 @@ namespace GeoCV.Controllers
 
             CreateCv(UserCv, Cv);
 
-            
             var fs = new FileStream(FilePath, FileMode.Open);
             var Bytes = new byte[fs.Length];
             fs.Read(Bytes, 0, (int)fs.Length);
@@ -57,109 +64,229 @@ namespace GeoCV.Controllers
         
         private Document CreateCv(Document UserCv, CVVersjon Cv)
         {
-            Font Normal = FontFactory.GetFont("Times-Roman", 12, Font.NORMAL);
-            Font Bold = FontFactory.GetFont("Times-Roman", 12, Font.BOLD);
-            
             UserCv.Open();
 
-            // Top
-            Paragraph Top = new Paragraph("CURRICULUM VITAE", Bold);
+            // TITTEL
+            Paragraph Top = new Paragraph("CURRICULUM VITAE", FetFont(14));
             Top.Alignment = Element.ALIGN_CENTER;
             UserCv.Add(Top);
             UserCv.Add(Chunk.NEWLINE);
 
-            // Address
-            Paragraph Address = new Paragraph("GEOMATIKK IKT, Otto Nielsens vei 12, 7052 Trondheim", Normal);
+            // GEOMATIKK ADRESSE
+            Paragraph Address = new Paragraph("GEOMATIKK IKT, Otto Nielsens vei 12, 7052 Trondheim");
             Address.Alignment = Element.ALIGN_CENTER;
             UserCv.Add(Address);
             UserCv.Add(Chunk.NEWLINE);
 
-            // Name
-            UserCv.Add(new Phrase("Navn:", Bold));
-            for (int i = 0; i < 6; i++) UserCv.Add(Chunk.TABBING);
-            UserCv.Add(new Phrase(Cv.Person.Fornavn + " " + Cv.Person.Etternavn, Normal));
+            // NAVN
+            Paragraph NavnEtikett = new Paragraph("Navn", FetFont(11));
+            Paragraph AnsattNavn = new Paragraph(Cv.Person.Fornavn + " " + Cv.Person.Mellomnavn + " " + Cv.Person.Etternavn, NormalFont(11));
+            UserCv.Add(LeggTilTabell(NavnEtikett, AnsattNavn, 144));
+
+            // STILLING
+            UserCv = Stilling(UserCv, 144);
+
+            // ÅR ERFARING
+            Paragraph ÅrErfaringEtikett = new Paragraph("Antall år relevant erfaring", FetFont(11));
+            Paragraph AnsattÅrErfaring = new Paragraph(Cv.Person.ÅrErfaring.ToString() + " år", NormalFont(11));
+            UserCv.Add(LeggTilTabell(ÅrErfaringEtikett, AnsattÅrErfaring, 144));
+
+            // SPRÅK
+            UserCv.Add(LeggTilNøkkelkompetanse("Språk", 144));
             UserCv.Add(Chunk.NEWLINE);
 
-            // Position
-            UserCv.Add(new Phrase("Stilling:", Bold));
-            for (int i = 0; i < 5; i++) UserCv.Add(Chunk.TABBING);
-            UserCv.Add(new Phrase(Cv.Person.Stilling, Normal));
-            UserCv.Add(Chunk.NEWLINE);
+            // NØKKELKOMPETANSE
+            UserCv = Nøkkelkompetanse(UserCv);
 
-            // Experience
-            UserCv.Add(new Phrase("Antall år relevant erfaring:", Bold));
-            for (int i = 0; i < 3; i++) UserCv.Add(Chunk.TABBING);
-            UserCv.Add(new Phrase(Cv.Person.ÅrErfaring.ToString(), Normal));
-            UserCv.Add(Chunk.NEWLINE);
+            // UTDANNELSE
+            UserCv = Utdannelse(UserCv);
 
-            // Languages
-            UserCv.Add(new Phrase("Språk:", Bold));
-            for (int i = 0; i < 6; i++) UserCv.Add(Chunk.TABBING);
-            UserCv.Add(new Phrase(Split(Cv.Person.Språk), Normal));
-            UserCv.Add(Chunk.NEWLINE);
-            UserCv.Add(Chunk.NEWLINE);
+            // ARBEIDSERFARING
+            UserCv = Arbeidserfaring(UserCv);
 
-            // KeyCompetences
-            Paragraph KeyCompetences = new Paragraph("Nøkkelkompetanse:", Bold);
-            UserCv.Add(KeyCompetences);
-            UserCv.Add(Chunk.NEWLINE);
-
-            // Programming Languages
-            UserCv.Add(new Phrase("Programmeringsspråk: ", Normal));
-            UserCv.Add(new Phrase(Split(Cv.Kompetanse.Programmeringsspråk), Normal));
-            UserCv.Add(Chunk.NEWLINE);
-
-
-            // Framework
-            UserCv.Add(new Phrase("Rammeverk: ", Normal));
-            UserCv.Add(new Phrase(Split(Cv.Kompetanse.Rammeverk), Normal));
-            UserCv.Add(Chunk.NEWLINE);
-
-            // Web Technologies
-            UserCv.Add(new Phrase("Web-Teknologier: ", Normal));
-            UserCv.Add(new Phrase(Split(Cv.Kompetanse.WebTeknologier), Normal));
-            UserCv.Add(Chunk.NEWLINE);
-
-            // Database Systems
-            UserCv.Add(new Phrase("Databasesystemer: ", Normal));
-            UserCv.Add(new Phrase(Split(Cv.Kompetanse.Databasesystemer), Normal));
-            UserCv.Add(Chunk.NEWLINE);
-
-            // Serverside
-            UserCv.Add(new Phrase("Serverside: ", Normal));
-            UserCv.Add(new Phrase(Split(Cv.Kompetanse.Serverside), Normal));
-            UserCv.Add(Chunk.NEWLINE);
-
-            // Operating Systems
-            UserCv.Add(new Phrase("Operativsystemer: ", Normal));
-            UserCv.Add(new Phrase(Split(Cv.Kompetanse.Operativsystemer), Normal));
-            
             UserCv.Close();
             return UserCv;
         }
-        
-        private string Split(string RandomString)
+
+        private Document Nøkkelkompetanse(Document UserCv)
         {
-            try
-            {
-                string[] StringElements = RandomString.Split(';');
-                string Result = "";
+            // Nøkkelkompetanse header
+            Paragraph Header = new Paragraph("Nøkkelkompetanse", FetFont(11));
+            UserCv.Add(LeggTilTabell(Header, null, 100));
 
-                foreach (string Element in StringElements)
+            // Programmeringsspråk
+            UserCv.Add(LeggTilNøkkelkompetanse("Programmeringsspråk", 144));
+
+            // Rammeverk
+            UserCv.Add(LeggTilNøkkelkompetanse("Rammeverk", 144));
+
+            // WebTeknologier
+            UserCv.Add(LeggTilNøkkelkompetanse("WebTeknologier", 144));
+
+            // Databasesystemer
+            UserCv.Add(LeggTilNøkkelkompetanse("Databasesystemer", 144));
+
+            // Serverside
+            UserCv.Add(LeggTilNøkkelkompetanse("Serverside", 144));
+
+            // Operativsystemer
+            UserCv.Add(LeggTilNøkkelkompetanse("Operativsystemer", 144));
+
+            UserCv.Add(Chunk.NEWLINE);
+            return UserCv;
+        }
+
+        private PdfPTable LeggTilNøkkelkompetanse(string Ekspertise, float Innrykk)
+        {
+            // Hent katalogen
+            var KatalogElementer = from a in db.ListeKatalog
+                                   select a;
+
+            // Placeholders
+            string Label = Ekspertise + ": ";
+            string Innhold = "";
+
+            // Hent ansatt info
+            var Ansatt = from a in db.CVVersjon
+                         select a;
+
+            string AnsattEkspertise = "";
+
+            switch (Ekspertise)
+            {
+                case "Programmeringsspråk":
+                    AnsattEkspertise = Ansatt.FirstOrDefault().Kompetanse.Programmeringsspråk;
+                    break;
+
+                case "Rammeverk":
+                    AnsattEkspertise = Ansatt.FirstOrDefault().Kompetanse.Rammeverk;
+                    break;
+
+                case "WebTeknologier":
+                    AnsattEkspertise = Ansatt.FirstOrDefault().Kompetanse.WebTeknologier;
+                    break;
+
+                case "Databasesystemer":
+                    AnsattEkspertise = Ansatt.FirstOrDefault().Kompetanse.Databasesystemer;
+                    break;
+
+                case "Serverside":
+                    AnsattEkspertise = Ansatt.FirstOrDefault().Kompetanse.Serverside;
+                    break;
+
+                case "Operativsystemer":
+                    AnsattEkspertise = Ansatt.FirstOrDefault().Kompetanse.Operativsystemer;
+                    break;
+
+                case "Språk":
+                    AnsattEkspertise = Ansatt.FirstOrDefault().Person.Språk;
+                    break;
+            }
+
+            // Legg IDer i en liste
+            string[] IDSplit = AnsattEkspertise.Split(';');
+
+            foreach (var ID in IDSplit)
+            {
+                foreach (var Item in KatalogElementer)
                 {
-                    Result = Result + Element + ", ";
+                    if (Int32.Parse(ID).Equals(Item.ListeKatalogId))
+                    {
+                        Innhold += ", " + Item.Element;
+                    }
                 }
-
-                Result = Result.Remove(Result.Length - 2);
-
-                return Result;
             }
-            catch (Exception)
+
+            // Fjern overfløding i starten
+            Innhold = Innhold.Substring(2);
+
+            Paragraph EkspertiseParagraf = (Ekspertise.Equals("Språk")) ? new Paragraph(Ekspertise, FetFont(11)) : new Paragraph(Ekspertise, NormalFont(11));
+            Paragraph InnholdsParagraf = new Paragraph(Innhold, NormalFont(11));
+            return LeggTilTabell(EkspertiseParagraf, InnholdsParagraf, Innrykk);
+        }
+
+        private Document Utdannelse(Document UserCv)
+        {
+            // Utdannelse header
+            Paragraph Header = new Paragraph("Utdannelse", FetFont(11));
+            UserCv.Add(LeggTilTabell(Header, null, 100));
+
+            var AnsattUtdannelse = from a in db.Utdannelse
+                                   orderby a.Fra descending
+                                   select a;
+
+            foreach (var Item in AnsattUtdannelse)
             {
-                
+                string Etikett = Item.Fra + " - " + Item.Til;
+                string Innhold = Item.Beskrivelse + ". " + Item.Studiested;
+
+                Paragraph EtikettParagraf = new Paragraph(Etikett, NormalFont(11));
+                Paragraph InnholdsParagraf = new Paragraph(Innhold, NormalFont(11));
+                UserCv.Add(LeggTilTabell(EtikettParagraf, InnholdsParagraf, 100));
             }
 
-            return "";
+            UserCv.Add(Chunk.NEWLINE);
+            return UserCv;
+        }
+
+        private Document Arbeidserfaring(Document UserCv)
+        {
+            // Arbeidserfaring header
+            Paragraph Header = new Paragraph("Arbeidserfaring", FetFont(11));
+            UserCv.Add(LeggTilTabell(Header, null, 100));
+
+            var AnsattArbeidserfaring = from a in db.Arbeidserfaring
+                                   orderby a.Fra descending
+                                   select a;
+
+            foreach (var Item in AnsattArbeidserfaring)
+            {
+                string Etikett = Item.Fra + " - " + Item.Til;
+                string Innhold = Item.Arbeidsplass + ". Rolle: " + Item.Stilling + "\n" + Item.Beskrivelse;
+
+                Paragraph EtikettParagraf = new Paragraph(Etikett, NormalFont(11));
+                Paragraph InnholdsParagraf = new Paragraph(Innhold, NormalFont(11));
+                UserCv.Add(LeggTilTabell(EtikettParagraf, InnholdsParagraf, 100));
+            }
+
+            UserCv.Add(Chunk.NEWLINE);
+            return UserCv;
+        }
+
+        private Document Stilling(Document UserCv, float Innrykk)
+        {
+            // Hent katalogen
+            var KatalogElementer = from a in db.ListeKatalog
+                                   select a;
+
+            // Hent ansatt info
+            var Ansatt = from a in db.Person
+                         select a.Stilling;
+
+            foreach (var Item in KatalogElementer)
+            {
+                if (Int32.Parse(Ansatt.FirstOrDefault().ToString()).Equals(Item.ListeKatalogId))
+                {
+                    Paragraph EtikettParagraf = new Paragraph("Stilling", FetFont(11));
+                    Paragraph InnholdsParagraf = new Paragraph(Item.Element, NormalFont(11));
+                    UserCv.Add(LeggTilTabell(EtikettParagraf, InnholdsParagraf, Innrykk));
+                }
+            }
+
+            return UserCv;
+        }
+
+        private PdfPTable LeggTilTabell(Paragraph Etikett, Paragraph Innhold, float Innrykk)
+        {
+            PdfPTable table = new PdfPTable(2);
+            table.DefaultCell.Border = Rectangle.NO_BORDER;
+            float[] CellWidth = new float[] { Innrykk + 23, 500 - Innrykk };
+            table.SetTotalWidth(CellWidth);
+            table.LockedWidth = true;
+            table.AddCell(Etikett);
+            table.AddCell(Innhold);
+
+            return table;
         }
     }
 }
