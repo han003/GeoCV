@@ -41,98 +41,98 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-lg-12">
+<div role="tabpanel">
+
+    <!-- Nav tabs -->
+    <ul id="Utdannelse-tabs" class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#my-education-tab" aria-controls="my-education-tab" role="tab" data-toggle="tab">Min utdannelse</a></li>
+        <li role="presentation"><a href="#new-education-tab" aria-controls="new-education-tab" role="tab" data-toggle="tab">Legg til utdannelse</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="my-education-tab">
+
+            <h4 id="elem-load">Laster utdannelse.. <i class="fa fa-circle-o-notch fa-spin"></i></h4>
+
+            <table id="education-table" class="table table-hover table-bordered hidden">
+                <thead>
+                    <tr>
+                        <th>Studiested</th>
+                        <th>Beskrivelse</th>
+                        <th>Fra</th>
+                        <th>Til</th>
+                        <th>Slett</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
 
 
-        <div role="tabpanel">
+            </table>
+        </div>
 
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#my-education-tab" aria-controls="my-education-tab" role="tab" data-toggle="tab">Min Utdannelse</a></li>
-                <li role="presentation"><a href="#new-education-tab" aria-controls="new-education-tab" role="tab" data-toggle="tab">Legg Til Utdannelse</a></li>
-            </ul>
+        <div role="tabpanel" class="tab-pane" id="new-education-tab">
 
-            <!-- Tab panes -->
-            <div class="tab-content">
+            <div class="form-horizontal">
 
-                <div role="tabpanel" class="tab-pane active" id="my-education-tab">
-
-                    <div class="row">
-                        <div class="col-lg-12">
-
-                            <h4 id="elem-load">Laster utdannelse.. <i class="fa fa-circle-o-notch fa-spin"></i></h4>
-
-                            <table id="education-table" class="table table-hover table-bordered hidden">
-                                <thead>
-                                    <tr>
-                                        <th>Studiested</th>
-                                        <th>Beskrivelse</th>
-                                        <th>Fra</th>
-                                        <th>Til</th>
-                                        <th>Slett</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-
-
-                            </table>
-                        </div>
+                <div class="form-group">
+                    <label for="school-text" class="col-lg-2 control-label">Studiested</label>
+                    <div class="col-lg-8">
+                        <input id="school-text" type="text" class="form-control" autocomplete="off">
+                    </div>
+                    <div id="school-label" class="col-lg-2 update-label hidden">
+                        <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
                     </div>
                 </div>
 
-                <div role="tabpanel" class="tab-pane" id="new-education-tab">
-
-                    <div class="form-horizontal">
-
-                        <div class="form-group">
-                            <div class="col-lg-12">
-                                <label>Studiested</label>
-                                <input id="school-text" type="text" class="form-control" placeholder="Studiested" autocomplete="off">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-lg-12">
-                                <label>Beskrivelse</label>
-                                <input id="education-text" type="text" class="form-control" placeholder="Beskrivelse" autocomplete="off">
-                            </div>
-                        </div>
-
-                        <div class="form-group col-lg-2">
-                            <div class="input-group">
-                                <span class="input-group-addon">Fra</span>
-                                <select id="education-select-from" class="form-control">
-                                    @for (var i = 0; i <= 100; i++)
-                                    {
-                                        <option>@(@DateTime.Now.Year - i)</option>
-                                    }
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group col-lg-2">
-                            <div class="input-group">
-                                <span class="input-group-addon">Til</span>
-                                <select id="education-select-to" class="form-control">
-                                    @for (var i = 0; i <= 100; i++)
-                                    {
-                                        <option>@(@DateTime.Now.Year - i)</option>
-                                    }
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-lg-12">
-                                <button id="education-add-btn" class="btn btn-success" type="button">Legg til ny utdannelse</button>
-                            </div>
-                        </div>
-
+                <div class="form-group">
+                    <label for="education-text" class="col-lg-2 control-label">Beskrivelse</label>
+                    <div class="col-lg-8">
+                        <input id="education-text" type="text" class="form-control" autocomplete="off">
                     </div>
-
+                    <div id="education-label" class="col-lg-2 update-label hidden">
+                        <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
+                    </div>
                 </div>
 
+                <div class="form-group">
+                    <label for="education-select-from" class="col-lg-2 control-label">Fra</label>
+                    <div class="col-lg-8">
+                        <select id="education-select-from" class="form-control">
+                            @for (var i = 0; i <= 100; i++)
+                            {
+                                <option>@(@DateTime.Now.Year - i)</option>
+                            }
+                        </select>
+                    </div>
+                    <div id="education-select-from-label" class="col-lg-2 update-label hidden">
+                        <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="education-select-to" class="col-lg-2 control-label">Til</label>
+                    <div class="col-lg-8">
+                        <select id="education-select-to" class="form-control">
+                            @for (var i = 0; i <= 100; i++)
+                            {
+                                <option>@(@DateTime.Now.Year - i)</option>
+                            }
+                        </select>
+                    </div>
+                    <div id="education-select-to-label" class="col-lg-2 update-label hidden">
+                        <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <button id="education-add-btn" class="btn btn-success" type="button">Legg til ny utdannelse</button>
+                    </div>
+                    <div id="education-label" class="col-lg-2 update-label hidden">
+                        <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
+                    </div>
+                </div>
 
             </div>
 
@@ -140,6 +140,16 @@
 
 
     </div>
+
 </div>
+
+
+
+
+
+
+
+
+
 
 

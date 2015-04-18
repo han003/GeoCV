@@ -52,9 +52,11 @@ $('#education-add-btn').click(function () {
         data: { Skole: school, Beskrivelse: description, Fra: from, Til: to },
         type: 'POST',
         beforeSend: function () {
-            $('#education-add-btn').html('<i class="fa fa-circle-o-notch fa-spin"></i>');
+            $('#education-add-btn').html('Legger til utdanning <i class="fa fa-circle-o-notch fa-spin"></i>');
         },
         success: function (data) {
+            // Gå til første tab
+            $('#Utdannelse-tabs li:eq(0) a').tab('show');
 
             // Tilbakestill ting
             $('#school-text').val('');

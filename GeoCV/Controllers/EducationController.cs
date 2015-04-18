@@ -38,7 +38,9 @@ namespace GeoCV.Controllers
                 UtdannelseList.Add(NyUtdannelse);
             }
 
-            return Json(UtdannelseList, JsonRequestBehavior.AllowGet);
+            List<Utdannelse> SortedList = UtdannelseList.OrderByDescending(u => u.Fra).ToList();
+
+            return Json(SortedList, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -108,6 +110,8 @@ namespace GeoCV.Controllers
 
             db.SaveChanges();
         }
-
     }
 }
+
+
+        
