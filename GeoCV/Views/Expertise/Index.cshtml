@@ -35,181 +35,45 @@
             <!-- Tab panes -->
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="programming-tab">
-                    <div class="row">
-                        <div class="col-lg-12">
 
-                            <h4 id="Programmeringsspråk-load">Laster inn <i class="fa fa-circle-o-notch fa-spin"></i></h4>
+                    @Html.Partial("_TabInnhold", new ViewDataDictionary { { "Tab", "Programmeringsspråk" } })
 
-                            <div id="Programmeringsspråk-form" class="form-horizontal hidden">
-
-                                <div class="form-group">
-                                    <div class="col-lg-10">
-                                        <input id="@Html.DisplayNameFor(m => Model.Kompetanse.Programmeringsspråk)-auto" type="text" class="form-control add-item-auto typeahead" placeholder="Legg til et nytt programmeringsspråk" data-provide="typeahead" autocomplete="off">
-                                    </div>
-                                    <div class="col-lg-1">
-                                        <button id="@Html.DisplayNameFor(m => Model.Kompetanse.Programmeringsspråk)-btn" type="button" class="btn btn-success add-item-btn" tabindex="-1">Legg til</button>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div id="@Html.DisplayNameFor(m => Model.Kompetanse.Programmeringsspråk)-group" class="col-lg-12 added-btn-group">
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <div role="tabpanel" class="tab-pane" id="framework-tab">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <h4 id="Rammeverk-load">Laster inn <i class="fa fa-circle-o-notch fa-spin"></i></h4>
 
-                            <div id="Rammeverk-form" class="form-horizontal hidden">
-                                <div class="form-group">
-                                    <div class="col-lg-10">
-                                        <input id="@Html.DisplayNameFor(m => Model.Kompetanse.Rammeverk)-auto" type="text" class="form-control add-item-auto" placeholder="Legg til et nytt rammeverk" data-provide="typeahead" autocomplete="off">
-                                    </div>
-                                    <div class="col-lg-1">
-                                        <button id="@Html.DisplayNameFor(m => Model.Kompetanse.Rammeverk)-btn" type="button" class="btn btn-success add-item-btn" tabindex="-1">Legg til</button>
-                                    </div>
-                                </div>
+                    @Html.Partial("_TabInnhold", new ViewDataDictionary { { "Tab", "Rammeverk" } })
 
-                                <div class="form-group">
-                                    <div id="@Html.DisplayNameFor(m => Model.Kompetanse.Rammeverk)-group" class="col-lg-12 added-btn-group">
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <div role="tabpanel" class="tab-pane" id="web-tech-tab">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <h4 id="WebTeknologier-load">Laster inn <i class="fa fa-circle-o-notch fa-spin"></i></h4>
 
-                            <div id="WebTeknologier-form" class="form-horizontal hidden">
-                                <div class="form-group">
-                                    <div class="col-lg-10">
-                                        <input id="@Html.DisplayNameFor(m => Model.Kompetanse.WebTeknologier)-auto" type="text" class="form-control add-item-auto" placeholder="Legg til en ny web-teknologi" data-provide="typeahead" autocomplete="off">
-                                    </div>
-                                    <div class="col-lg-1">
-                                        <button id="@Html.DisplayNameFor(m => Model.Kompetanse.WebTeknologier)-btn" type="button" class="btn btn-success add-item-btn" tabindex="-1">Legg til</button>
-                                    </div>
-                                </div>
+                    @Html.Partial("_TabInnhold", new ViewDataDictionary { { "Tab", "WebTeknologier" } })
 
-                                <div class="form-group">
-                                    <div id="@Html.DisplayNameFor(m => Model.Kompetanse.WebTeknologier)-group" class="col-lg-12 added-btn-group">
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <div role="tabpanel" class="tab-pane" id="database-tab">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <h4 id="Databasesystemer-load">Laster inn <i class="fa fa-circle-o-notch fa-spin"></i></h4>
 
-                            <div id="Databasesystemer-form" class="form-horizontal hidden">
-                                <div class="form-group">
-                                    <div class="col-lg-10">
-                                        <input id="@Html.DisplayNameFor(m => Model.Kompetanse.Databasesystemer)-auto" type="text" class="form-control add-item-auto" placeholder="Legg til et nytt databasesystem" data-provide="typeahead" autocomplete="off">
-                                    </div>
-                                    <div class="col-lg-1">
-                                        <button id="@Html.DisplayNameFor(m => Model.Kompetanse.Databasesystemer)-btn" type="button" class="btn btn-success add-item-btn" tabindex="-1">Legg til</button>
-                                    </div>
-                                </div>
+                    @Html.Partial("_TabInnhold", new ViewDataDictionary { { "Tab", "Databasesystemer" } })
 
-                                <div class="form-group">
-                                    <div id="@Html.DisplayNameFor(m => Model.Kompetanse.Databasesystemer)-group" class="col-lg-12 added-btn-group">
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <div role="tabpanel" class="tab-pane" id="server-tab">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <h4 id="Serverside-load">Laster inn <i class="fa fa-circle-o-notch fa-spin"></i></h4>
 
-                            <div id="Serverside-form" class="form-horizontal hidden">
-                                <div class="form-group">
-                                    <div class="col-lg-10">
-                                        <input id="@Html.DisplayNameFor(m => Model.Kompetanse.Serverside)-auto" type="text" class="form-control add-item-auto" placeholder="Legg til ny serverside" data-provide="typeahead" autocomplete="off">
-                                    </div>
-                                    <div class="col-lg-1">
-                                        <button id="@Html.DisplayNameFor(m => Model.Kompetanse.Serverside)-btn" type="button" class="btn btn-success add-item-btn" tabindex="-1">Legg til</button>
-                                    </div>
-                                </div>
+                    @Html.Partial("_TabInnhold", new ViewDataDictionary { { "Tab", "Serverside" } })
 
-                                <div class="form-group">
-                                    <div id="@Html.DisplayNameFor(m => Model.Kompetanse.Serverside)-group" class="col-lg-12 added-btn-group">
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <div role="tabpanel" class="tab-pane" id="os-tab">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <h4 id="Operativsystemer-load">Laster inn <i class="fa fa-circle-o-notch fa-spin"></i></h4>
 
-                            <div id="Operativsystemer-form" class="form-horizontal hidden">
-                                <div class="form-group">
-                                    <div class="col-lg-10">
-                                        <input id="@Html.DisplayNameFor(m => Model.Kompetanse.Operativsystemer)-auto" type="text" class="form-control add-item-auto" placeholder="Legg til et nytt operativsystem" data-provide="typeahead" autocomplete="off">
-                                    </div>
-                                    <div class="col-lg-1">
-                                        <button id="@Html.DisplayNameFor(m => Model.Kompetanse.Operativsystemer)-btn" type="button" class="btn btn-success add-item-btn" tabindex="-1">Legg til</button>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div id="@Html.DisplayNameFor(m => Model.Kompetanse.Operativsystemer)-group" class="col-lg-12 added-btn-group">
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @Html.Partial("_TabInnhold", new ViewDataDictionary { { "Tab", "Operativsystemer" } })
 
                 </div>
 
                 <div role="tabpanel" class="tab-pane" id="other-tab">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <h4 id="Annet-load">Laster inn <i class="fa fa-circle-o-notch fa-spin"></i></h4>
+                    
+                    @Html.Partial("_TabInnhold", new ViewDataDictionary { { "Tab", "Annet" } })
 
-                            <div id="Annet-form" class="form-horizontal hidden">
-                                <div class="form-group">
-                                    <div class="col-lg-10">
-                                        <input id="@Html.DisplayNameFor(m => Model.Kompetanse.Annet)-auto" type="text" class="form-control add-item-auto" placeholder="Legg til et noe annet" data-provide="typeahead" autocomplete="off">
-                                    </div>
-                                    <div class="col-lg-1">
-                                        <button id="@Html.DisplayNameFor(m => Model.Kompetanse.Annet)-btn" type="button" class="btn btn-success add-item-btn" tabindex="-1">Legg til</button>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div id="@Html.DisplayNameFor(m => Model.Kompetanse.Annet)-group" class="col-lg-12 added-btn-group">
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
             </div>

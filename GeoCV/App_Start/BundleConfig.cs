@@ -128,6 +128,7 @@ namespace GeoCV
 
             bundles.Add(new StyleBundle("~/Bundles/css/expertise")
                 .Include("~/Content/bootstrap.css")
+                .Include("~/Content/expertise.css")
                 .Include("~/Content/main.css"));
 
             // Education
