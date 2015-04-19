@@ -524,13 +524,6 @@
     <Content Include="Content\database.css.map">
       <DependentUpon>database.css</DependentUpon>
     </Content>
-    <EntityDeploy Include="Models\Database.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Database.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Database.edmx.diagram">
-      <DependentUpon>Database.edmx</DependentUpon>
-    </Content>
     <Content Include="Content\education.less" />
     <Content Include="Content\education.css.map">
       <DependentUpon>education.css</DependentUpon>
@@ -546,6 +539,13 @@
     <Content Include="Content\expertise.less" />
     <Content Include="Content\expertise.css.map">
       <DependentUpon>expertise.css</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\Database.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Database.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Database.edmx.diagram">
+      <DependentUpon>Database.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\geocv %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\geocv.pubxml" />

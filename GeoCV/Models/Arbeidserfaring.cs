@@ -18,8 +18,9 @@ namespace GeoCV.Models
         public string Arbeidsplass { get; set; }
         public string Stilling { get; set; }
         public string Beskrivelse { get; set; }
-        public Nullable<short> Fra { get; set; }
-        public Nullable<short> Til { get; set; }
+        public bool Nåværende { get; set; }
+        public short Fra { get; set; }
+        public short Til { get; set; }
         public int CVVersjonCVVersjonId { get; set; }
     
         public virtual CVVersjon CVVersjon { get; set; }

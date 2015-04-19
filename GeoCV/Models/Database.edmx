@@ -23,8 +23,9 @@
           <Property Name="Arbeidsplass" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Stilling" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Beskrivelse" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Fra" Type="smallint" />
-          <Property Name="Til" Type="smallint" />
+          <Property Name="Nåværende" Type="bit" Nullable="false" />
+          <Property Name="Fra" Type="smallint" Nullable="false" />
+          <Property Name="Til" Type="smallint" Nullable="false" />
           <Property Name="CVVersjonCVVersjonId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="AspNetRoles">
@@ -442,8 +443,9 @@
           <Property Name="Arbeidsplass" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Stilling" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Beskrivelse" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Fra" Type="Int16" />
-          <Property Name="Til" Type="Int16" />
+          <Property Name="Nåværende" Type="Boolean" Nullable="false" />
+          <Property Name="Fra" Type="Int16" Nullable="false" />
+          <Property Name="Til" Type="Int16" Nullable="false" />
           <Property Name="CVVersjonCVVersjonId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="CVVersjon" Relationship="Self.FK_CVVersjonArbeidserfaring" FromRole="Arbeidserfaring" ToRole="CVVersjon" />
         </EntityType>
@@ -846,6 +848,7 @@
                 <ScalarProperty Name="Arbeidsplass" ColumnName="Arbeidsplass" />
                 <ScalarProperty Name="Stilling" ColumnName="Stilling" />
                 <ScalarProperty Name="Beskrivelse" ColumnName="Beskrivelse" />
+                <ScalarProperty Name="Nåværende" ColumnName="Nåværende" />
                 <ScalarProperty Name="Fra" ColumnName="Fra" />
                 <ScalarProperty Name="Til" ColumnName="Til" />
                 <ScalarProperty Name="CVVersjonCVVersjonId" ColumnName="CVVersjonCVVersjonId" />

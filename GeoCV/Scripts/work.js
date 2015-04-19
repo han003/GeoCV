@@ -4,19 +4,22 @@
 
 $('#work-add-btn').click(function () {
 
+    $(this).blur();
+
     // Hent variabler
     var workplace = $('#text-work-place').val();
     var role = $('#text-work-role').val();
     var description = $('#text-work-description').val();
     var from = $('#work-select-from').val();
     var to = $('#work-select-to').val();
+    var nåværende = ($('#nåværende-radio-btn label.active input').val() === 'true');
 
     $.ajax({
         url: '/Work/AddNewWork',
-        data: { Arbeidsplass: workplace, Stilling: role, Beskrivelse: description, Fra: from, Til: to },
+        data: { Arbeidsplass: workplace, Stilling: role, Beskrivelse: description, Nåværende: nåværende, Fra: from, Til: to },
         type: 'POST',
         beforeSend: function () {
-            $('#work-add-btn').html('<i class="fa fa-circle-o-notch fa-spin"></i>');
+            $('#work-add-btn').html('Legger til ny arbeidserfaring <i class="fa fa-circle-o-notch fa-spin"></i>');
         },
         success: function (data) {
 
@@ -24,6 +27,9 @@ $('#work-add-btn').click(function () {
             $('#text-work-place').val('');
             $('#text-work-role').val('');
             $('#text-work-description').val('');
+            $('#nåværende-radio-btn label:first').addClass('active');
+            $('#nåværende-radio-btn label:last').removeClass('active');
+            $('#work-select-to').closest('.form-group').removeClass('hidden');
             $('#work-select-from').val($('#work-select-from option:first').val());
             $('#work-select-to').val($('#work-select-to option:first').val());
             $('#work-add-btn').html('Legg til arbeidserfaring');
@@ -51,9 +57,12 @@ function refreshTable() {
                 var jobbId = value['ArbeidserfaringId'];
                 var arbeidsplass = value['Arbeidsplass'];
                 var stilling = value['Stilling'];
+                var nåværende = value['Nåværende'];
                 var beskrivelse = value['Beskrivelse'];
                 var fra = value['Fra'];
-                var til = value['Til'];
+                var til = (nåværende) ? 'Nåværende' : value['Til'];
+
+                console.log(value['Nåværende']);
 
                 // For valg av tekst å bruke
                 template += '<tr id="' + jobbId + '">' +
@@ -105,6 +114,14 @@ $('#editModal').on('shown.bs.modal', function (e) {
 
 $(document).on('click', '.update-td', function () {
 
+    // Skjul alle elementer i modalen
+    $('#edit-txt').addClass('hidden');
+    $('#modal-select').addClass('hidden');
+    $('#nåværendeTekst').addClass('hidden');
+
+    // Vis OK knappen i tilfellet den er skjult
+    $('#editmodalAddItem').removeClass('hidden');
+
     // Velg td elementet
     var tdElement = $(this);
 
@@ -120,6 +137,9 @@ $(document).on('click', '.update-td', function () {
     // Hent nåverende verdi
     var editVal = tdElement.html();
 
+    // Hent arbeidsplass
+    var arbeidsplass = tdElement.parent().children('td').first().html();
+
     // Hent det som skal endres i databasen fra tablehead
     var kolonne = $('#work-table').find('th').eq(tdIndex).html();
 
@@ -133,13 +153,16 @@ $(document).on('click', '.update-td', function () {
     $('#editModal').data('dbKolonne', kolonne);
     $('#editModal').data('tdIndex', tdIndex);
 
-    // Skjul og vis relevant felt i modalen
-    if (kolonne == 'Fra' || kolonne == 'Til') {
-        $('#edit-txt').addClass('hidden');
+    // Vis relevante felter i modalen
+    if (editVal === 'Nåværende') {
+        $('#nåværendeTekst').removeClass('hidden').html('<strong>' + arbeidsplass + '</strong> er satt som din nåværende stilling og dato kan ikke endres.<br />Vennligst legg til en ny stilling som nåværende for å endre.');
+        $('#editmodalAddItem').addClass('hidden');
+
+    } else if (kolonne == 'Fra' || kolonne == 'Til') {
         $('#modal-select').removeClass('hidden');
         $('#modal-select').val(editVal);
-    } else {
-        $('#modal-select').addClass('hidden');
+    }
+    else if (kolonne != 'Fra' || kolonne != 'Til') {
         $('#edit-txt').removeClass('hidden');
         $('#edit-txt').val(editVal);
     }
@@ -208,3 +231,13 @@ function changeElement() {
     });
 
 }
+
+// Fjern 'til' felt siden nåværende arbeidsplass er valgt
+$(document).on('change', 'input:radio[id^="ja"]', function (event) {
+    $('#work-select-to').closest('.form-group').addClass('hidden');
+});
+
+// Legg til 'til' felt siden nåværende arbeidsplass ikke er valgt
+$(document).on('change', 'input:radio[id^="nei"]', function (event) {
+    $('#work-select-to').closest('.form-group').removeClass('hidden');
+});

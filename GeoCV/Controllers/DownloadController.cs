@@ -241,7 +241,16 @@ namespace GeoCV.Controllers
 
             foreach (var Item in AnsattArbeidserfaring)
             {
-                string Etikett = Item.Fra + " - " + Item.Til;
+                string Etikett;
+                if (Item.Nåværende)
+                {
+                    Etikett = Item.Fra + " - " + Int16.Parse(DateTime.Now.Year.ToString());
+                }
+                else
+                {
+                    Etikett = Item.Fra + " - " + Item.Til;
+                }
+
                 string Innhold = "Rolle: " + Item.Stilling + "\n" + Item.Beskrivelse;
 
                 Paragraph EtikettParagraf = new Paragraph(Etikett, FetFont(11));

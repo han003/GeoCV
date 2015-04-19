@@ -18,16 +18,43 @@ namespace GeoCV.Controllers
         }
 
         [HttpPost]
-        public void AddNewWork(string Arbeidsplass, string Stilling, string Beskrivelse, Int16 Fra, Int16 Til)
+        public void AddNewWork(string Arbeidsplass, string Stilling, string Beskrivelse, bool Nåværende, Int16 Fra, Int16 Til)
         {
             CVVersjon Cv = GetUserCV();
 
+            // Sjekk om den nye stillingen er satt som nåværende
+            if (Nåværende)
+            {
+
+                // Gå gjennom arbeidserfaring å sjekk om en annen stilling er satt som nåværende
+                foreach (var Item in Cv.Arbeidserfaring)
+                {
+                    if (Item.Nåværende)
+                    {
+                        Item.Nåværende = false;
+                        Item.Til = Int16.Parse(DateTime.Now.Year.ToString());
+                    }
+                }
+
+                db.SaveChanges();
+            }
+
+            // Endre hvis fra dato er større enn til dato
+            if (Fra > Til)
+            {
+                Int16 NyFra = Til;
+                Til = Fra;
+                Fra = NyFra;
+            }
+
+            // Legg til ny arbeidserfaring
             Arbeidserfaring NewItem = new Arbeidserfaring();
             NewItem.Arbeidsplass = Arbeidsplass;
             NewItem.Stilling = Stilling;
             NewItem.Beskrivelse = Beskrivelse;
+            NewItem.Nåværende = Nåværende;
             NewItem.Fra = Fra;
-            NewItem.Til = Til;
+            NewItem.Til = (Nåværende) ? Int16.Parse("0") : Til;
 
             Cv.Arbeidserfaring.Add(NewItem);
 
@@ -47,6 +74,7 @@ namespace GeoCV.Controllers
                 NyArbeidserfaring.ArbeidserfaringId = Item.ArbeidserfaringId;
                 NyArbeidserfaring.Arbeidsplass = Item.Arbeidsplass;
                 NyArbeidserfaring.Stilling = Item.Stilling;
+                NyArbeidserfaring.Nåværende = Item.Nåværende;
                 NyArbeidserfaring.Beskrivelse = Item.Beskrivelse;
                 NyArbeidserfaring.Fra = Item.Fra;
                 NyArbeidserfaring.Til = Item.Til;
