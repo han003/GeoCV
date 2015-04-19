@@ -220,7 +220,7 @@ namespace GeoCV.Controllers
                 string Etikett = Item.Fra + " - " + Item.Til;
                 string Innhold = Item.Beskrivelse + ". " + Item.Studiested;
 
-                Paragraph EtikettParagraf = new Paragraph(Etikett, NormalFont(11));
+                Paragraph EtikettParagraf = new Paragraph(Etikett, FetFont(11));
                 Paragraph InnholdsParagraf = new Paragraph(Innhold, NormalFont(11));
                 UserCv.Add(LeggTilTabell(EtikettParagraf, InnholdsParagraf, 100));
             }
@@ -242,11 +242,22 @@ namespace GeoCV.Controllers
             foreach (var Item in AnsattArbeidserfaring)
             {
                 string Etikett = Item.Fra + " - " + Item.Til;
-                string Innhold = Item.Arbeidsplass + ". Rolle: " + Item.Stilling + "\n" + Item.Beskrivelse;
+                string Innhold = "Rolle: " + Item.Stilling + "\n" + Item.Beskrivelse;
 
-                Paragraph EtikettParagraf = new Paragraph(Etikett, NormalFont(11));
+                Paragraph EtikettParagraf = new Paragraph(Etikett, FetFont(11));
+
+                // Paragrafer som er stylet
+                Paragraph ArbeidsplassParagraf = new Paragraph(Item.Arbeidsplass + ". ", FetFont(11));
                 Paragraph InnholdsParagraf = new Paragraph(Innhold, NormalFont(11));
-                UserCv.Add(LeggTilTabell(EtikettParagraf, InnholdsParagraf, 100));
+
+                // Paragraf for å holde de to andre paragrafene som har forskjellig stil
+                Paragraph TotalInnholdParagraf = new Paragraph();
+
+                // Legg til
+                TotalInnholdParagraf.Add(ArbeidsplassParagraf);
+                TotalInnholdParagraf.Add(InnholdsParagraf);
+
+                UserCv.Add(LeggTilTabell(EtikettParagraf, TotalInnholdParagraf, 100));
             }
 
             UserCv.Add(Chunk.NEWLINE);
