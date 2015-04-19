@@ -1,5 +1,4 @@
 ﻿// Globale variabler
-var userAutoInput;
 var dbOppdateringsKolonne;
 
 $(document).ready(function () {

@@ -728,6 +728,7 @@
       <DependentUpon>moment-with-locales.min.js</DependentUpon>
     </Content>
     <Content Include="Views\Expertise\_TabInnhold.cshtml" />
+    <Content Include="Views\Personal\_TabInnhold.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
