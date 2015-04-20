@@ -86,6 +86,9 @@ namespace GeoCV.Controllers
             // STILLING
             UserCv = Stilling(UserCv, 144);
 
+            // Nasjonalitet
+            UserCv = Nasjonalitet(UserCv, 144);
+
             // ÅR ERFARING
             Paragraph ÅrErfaringEtikett = new Paragraph("Antall år relevant erfaring", FetFont(11));
             Paragraph AnsattÅrErfaring = new Paragraph(Cv.Person.ÅrErfaring.ToString() + " år", NormalFont(11));
@@ -288,6 +291,29 @@ namespace GeoCV.Controllers
                 if (Int32.Parse(Ansatt.FirstOrDefault().ToString()).Equals(Item.ListeKatalogId))
                 {
                     Paragraph EtikettParagraf = new Paragraph("Stilling", FetFont(11));
+                    Paragraph InnholdsParagraf = new Paragraph(Item.Element, NormalFont(11));
+                    UserCv.Add(LeggTilTabell(EtikettParagraf, InnholdsParagraf, Innrykk));
+                }
+            }
+
+            return UserCv;
+        }
+
+        private Document Nasjonalitet(Document UserCv, float Innrykk)
+        {
+            // Hent katalogen
+            var KatalogElementer = from a in db.ListeKatalog
+                                   select a;
+
+            // Hent ansatt info
+            var Ansatt = from a in db.Person
+                         select a.Nasjonalitet;
+
+            foreach (var Item in KatalogElementer)
+            {
+                if (Int32.Parse(Ansatt.FirstOrDefault().ToString()).Equals(Item.ListeKatalogId))
+                {
+                    Paragraph EtikettParagraf = new Paragraph("Nasjonalitet", FetFont(11));
                     Paragraph InnholdsParagraf = new Paragraph(Item.Element, NormalFont(11));
                     UserCv.Add(LeggTilTabell(EtikettParagraf, InnholdsParagraf, Innrykk));
                 }

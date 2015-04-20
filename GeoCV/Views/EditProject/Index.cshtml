@@ -13,132 +13,126 @@
     @Scripts.Render("~/bundles/js/editproject")
 }
 
-<div class="row">
-    <div class="col-lg-12">
+<div role="tabpanel">
 
-        <div role="tabpanel">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#rediger-prosjekt" aria-controls="rediger-prosjekt" role="tab" data-toggle="tab">Rediger prosjekt</a></li>
+        <li role="presentation"><a href="#tekniske-profiler" aria-controls="tekniske-profiler" role="tab" data-toggle="tab">Tekniske profiler</a></li>
+        <li role="presentation"><a href="#ny-teknisk-profil" aria-controls="ny-teknisk-profil" role="tab" data-toggle="tab">Ny teknisk profil</a></li>
+    </ul>
 
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#rediger-prosjekt" aria-controls="rediger-prosjekt" role="tab" data-toggle="tab">Rediger Prosjekt</a></li>
-                <li role="presentation"><a href="#tekniske-profiler" aria-controls="tekniske-profiler" role="tab" data-toggle="tab">Tekniske Profiler</a></li>
-                <li role="presentation"><a href="#ny-teknisk-profil" aria-controls="ny-teknisk-profil" role="tab" data-toggle="tab">Ny Teknisk Profil</a></li>
-            </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="rediger-prosjekt">
+            <div class="form-horizontal">
 
-            <!-- Tab panes -->
-            <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="rediger-prosjekt">
-
-                    <div class="row">
-                        <div class="col-lg-12">
-
-                            <div class="form-horizontal">
-
-                                <div class="form-group">
-                                    <div class="col-lg-12">
-                                        <label>Navn</label>
-                                        <input type="text" class="form-control update-txt" value="@Model.Navn" id="@Html.DisplayNameFor(m => Model.Navn)-txt">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-lg-12">
-                                        <label>Kunde</label>
-                                        <input type="text" class="form-control update-txt" value="@Model.Kunde" id="@Html.DisplayNameFor(m => Model.Kunde)-txt">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-lg-12">
-                                        <label>Beskrivelse</label>
-                                        <input type="text" class="form-control update-txt" value="@Model.Beskrivelse" id="@Html.DisplayNameFor(m => Model.Beskrivelse)-txt">
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
+                <div class="form-group">
+                    <label for="@Html.DisplayNameFor(m => Model.Navn)-txt" class="col-lg-2 control-label">Navn</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control update-txt" value="@Model.Navn" id="@Html.DisplayNameFor(m => Model.Navn)-txt" autocomplete="off">
                     </div>
-
+                    <div id="@Html.DisplayNameFor(m => Model.Navn)-txt-label" class="col-lg-2 side-label hidden">
+                        <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
+                    </div>
                 </div>
 
-
-
-
-
-                <div role="tabpanel" class="tab-pane" id="tekniske-profiler">
-
-                    <div class="row">
-                        <div class="col-lg-12">
-
-                            @foreach (var Item in Model.TekniskProfil)
-                            {
-                                <h2>@Item.Navn</h2>
-                                <h5>@Item.Elementer.Replace(';', ',')</h5>
-                                
-                            }
-
-                        </div>
+                <div class="form-group">
+                    <label for="@Html.DisplayNameFor(m => Model.Kunde)-txt" class="col-lg-2 control-label">Kunde</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control update-txt" value="@Model.Kunde" id="@Html.DisplayNameFor(m => Model.Kunde)-txt" autocomplete="off">
                     </div>
-
-
+                    <div id="@Html.DisplayNameFor(m => Model.Kunde)-txt-label" class="col-lg-2 side-label hidden">
+                        <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
+                    </div>
                 </div>
 
-
-
-                <div role="tabpanel" class="tab-pane" id="ny-teknisk-profil">
-
-                    <div class="row">
-                        <div class="col-lg-12">
-
-                            <h4 id="tech-load">Laster inn <i class="fa fa-circle-o-notch fa-spin"></i></h4>
-
-                            <div id="tech-form" class="form-horizontal hidden">
-
-                                <div class="form-group">
-                                    <div class="col-lg-12">
-                                        <label>Navn</label>
-                                        <input type="text" class="form-control" id="tech-name" placeholder="Navn for ny teknisk profil">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-lg-10">
-                                        <input id="tech-auto" type="text" class="form-control" placeholder="Legg til element" data-provide="typeahead" autocomplete="off">
-                                    </div>
-                                    <div class="col-lg-1">
-                                        <button id="tech-add-btn" type="button" class="btn btn-success" tabindex="-1">Legg til</button>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div id="tech-group" class="col-lg-12 added-btn-group">
-
-                                    </div>
-                                </div>
-
-                                <hr />
-
-                                <div class="form-group">
-                                    <div class="col-lg-12">
-                                        <button id="tech-save-btn" type="button" class="btn btn-success" tabindex="-1">Lagre Profil</button>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
+                <div class="form-group">
+                    <label for="@Html.DisplayNameFor(m => Model.Beskrivelse)-txt" class="col-lg-2 control-label">Beskrivelse</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control update-txt" value="@Model.Beskrivelse" id="@Html.DisplayNameFor(m => Model.Beskrivelse)-txt" autocomplete="off">
                     </div>
+                    <div id="@Html.DisplayNameFor(m => Model.Beskrivelse)-txt-label" class="col-lg-2 side-label hidden">
+                        <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
+                    </div>
+                </div>
 
+                <hr />
+
+                <div class="form-group">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <button class="btn btn-danger" id="prosjekt-del-btn">Slett prosjekt</button>
+                    </div>
+                    <div id="prosjekt-del-btn-label" class="col-lg-2 side-label hidden">
+                        <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+
+        <div role="tabpanel" class="tab-pane" id="tekniske-profiler">
+
+            <div id="filter-row" class="row col-lg-12">
+                <div class="col-lg-6">
+                    <input id="alle-elementer-filter" type="text" class="form-control table-filter" placeholder="Filter" autocomplete="off">
                 </div>
             </div>
 
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="col-lg-12">
+                        <table id="alle-elementer-tabell" class="table element-table">
+                            <thead>
+                                <tr>
+                                    <th>Element</th>
+                                    <th>Katalog</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
 
+
+
+        <div role="tabpanel" class="tab-pane" id="ny-teknisk-profil">
+            <div id="tech-form" class="form-horizontal">
+
+                <div class="form-group">
+                    <label for="ny-profil-navn-txt" class="col-lg-2 control-label">Navn</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control" id="ny-profil-navn-txt" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <button id="ny-profil-lagre-btn" type="button" class="btn btn-success" tabindex="-1">Legg til</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
     </div>
 
-
 </div>
+
+
+
+
+
+
+
+
 
 
 

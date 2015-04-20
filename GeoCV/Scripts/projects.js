@@ -3,18 +3,41 @@
 });
 
 $('#prosjekt-filter').keyup(function () {
-    getProsjekter();
+    // Hent tekst som er skrevet inn
+    var filterTekst = $(this).val().toLowerCase();
+    console.log('Filter: ' + filterTekst);
+
+    // Gå gjennom alle radene og legg IDene i en string
+    $('#prosjekt-tabell tbody tr').each(function () {
+
+        // Prosjekt tekst
+        var prosjektTekst = $(this).children('td').children('a').html().toLowerCase();
+        console.log('Prosjekt: ' + prosjektTekst);
+
+        // Kunde tekst
+        var kundeTekst = $(this).children('td').next().html().toLowerCase();
+
+        // Beskrivelse tekst
+        var beskrivelseTekst = $(this).children('td').next().next().html().toLowerCase();
+
+        // Sjekk om elementet inneholder filter teksten
+        if (prosjektTekst.indexOf(filterTekst) >= 0 || kundeTekst.indexOf(filterTekst) >= 0 || beskrivelseTekst.indexOf(filterTekst) >= 0) {
+            // Inneholder, så vis
+            $(this).removeClass('hidden');
+        } else {
+            // Skjul
+            $(this).addClass('hidden');
+        }
+
+    });
 });
 
 function getProsjekter() {
     $('#edit-elem-load').removeClass('hidden');
     $('table').addClass('hidden');
 
-    var filter = $('#prosjekt-filter').val();
-
     $.ajax({
         url: '/Projects/getProsjekter',
-        data: { Filter: filter },
         type: 'GET',
         success: function (data) {
             console.log(data);
@@ -53,6 +76,8 @@ function getProsjekter() {
 
 $('#nytt-prosjekt-legg-til-btn').click(function () {
     
+    $(this).blur();
+
     var prosjektKunde = $('#ny-kunde-txt').val();
     var prosjektNavn = $('#ny-prosjektnavn-txt').val();
     var prosjektBeskrivelse = $('#ny-beskrivelse-txt').val();
@@ -63,9 +88,7 @@ $('#nytt-prosjekt-legg-til-btn').click(function () {
         type: 'POST',
         beforeSend: function () {
 
-            $('#new-element-row').addClass('hidden');
-            $('#new-element-loading').removeClass('hidden');
-
+            $('#nytt-prosjekt-legg-til-btn').html('Legger til nytt prosjekt.. <i class="fa fa-circle-o-notch fa-spin"></i>');
 
         },
         success: function () {
@@ -82,9 +105,7 @@ $('#nytt-prosjekt-legg-til-btn').click(function () {
 
             // Endre tekst
             $('#edit-elem-load').html('Oppdaterer prosjekter.. <i class="fa fa-circle-o-notch fa-spin"></i>');
-
-            // Gå til første tab
-            $('#prosjekt-tabs a:first').tab('show');
+            $('#nytt-prosjekt-legg-til-btn').html('Legg til nytt prosjekt');
 
             // Oppdater prosjekter
             getProsjekter();

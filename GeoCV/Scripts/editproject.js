@@ -1,21 +1,86 @@
 ﻿$(document).ready(function () {
-    getProjects();
-})
+    getKatalogElementer();
+});
 
-function getProjects() {
-    $.get('/EditProject/GetElements', function (data) {
-        $(function () {
-            $("#tech-auto").typeahead({
-                minLength: 0,
-                source: data
+$('.table-filter').keyup(function () {
+    // Hent tekst som er skrevet inn
+    var filterTekst = $(this).val().toLowerCase();
+    console.log('Filter: ' + filterTekst);
+
+    // Gå gjennom alle radene og legg IDene i en string
+    $('#alle-elementer-tabell tbody tr').each(function () {
+
+        // Element tekst
+        var elementTekst = $(this).children('td').html().toLowerCase();
+
+        // Katalog tekst
+        var katalogTekst = $(this).children('td').next().html().toLowerCase();
+
+        // Sjekk om elementet inneholder filter teksten
+        if (elementTekst.indexOf(filterTekst) >= 0 || katalogTekst.indexOf(filterTekst) >= 0) {
+            // Inneholder, så vis
+            $(this).removeClass('hidden');
+        } else {
+            // Skjul
+            $(this).addClass('hidden');
+        }
+
+    });
+});
+
+function getKatalogElementer() {
+
+    $.ajax({
+        url: '/EditProject/GetKatalogElementer',
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+
+            console.log(data);
+
+            var elementArray = new Array();
+            var idArray = new Array();
+
+            $.each(data, function (index, value) {
+                elementArray.push(value['Element']);
+                idArray.push(value['ListeKatalogId']);
+
+                // Lag tabell som viser alle elementer
+                $('#alle-elementer-tabell tbody').append('<tr id="' + value['ListeKatalogId'] + '">' +
+                                                               '<td class="col-lg-3">' + value['Element'] + '</td>' +
+                                                               '<td class="col-lg-2">' + value['Katalog'] + '</td>' +
+                                                               '<td class="col-lg-1">' + '<i class="fa fa-plus-square add-item-btn"></i>' + '</td>' +
+                                                               '</tr>');
+
+                // Tabell(er) for å vise tekniske profiler
+                /*try {
+                    $.each(data[0][0].split(';'), function (index, element) {
+                        if (value['ListeKatalogId'] == element) {
+                            // ID
+                            var elementId = 'element-' + value['ListeKatalogId'];
+
+                            // Lag tabell som viser bruker elementer
+                            $('#' + katalog + '-bruker-tabell tbody').append('<tr id="' + elementId + '">' +
+                                                                           '<td class="col-lg-5">' + value['Element'] + '</td>' +
+                                                                           '<td class="col-lg-1"><i class="fa fa-minus-square remove-item-btn"></i></td>' +
+                                                                           '</tr>');
+                        }
+                    });
+                }
+                catch (e) {
+                    console.log(e);
+                }*/
+
             });
-        });
 
-        $("#tech-load").addClass('hidden');
-        $("#tech-form").removeClass('hidden');
+            //$('#' + katalog + '-load').addClass('hidden');
+            //$('#' + katalog + '-form').removeClass('hidden');
 
-        $("#tech-auto").data('json', data);
-    }, 'json');
+            // Lagre arrayer
+            $('#alle-elementer-tabell').data('elementer', elementArray);
+            $('#alle-elementer-tabell').data('elementerId', idArray);
+        }
+    });
 }
 
 $('.update-txt').keyup(function () {
@@ -23,113 +88,50 @@ $('.update-txt').keyup(function () {
 });
 
 function updateProjectInfo(element) {
-
     var tableColumn = element.attr('id').substring(0, element.attr('id').indexOf('-'));
     var newValue = element.val();
 
     // Finn ID
     var id = window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1);
 
-    console.log("Id: " + id);
-    console.log("Value: " + newValue);
-
-    $.post('/EditProject/UpdateProjectInfo', { Id: id, Update: tableColumn, Value: newValue });
-
-}
-
-//////////////////// INSERT NEW AUTO STUFF
-
-var autoTextfield;
-var userAutoInput;
-var databaseUpdateColumn;
-
-// What happens when add button is clicked
-$('#tech-add-btn').click(function () {
-    addItem($(this));
-});
-
-// What happens when the Enter key is pressed
-$('#tech-auto').keypress(function (event) {
-    var keycode = (event.keyCode ? event.keyCode : event.which);
-    if (keycode == '13') {
-        addItem($(this));
-    }
-});
-
-// What happens when removing a button
-$('body').on('click', '.added-btn', function () {
-
-    databaseUpdateColumn = $(this).parent().attr('id');
-    databaseUpdateColumn = databaseUpdateColumn.substring(0, databaseUpdateColumn.indexOf('-'));
-
-    $(this).remove();
-});
-
-function addItem(element) {
-    databaseUpdateColumn = element.attr('id');
-    databaseUpdateColumn = databaseUpdateColumn.substring(0, databaseUpdateColumn.indexOf('-'));
-
-    console.log('Column: ' + databaseUpdateColumn)
-
-    // Get textfield
-    autoTextfield = $('#' + databaseUpdateColumn + '-auto');
-
-    // Get value
-    userAutoInput = autoTextfield.val();
-
-    console.log('Value: ' + userAutoInput)
-
-    // Check if the value is already in the database
-    var json = autoTextfield.data('json');
-
-    if (itemExists(userAutoInput, json)) {
-        $('#' + databaseUpdateColumn + '-group').append('<button type="button" class="btn btn-info added-btn" tabindex="-1">' + userAutoInput + '</button>');
-        autoTextfield.val('');
-    }
-}
-
-// Check if item exsists in the json data
-function itemExists(userAutoInput, json) {
-    var exists = false;
-    $.each(json, function (name, value) {
-        if (userAutoInput.toLowerCase() == value.toLowerCase()) {
-            exists = true;
+    $.ajax({
+        url: '/EditProject/UpdateProjectInfo',
+        data: { Id: id, Update: tableColumn, Value: newValue },
+        type: 'POST',
+        beforeSend: function () {
+            // Vis oppdatering
+            element.parent().next().removeClass('hidden');
+        },
+        success: function () {
+            console.log('Lagt til');
+            // Skjul oppdatering
+            element.parent().next().addClass('hidden');
         }
     });
-    return exists;
 }
 
-// What happens when add button is clicked
-$('#tech-save-btn').click(function () {
-    // Empty var to hold text
-    var newValue = '';
-
-    // Loop through all buttons
-    $('#' + databaseUpdateColumn + '-group button').each(function () {
-        newValue += $(this).text() + ';';
-    });
-
-    // Remove last ;
-    newValue = newValue.substring(0, newValue.length - 1);
-
-    console.log("Table: " + databaseUpdateColumn);
-    console.log("Value: " + newValue);
-
+$('#ny-profil-lagre-btn').click(function () {
+    
     // Finn ID
     var id = window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1);
 
-    var navn = $('#tech-name').val();
+    // Navn
+    var navn = $('#ny-profil-navn-txt').val();
+
+    console.log(id + ' - ' + navn);
 
     // Update
     $.ajax({
-        url: '/EditProject/AddTechProfile',
-        data: { Id: id, Navn: navn, Elementer: newValue },
+        url: '/EditProject/LeggTilProfil',
+        data: { Id: id, Navn: navn },
         type: 'POST',
-        success: function (data) {
-            $('#tech-group').html('');
-            $('#tech-name').val('');
-            $('#tech-auto').val('');
-            alert('temp alert: la til ny profil');
+        beforeSend: function () {
+            $('#ny-profil-lagre-btn').html('Lagrer <i class="fa fa-circle-o-notch fa-spin"></i>');
+        },
+        success: function () {
+            $('#ny-profil-navn-txt').val('');
+
+            $('#ny-profil-lagre-btn').html('Legg til');
         }
     });
 });

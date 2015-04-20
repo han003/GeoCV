@@ -69,9 +69,6 @@ $('#ny-ansatt-btn').click(function () {
 
         },
         success: function (data) {
-            // Gå til første tab
-            $('#ansatte-tabs li:eq(0) a').tab('show');
-
             // Rydd opp
             $('input').val('');
             $('#Rolle-select').val('Bruker');

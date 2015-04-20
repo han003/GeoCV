@@ -16,10 +16,9 @@ namespace GeoCV.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetProsjekter(string Filter)
+        public ActionResult GetProsjekter()
         {
             var Prosjekter = from a in db.Prosjekt
-                             where a.Navn.Contains(Filter)
                              orderby a.ProsjektId descending
                              select a;
 

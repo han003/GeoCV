@@ -329,6 +329,12 @@
     <Content Include="Content\database.min.css">
       <DependentUpon>database.css</DependentUpon>
     </Content>
+    <Content Include="Content\editproject.css">
+      <DependentUpon>editproject.less</DependentUpon>
+    </Content>
+    <Content Include="Content\editproject.min.css">
+      <DependentUpon>editproject.css</DependentUpon>
+    </Content>
     <Content Include="Content\education.css">
       <DependentUpon>education.less</DependentUpon>
     </Content>
@@ -546,6 +552,10 @@
     </EntityDeploy>
     <Content Include="Models\Database.edmx.diagram">
       <DependentUpon>Database.edmx</DependentUpon>
+    </Content>
+    <Content Include="Content\editproject.less" />
+    <Content Include="Content\editproject.css.map">
+      <DependentUpon>editproject.css</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\geocv %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\geocv.pubxml" />

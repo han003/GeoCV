@@ -50,15 +50,15 @@ namespace GeoCV.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetElements()
+        public ActionResult GetKatalogElementer()
         {
             // Hent alt relatert til prosjekt fra databasen
             var Items = from a in db.ListeKatalog
-                        where a.Katalog != "Stillinger" && 
-                              a.Katalog != "Nasjonaliteter" && 
+                        where a.Katalog != "Stillinger" &&
+                              a.Katalog != "Nasjonaliteter" &&
                               a.Katalog != "Språk"
                         orderby a.Element ascending
-                        select a.Element;
+                        select a;
 
             // Send listen som et JSON elemnt til View
             return Json(Items, JsonRequestBehavior.AllowGet);
@@ -66,13 +66,13 @@ namespace GeoCV.Controllers
 
 
         [HttpPost]
-        public void AddTechProfile(int Id, string Navn, string Elementer)
+        public void LeggTilProfil(int Id, string Navn)
         {
             Prosjekt Pro = GetProsjekt(Id);
 
             TekniskProfil NyTekniskProfil = new TekniskProfil();
             NyTekniskProfil.Navn = Navn;
-            NyTekniskProfil.Elementer = Elementer;
+            NyTekniskProfil.Elementer = "";
 
             Pro.TekniskProfil.Add(NyTekniskProfil);
 

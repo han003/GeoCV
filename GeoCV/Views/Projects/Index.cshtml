@@ -11,92 +11,85 @@
     @Scripts.Render("~/bundles/js/projects")
 }
 
-<div class="row">
-    <div class="col-lg-12">
+<div role="tabpanel">
 
-        <div role="tabpanel">
+    <!-- Nav tabs -->
+    <ul id="prosjekt-tabs" class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#prosjekter-tab" aria-controls="prosjekter-tab" role="tab" data-toggle="tab">Prosjekter</a></li>
+        <li role="presentation"><a href="#nytt-prosjekt-tab" aria-controls="nytt-prosjekt-tab" role="tab" data-toggle="tab">Nytt prosjekt</a></li>
+    </ul>
 
-            <!-- Nav tabs -->
-            <ul id="prosjekt-tabs" class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#prosjekter-tab" aria-controls="prosjekter-tab" role="tab" data-toggle="tab">Prosjekter</a></li>
-                <li role="presentation"><a href="#nytt-prosjekt-tab" aria-controls="nytt-prosjekt-tab" role="tab" data-toggle="tab">Nytt prosjekt</a></li>
-            </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="prosjekter-tab">
+            <div class="row">
+                <div class="col-lg-12">
+                    <input type="text" class="form-control" id="prosjekt-filter" placeholder="Filter">
 
-            <!-- Tab panes -->
-            <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="prosjekter-tab">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <input type="text" class="form-control" id="prosjekt-filter" placeholder="Søk etter prosjekt">
+                    <h4 id="edit-elem-load" class="hidden">Henter prosjekter.. <i class="fa fa-circle-o-notch fa-spin"></i></h4>
 
-                            <h4 id="edit-elem-load" class="hidden">Henter prosjekter.. <i class="fa fa-circle-o-notch fa-spin"></i></h4>
+                    <table id="prosjekt-tabell" class="table table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Prosjekt</th>
+                                <th>Kunde</th>
+                                <th>Beskrivelse</th>
+                                <th>Fra</th>
+                                <th>Til</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
 
-                            <table class="table table-hover table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Prosjekt</th>
-                                        <th>Kunde</th>
-                                        <th>Beskrivelse</th>
-                                        <th>Fra</th>
-                                        <th>Til</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-
-                            </table>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div role="tabpanel" class="tab-pane" id="nytt-prosjekt-tab">
-                    <div id="new-element-row" class="row">
-
-                        <div class="col-lg-12">
-                            <div class="form-horizontal">
-
-                                <div class="form-group">
-                                    <div class="col-lg-12">
-                                        <label>Kunde</label>
-                                        <input type="text" class="form-control" id="ny-kunde-txt">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-lg-12">
-                                        <label>Prosjektnavn</label>
-                                        <input type="text" class="form-control" id="ny-prosjektnavn-txt">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-lg-12">
-                                        <label>Beskrivelse</label>
-                                        <input type="text" class="form-control" id="ny-beskrivelse-txt">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-lg-12">
-                                        <button id="nytt-prosjekt-legg-til-btn" class="btn btn-success" type="button">Legg til nytt prosjekt</button>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="row">
-                        <div id="new-element-loading" class="col-lg-12 hidden">
-
-                            <h4>Legger til.. <i class="fa fa-circle-o-notch fa-spin"></i></h4>
-
-                        </div>
-                    </div>
+                    </table>
 
                 </div>
             </div>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="nytt-prosjekt-tab">
+            <div class="form-horizontal">
+
+                <div class="form-group">
+                    <label for="ny-kunde-txt" class="col-lg-2 control-label">Kunde</label>
+                    <div class="col-lg-8">
+                        <input id="ny-kunde-txt" type="text" class="form-control" autocomplete="off">
+                    </div>
+                    <div id="ny-kunde-txt-label" class="col-lg-2 side-label hidden">
+                        <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="ny-prosjektnavn-txt" class="col-lg-2 control-label">Prosjektnavn</label>
+                    <div class="col-lg-8">
+                        <input id="ny-prosjektnavn-txt" type="text" class="form-control" autocomplete="off">
+                    </div>
+                    <div id="ny-prosjektnavn-txt-label" class="col-lg-2 side-label hidden">
+                        <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="ny-beskrivelse-txt" class="col-lg-2 control-label">Beskrivelse</label>
+                    <div class="col-lg-8">
+                        <input id="ny-beskrivelse-txt" type="text" class="form-control" autocomplete="off">
+                    </div>
+                    <div id="ny-beskrivelse-txt-label" class="col-lg-2 side-label hidden">
+                        <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <button id="nytt-prosjekt-legg-til-btn" class="btn btn-success" type="button">Legg til nytt prosjekt</button>
+                    </div>
+                    <div id="nytt-prosjekt-legg-til-btn-label" class="col-lg-2 side-label hidden">
+                        <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
     </div>
 </div>
