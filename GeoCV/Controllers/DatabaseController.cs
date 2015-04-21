@@ -21,6 +21,7 @@ namespace GeoCV.Controllers
         {
             var Data = from a in db.ListeKatalog
                        where a.Element.Contains(Filter)
+                       orderby a.Element ascending
                        select new
                        {
                            a.ListeKatalogId,
@@ -54,7 +55,7 @@ namespace GeoCV.Controllers
 
             var Row = Item.FirstOrDefault();
 
-            Row.Element = NewValue;
+            Row.Element = NewValue.Trim();
 
             db.SaveChanges();
         }
@@ -70,7 +71,7 @@ namespace GeoCV.Controllers
             {
                 ListeKatalog NewItem = new ListeKatalog();
                 NewItem.Katalog = Katalog;
-                NewItem.Element = NyttElement;
+                NewItem.Element = NyttElement.Trim();
                 db.ListeKatalog.Add(NewItem);
 
                 db.SaveChanges();

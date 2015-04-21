@@ -166,6 +166,7 @@ namespace GeoCV.Controllers
                     Person CvPerson = new Person();
                     CvPerson.Fornavn = model.Fornavn;
                     CvPerson.Etternavn = model.Etternavn;
+                    CvPerson.ÅrErfaring = 0;
 
                     Kompetanse CvKompetanse = new Kompetanse();
 

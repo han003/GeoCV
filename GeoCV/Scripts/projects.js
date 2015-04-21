@@ -56,12 +56,13 @@ function getProsjekter() {
                 var linkText = '/EditProject/Index/' + prosjektId;
 
                 // For valg av tekst å bruke
-                template += '<tr>' +
-                                '<td class="col-lg-3"><a href="' + linkText + '">' + prosjektNavn + '</a></td>' +
+                template += '<tr id="' + prosjektId + '">' +
+                                '<td class="col-lg-2"><a href="' + linkText + '">' + prosjektNavn + '</a></td>' +
                                 '<td class="col-lg-3">' + prosjektKunde + '</td>' +
-                                '<td class="col-lg-4">' + prosjektBeskrivelse + '</td>' +
+                                '<td class="col-lg-3">' + prosjektBeskrivelse + '</td>' +
                                 '<td class="col-lg-1">' + prosjektFra + '</td>' +
                                 '<td class="col-lg-1">' + prosjektTil + '</td>' +
+                                '<td><a class="del-link col-lg-2">Slett</a></td>' +
                             '</tr>';
             });
 
@@ -72,6 +73,31 @@ function getProsjekter() {
         }
     });
 }
+
+$(document).on('click', '.del-link', function () {
+
+    console.log('Deleting..');
+
+    var elementId = $(this).closest('tr').attr('id');
+    var trElement = $(this).closest('tr');
+    var tdElement = $(this).closest('td');
+
+    tdElement.html('Sletter <i class="fa fa-circle-o-notch fa-spin"></i>');
+
+    console.log('Id: ' + elementId);
+
+    $.ajax({
+        url: '/Projects/SlettProsjekt',
+        data: { Id: elementId },
+        type: 'POST',
+        success: function () {
+            console.log('Success');
+
+            trElement.remove();
+        }
+    });
+
+});
 
 
 $('#nytt-prosjekt-legg-til-btn').click(function () {

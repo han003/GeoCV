@@ -79,5 +79,63 @@ namespace GeoCV.Controllers
             db.SaveChanges();
         }
 
+
+        [HttpGet]
+        public ActionResult GetAlleTeknologier(int Id)
+        {
+            Prosjekt NåværendeProsjekt = GetProsjekt(Id);
+
+            List<TekniskProfil> ProfilListe = new List<TekniskProfil>();
+
+            foreach (var Profil in NåværendeProsjekt.TekniskProfil)
+            {
+
+                TekniskProfil NyProfil = new TekniskProfil();
+                NyProfil.TekniskProfilId = Profil.TekniskProfilId;
+                NyProfil.Navn = Profil.Navn;
+                NyProfil.Elementer = Profil.Elementer;
+                ProfilListe.Add(NyProfil);
+
+            }
+
+            List<TekniskProfil> SortertListe = ProfilListe.OrderByDescending(a => a.TekniskProfilId).ToList();
+
+            // Send listen som et JSON elemnt til View
+            return Json(SortertListe, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult HentElementer(string Elementer)
+        {
+            string[] ElementIDer = Elementer.Split(';');
+            List<int> ElementIDerInt = new List<int>();
+
+            foreach (var ID in ElementIDer)
+            {
+                ElementIDerInt.Add(Int32.Parse(ID));
+            }
+
+            var Katalog = from a in db.ListeKatalog
+                          select a;
+
+            List<ListeKatalog> ProfilElementer = new List<ListeKatalog>();
+
+            foreach (var ElementID in ElementIDerInt)
+            {
+                foreach (var Item in Katalog)
+                {
+                    if (Item.ListeKatalogId.Equals(ElementID))
+                    {
+                        ListeKatalog Ny = new ListeKatalog();
+                        Ny.ListeKatalogId = Item.ListeKatalogId;
+                        Ny.Element = Item.Element;
+                        Ny.Katalog = Item.Katalog;
+                        ProfilElementer.Add(Ny);
+                    }
+                }
+            }
+
+            return Json(ProfilElementer, JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using System.Diagnostics;
 
 namespace GeoCV.Controllers
 {
@@ -42,17 +43,17 @@ namespace GeoCV.Controllers
 
         public ActionResult Pdf()
         {
-            CVVersjon Cv = GetUserCV();
+            CVVersjon BrukerCv = GetUserCV();
 
-            string FileName = Cv.Person.Fornavn + " " + Cv.Person.Etternavn + " - CV";
+            string FileName = BrukerCv.Person.Fornavn + " " + BrukerCv.Person.Etternavn + " - CV";
 
             var FilePath = Path.Combine(Path.GetTempPath(), "Temp.pdf");
 
-            Document UserCv = new Document();
-            PdfWriter.GetInstance(UserCv, new FileStream(FilePath, FileMode.Create));
+            Document CvPDF = new Document();
+            PdfWriter.GetInstance(CvPDF, new FileStream(FilePath, FileMode.Create));
 
 
-            CreateCv(UserCv, Cv);
+            CreateCv(CvPDF, BrukerCv);
 
             var fs = new FileStream(FilePath, FileMode.Open);
             var Bytes = new byte[fs.Length];
@@ -62,84 +63,84 @@ namespace GeoCV.Controllers
             return File(Bytes, "application/pdf", FileName + ".pdf");
         }
         
-        private Document CreateCv(Document UserCv, CVVersjon Cv)
+        private Document CreateCv(Document CvPDF, CVVersjon BrukerCv)
         {
-            UserCv.Open();
+            CvPDF.Open();
 
             // TITTEL
             Paragraph Top = new Paragraph("CURRICULUM VITAE", FetFont(14));
             Top.Alignment = Element.ALIGN_CENTER;
-            UserCv.Add(Top);
-            UserCv.Add(Chunk.NEWLINE);
+            CvPDF.Add(Top);
+            CvPDF.Add(Chunk.NEWLINE);
 
             // GEOMATIKK ADRESSE
             Paragraph Address = new Paragraph("GEOMATIKK IKT, Otto Nielsens vei 12, 7052 Trondheim");
             Address.Alignment = Element.ALIGN_CENTER;
-            UserCv.Add(Address);
-            UserCv.Add(Chunk.NEWLINE);
+            CvPDF.Add(Address);
+            CvPDF.Add(Chunk.NEWLINE);
 
             // NAVN
             Paragraph NavnEtikett = new Paragraph("Navn", FetFont(11));
-            Paragraph AnsattNavn = new Paragraph(Cv.Person.Fornavn + " " + Cv.Person.Mellomnavn + " " + Cv.Person.Etternavn, NormalFont(11));
-            UserCv.Add(LeggTilTabell(NavnEtikett, AnsattNavn, 144));
+            Paragraph AnsattNavn = new Paragraph(BrukerCv.Person.Fornavn + " " + BrukerCv.Person.Mellomnavn + " " + BrukerCv.Person.Etternavn, NormalFont(11));
+            CvPDF.Add(LeggTilTabell(NavnEtikett, AnsattNavn, 144));
 
             // STILLING
-            UserCv = Stilling(UserCv, 144);
+            CvPDF = Stilling(CvPDF, 144, BrukerCv);
 
             // Nasjonalitet
-            UserCv = Nasjonalitet(UserCv, 144);
+            CvPDF = Nasjonalitet(CvPDF, 144, BrukerCv);
 
             // ÅR ERFARING
             Paragraph ÅrErfaringEtikett = new Paragraph("Antall år relevant erfaring", FetFont(11));
-            Paragraph AnsattÅrErfaring = new Paragraph(Cv.Person.ÅrErfaring.ToString() + " år", NormalFont(11));
-            UserCv.Add(LeggTilTabell(ÅrErfaringEtikett, AnsattÅrErfaring, 144));
+            Paragraph AnsattÅrErfaring = new Paragraph(BrukerCv.Person.ÅrErfaring.ToString() + " år", NormalFont(11));
+            CvPDF.Add(LeggTilTabell(ÅrErfaringEtikett, AnsattÅrErfaring, 144));
 
             // SPRÅK
-            UserCv.Add(LeggTilNøkkelkompetanse("Språk", 144));
-            UserCv.Add(Chunk.NEWLINE);
+            CvPDF.Add(LeggTilNøkkelkompetanse("Språk", 144, BrukerCv));
+            CvPDF.Add(Chunk.NEWLINE);
 
             // NØKKELKOMPETANSE
-            UserCv = Nøkkelkompetanse(UserCv);
+            CvPDF = Nøkkelkompetanse(CvPDF, BrukerCv);
 
             // UTDANNELSE
-            UserCv = Utdannelse(UserCv);
+            CvPDF = Utdannelse(CvPDF, BrukerCv);
 
             // ARBEIDSERFARING
-            UserCv = Arbeidserfaring(UserCv);
+            CvPDF = Arbeidserfaring(CvPDF, BrukerCv);
 
-            UserCv.Close();
-            return UserCv;
+            CvPDF.Close();
+            return CvPDF;
         }
 
-        private Document Nøkkelkompetanse(Document UserCv)
+        private Document Nøkkelkompetanse(Document CvPDF, CVVersjon BrukerCv)
         {
             // Nøkkelkompetanse header
             Paragraph Header = new Paragraph("Nøkkelkompetanse", FetFont(11));
-            UserCv.Add(LeggTilTabell(Header, null, 100));
+            CvPDF.Add(LeggTilTabell(Header, null, 100));
 
             // Programmeringsspråk
-            UserCv.Add(LeggTilNøkkelkompetanse("Programmeringsspråk", 144));
+            CvPDF.Add(LeggTilNøkkelkompetanse("Programmeringsspråk", 144, BrukerCv));
 
             // Rammeverk
-            UserCv.Add(LeggTilNøkkelkompetanse("Rammeverk", 144));
+            CvPDF.Add(LeggTilNøkkelkompetanse("Rammeverk", 144, BrukerCv));
 
             // WebTeknologier
-            UserCv.Add(LeggTilNøkkelkompetanse("WebTeknologier", 144));
+            CvPDF.Add(LeggTilNøkkelkompetanse("WebTeknologier", 144, BrukerCv));
 
             // Databasesystemer
-            UserCv.Add(LeggTilNøkkelkompetanse("Databasesystemer", 144));
+            CvPDF.Add(LeggTilNøkkelkompetanse("Databasesystemer", 144, BrukerCv));
 
             // Serverside
-            UserCv.Add(LeggTilNøkkelkompetanse("Serverside", 144));
+            CvPDF.Add(LeggTilNøkkelkompetanse("Serverside", 144, BrukerCv));
 
             // Operativsystemer
-            UserCv.Add(LeggTilNøkkelkompetanse("Operativsystemer", 144));
+            CvPDF.Add(LeggTilNøkkelkompetanse("Operativsystemer", 144, BrukerCv));
 
-            UserCv.Add(Chunk.NEWLINE);
-            return UserCv;
+            CvPDF.Add(Chunk.NEWLINE);
+            return CvPDF;
         }
 
-        private PdfPTable LeggTilNøkkelkompetanse(string Ekspertise, float Innrykk)
+        private PdfPTable LeggTilNøkkelkompetanse(string Ekspertise, float Innrykk, CVVersjon BrukerCv)
         {
             // Hent katalogen
             var KatalogElementer = from a in db.ListeKatalog
@@ -150,73 +151,77 @@ namespace GeoCV.Controllers
             string Innhold = "";
 
             // Hent ansatt info
-            var Ansatt = from a in db.CVVersjon
-                         select a;
+            var Ansatt = BrukerCv;
 
             string AnsattEkspertise = "";
 
             switch (Ekspertise)
             {
                 case "Programmeringsspråk":
-                    AnsattEkspertise = Ansatt.FirstOrDefault().Kompetanse.Programmeringsspråk;
+                    AnsattEkspertise = Ansatt.Kompetanse.Programmeringsspråk;
                     break;
 
                 case "Rammeverk":
-                    AnsattEkspertise = Ansatt.FirstOrDefault().Kompetanse.Rammeverk;
+                    AnsattEkspertise = Ansatt.Kompetanse.Rammeverk;
                     break;
 
                 case "WebTeknologier":
-                    AnsattEkspertise = Ansatt.FirstOrDefault().Kompetanse.WebTeknologier;
+                    AnsattEkspertise = Ansatt.Kompetanse.WebTeknologier;
                     break;
 
                 case "Databasesystemer":
-                    AnsattEkspertise = Ansatt.FirstOrDefault().Kompetanse.Databasesystemer;
+                    AnsattEkspertise = Ansatt.Kompetanse.Databasesystemer;
                     break;
 
                 case "Serverside":
-                    AnsattEkspertise = Ansatt.FirstOrDefault().Kompetanse.Serverside;
+                    AnsattEkspertise = Ansatt.Kompetanse.Serverside;
                     break;
 
                 case "Operativsystemer":
-                    AnsattEkspertise = Ansatt.FirstOrDefault().Kompetanse.Operativsystemer;
+                    AnsattEkspertise = Ansatt.Kompetanse.Operativsystemer;
                     break;
 
                 case "Språk":
-                    AnsattEkspertise = Ansatt.FirstOrDefault().Person.Språk;
+                    AnsattEkspertise = Ansatt.Person.Språk;
                     break;
             }
 
-            // Legg IDer i en liste
-            string[] IDSplit = AnsattEkspertise.Split(';');
-
-            foreach (var ID in IDSplit)
+            // Prøv å legg IDer i en liste
+            try
             {
-                foreach (var Item in KatalogElementer)
+                string[] IDSplit = AnsattEkspertise.Split(';');
+
+                foreach (var ID in IDSplit)
                 {
-                    if (Int32.Parse(ID).Equals(Item.ListeKatalogId))
+                    foreach (var Item in KatalogElementer)
                     {
-                        Innhold += ", " + Item.Element;
+                        if (Int32.Parse(ID).Equals(Item.ListeKatalogId))
+                        {
+                            Innhold += ", " + Item.Element;
+                        }
                     }
                 }
-            }
 
-            // Fjern overfløding i starten
-            Innhold = Innhold.Substring(2);
+                // Fjern overfløding i starten
+                Innhold = Innhold.Substring(2);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("{0} Exception caught.", e);
+            }
 
             Paragraph EkspertiseParagraf = (Ekspertise.Equals("Språk")) ? new Paragraph(Ekspertise, FetFont(11)) : new Paragraph(Ekspertise, NormalFont(11));
             Paragraph InnholdsParagraf = new Paragraph(Innhold, NormalFont(11));
             return LeggTilTabell(EkspertiseParagraf, InnholdsParagraf, Innrykk);
         }
 
-        private Document Utdannelse(Document UserCv)
+        private Document Utdannelse(Document CvPDF, CVVersjon BrukerCv)
         {
             // Utdannelse header
             Paragraph Header = new Paragraph("Utdannelse", FetFont(11));
-            UserCv.Add(LeggTilTabell(Header, null, 100));
+            CvPDF.Add(LeggTilTabell(Header, null, 100));
 
-            var AnsattUtdannelse = from a in db.Utdannelse
-                                   orderby a.Fra descending
-                                   select a;
+            var AnsattUtdannelse = BrukerCv.Utdannelse;
 
             foreach (var Item in AnsattUtdannelse)
             {
@@ -225,22 +230,20 @@ namespace GeoCV.Controllers
 
                 Paragraph EtikettParagraf = new Paragraph(Etikett, FetFont(11));
                 Paragraph InnholdsParagraf = new Paragraph(Innhold, NormalFont(11));
-                UserCv.Add(LeggTilTabell(EtikettParagraf, InnholdsParagraf, 100));
+                CvPDF.Add(LeggTilTabell(EtikettParagraf, InnholdsParagraf, 100));
             }
 
-            UserCv.Add(Chunk.NEWLINE);
-            return UserCv;
+            CvPDF.Add(Chunk.NEWLINE);
+            return CvPDF;
         }
 
-        private Document Arbeidserfaring(Document UserCv)
+        private Document Arbeidserfaring(Document CvPDF, CVVersjon BrukerCv)
         {
             // Arbeidserfaring header
             Paragraph Header = new Paragraph("Arbeidserfaring", FetFont(11));
-            UserCv.Add(LeggTilTabell(Header, null, 100));
+            CvPDF.Add(LeggTilTabell(Header, null, 100));
 
-            var AnsattArbeidserfaring = from a in db.Arbeidserfaring
-                                   orderby a.Fra descending
-                                   select a;
+            var AnsattArbeidserfaring = BrukerCv.Arbeidserfaring;
 
             foreach (var Item in AnsattArbeidserfaring)
             {
@@ -269,22 +272,30 @@ namespace GeoCV.Controllers
                 TotalInnholdParagraf.Add(ArbeidsplassParagraf);
                 TotalInnholdParagraf.Add(InnholdsParagraf);
 
-                UserCv.Add(LeggTilTabell(EtikettParagraf, TotalInnholdParagraf, 100));
+                CvPDF.Add(LeggTilTabell(EtikettParagraf, TotalInnholdParagraf, 100));
             }
 
-            UserCv.Add(Chunk.NEWLINE);
-            return UserCv;
+            CvPDF.Add(Chunk.NEWLINE);
+            return CvPDF;
         }
 
-        private Document Stilling(Document UserCv, float Innrykk)
+        private Document Stilling(Document CvPDF, float Innrykk, CVVersjon BrukerCv)
         {
             // Hent katalogen
             var KatalogElementer = from a in db.ListeKatalog
                                    select a;
 
             // Hent ansatt info
-            var Ansatt = from a in db.Person
-                         select a.Stilling;
+            var Ansatt = BrukerCv.Person.Stilling;
+
+            if (Ansatt == null)
+            {
+                Paragraph EtikettParagraf = new Paragraph("Stilling", FetFont(11));
+                Paragraph InnholdsParagraf = new Paragraph("", NormalFont(11));
+                CvPDF.Add(LeggTilTabell(EtikettParagraf, InnholdsParagraf, Innrykk));
+
+                return CvPDF;
+            }
 
             foreach (var Item in KatalogElementer)
             {
@@ -292,22 +303,30 @@ namespace GeoCV.Controllers
                 {
                     Paragraph EtikettParagraf = new Paragraph("Stilling", FetFont(11));
                     Paragraph InnholdsParagraf = new Paragraph(Item.Element, NormalFont(11));
-                    UserCv.Add(LeggTilTabell(EtikettParagraf, InnholdsParagraf, Innrykk));
+                    CvPDF.Add(LeggTilTabell(EtikettParagraf, InnholdsParagraf, Innrykk));
                 }
             }
 
-            return UserCv;
+            return CvPDF;
         }
 
-        private Document Nasjonalitet(Document UserCv, float Innrykk)
+        private Document Nasjonalitet(Document CvPDF, float Innrykk, CVVersjon BrukerCv)
         {
             // Hent katalogen
             var KatalogElementer = from a in db.ListeKatalog
                                    select a;
 
             // Hent ansatt info
-            var Ansatt = from a in db.Person
-                         select a.Nasjonalitet;
+            var Ansatt = BrukerCv.Person.Nasjonalitet;
+
+            if (Ansatt == null)
+            {
+                Paragraph EtikettParagraf = new Paragraph("Nasjonalitet", FetFont(11));
+                Paragraph InnholdsParagraf = new Paragraph("", NormalFont(11));
+                CvPDF.Add(LeggTilTabell(EtikettParagraf, InnholdsParagraf, Innrykk));
+
+                return CvPDF;
+            }
 
             foreach (var Item in KatalogElementer)
             {
@@ -315,11 +334,11 @@ namespace GeoCV.Controllers
                 {
                     Paragraph EtikettParagraf = new Paragraph("Nasjonalitet", FetFont(11));
                     Paragraph InnholdsParagraf = new Paragraph(Item.Element, NormalFont(11));
-                    UserCv.Add(LeggTilTabell(EtikettParagraf, InnholdsParagraf, Innrykk));
+                    CvPDF.Add(LeggTilTabell(EtikettParagraf, InnholdsParagraf, Innrykk));
                 }
             }
 
-            return UserCv;
+            return CvPDF;
         }
 
         private PdfPTable LeggTilTabell(Paragraph Etikett, Paragraph Innhold, float Innrykk)

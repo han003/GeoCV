@@ -50,8 +50,6 @@ function refreshTable() {
         success: function (data) {
             console.log(data);
 
-            var template = '';
-
             $.each(data, function (index, value) {
 
                 var jobbId = value['ArbeidserfaringId'];
@@ -62,10 +60,8 @@ function refreshTable() {
                 var fra = value['Fra'];
                 var til = (nåværende) ? 'Nåværende' : value['Til'];
 
-                console.log(value['Nåværende']);
-
                 // For valg av tekst å bruke
-                template += '<tr id="' + jobbId + '">' +
+                var template = '<tr id="' + jobbId + '">' +
                                 '<td class="update-td col-lg-2">' + arbeidsplass + '</td>' +
                                 '<td class="update-td col-lg-2">' + stilling + '</td>' +
                                 '<td class="update-td col-lg-4">' + beskrivelse + '</td>' +
@@ -74,9 +70,13 @@ function refreshTable() {
                                 '<td><a class="del-link col-lg-2">Slett</a></td>' +
                             '</tr>';
 
+                if (nåværende) {
+                    $('tbody').prepend(template);
+                } else {
+                    $('tbody').append(template);
+                }
             });
 
-            $('tbody').html(template);
             $('#elem-load').addClass('hidden');
             $('table').removeClass('hidden');
         }

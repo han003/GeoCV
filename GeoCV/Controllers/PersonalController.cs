@@ -132,7 +132,7 @@ namespace GeoCV.Controllers
                     break;
 
                 case "ÅrErfaring":
-                    Cv.Person.ÅrErfaring = Int16.Parse(Value);
+                    Cv.Person.ÅrErfaring = (Value.Trim().Equals("")) ? Int16.Parse("0") : Int16.Parse(Value);
                     break;
 
                 case "Språk":

@@ -53,5 +53,25 @@ namespace GeoCV.Controllers
 
             db.SaveChanges();
         }
+
+        [HttpPost]
+        public void SlettProsjekt(int Id)
+        {
+            var Item = from a in db.Prosjekt
+                       where a.ProsjektId.Equals(Id)
+                       select a;
+
+            Prosjekt ValgtProsjekt = Item.FirstOrDefault();
+            ICollection<TekniskProfil> Profiler = ValgtProsjekt.TekniskProfil;
+            ICollection<Medlem> Medlemmer = ValgtProsjekt.Medlem;
+
+            db.Medlem.RemoveRange(Medlemmer);
+            db.TekniskProfil.RemoveRange(Profiler);
+
+            db.Prosjekt.Remove(ValgtProsjekt);
+            db.SaveChanges();
+
+            RedirectToAction("Index", "Projects");
+        }
     }
 }

@@ -4,7 +4,19 @@
 .element-table tr:hover i {
   color: rgba(44, 213, 37, 0.84);
 }
-.bruker-table tr:hover i {
+.profil-tabell {
+  margin: 0;
+}
+.profil-tabell tr:hover i {
   color: rgba(230, 58, 58, 0.84);
+}
+.panel-body {
+  background: #5c5c5c;
+}
+.panel-heading:hover {
+  cursor: pointer;
+}
+.panel-heading a {
+  text-decoration: none;
 }
 /*# sourceMappingURL=editproject.css.map */
