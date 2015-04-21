@@ -76,29 +76,48 @@ function getProsjekter() {
 
 $(document).on('click', '.del-link', function () {
 
-    console.log('Deleting..');
+    // Prosjekt navn
+    var prosjektNavn = $(this).closest('tr').children('td').children('a').html();
+    console.log(prosjektNavn);
 
-    var elementId = $(this).closest('tr').attr('id');
-    var trElement = $(this).closest('tr');
-    var tdElement = $(this).closest('td');
+    // Prosjekt id
+    var prosjektId = $(this).closest('tr').attr('id');
+    $('body').data('prosjektId', prosjektId);
+    console.log(prosjektId);
 
-    tdElement.html('Sletter <i class="fa fa-spinner fa-spin"></i>');
+    $('#prosjekt-slett-etikett').html(prosjektNavn);
 
-    console.log('Id: ' + elementId);
-
-    $.ajax({
-        url: '/Projects/SlettProsjekt',
-        data: { Id: elementId },
-        type: 'POST',
-        success: function () {
-            console.log('Success');
-
-            trElement.remove();
-        }
-    });
+    $('#slettModal').modal();
 
 });
 
+$('#slett-prosjekt-btn').click(function () {
+
+    var prosjektId = $('body').data('prosjektId');
+
+    $.ajax({
+        url: '/Projects/SlettProsjekt',
+        data: { Id: prosjektId },
+        type: 'POST',
+        beforeSend: function(){
+
+            $('#slettModal button').addClass('hidden');
+            $('#slettModal i').removeClass('hidden');
+
+        },
+        success: function () {
+            console.log('Success');
+            $('#slettModal').modal('hide');
+            $('#' + prosjektId).remove();
+        }
+    });
+});
+
+// Det som skjer når modalen er ferdig med skjule animasjonen
+$('#slettModal').on('hidden.bs.modal', function () {
+    $('#slettModal button').removeClass('hidden');
+    $('#slettModal i').addClass('hidden');
+})
 
 $('#nytt-prosjekt-legg-til-btn').click(function () {
     
@@ -114,7 +133,7 @@ $('#nytt-prosjekt-legg-til-btn').click(function () {
         type: 'POST',
         beforeSend: function () {
 
-            $('#nytt-prosjekt-legg-til-btn').html('Legger til nytt prosjekt.. <i class="fa fa-spinner fa-spin"></i>');
+            $('#nytt-prosjekt-legg-til-btn').html('Legger til.. <i class="fa fa-spinner fa-spin"></i>');
 
         },
         success: function () {
@@ -137,13 +156,5 @@ $('#nytt-prosjekt-legg-til-btn').click(function () {
             getProsjekter();
         }
     });
-});
-
-
-// Går til redigeringssiden for valgt prosjekt
-$(document).on('asd', 'tbody tr', function () {
-    console.log($(this).attr('href'));
-    window.location.replace($(this).attr('href'));
-    return false;
 });
 

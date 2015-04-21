@@ -11,6 +11,26 @@
     @Scripts.Render("~/bundles/js/projects")
 }
 
+<!-- Slett modal -->
+<div class="modal fade" id="slettModal" tabindex="-1" role="dialog" aria-labelledby="slettModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="slettModalLabel">Slett</h4>
+            </div>
+            <div class="modal-body">
+                Er du sikker på at du vil slette <code id="prosjekt-slett-etikett"></code> prosjektet?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Nei (Esc)</button>
+                <button id="slett-prosjekt-btn" type="button" class="btn btn-primary">Ja</button>
+                <i class="fa fa-spinner fa-spin fa-2x hidden"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div role="tabpanel">
 
     <!-- Nav tabs -->

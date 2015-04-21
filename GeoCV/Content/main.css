@@ -1,12 +1,4 @@
-﻿html {
-  width: 100vw;
-  overflow-x: hidden;
-}
-body {
-  overflow-y: scroll;
-  height: 100%;
-}
-.tab-content {
+﻿.tab-content {
   padding: 15px;
   border: 1px solid #dddddd;
   border-top: none;
@@ -15,12 +7,6 @@ body {
 }
 .input-group span {
   min-width: 60px;
-}
-.typeahead {
-  max-height: 200px;
-  min-width: 300px;
-  overflow-y: auto;
-  overflow-x: hidden;
 }
 #shadowBrukerLink {
   color: yellow;
