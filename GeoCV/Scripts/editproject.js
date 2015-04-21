@@ -32,6 +32,141 @@ $('.table-filter').keyup(function () {
     });
 });
 
+// Søppelbøtte ikonet er klikket på
+$(document).on('click', '.fa-trash-o', function (e) {
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    // Profil id
+    var id = $(this).closest('.panel-heading').next().attr('id');
+    id = id.substring(0, id.indexOf('-'));
+    $('body').data('id', id);
+
+    // Profilnavn
+    var navn = $(this).closest('.panel-heading').attr('id');
+    navn = navn.substring(0, navn.indexOf('-'));
+
+    console.log(id);
+
+    $('#profil-slett-etikett').html(navn);
+
+    $('#slettModal').modal();
+
+});
+
+$('#slett-profil-btn').click(function(){
+
+    var id = $('body').data('id');
+
+    console.log(id);
+
+    $.ajax({
+        url: '/EditProject/SlettProfil',
+        data: { Id: id },
+        type: 'POST',
+        beforeSend: function(){
+
+            $('#slettModal button').addClass('hidden');
+            $('#slettModal i').removeClass('hidden');
+
+        },
+        success: function () {
+            console.log('Success');
+
+            $('#slettModal').modal('hide');
+            
+            $('#' + id + '-collapse').closest('.panel').remove();
+        }
+    });
+});
+
+// Det som skjer når modalen er ferdig med skjule animasjonen
+$('#slettModal').on('hidden.bs.modal', function () {
+    $('#slettModal button').removeClass('hidden');
+    $('#slettModal i').addClass('hidden');
+})
+
+// Det som skjer når modalen er ferdig med skjule animasjonen
+$('#endreModal').on('hidden.bs.modal', function () {
+    $('#endreModal button').removeClass('hidden');
+    $('#endreModal i').addClass('hidden');
+})
+
+// Blyant ikonet er klikket på
+$(document).on('click', '.fa-pencil-square-o', function (e) {
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    // Profil id
+    var id = $(this).closest('.panel-heading').next().attr('id');
+    id = id.substring(0, id.indexOf('-'));
+    $('body').data('id', id);
+
+    // Profilnavn
+    var navn = $(this).closest('.panel-heading').attr('id');
+    navn = navn.substring(0, navn.indexOf('-'));
+
+    console.log(id);
+
+    $('#endre-txt').val(navn);
+
+    $('#endreModal').modal();
+
+});
+
+$('#endre-profil-btn').click(function () {
+    endreProfilNavn();
+});
+
+function endreProfilNavn() {
+    var id = $('body').data('id');
+
+    var navn = $('#endre-txt').val();
+
+    console.log(id);
+
+    $.ajax({
+        url: '/EditProject/EndreProfilNavn',
+        data: { ProfilId: id, Navn: navn },
+        type: 'POST',
+        beforeSend: function () {
+
+            $('#endreModal button').addClass('hidden');
+            $('#endreModal i').removeClass('hidden');
+
+        },
+        success: function () {
+            console.log('Success');
+
+            $('#endreModal').modal('hide');
+
+            // Nåværende tekst i headeren
+            var header = $('#' + id + '-collapse').prev().find('a');
+            var headerTekst = header.html();
+
+            // Endre id
+            $('#' + id + '-collapse').prev().attr('id', navn + '-heading');
+
+            // Endre teksten i headeren
+            header.html(headerTekst.replace(headerTekst.substring(0, headerTekst.indexOf('<')), navn));
+        }
+    });
+}
+
+$('#endreModal').on('shown.bs.modal', function (e) {
+    $('#endre-txt').focus();
+})
+
+// Trykker enter når endre modalen er synlig
+$(document).keypress(function (event) {
+    var keycode = (event.keyCode ? event.keyCode : event.which);
+    if (keycode == '13' && $('#endreModal').is(":visible")) {
+        endreProfilNavn();
+    }
+});
+
 function getKatalogElementer() {
 
     $.ajax({
@@ -56,10 +191,6 @@ function getKatalogElementer() {
                                                                '<td class="col-lg-1">' + '<i class="fa fa-plus-square add-item-btn"></i>' + '</td>' +
                                                                '</tr>');
             });
-
-            // Lagre arrayer
-            $('#alle-elementer-tabell').data('elementer', elementArray);
-            $('#alle-elementer-tabell').data('elementerId', idArray);
         }
     });
 }
@@ -92,7 +223,16 @@ function updateProjectInfo(element) {
 }
 
 $('#ny-profil-lagre-btn').click(function () {
-    
+    nyProfil();
+});
+
+$('#ny-profil-navn-txt').keypress(function (event) {
+    if (event.which == 13) {
+        nyProfil();
+    }
+});
+
+function nyProfil() {
     // Finn ID
     var id = window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1);
 
@@ -107,16 +247,19 @@ $('#ny-profil-lagre-btn').click(function () {
         data: { Id: id, Navn: navn },
         type: 'POST',
         beforeSend: function () {
-            $('#ny-profil-lagre-btn').html('Lagrer <i class="fa fa-circle-o-notch fa-spin"></i>');
+            $('#ny-profil-lagre-btn').html('Lagrer <i class="fa fa-spinner fa-spin"></i>');
         },
-        success: function () {
+        success: function (data) {
+
+            console.log('lagt til profil id: ' + data);
+
             $('#ny-profil-navn-txt').val('');
             $('#ny-profil-lagre-btn').html('Legg til');
 
-            oppdaterPaneler();
+            leggTilNyttPanel(data, navn);
         }
     });
-});
+}
 
 $(document).on('click', '.panel-heading', function () {
 
@@ -137,8 +280,20 @@ $(document).on('click', '.panel-heading', function () {
 
 });
 
+// What happens when remove button is clicked
+$(document).on('click', '.remove-item-btn', function () {
+
+    // Tabell
+    var profilTabell = $(this).closest('tbody')
+
+    // Fjern element
+    var fjernId = $(this).closest('tr').remove();
+
+    oppdaterDatabase(profilTabell);
+});
+
 // What happens when add button is clicked
-$('body').on('click', '.add-item-btn', function () {
+$(document).on('click', '.add-item-btn', function () {
 
     // Hent katalogen til det som skal legges til
     var nyKatalog = $(this).closest('td').prev().html();
@@ -148,7 +303,12 @@ $('body').on('click', '.add-item-btn', function () {
     var nyVerdi = $(this).closest('td').prev().prev().html();
     console.log('Legg til: ' + nyVerdi);
 
+    // Hent IDen til det som skal legges til
+    var nyID = $(this).closest('tr').attr('id');
+
     // Legg til ny knapp med valgt element
+
+    var profilTabell;
 
     // Finn rett tabell
     $.each($('.panel-collapse'), function (index, value) {
@@ -156,7 +316,7 @@ $('body').on('click', '.add-item-btn', function () {
         // Hvis den har 'in' klassen så er det den som er åpen
         if ($(this).hasClass('in')) {
 
-            var profilTabell = $(this).find('table tbody');
+            profilTabell = $(this).find('table tbody');
 
             // Legg til
             $.each($('#alle-elementer-tabell tbody tr'), function (index, value) {
@@ -165,7 +325,7 @@ $('body').on('click', '.add-item-btn', function () {
                 
                 if (nyVerdi == trVerdi) {
 
-                    profilTabell.append('<tr id="' + 0 + '">' +
+                    profilTabell.append('<tr id="' + nyID + '">' +
                                                        '<td class="col-lg-2">' + nyVerdi + '</td>' +
                                                        '<td class="col-lg-3">' + nyKatalog + '</td>' +
                                                        '<td class="col-lg-1"><i class="fa fa-minus-square remove-item-btn"></i></td>' +
@@ -177,19 +337,41 @@ $('body').on('click', '.add-item-btn', function () {
 
     });
 
-
-    
-
     // Oppdater databasen
-    // updateDatabase();
+    oppdaterDatabase(profilTabell);
 });
 
-function oppdaterPaneler() {
+function oppdaterDatabase(profilTabell) {
+
+    // Finn profil id
+    var tabellId = profilTabell.closest('table').attr('id');
+    console.log(tabellId);
+    var profilId = tabellId.substring(0, tabellId.indexOf('-'));
+
+    // Tom variabel for å holde teksten
+    var newValue = '';
+
+    // Gå gjennom alle radene og legg IDene i en string
+    $.each($(profilTabell).children('tr'), function (index, value) {
+
+        var id = $(this).attr('id');
+        newValue += id + ';';
+
+    });
+
+    // Fjern siste ';' fra stringen
+    newValue = newValue.substring(0, newValue.length - 1);
+
+    console.log('Profil Id: ' + profilId);
+    console.log('Value: ' + newValue);
+
+    // Update
+    $.post('/EditProject/OppdaterProfil', { ProfilId: profilId, Verdi: newValue });
 
 }
 
 
-function leggTilNyttPanel(navn, elementer){
+function leggTilNyttPanel(profilId, navn){
 
     var panelMal = '';
 
@@ -197,13 +379,13 @@ function leggTilNyttPanel(navn, elementer){
                             '<div class="panel-heading" role="tab" id="' + navn + '-heading">' +
                                 '<h4 class="panel-title">' +                           // href="#' + navn + '-collapse"
                                     '<a data-toggle="collapse" data-parent="#accordion" aria-expanded="false" aria-controls="' + navn + '-collapse">' +
-                                        navn +
+                                        navn + '<i class="fa fa-trash-o pull-right"></i><i class="fa fa-pencil-square-o pull-right"></i>' +
                                     '</a>' +
                                 '</h4>' +
                             '</div>' +
-                            '<div id="' + navn + '-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="' + navn + '-heading">' +
+                            '<div id="' + profilId + '-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="' + navn + '-heading">' +
                                 '<div class="panel-body">' +
-                                    '<table id="' + navn + '-table" class="table profil-tabell">' +
+                                    '<table id="' + profilId + '-profil-table" class="table profil-tabell">' +
                                         '<thead>' +
                                             '<tr>' +
                                                 '<th class="col-lg-3">Element</th>' +
@@ -218,25 +400,25 @@ function leggTilNyttPanel(navn, elementer){
                             '</div>' +
                         '</div>';
 
-    $('#accordion').append(panelMal);
+    $('#accordion').prepend(panelMal);
 }
 
-function hentElementer(navn, elementer) {
+function hentElementer(profilId, navn, elementer) {
     $.ajax({
         url: '/EditProject/HentElementer',
         data: { Elementer: elementer },
         type: 'GET',
         success: function (data) {
 
-            
+
 
             $.each(data, function (index, value) {
 
-                $('#' + navn + '-table tbody').append('<tr id="' + value['ListeKatalogId'] + '">' +
-                                                               '<td class="col-lg-3">' + value['Element'] + '</td>' +
-                                                               '<td class="col-lg-2">' + value['Katalog'] + '</td>' +
-                                                               '<td class="col-lg-1">' + '<i class="fa fa-minus-square"></i>' + '</td>' +
-                                                               '</tr>');
+                $('#' + profilId + '-profil-table tbody').append('<tr id="' + value['ListeKatalogId'] + '">' +
+                                                                       '<td class="col-lg-3">' + value['Element'] + '</td>' +
+                                                                       '<td class="col-lg-2">' + value['Katalog'] + '</td>' +
+                                                                       '<td class="col-lg-1">' + '<i class="fa fa-minus-square remove-item-btn"></i>' + '</td>' +
+                                                                       '</tr>');
             });
 
         }
@@ -258,27 +440,14 @@ function leggTilTekniskeProfiler() {
 
             console.log(data);
 
-            var elementArray = new Array();
-            var idArray = new Array();
-
             $.each(data, function (index, value) {
 
-                elementArray.push(value['Element']);
-                idArray.push(value['ListeKatalogId']);
-
-                leggTilNyttPanel(value['Navn'], value['Elementer']);
+                leggTilNyttPanel(value['TekniskProfilId'], value['Navn']);
 
                 // Lag tabell som viser alle elementer
-                hentElementer(value['Navn'], value['Elementer']);
+                hentElementer(value['TekniskProfilId'], value['Navn'], value['Elementer']);
 
             });
-
-            //$('#' + katalog + '-load').addClass('hidden');
-            //$('#' + katalog + '-form').removeClass('hidden');
-
-            // Lagre arrayer
-            $('#alle-elementer-tabell').data('elementer', elementArray);
-            $('#alle-elementer-tabell').data('elementerId', idArray);
         }
     });
 }

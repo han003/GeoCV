@@ -66,7 +66,7 @@ namespace GeoCV.Controllers
 
 
         [HttpPost]
-        public void LeggTilProfil(int Id, string Navn)
+        public ActionResult LeggTilProfil(int Id, string Navn)
         {
             Prosjekt Pro = GetProsjekt(Id);
 
@@ -77,6 +77,8 @@ namespace GeoCV.Controllers
             Pro.TekniskProfil.Add(NyTekniskProfil);
 
             db.SaveChanges();
+
+            return Json(NyTekniskProfil.TekniskProfilId, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -98,10 +100,48 @@ namespace GeoCV.Controllers
 
             }
 
-            List<TekniskProfil> SortertListe = ProfilListe.OrderByDescending(a => a.TekniskProfilId).ToList();
-
             // Send listen som et JSON elemnt til View
-            return Json(SortertListe, JsonRequestBehavior.AllowGet);
+            return Json(ProfilListe, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public void OppdaterProfil(int ProfilId, string Verdi)
+        {
+            var Profil = from a in db.TekniskProfil
+                         where a.TekniskProfilId.Equals(ProfilId)
+                         select a;
+
+            TekniskProfil OppdaterProfil = Profil.FirstOrDefault();
+            OppdaterProfil.Elementer = Verdi;
+
+            db.SaveChanges();
+        }
+
+        [HttpPost]
+        public void EndreProfilNavn(int ProfilId, string Navn)
+        {
+            var Profil = from a in db.TekniskProfil
+                         where a.TekniskProfilId.Equals(ProfilId)
+                         select a;
+
+            TekniskProfil OppdaterProfil = Profil.FirstOrDefault();
+            OppdaterProfil.Navn = Navn;
+
+            db.SaveChanges();
+        }
+
+        [HttpPost]
+        public void SlettProfil(int Id)
+        {
+            var Data = from a in db.TekniskProfil
+                         where a.TekniskProfilId.Equals(Id)
+                         select a;
+
+            TekniskProfil Profil = Data.FirstOrDefault();
+
+            db.TekniskProfil.Remove(Profil);
+
+            db.SaveChanges();
         }
 
         [HttpGet]

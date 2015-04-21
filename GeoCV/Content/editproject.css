@@ -19,4 +19,10 @@
 .panel-heading a {
   text-decoration: none;
 }
+.fa-trash-o:hover {
+  color: red;
+}
+.fa-pencil-square-o:hover {
+  color: #FFB800;
+}
 /*# sourceMappingURL=editproject.css.map */

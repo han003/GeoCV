@@ -90,7 +90,7 @@ $(document).on('click', '.deactivate-link', function () {
     var userId = $(this).closest('tr').attr('id');
     var tdElement = $(this).closest('td');
 
-    tdElement.html('Deaktiverer <i class="fa fa-circle-o-notch fa-spin"></i>');
+    tdElement.html('Deaktiverer <i class="fa fa-spinner fa-spin"></i>');
 
     console.log('Id: ' + userId);
 
@@ -114,7 +114,7 @@ $(document).on('click', '.activate-link', function () {
     var userId = $(this).closest('tr').attr('id');
     var tdElement = $(this).closest('td');
 
-    tdElement.html('Aktiverer <i class="fa fa-circle-o-notch fa-spin"></i>');
+    tdElement.html('Aktiverer <i class="fa fa-spinner fa-spin"></i>');
 
     console.log('Id: ' + userId);
 
@@ -139,7 +139,7 @@ $(document).on('click', '.del-link', function () {
     var trElement = $(this).closest('tr');
     var tdElement = $(this).closest('td');
 
-    tdElement.html('Sletter <i class="fa fa-circle-o-notch fa-spin"></i>');
+    tdElement.html('Sletter <i class="fa fa-spinner fa-spin"></i>');
 
     console.log('Id: ' + elementId);
 

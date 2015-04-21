@@ -82,7 +82,7 @@ $(document).on('click', '.del-link', function () {
     var trElement = $(this).closest('tr');
     var tdElement = $(this).closest('td');
 
-    tdElement.html('Sletter <i class="fa fa-circle-o-notch fa-spin"></i>');
+    tdElement.html('Sletter <i class="fa fa-spinner fa-spin"></i>');
 
     console.log('Id: ' + elementId);
 
@@ -114,7 +114,7 @@ $('#nytt-prosjekt-legg-til-btn').click(function () {
         type: 'POST',
         beforeSend: function () {
 
-            $('#nytt-prosjekt-legg-til-btn').html('Legger til nytt prosjekt.. <i class="fa fa-circle-o-notch fa-spin"></i>');
+            $('#nytt-prosjekt-legg-til-btn').html('Legger til nytt prosjekt.. <i class="fa fa-spinner fa-spin"></i>');
 
         },
         success: function () {
@@ -130,7 +130,7 @@ $('#nytt-prosjekt-legg-til-btn').click(function () {
             $('#new-element-loading').addClass('hidden');
 
             // Endre tekst
-            $('#edit-elem-load').html('Oppdaterer prosjekter.. <i class="fa fa-circle-o-notch fa-spin"></i>');
+            $('#edit-elem-load').html('Oppdaterer prosjekter.. <i class="fa fa-spinner fa-spin"></i>');
             $('#nytt-prosjekt-legg-til-btn').html('Legg til nytt prosjekt');
 
             // Oppdater prosjekter

@@ -52,7 +52,7 @@ $('#education-add-btn').click(function () {
         data: { Skole: school, Beskrivelse: description, Fra: from, Til: to },
         type: 'POST',
         beforeSend: function () {
-            $('#education-add-btn').html('Legger til utdanning <i class="fa fa-circle-o-notch fa-spin"></i>');
+            $('#education-add-btn').html('Legger til utdanning <i class="fa fa-spinner fa-spin"></i>');
         },
         success: function (data) {
             // Tilbakestill ting
@@ -76,7 +76,7 @@ $(document).on('click', '.del-link', function () {
     var trElement = $(this).closest('tr');
     var tdElement = $(this).closest('td');
 
-    tdElement.html('Sletter <i class="fa fa-circle-o-notch fa-spin"></i>');
+    tdElement.html('Sletter <i class="fa fa-spinner fa-spin"></i>');
 
     console.log('Id: ' + elementId);
 

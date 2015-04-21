@@ -166,7 +166,6 @@ namespace GeoCV.Controllers
                     break;
             }
 
-
             db.SaveChanges();
         }
 
