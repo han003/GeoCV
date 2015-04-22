@@ -414,6 +414,7 @@
       <DependentUpon>Database.edmx</DependentUpon>
       <LastGenOutput>Database.Context.cs</LastGenOutput>
     </Content>
+    <Content Include="Models\Database.edmx.sql" />
     <Content Include="Models\Database.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Database.edmx</DependentUpon>
@@ -546,8 +547,6 @@
     <Content Include="Models\Database.edmx.diagram">
       <DependentUpon>Database.edmx</DependentUpon>
     </Content>
-    <None Include="Properties\PublishProfiles\geocv %282%29.pubxml" />
-    <None Include="Properties\PublishProfiles\geocv.pubxml" />
     <Content Include="Scripts\editproject.min.js.map">
       <DependentUpon>editproject.min.js</DependentUpon>
     </Content>
@@ -572,6 +571,7 @@
     <Content Include="Scripts\jquery-ui\region-nb.min.js.map">
       <DependentUpon>region-nb.min.js</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\cvportal.pubxml" />
     <None Include="Scripts\jquery\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\employees.js" />
     <Content Include="Scripts\employees.min.js">
@@ -633,7 +633,9 @@
     <Content Include="Scripts\work.min.js">
       <DependentUpon>work.js</DependentUpon>
     </Content>
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
