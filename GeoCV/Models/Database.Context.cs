@@ -13,10 +13,10 @@ namespace GeoCV.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class cvEntities : DbContext
+    public partial class CvPortalEntities : DbContext
     {
-        public cvEntities()
-            : base("name=cvEntities")
+        public CvPortalEntities()
+            : base("name=CvPortalEntities")
         {
         }
     
@@ -25,12 +25,7 @@ namespace GeoCV.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<Arbeidserfaring> Arbeidserfaring { get; set; }
-        public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
-        public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
-        public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
-        public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<CVVersjon> CVVersjon { get; set; }
         public virtual DbSet<Feedback> Feedback { get; set; }
         public virtual DbSet<Innstillinger> Innstillinger { get; set; }

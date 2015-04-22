@@ -50,7 +50,12 @@ function refreshTable() {
         success: function (data) {
             console.log(data);
 
+            // Fjern html så vi kan legge til på nytt
+            $('tbody').html('');
+
             $.each(data, function (index, value) {
+
+                
 
                 var jobbId = value['ArbeidserfaringId'];
                 var arbeidsplass = value['Arbeidsplass'];

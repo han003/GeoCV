@@ -109,16 +109,28 @@ namespace GeoCV.Controllers
 
             CVVersjon Cv = Item.FirstOrDefault();
 
-            // Slett bruker fra AspNet databasen
-            var UserMan = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
-            var user = UserMan.FindById(Cv.AspNetUserId);
-            UserMan.Delete(user);
+            // Slett alt
+            ICollection<Arbeidserfaring> Arbeid = Cv.Arbeidserfaring;
+            db.Arbeidserfaring.RemoveRange(Arbeid);
 
-            // Slett CV
+            ICollection<Utdannelse> Skole = Cv.Utdannelse;
+            db.Utdannelse.RemoveRange(Skole);
+
+            db.Innstillinger.Remove(Cv.Innstillinger);
+
+            db.Kompetanse.Remove(Cv.Kompetanse);
+
+            db.Person.Remove(Cv.Person);
+
             db.CVVersjon.Remove(Cv);
 
             // Lagre
             db.SaveChanges();
+
+            // Slett bruker fra AspNet databasen
+            var UserMan = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+            var user = UserMan.FindById(Cv.AspNetUserId);
+            UserMan.Delete(user);
         }
 
         [HttpGet]

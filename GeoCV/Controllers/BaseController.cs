@@ -13,7 +13,7 @@ namespace GeoCV.Controllers
     [Authorize]
     public class BaseController : Controller
     {
-        public cvEntities db = new cvEntities();
+        public CvPortalEntities db = new CvPortalEntities();
 
         public string GetAspNetUserID()
         {
