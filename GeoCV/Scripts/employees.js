@@ -1,5 +1,34 @@
 ﻿$(document).ready(function () {
 
+    // Sorter valgt tabell
+    $('#ansatt-tabell').stupidtable();
+
+    // Gjør stuff etter at tabellen er sortert
+    $('#ansatt-tabell').bind('aftertablesort', function (event, data) {
+        var kolonneIndex = data.column;
+        var sorteringRetning = data.direction;
+        // $(this) - this table object
+
+        $.each($('#ansatt-tabell th i'), function (index, value) {
+
+            if (index == kolonneIndex) {
+                $(this).removeClass('hidden');
+                $(this).removeClass('fa-sort-desc');
+                $(this).removeClass('fa-sort-asc');
+
+                if (sorteringRetning == 'asc') {
+                    $(this).addClass('fa-sort-asc');
+                } else {
+                    $(this).addClass('fa-sort-desc');
+                }
+
+            } else {
+                $(this).addClass('hidden');
+            }
+
+        });
+    });
+
     getAnsatte();
 
 });
@@ -90,18 +119,21 @@ $(document).on('click', '.deactivate-link', function () {
     var userId = $(this).closest('tr').attr('id');
     var tdElement = $(this).closest('td');
 
-    tdElement.html('Deaktiverer <i class="fa fa-spinner fa-spin"></i>');
-
     console.log('Id: ' + userId);
 
     $.ajax({
         url: '/Employees/Deactivate',
         data: { Id: userId },
         type: 'POST',
+        beforeSend: function() {
+            tdElement.html('Deaktiverer <i class="fa fa-spinner fa-spin"></i>');
+        },
         success: function () {
             console.log('Success');
 
-            tdElement.html('Ikke Aktiv (<a class="activate-link">Aktiver</a>)')
+            var tekst = 'Ikke Aktiv (<a class="activate-link">Aktiver</a>)';
+            tdElement.html(tekst)
+            tdElement.updateSortVal(tekst);
         }
     });
 

@@ -66,7 +66,7 @@ function getKatalog(katalog) {
                 // Lag tabell som viser alle elementer
                 $('#' + katalog + '-alle-tabell tbody').append('<tr id="' + value['ListeKatalogId'] + '">' +
                                                                '<td class="col-lg-5">' + value['Element'] + '</td>' +
-                                                               '<td class="col-lg-1">' + '<i class="fa fa-plus-square add-item-btn"></i>' + '</td>' +
+                                                               '<td class="col-lg-1">' + '<i class="fa fa-plus-square fa-lg add-item-btn"></i>' + '</td>' +
                                                                '</tr>');
 
                 try {
@@ -78,7 +78,7 @@ function getKatalog(katalog) {
                             // Lag tabell som viser bruker elementer
                             $('#' + katalog + '-bruker-tabell tbody').append('<tr id="' + elementId + '">' +
                                                                            '<td class="col-lg-5">' + value['Element'] + '</td>' +
-                                                                           '<td class="col-lg-1"><i class="fa fa-minus-square remove-item-btn"></i></td>' +
+                                                                           '<td class="col-lg-1"><i class="fa fa-minus-square fa-lg remove-item-btn"></i></td>' +
                                                                            '</tr>');
                         }
                     });
@@ -137,7 +137,7 @@ function addItem(element) {
             if (nyVerdi == value) {
                 $('#' + dbOppdateringsKolonne + '-bruker-tabell tbody').append('<tr id="' + idArray[index] + '">' +
                                                                                '<td class="col-lg-5">' + value + '</td>' +
-                                                                               '<td class="col-lg-1"><i class="fa fa-minus-square remove-item-btn"></i></td>' +
+                                                                               '<td class="col-lg-1"><i class="fa fa-minus-square fa-lg remove-item-btn"></i></td>' +
                                                                                '</tr>');
             }
         });

@@ -2,6 +2,36 @@
 var dbOppdateringsKolonne;
 
 $(document).ready(function () {
+
+    // Sorter valgt tabell
+    $('#alle-elementer-tabell').stupidtable();
+
+    // Gjør stuff etter at tabellen er sortert
+    $('#alle-elementer-tabell').bind('aftertablesort', function (event, data) {
+        var kolonneIndex = data.column;
+        var sorteringRetning = data.direction;
+        // $(this) - this table object
+
+        $.each($('#alle-elementer-tabell th i'), function (index, value) {
+            console.log(index);
+            if (index == kolonneIndex) {
+                $(this).removeClass('hidden');
+                $(this).removeClass('fa-sort-desc');
+                $(this).removeClass('fa-sort-asc');
+
+                if (sorteringRetning == 'asc') {
+                    $(this).addClass('fa-sort-asc');
+                } else {
+                    $(this).addClass('fa-sort-desc');
+                }
+
+            } else {
+                $(this).addClass('hidden');
+            }
+
+        });
+    });
+
     getKatalogElementer();
     leggTilTekniskeProfiler();
 });
@@ -188,7 +218,7 @@ function getKatalogElementer() {
                 $('#alle-elementer-tabell tbody').append('<tr id="' + value['ListeKatalogId'] + '">' +
                                                                '<td class="col-lg-2">' + value['Element'] + '</td>' +
                                                                '<td class="col-lg-3">' + value['Katalog'] + '</td>' +
-                                                               '<td class="col-lg-1">' + '<i class="fa fa-plus-square add-item-btn"></i>' + '</td>' +
+                                                               '<td class="col-lg-1">' + '<i class="fa fa-plus-square fa-lg add-item-btn"></i>' + '</td>' +
                                                                '</tr>');
             });
         }
@@ -328,7 +358,7 @@ $(document).on('click', '.add-item-btn', function () {
                     profilTabell.append('<tr id="' + nyID + '">' +
                                                        '<td class="col-lg-2">' + nyVerdi + '</td>' +
                                                        '<td class="col-lg-3">' + nyKatalog + '</td>' +
-                                                       '<td class="col-lg-1"><i class="fa fa-minus-square remove-item-btn"></i></td>' +
+                                                       '<td class="col-lg-1"><i class="fa fa-minus-square fa-lg remove-item-btn"></i></td>' +
                                                        '</tr>');
                 }
             });
@@ -417,7 +447,7 @@ function hentElementer(profilId, navn, elementer) {
                 $('#' + profilId + '-profil-table tbody').append('<tr id="' + value['ListeKatalogId'] + '">' +
                                                                        '<td class="col-lg-3">' + value['Element'] + '</td>' +
                                                                        '<td class="col-lg-2">' + value['Katalog'] + '</td>' +
-                                                                       '<td class="col-lg-1">' + '<i class="fa fa-minus-square remove-item-btn"></i>' + '</td>' +
+                                                                       '<td class="col-lg-1">' + '<i class="fa fa-minus-square fa-lg remove-item-btn"></i>' + '</td>' +
                                                                        '</tr>');
             });
 

@@ -48,14 +48,12 @@
 
                     <h4 id="edit-elem-load" class="hidden">Henter prosjekter.. <i class="fa fa-spinner fa-spin"></i></h4>
 
-                    <table id="prosjekt-tabell" class="table table-hover table-bordered">
+                    <table id="prosjekt-tabell" class="table table-hover table-bordered sortable">
                         <thead>
                             <tr>
-                                <th>Prosjekt link</th>
-                                <th>Kunde</th>
-                                <th>Beskrivelse</th>
-                                <th>Fra</th>
-                                <th>Til</th>
+                                <th data-sort="string">Kunde <i class="fa pull-right hidden"></i></th>
+                                <th data-sort="string">Prosjekt navn <i class="fa pull-right hidden"></i></th>
+                                <th data-sort="string">Beskrivelse <i class="fa pull-right hidden"></i></th>
                                 <th>Slett</th>
                             </tr>
                         </thead>

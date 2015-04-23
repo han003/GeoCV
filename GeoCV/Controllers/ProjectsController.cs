@@ -44,9 +44,9 @@ namespace GeoCV.Controllers
         public void LeggTilProsjekt(string Kunde, string Navn, string Beskrivelse)
         {
             Prosjekt NewItem = new Prosjekt();
-            NewItem.Kunde = Kunde;
-            NewItem.Navn = Navn;
-            NewItem.Beskrivelse = Beskrivelse;
+            NewItem.Kunde = Kunde.Trim();
+            NewItem.Navn = Navn.Trim();
+            NewItem.Beskrivelse = Beskrivelse.Trim();
             NewItem.Fra = short.Parse(DateTime.Now.Year.ToString());
             NewItem.Til = short.Parse(DateTime.Now.Year.ToString()); ;
             db.Prosjekt.Add(NewItem);

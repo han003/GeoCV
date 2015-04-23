@@ -1,4 +1,35 @@
 ﻿$(document).ready(function () {
+
+    // Sorter valgt tabell
+    $('#education-table').stupidtable();
+
+    // Gjør stuff etter at tabellen er sortert
+    $('#education-table').bind('aftertablesort', function (event, data) {
+        var kolonneIndex = data.column;
+        var sorteringRetning = data.direction;
+        // $(this) - this table object
+
+        $.each($('#education-table th i'), function (index, value) {
+            console.log(index);
+            if (index == kolonneIndex) {
+                $(this).removeClass('hidden');
+                $(this).removeClass('fa-sort-desc');
+                $(this).removeClass('fa-sort-asc');
+
+                if (sorteringRetning == 'asc') {
+                    $(this).addClass('fa-sort-asc');
+                } else {
+                    $(this).addClass('fa-sort-desc');
+                }
+
+            } else {
+                $(this).addClass('hidden');
+            }
+
+        });
+    });
+
+    // Henter data
     refreshTable();
 });
 
@@ -36,6 +67,7 @@ function refreshTable() {
             $('tbody').html(template);
             $('#elem-load').addClass('hidden');
             $('table').removeClass('hidden');
+            $('#education-table').trigger('update');
         }
     });
 }
@@ -115,7 +147,8 @@ $(document).on('click', '.update-td', function () {
     var editVal = tdElement.html();
 
     // Hent det som skal endres i databasen fra tablehead
-    var kolonne = $('#education-table').find('th').eq(tdIndex).html();
+    var kolonneHtml = $('#education-table').find('th').eq(tdIndex).html();
+    var kolonne = kolonneHtml.substring(0, kolonneHtml.indexOf('<'));
 
     console.log(elementId + ' - ' + editVal + ' - ' + kolonne);
 
@@ -197,13 +230,16 @@ function changeElement() {
 
             // Hent indexen til tden som ble redigert
             var tdIndex = $('#editModal').data('tdIndex');
+            var oppdatertTd = trElement.children('td:nth-child(' + (tdIndex + 1) + ')');
 
             // Endre verdien i td elementet som ble valgt
-            trElement.children('td:nth-child('+ (tdIndex+1) +')').html(value);
+            oppdatertTd.html(value);
+
+            // Fortell tabell sorteringen at verdien er endret
+            oppdatertTd.updateSortVal(value);
 
             // Skjul modalen
             $('#editModal').modal('hide');
         }
     });
-
 }

@@ -1,4 +1,34 @@
 ﻿$(document).ready(function () {
+
+    // Sorter valgt tabell
+    $('#work-table').stupidtable();
+
+    // Gjør stuff etter at tabellen er sortert
+    $('#work-table').bind('aftertablesort', function (event, data) {
+        var kolonneIndex = data.column;
+        var sorteringRetning = data.direction;
+        // $(this) - this table object
+
+        $.each($('#work-table th i'), function (index, value) {
+            console.log(index);
+            if (index == kolonneIndex) {
+                $(this).removeClass('hidden');
+                $(this).removeClass('fa-sort-desc');
+                $(this).removeClass('fa-sort-asc');
+
+                if (sorteringRetning == 'asc') {
+                    $(this).addClass('fa-sort-asc');
+                } else {
+                    $(this).addClass('fa-sort-desc');
+                }
+
+            } else {
+                $(this).addClass('hidden');
+            }
+
+        });
+    });
+
     refreshTable();
 });
 
@@ -146,7 +176,12 @@ $(document).on('click', '.update-td', function () {
     var arbeidsplass = tdElement.parent().children('td').first().html();
 
     // Hent det som skal endres i databasen fra tablehead
-    var kolonne = $('#work-table').find('th').eq(tdIndex).html();
+    var kolonneHtml = $('#work-table').find('th').eq(tdIndex).html();
+    var kolonne = kolonneHtml.substring(0, kolonneHtml.indexOf('<'));
+
+    if (kolonne == '') {
+        kolonne = kolonneHtml;
+    }
 
     console.log(elementId + ' - ' + editVal + ' - ' + kolonne);
 
@@ -156,7 +191,6 @@ $(document).on('click', '.update-td', function () {
     // Lagre ID, index og kolonne til videre bruk
     $('#editModal').data('elementId', elementId);
     $('#editModal').data('dbKolonne', kolonne);
-    $('#editModal').data('tdIndex', tdIndex);
 
     // Vis relevante felter i modalen
     if (editVal === 'Nåværende') {
@@ -224,17 +258,21 @@ function changeElement() {
             $('#editLoader').removeClass('hidden');
         },
         success: function () {
+
             // Hent indexen til tden som ble redigert
             var tdIndex = $('#editModal').data('tdIndex');
+            var oppdatertTd = trElement.children('td:nth-child(' + (tdIndex + 1) + ')');
 
             // Endre verdien i td elementet som ble valgt
-            trElement.children('td:nth-child(' + (tdIndex + 1) + ')').html(value);
+            oppdatertTd.html(value);
+
+            // Fortell tabell sorteringen at verdien er endret
+            oppdatertTd.updateSortVal(value);
 
             // Skjul modalen
             $('#editModal').modal('hide');
         }
     });
-
 }
 
 // Fjern 'til' felt siden nåværende arbeidsplass er valgt

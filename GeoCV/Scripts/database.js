@@ -1,9 +1,66 @@
 ﻿$(document).ready(function () {
+
+    // Sorter valgt tabell
+    $('#database-tabell').stupidtable();
+
+    // Gjør stuff etter at tabellen er sortert
+    $('#database-tabell').bind('aftertablesort', function (event, data) {
+        var kolonneIndex = data.column;
+        var sorteringRetning = data.direction;
+        // $(this) - this table object
+
+        $.each($('#database-tabell th i'), function (index, value) {
+            console.log(index);
+            if (index == kolonneIndex) {
+                $(this).removeClass('hidden');
+                $(this).removeClass('fa-sort-desc');
+                $(this).removeClass('fa-sort-asc');
+
+                if (sorteringRetning == 'asc') {
+                    $(this).addClass('fa-sort-asc');
+                } else {
+                    $(this).addClass('fa-sort-desc');
+                }
+
+            } else {
+                $(this).addClass('hidden');
+            }
+
+        });
+    });
+
     refreshTable();
 });
 
 $('#filter-txt').keyup(function () {
-    refreshTable();
+
+    // Hent tekst som er skrevet inn
+    var filterTekst = $(this).val().toLowerCase();
+    console.log('Filter: ' + filterTekst);
+
+    // Gå gjennom alle radene og legg IDene i en string
+    $('#database-tabell tbody tr').each(function () {
+
+        // Element tekst
+        var elementTekst = $(this).children('td').html().toLowerCase();
+
+        // Katalog tekst
+        var katalogTekst = $(this).children('td').next().html().toLowerCase();
+
+        // Sjekk om elementet inneholder filter teksten
+        if (elementTekst.indexOf(filterTekst) >= 0 || katalogTekst.indexOf(filterTekst) >= 0) {
+            // Inneholder, så vis
+
+            console.log(elementTekst + katalogTekst + ': ' + filterTekst);
+
+            $(this).removeClass('hidden');
+        } else {
+            // Skjul
+            $(this).addClass('hidden');
+        }
+
+    });
+
 });
 
 function refreshTable() {

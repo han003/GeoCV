@@ -1,4 +1,34 @@
 ﻿$(document).ready(function () {
+
+    // Sorter valgt tabell
+    $('#prosjekt-tabell').stupidtable();
+
+    // Gjør stuff etter at tabellen er sortert
+    $('#prosjekt-tabell').bind('aftertablesort', function (event, data) {
+        var kolonneIndex = data.column;
+        var sorteringRetning = data.direction;
+        // $(this) - this table object
+
+        $.each($('#prosjekt-tabell th i'), function (index, value) {
+            console.log(index);
+            if (index == kolonneIndex) {
+                $(this).removeClass('hidden');
+                $(this).removeClass('fa-sort-desc');
+                $(this).removeClass('fa-sort-asc');
+
+                if (sorteringRetning == 'asc') {
+                    $(this).addClass('fa-sort-asc');
+                } else {
+                    $(this).addClass('fa-sort-desc');
+                }
+
+            } else {
+                $(this).addClass('hidden');
+            }
+
+        });
+    });
+
     getProsjekter();
 });
 
@@ -11,11 +41,10 @@ $('#prosjekt-filter').keyup(function () {
     $('#prosjekt-tabell tbody tr').each(function () {
 
         // Prosjekt tekst
-        var prosjektTekst = $(this).children('td').children('a').html().toLowerCase();
-        console.log('Prosjekt: ' + prosjektTekst);
+        var prosjektTekst = $(this).find('a').html().toLowerCase();
 
         // Kunde tekst
-        var kundeTekst = $(this).children('td').next().html().toLowerCase();
+        var kundeTekst = $(this).children('td').html().toLowerCase();
 
         // Beskrivelse tekst
         var beskrivelseTekst = $(this).children('td').next().next().html().toLowerCase();
@@ -23,6 +52,9 @@ $('#prosjekt-filter').keyup(function () {
         // Sjekk om elementet inneholder filter teksten
         if (prosjektTekst.indexOf(filterTekst) >= 0 || kundeTekst.indexOf(filterTekst) >= 0 || beskrivelseTekst.indexOf(filterTekst) >= 0) {
             // Inneholder, så vis
+
+            console.log(prosjektTekst + kundeTekst + beskrivelseTekst + ': ' + filterTekst);
+
             $(this).removeClass('hidden');
         } else {
             // Skjul
@@ -57,12 +89,10 @@ function getProsjekter() {
 
                 // For valg av tekst å bruke
                 template += '<tr id="' + prosjektId + '">' +
-                                '<td class="col-lg-2"><a href="' + linkText + '">' + prosjektNavn + '</a></td>' +
                                 '<td class="col-lg-3">' + prosjektKunde + '</td>' +
+                                '<td class="col-lg-3"><a href="' + linkText + '">' + prosjektNavn + '</a></td>' +
                                 '<td class="col-lg-3">' + prosjektBeskrivelse + '</td>' +
-                                '<td class="col-lg-1">' + prosjektFra + '</td>' +
-                                '<td class="col-lg-1">' + prosjektTil + '</td>' +
-                                '<td><a class="del-link col-lg-2">Slett</a></td>' +
+                                '<td class="col-lg-1"><a class="del-link">Slett</a></td>' +
                             '</tr>';
             });
 

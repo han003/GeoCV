@@ -1,7 +1,7 @@
 ﻿#alle-elementer-filter {
   margin-bottom: 20px;
 }
-.element-table tr:hover i {
+.element-table tbody tr:hover i {
   color: rgba(44, 213, 37, 0.84);
 }
 .profil-tabell {
