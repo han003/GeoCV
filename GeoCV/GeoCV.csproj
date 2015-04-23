@@ -221,6 +221,7 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DatabaseController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\DocXController.cs" />
     <Compile Include="Controllers\DownloadController.cs" />
     <Compile Include="Controllers\EditProjectController.cs" />
     <Compile Include="Controllers\EducationController.cs" />
@@ -719,6 +720,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\DocX\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
