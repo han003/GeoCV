@@ -32,10 +32,36 @@
     refreshTable();
 });
 
+$('button').click(function () {
+    $(this).blur();
+});
+
 $('#filter-txt').keyup(function () {
 
+    filter();
+
+});
+
+$('label > input[type=checkbox]').on('change', function () {
+
+    filter();
+
+});
+
+function filter() {
+
+    $('label > input[type="checkbox"]:checked').each(function (index, element) {
+
+        //in case you need these element:
+        var $cb = $(element), //the checkbox
+            $label = $cb.parent('label'); //the checkboxs label
+
+        //your code here
+
+    });
+
     // Hent tekst som er skrevet inn
-    var filterTekst = $(this).val().toLowerCase();
+    var filterTekst = $('#filter-txt').val().toLowerCase();
     console.log('Filter: ' + filterTekst);
 
     // Gå gjennom alle radene og legg IDene i en string
@@ -51,8 +77,6 @@ $('#filter-txt').keyup(function () {
         if (elementTekst.indexOf(filterTekst) >= 0 || katalogTekst.indexOf(filterTekst) >= 0) {
             // Inneholder, så vis
 
-            console.log(elementTekst + katalogTekst + ': ' + filterTekst);
-
             $(this).removeClass('hidden');
         } else {
             // Skjul
@@ -61,7 +85,7 @@ $('#filter-txt').keyup(function () {
 
     });
 
-});
+}
 
 function refreshTable() {
     $('#edit-elem-load').removeClass('hidden');

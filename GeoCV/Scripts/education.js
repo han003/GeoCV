@@ -64,10 +64,14 @@ function refreshTable() {
 
             });
 
-            $('tbody').html(template);
-            $('#elem-load').addClass('hidden');
-            $('table').removeClass('hidden');
-            $('#education-table').trigger('update');
+            if (template == '') {
+                $('#Utdannelse-tabs a[href="#new-education-tab"]').tab('show') // Velg tab via navn
+            } else {
+                $('tbody').html(template);
+                $('#elem-load').addClass('hidden');
+                $('table').removeClass('hidden');
+                // $('#education-table').trigger('update');
+            }
         }
     });
 }
