@@ -50,21 +50,43 @@ $('label > input[type=checkbox]').on('change', function () {
 
 function filter() {
 
+    // Fjern alle filter klasser
+    $('#database-tabell tbody').children('tr').removeClass('filter');
+
+    // Hent tekst som er skrevet inn som filter
+    var filterTekst = $('#filter-txt').val().toLowerCase();
+
+    var antallCheckboxer = 0;
+
+    // Gå gjennom hver checkbox for å se om den er valgt
     $('label > input[type="checkbox"]:checked').each(function (index, element) {
 
-        //in case you need these element:
-        var $cb = $(element), //the checkbox
-            $label = $cb.parent('label'); //the checkboxs label
+        var checkbox = $(element); // Checkboxen
+        var label = checkbox.parent('label'); // Checkboxen sin label
 
-        //your code here
+        // Navn på valgt katalog
+        var checkKatalog = checkbox.attr('id').substring(0, checkbox.attr('id').indexOf('-'));
 
+        $('#database-tabell tbody tr').each(function () {
+
+            // Katalog tekst
+            var katalogTekst = $(this).children('td').next().html();
+
+            // Sjekk om katalogen er valgt eller ikke
+            if (katalogTekst.indexOf(checkKatalog) >= 0) {
+                // Inneholder, så vis
+                $(this).addClass('filter');
+            }
+        });
+
+        antallCheckboxer++;
     });
 
-    // Hent tekst som er skrevet inn
-    var filterTekst = $('#filter-txt').val().toLowerCase();
-    console.log('Filter: ' + filterTekst);
+    if (antallCheckboxer == 0) {
+        // Ingen checkboxer valgt, så vis filter på alle
+        $('#database-tabell tbody').children('tr').addClass('filter');
+    }
 
-    // Gå gjennom alle radene og legg IDene i en string
     $('#database-tabell tbody tr').each(function () {
 
         // Element tekst
@@ -74,9 +96,8 @@ function filter() {
         var katalogTekst = $(this).children('td').next().html().toLowerCase();
 
         // Sjekk om elementet inneholder filter teksten
-        if (elementTekst.indexOf(filterTekst) >= 0 || katalogTekst.indexOf(filterTekst) >= 0) {
+        if ((elementTekst.indexOf(filterTekst) >= 0) && $(this).hasClass('filter')) {
             // Inneholder, så vis
-
             $(this).removeClass('hidden');
         } else {
             // Skjul
