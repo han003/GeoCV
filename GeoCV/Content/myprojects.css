@@ -7,8 +7,13 @@
 .panel-body {
   background: #5c5c5c;
 }
-#prosjekt-fra,
-#prosjekt-til {
+.kalender {
+  cursor: pointer;
+}
+.alert {
+  cursor: default;
+}
+.alert a {
   cursor: pointer;
 }
 /*# sourceMappingURL=myprojects.css.map */

@@ -286,6 +286,8 @@ function nyProfil() {
             $('#ny-profil-navn-txt').val('');
             $('#ny-profil-lagre-btn').html('Legg til');
 
+            $('#trenger-profil-warning').addClass('hidden');
+
             leggTilNyttPanel(data, navn);
         }
     });
@@ -468,7 +470,11 @@ function leggTilTekniskeProfiler() {
         dataType: 'json',
         success: function (data) {
 
-            console.log(data);
+            console.log('Antall profiler: ' + data.length);
+
+            if (data.length == 0) {
+                $('#trenger-profil-warning').removeClass('hidden');
+            }
 
             $.each(data, function (index, value) {
 
@@ -481,4 +487,10 @@ function leggTilTekniskeProfiler() {
         }
     });
 }
+
+$('#trenger-profil-warning a').click(function () {
+
+    $('#edit-pro-tabs a[href="#ny-teknisk-profil"]').tab('show') // Select tab by name
+
+});
 

@@ -4,13 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="2ed1021a6dc947899a3be888912c4bdc" Name="Diagram1">
+      <Diagram DiagramId="41133a8638304841855e0105795ca6d6" Name="Diagram1">
         <EntityTypeShape EntityType="CvPortalModel.Arbeidserfaring" Width="1.5" PointX="5.25" PointY="2.875" IsExpanded="true" />
         <EntityTypeShape EntityType="CvPortalModel.CVVersjon" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CvPortalModel.Feedback" Width="1.5" PointX="7.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CvPortalModel.Feedback" Width="1.5" PointX="8.75" PointY="11.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CvPortalModel.Innstillinger" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CvPortalModel.Kompetanse" Width="1.5" PointX="0.75" PointY="11.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CvPortalModel.ListeKatalog" Width="1.5" PointX="8.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CvPortalModel.ListeKatalog" Width="1.5" PointX="10.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CvPortalModel.Medlem" Width="1.5" PointX="6" PointY="6.5" IsExpanded="true" />
         <EntityTypeShape EntityType="CvPortalModel.Person" Width="1.5" PointX="0.75" PointY="6.125" IsExpanded="true" />
         <EntityTypeShape EntityType="CvPortalModel.Prosjekt" Width="1.5" PointX="3.75" PointY="13.5" IsExpanded="true" />

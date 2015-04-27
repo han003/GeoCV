@@ -1,5 +1,8 @@
 ﻿$(document).ready(function () {
 
+    // Popover
+    $('[data-toggle="popover"]').popover();
+
     // Sorter valgt tabell
     $('#ansatt-tabell').stupidtable();
 

@@ -17,10 +17,9 @@ namespace GeoCV.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetDatabase(string Filter)
+        public ActionResult GetDatabase()
         {
             var Data = from a in db.ListeKatalog
-                       where a.Element.Contains(Filter)
                        orderby a.Element ascending
                        select new
                        {

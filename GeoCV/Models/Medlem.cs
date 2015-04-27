@@ -15,9 +15,9 @@ namespace GeoCV.Models
     public partial class Medlem
     {
         public int MedlemId { get; set; }
-        public string Rolle { get; set; }
-        public short Start { get; set; }
-        public short Slutt { get; set; }
+        public int Rolle { get; set; }
+        public System.DateTime Start { get; set; }
+        public System.DateTime Slutt { get; set; }
         public int ProsjektProsjektId { get; set; }
         public int Person_PersonId { get; set; }
     

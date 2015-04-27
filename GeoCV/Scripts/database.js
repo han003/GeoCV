@@ -112,11 +112,8 @@ function refreshTable() {
     $('#edit-elem-load').removeClass('hidden');
     $('table').addClass('hidden');
 
-    var filter = $('#filter-txt').val();
-
     $.ajax({
         url: '/Database/GetDatabase',
-        data: { Filter: filter },
         type: 'GET',
         success: function (data) {
             console.log(data);

@@ -25,4 +25,10 @@
 .fa-pencil-square-o:hover {
   color: #FFB800;
 }
+#trenger-profil-warning {
+  cursor: default;
+}
+#trenger-profil-warning a {
+  cursor: pointer;
+}
 /*# sourceMappingURL=editproject.css.map */
