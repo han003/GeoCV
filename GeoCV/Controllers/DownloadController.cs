@@ -273,9 +273,9 @@ namespace GeoCV.Controllers
                                    select a;
 
             // Hent ansatt info
-            var Ansatt = BrukerCv.Person.Stilling;
+            var Stilling = BrukerCv.Person.Stilling;
 
-            if (Ansatt == null)
+            if (Stilling == null)
             {
                 Paragraph EtikettParagraf = new Paragraph("Stilling", FetFont(11));
                 Paragraph InnholdsParagraf = new Paragraph("", NormalFont(11));
@@ -286,7 +286,7 @@ namespace GeoCV.Controllers
 
             foreach (var Item in KatalogElementer)
             {
-                if (Int32.Parse(Ansatt.FirstOrDefault().ToString()).Equals(Item.ListeKatalogId))
+                if (Stilling.Equals(Item.ListeKatalogId))
                 {
                     Paragraph EtikettParagraf = new Paragraph("Stilling", FetFont(11));
                     Paragraph InnholdsParagraf = new Paragraph(Item.Element, NormalFont(11));
@@ -304,9 +304,9 @@ namespace GeoCV.Controllers
                                    select a;
 
             // Hent ansatt info
-            var Ansatt = BrukerCv.Person.Nasjonalitet;
+            var Nasjonalitet = BrukerCv.Person.Nasjonalitet;
 
-            if (Ansatt == null)
+            if (Nasjonalitet == null)
             {
                 Paragraph EtikettParagraf = new Paragraph("Nasjonalitet", FetFont(11));
                 Paragraph InnholdsParagraf = new Paragraph("", NormalFont(11));
@@ -317,7 +317,7 @@ namespace GeoCV.Controllers
 
             foreach (var Item in KatalogElementer)
             {
-                if (Int32.Parse(Ansatt.FirstOrDefault().ToString()).Equals(Item.ListeKatalogId))
+                if (Nasjonalitet.Equals(Item.ListeKatalogId))
                 {
                     Paragraph EtikettParagraf = new Paragraph("Nasjonalitet", FetFont(11));
                     Paragraph InnholdsParagraf = new Paragraph(Item.Element, NormalFont(11));

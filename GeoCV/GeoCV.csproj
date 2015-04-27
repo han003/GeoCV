@@ -282,6 +282,7 @@
     <Compile Include="Models\Person.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PersonalModel.cs" />
     <Compile Include="Models\Prosjekt.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
@@ -721,7 +722,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\DocX\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

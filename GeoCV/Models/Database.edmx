@@ -89,8 +89,8 @@
           </Key>
           <Property Name="MedlemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Rolle" Type="int" Nullable="false" />
-          <Property Name="Start" Type="datetime" />
-          <Property Name="Slutt" Type="datetime" />
+          <Property Name="Start" Type="datetime" Nullable="false" />
+          <Property Name="Slutt" Type="datetime" Nullable="false" />
           <Property Name="ProsjektProsjektId" Type="int" Nullable="false" />
           <Property Name="Person_PersonId" Type="int" Nullable="false" />
         </EntityType>
@@ -102,10 +102,10 @@
           <Property Name="Fornavn" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Mellomnavn" Type="nvarchar" MaxLength="50" />
           <Property Name="Etternavn" Type="nvarchar" MaxLength="80" Nullable="false" />
-          <Property Name="Stilling" Type="nvarchar" MaxLength="50" />
+          <Property Name="Stilling" Type="int" />
           <Property Name="ÅrErfaring" Type="smallint" />
           <Property Name="Språk" Type="nvarchar(max)" />
-          <Property Name="Nasjonalitet" Type="nvarchar" MaxLength="40" />
+          <Property Name="Nasjonalitet" Type="int" />
           <Property Name="Fødselsår" Type="datetime" />
           <Property Name="StartDato" Type="datetime" />
         </EntityType>
@@ -378,8 +378,8 @@
           </Key>
           <Property Name="MedlemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Rolle" Type="Int32" Nullable="false" />
-          <Property Name="Start" Type="DateTime" Precision="3" Nullable="false" />
-          <Property Name="Slutt" Type="DateTime" Precision="3" Nullable="false" />
+          <Property Name="Start" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Slutt" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ProsjektProsjektId" Type="Int32" Nullable="false" />
           <Property Name="Person_PersonId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Person" Relationship="Self.FK_MedlemPerson" FromRole="Medlem" ToRole="Person" />
@@ -393,10 +393,10 @@
           <Property Name="Fornavn" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Mellomnavn" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Etternavn" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Stilling" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Stilling" Type="Int32" />
           <Property Name="ÅrErfaring" Type="Int16" />
           <Property Name="Språk" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Nasjonalitet" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="Nasjonalitet" Type="Int32" />
           <Property Name="Fødselsår" Type="DateTime" Precision="3" />
           <Property Name="StartDato" Type="DateTime" Precision="3" />
           <NavigationProperty Name="CVVersjon" Relationship="Self.FK_CVVersjonPerson" FromRole="Person" ToRole="CVVersjon" />

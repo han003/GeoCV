@@ -15,7 +15,39 @@ namespace GeoCV.Controllers
         // GET: Personal
         public ActionResult Index()
         {
-            return View(GetUserCV());
+            CVVersjon BrukerCv = GetUserCV();
+
+            var Nasjonaliteter = from a in db.ListeKatalog
+                                 where a.Katalog == "Nasjonaliteter"
+                                 orderby a.Element ascending
+                                 select a;
+
+            var Stillinger = from a in db.ListeKatalog
+                             where a.Katalog == "Stillinger"
+                             orderby a.Element ascending
+                             select a;
+
+            var Språk = from a in db.ListeKatalog
+                        where a.Katalog == "Språk"
+                        orderby a.Element ascending
+                        select a;
+
+            List<string> BrukerSpråkListe = BrukerCv.Person.Språk.Split(';').ToList();
+
+            var BrukerSpråk = from a in db.ListeKatalog
+                              where BrukerSpråkListe.Contains(a.ListeKatalogId.ToString())
+                              select a;
+
+
+            PersonalModel ViewModel = new PersonalModel();
+            ViewModel.BrukerCv = BrukerCv;
+            ViewModel.Nasjonaliteter = Nasjonaliteter;
+            ViewModel.Stillinger = Stillinger;
+            ViewModel.Språk = Språk;
+            ViewModel.BrukerSpråk = BrukerSpråk;
+
+
+            return View(ViewModel);
         }
 
         [HttpGet]
@@ -43,66 +75,6 @@ namespace GeoCV.Controllers
             return Json(Kombinert, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpGet]
-        public ActionResult GetStillinger()
-        {
-            var Stillinger = from a in db.ListeKatalog
-                             where a.Katalog == "Stillinger"
-                             select new
-                             {
-                                 a.ListeKatalogId,
-                                 a.Element
-                             };
-
-            return Json(Stillinger, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpGet]
-        public ActionResult GetNasjonaliteter()
-        {
-            var Nasjonaliteter = from a in db.ListeKatalog
-                                 where a.Katalog == "Nasjonaliteter"
-                                 select new
-                                 {
-                                     a.ListeKatalogId,
-                                     a.Element
-                                 };
-
-            return Json(Nasjonaliteter, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpGet]
-        public ActionResult GetValgtStilling()
-        {
-            var ValgtStilling = GetUserCV().Person.Stilling;
-
-            return Json(ValgtStilling, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpGet]
-        public ActionResult GetValgtNasjonalitet()
-        {
-            var ValgtNasjonalitet = GetUserCV().Person.Nasjonalitet;
-
-            return Json(ValgtNasjonalitet, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpGet]
-        public ActionResult GetBursdag()
-        {
-            var Bursdag = GetUserCV().Person.Fødselsår;
-
-            return Json(Bursdag.ToString(), JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpGet]
-        public ActionResult GetStartDato()
-        {
-            var StartDato = GetUserCV().Person.StartDato;
-
-            return Json(StartDato.ToString(), JsonRequestBehavior.AllowGet);
-        }
-
         [HttpPost]
         public void Update(string Update, string Value)
         {
@@ -124,11 +96,11 @@ namespace GeoCV.Controllers
                     Session["ShadowUserName"] = Cv.Person.Fornavn + " " + Value;
                     break;
                 case "Stilling":
-                    Cv.Person.Stilling = Value;
+                    Cv.Person.Stilling = Int32.Parse(Value);
                     break;
 
                 case "Nasjonalitet":
-                    Cv.Person.Nasjonalitet = Value;
+                    Cv.Person.Nasjonalitet = Int32.Parse(Value);
                     break;
 
                 case "ÅrErfaring":

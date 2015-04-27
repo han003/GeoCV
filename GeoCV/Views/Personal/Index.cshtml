@@ -1,7 +1,7 @@
 ﻿@using System.Web.Optimization
 @using Microsoft.AspNet.Identity
 
-@model GeoCV.Models.CVVersjon
+@model GeoCV.Models.PersonalModel
 
 @{
     ViewBag.Title = "Personlig Informasjon";
@@ -29,31 +29,31 @@
             <div class="form-horizontal">
 
                 <div class="form-group">
-                    <label for="@Html.DisplayNameFor(m => Model.Person.Fornavn)-txt" class="col-lg-2 control-label">Fornavn</label>
+                    <label for="@Html.DisplayNameFor(m => Model.BrukerCv.Person.Fornavn)-txt" class="col-lg-2 control-label">Fornavn</label>
                     <div class="col-lg-8">
-                        <input type="text" class="form-control update-txt col-lg-8" value="@Model.Person.Fornavn" id="@Html.DisplayNameFor(m => Model.Person.Fornavn)-txt">
+                        <input type="text" class="form-control update-txt col-lg-8" value="@Model.BrukerCv.Person.Fornavn" id="@Html.DisplayNameFor(m => Model.BrukerCv.Person.Fornavn)-txt">
                     </div>
-                    <div id="@Html.DisplayNameFor(m => Model.Person.Fornavn)-label" class="col-lg-2 side-label hidden">
+                    <div id="@Html.DisplayNameFor(m => Model.BrukerCv.Person.Fornavn)-label" class="col-lg-2 side-label hidden">
                         <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="@Html.DisplayNameFor(m => Model.Person.Mellomnavn)-txt" class="col-lg-2 control-label">Mellomnavn</label>
+                    <label for="@Html.DisplayNameFor(m => Model.BrukerCv.Person.Mellomnavn)-txt" class="col-lg-2 control-label">Mellomnavn</label>
                     <div class="col-lg-8">
-                        <input type="text" class="form-control update-txt col-lg-8" value="@Model.Person.Mellomnavn" id="@Html.DisplayNameFor(m => Model.Person.Mellomnavn)-txt">
+                        <input type="text" class="form-control update-txt col-lg-8" value="@Model.BrukerCv.Person.Mellomnavn" id="@Html.DisplayNameFor(m => Model.BrukerCv.Person.Mellomnavn)-txt">
                     </div>
-                    <div id="@Html.DisplayNameFor(m => Model.Person.Mellomnavn)-label" class="col-lg-2 side-label hidden">
+                    <div id="@Html.DisplayNameFor(m => Model.BrukerCv.Person.Mellomnavn)-label" class="col-lg-2 side-label hidden">
                         <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="@Html.DisplayNameFor(m => Model.Person.Etternavn)-txt" class="col-lg-2 control-label">Etternavn</label>
+                    <label for="@Html.DisplayNameFor(m => Model.BrukerCv.Person.Etternavn)-txt" class="col-lg-2 control-label">Etternavn</label>
                     <div class="col-lg-8">
-                        <input type="text" class="form-control update-txt col-lg-8" value="@Model.Person.Etternavn" id="@Html.DisplayNameFor(m => Model.Person.Etternavn)-txt">
+                        <input type="text" class="form-control update-txt col-lg-8" value="@Model.BrukerCv.Person.Etternavn" id="@Html.DisplayNameFor(m => Model.BrukerCv.Person.Etternavn)-txt">
                     </div>
-                    <div id="@Html.DisplayNameFor(m => Model.Person.Etternavn)-label" class="col-lg-2 side-label hidden">
+                    <div id="@Html.DisplayNameFor(m => Model.BrukerCv.Person.Etternavn)-label" class="col-lg-2 side-label hidden">
                         <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
                     </div>
                 </div>
@@ -62,7 +62,31 @@
                     <label for="nasjonalitet-select" class="col-lg-2 control-label">Nasjonalitet</label>
                     <div class="col-lg-8">
                         <select id="nasjonalitet-select" class="form-control">
-                            <option id="nasjonalitet-load">Henter nasjonaliteter.. <i class="fa fa-spinner fa-pulse"></i></option>
+
+                            @if (String.IsNullOrWhiteSpace(Model.BrukerCv.Person.Nasjonalitet.ToString()))
+                            {
+                                <option selected>Ingen nasjonalitet valgt</option>
+
+                                foreach (var Nasjonalitet in Model.Nasjonaliteter)
+                                {
+                                    <option value="@Nasjonalitet.ListeKatalogId">@Nasjonalitet.Element</option>
+                                }
+                            }
+                            else
+                            {
+                                foreach (var Nasjonalitet in Model.Nasjonaliteter)
+                                {
+                                    if (Model.BrukerCv.Person.Nasjonalitet.Equals(Nasjonalitet.ListeKatalogId))
+                                    {
+                                        <option selected value="@Nasjonalitet.ListeKatalogId">@Nasjonalitet.Element</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@Nasjonalitet.ListeKatalogId">@Nasjonalitet.Element</option>
+                                    }
+                                }
+                            }
+
                         </select>
                     </div>
                     <div id="Nasjonalitet-label" class="col-lg-2 side-label hidden">
@@ -73,7 +97,7 @@
                 <div class="form-group">
                     <label for="birthday-date" class="col-lg-2 control-label">Fødselsdato</label>
                     <div class="col-lg-8">
-                        <input id="birthday-date" class="form-control" type="text">
+                        <input id="birthday-date" value="@Model.BrukerCv.Person.Fødselsår.Value.ToString("dd. MMMM yyyy")" class="form-control" type="text">
                     </div>
                     <div id="Fødselsår-label" class="col-lg-2 side-label hidden">
                         <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
@@ -84,8 +108,35 @@
                     <label for="stillinger-select" class="col-lg-2 control-label">Stilling</label>
                     <div class="col-lg-8">
                         <select id="stillinger-select" class="form-control">
-                            <option id="stilling-load">Henter stillinger.. <i class="fa fa-spinner fa-pulse"></i></option>
+
+                            @if (String.IsNullOrWhiteSpace(Model.BrukerCv.Person.Stilling.ToString()))
+                            {
+                                <option selected>Ingen stilling valgt</option>
+
+                                foreach (var Stilling in Model.Stillinger)
+                                {
+                                    <option value="@Stilling.ListeKatalogId">@Stilling.Element</option>
+                                }
+                            }
+                            else
+                            {
+                                foreach (var Stilling in Model.Stillinger)
+                                {
+                                    if (Model.BrukerCv.Person.Stilling.Equals(Stilling.ListeKatalogId))
+                                    {
+                                        <option selected value="@Stilling.ListeKatalogId">@Stilling.Element</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@Stilling.ListeKatalogId">@Stilling.Element</option>
+                                    }
+                                }
+                            }
+
                         </select>
+
+
+
                     </div>
                     <div id="Stilling-label" class="col-lg-2 side-label hidden">
                         <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
@@ -93,9 +144,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="@Html.DisplayNameFor(m => Model.Person.ÅrErfaring)-txt" class="col-lg-2 control-label">År erfaring før Geomatikk</label>
+                    <label for="@Html.DisplayNameFor(m => Model.BrukerCv.Person.ÅrErfaring)-txt" class="col-lg-2 control-label">År erfaring før Geomatikk</label>
                     <div class="col-lg-8">
-                        <input type="text" class="form-control update-txt col-lg-8" value="@Model.Person.ÅrErfaring" id="@Html.DisplayNameFor(m => Model.Person.ÅrErfaring)-txt">
+                        <input type="text" class="form-control update-txt col-lg-8" value="@Model.BrukerCv.Person.ÅrErfaring" id="@Html.DisplayNameFor(m => Model.BrukerCv.Person.ÅrErfaring)-txt">
                     </div>
                     <div id="ÅrErfaring-label" class="col-lg-2 side-label hidden">
                         <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
@@ -105,7 +156,7 @@
                 <div class="form-group">
                     <label for="geomatikk-start-date" class="col-lg-2 control-label">Startdato i Geomatikk</label>
                     <div class="col-lg-8">
-                        <input id="geomatikk-start-date" class="form-control" type="text">
+                        <input id="geomatikk-start-date" value="@Model.BrukerCv.Person.StartDato.Value.ToString("dd. MMMM yyyy")" class="form-control" type="text">
                     </div>
                     <div id="StartDato-label" class="col-lg-2 side-label hidden">
                         <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
@@ -117,7 +168,7 @@
 
         <div role="tabpanel" class="tab-pane" id="language-tab">
 
-            @Html.Partial("_TabInnhold", new ViewDataDictionary { { "Tab", "Språk" } })
+            @Html.Partial("_TabInnhold", Model)
 
         </div>
     </div>

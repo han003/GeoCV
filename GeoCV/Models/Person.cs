@@ -24,10 +24,10 @@ namespace GeoCV.Models
         public string Fornavn { get; set; }
         public string Mellomnavn { get; set; }
         public string Etternavn { get; set; }
-        public string Stilling { get; set; }
+        public Nullable<int> Stilling { get; set; }
         public Nullable<short> ÅrErfaring { get; set; }
         public string Språk { get; set; }
-        public string Nasjonalitet { get; set; }
+        public Nullable<int> Nasjonalitet { get; set; }
         public Nullable<System.DateTime> Fødselsår { get; set; }
         public Nullable<System.DateTime> StartDato { get; set; }
     
