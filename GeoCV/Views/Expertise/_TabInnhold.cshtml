@@ -1,20 +1,30 @@
-﻿<div id="filter-row" class="row col-lg-12">
+﻿@model GeoCV.Models.ExpertiseModel
+
+<div class="row col-lg-12 filter-row">
     <div class="col-lg-6">
-        <input id="@ViewData["Tab"]-filter" type="text" class="form-control table-filter" placeholder="Filter" autocomplete="off">
+        <input type="text" class="form-control table-filter" placeholder="Filter" autocomplete="off">
     </div>
 </div>
 
 <div class="row">
     <div class="col-lg-6">
         <div class="col-lg-12">
-            <table id="@ViewData["Tab"]-alle-tabell" class="table element-table">
+            <table class="table element-table">
                 <thead>
                     <tr>
-                        <th>Alle @ViewData["Tab"]</th>
+                        <th>Alle @ViewData["Tab"].ToString().ToLower()</th>
                         <th></th>
                     </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody>
+                    @foreach (var Element in Model.Katalog.Where(x => x.Katalog.Equals(ViewData["Tab"])))
+                    {
+                        <tr>
+                            <td class="col-lg-5">@Element.Element</td>
+                            <td class="col-lg-1"><i data-katalog="@ViewData["Tab"]" data-id="@Element.ListeKatalogId" data-element="@Element.Element" class="fa fa-plus-square fa-lg add-item-btn"></i></td>
+                        </tr>
+                    }
+                </tbody>
             </table>
         </div>
     </div>
@@ -24,12 +34,25 @@
             <table id="@ViewData["Tab"]-bruker-tabell" class="table bruker-table">
                 <thead>
                     <tr>
-                        <th>Mine @ViewData["Tab"]</th>
+                        <th>Mine @ViewData["Tab"].ToString().ToLower()</th>
                         <th></th>
                     </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody>
+                    @if (ViewData["Bruker"] != null)
+                    {
+                        foreach (var Element in ViewData["Bruker"] as IEnumerable<GeoCV.Models.ListeKatalog>)
+                        {
+                            <tr>
+                                <td class="col-lg-5">@Element.Element</td>
+                                <td class="col-lg-1"><i data-katalog="@ViewData["Tab"]" data-id="@Element.ListeKatalogId" data-element="@Element.Element" class="fa fa-minus-square fa-lg remove-item-btn"></i></td>
+                            </tr>
+                        }
+                    }
+                </tbody>
             </table>
+
         </div>
     </div>
 </div>
+

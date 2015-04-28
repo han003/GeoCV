@@ -260,6 +260,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Database.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\ExpertiseModel.cs" />
     <Compile Include="Models\Feedback.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
@@ -714,11 +715,10 @@
     <Content Include="Scripts\moment-with-locales.min.js.map">
       <DependentUpon>moment-with-locales.min.js</DependentUpon>
     </Content>
-    <Content Include="Views\Expertise\_TabInnhold.cshtml" />
-    <Content Include="Views\Personal\_TabInnhold.cshtml" />
     <Content Include="Scripts\stuff\stupidtable.min.js.map">
       <DependentUpon>stupidtable.min.js</DependentUpon>
     </Content>
+    <Content Include="Views\Expertise\_TabInnhold.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -16,35 +16,11 @@ namespace GeoCV.Controllers
         // GET: Education
         public ActionResult Index()
         {
-            return View();
-        }
-
-        [HttpGet]
-        public ActionResult GetUtdannelse()
-        {
-            var Utdannelse = GetUserCV().Utdannelse;
-
-            List<Utdannelse> UtdannelseList = new List<Utdannelse>();
-
-            foreach (var Item in Utdannelse)
-            {
-                Utdannelse NyUtdannelse = new Utdannelse();
-                NyUtdannelse.UtdannelseId = Item.UtdannelseId;
-                NyUtdannelse.Studiested = Item.Studiested;
-                NyUtdannelse.Beskrivelse = Item.Beskrivelse;
-                NyUtdannelse.Fra = Item.Fra;
-                NyUtdannelse.Til = Item.Til;
-
-                UtdannelseList.Add(NyUtdannelse);
-            }
-
-            List<Utdannelse> SortedList = UtdannelseList.OrderByDescending(u => u.Fra).ToList();
-
-            return Json(SortedList, JsonRequestBehavior.AllowGet);
+            return View(GetUserCV());
         }
 
         [HttpPost]
-        public void AddNewEducation(string Skole, string Beskrivelse, Int16 Fra, Int16 Til)
+        public ActionResult AddNewEducation(string Skole, string Beskrivelse, Int16 Fra, Int16 Til)
         {
             CVVersjon Cv = GetUserCV();
 
@@ -57,6 +33,8 @@ namespace GeoCV.Controllers
             Cv.Utdannelse.Add(NewItem);
 
             db.SaveChanges();
+
+            return Json(NewItem.UtdannelseId, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

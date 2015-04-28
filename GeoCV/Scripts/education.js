@@ -10,7 +10,7 @@
         // $(this) - this table object
 
         $.each($('#education-table th i'), function (index, value) {
-            console.log(index);
+
             if (index == kolonneIndex) {
                 $(this).removeClass('hidden');
                 $(this).removeClass('fa-sort-desc');
@@ -29,66 +29,21 @@
         });
     });
 
-    // Henter data
-    refreshTable();
 });
-
-function refreshTable() {
-    $('table').addClass('hidden');
-    $('#elem-load').removeClass('hidden');
-
-    $.ajax({
-        url: '/Education/GetUtdannelse',
-        type: 'GET',
-        success: function (data) {
-            console.log(data);
-
-            var template = '';
-
-            $.each(data, function (index, value) {
-
-                var studieId = value['UtdannelseId'];
-                var studiested = value['Studiested'];
-                var beskrivelse = value['Beskrivelse'];
-                var fra = value['Fra'];
-                var til = value['Til'];
-
-                // For valg av tekst å bruke
-                template += '<tr id="' + studieId + '">' +
-                                '<td class="update-td col-lg-3">' + studiested + '</td>' +
-                                '<td class="update-td col-lg-5">' + beskrivelse + '</td>' +
-                                '<td class="update-td col-lg-1">' + fra + '</td>' +
-                                '<td class="update-td col-lg-1">' + til + '</td>' +
-                                '<td><a class="del-link col-lg-2">Slett</a></td>' +
-                            '</tr>';
-
-            });
-
-            if (template == '') {
-                $('#Utdannelse-tabs a[href="#new-education-tab"]').tab('show') // Velg tab via navn
-            } else {
-                $('tbody').html(template);
-                $('#elem-load').addClass('hidden');
-                $('table').removeClass('hidden');
-                // $('#education-table').trigger('update');
-            }
-        }
-    });
-}
 
 $('#education-add-btn').click(function () {
 
-    var school = $('#school-text').val();
-    var description = $('#education-text').val();
-    var from = $('#education-select-from').val();
-    var to = $('#education-select-to').val();
+    var studiested = $('#school-text').val();
+    var beskrivelse = $('#education-text').val();
+    var fra = $('#education-select-from').val();
+    var til = $('#education-select-to').val();
 
     $.ajax({
         url: '/Education/AddNewEducation',
-        data: { Skole: school, Beskrivelse: description, Fra: from, Til: to },
+        data: { Skole: studiested, Beskrivelse: beskrivelse, Fra: fra, Til: til },
         type: 'POST',
         beforeSend: function () {
-            $('#education-add-btn').html('Legger til utdanning <i class="fa fa-spinner fa-spin"></i>');
+            $('#education-add-btn').html('Legger til utdannelse <i class="fa fa-spinner fa-spin"></i>');
         },
         success: function (data) {
             // Tilbakestill ting
@@ -98,7 +53,18 @@ $('#education-add-btn').click(function () {
             $('#education-select-to').val($('#education-select-to option:first').val());
             $('#education-add-btn').html('Legg til ny utdannelse');
 
-            refreshTable();
+            console.log(data);
+
+            // Markup for å legge til utdannelsen i tabellen
+            var template =  '<tr id="' + data + '">' +
+                                '<td class="update-td col-lg-3">' + studiested + '</td>' +
+                                '<td class="update-td col-lg-5">' + beskrivelse + '</td>' +
+                                '<td class="update-td col-lg-1">' + fra + '</td>' +
+                                '<td class="update-td col-lg-1">' + til + '</td>' +
+                                '<td><a class="del-link col-lg-2">Slett</a></td>' +
+                            '</tr>';
+
+            $('tbody').append(template);
         }
     });
 
@@ -165,7 +131,7 @@ $(document).on('click', '.update-td', function () {
     $('#editModal').data('tdIndex', tdIndex);
 
     // Skjul og vis relevant felt i modalen
-    if (kolonne == 'Fra' || kolonne == 'Til') {
+    if (kolonne.trim() == 'Fra' || kolonne.trim() == 'Til') {
         $('#edit-txt').addClass('hidden');
         $('#modal-select').removeClass('hidden');
         $('#modal-select').val(editVal);
@@ -203,7 +169,7 @@ function changeElement() {
 
     // Hent den nye verdien
     var value = '';
-    if (kolonne == 'Fra' || kolonne == 'Til') {
+    if (kolonne.trim() == 'Fra' || kolonne.trim() == 'Til') {
         value = $('#modal-select').val();
     } else {
         value = $('#edit-txt').val();

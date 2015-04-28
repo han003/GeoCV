@@ -14,7 +14,96 @@ namespace GeoCV.Controllers
         // GET: Expertise
         public ActionResult Index()
         {
-            return View();
+            // Bruker CV
+            CVVersjon BrukerCv = GetUserCV();
+
+            // Model for å sendte til View
+            ExpertiseModel ViewModel = new ExpertiseModel();
+            
+            // Legg til Katalog
+            var Katalog = from a in db.ListeKatalog
+                          where a.Katalog != "Nasjonaliteter" || a.Katalog != "Stillinger" || a.Katalog != "Språk"
+                          select a;
+            ViewModel.Katalog = Katalog;
+
+            try
+            {
+                List<string> BrukerProgrammeringsspråkListe = BrukerCv.Kompetanse.Programmeringsspråk.Split(';').ToList();
+                ViewModel.BrukerProgrammeringsspråk = from a in Katalog
+                                                      where BrukerProgrammeringsspråkListe.Contains(a.ListeKatalogId.ToString())
+                                                      select a;
+            }
+            catch (Exception)
+            {
+            }
+
+            try
+            {
+                List<string> BrukerRammeverkListe = BrukerCv.Kompetanse.Rammeverk.Split(';').ToList();
+                ViewModel.BrukerRammeverk = from a in Katalog
+                                            where BrukerRammeverkListe.Contains(a.ListeKatalogId.ToString())
+                                            select a;
+            }
+            catch (Exception)
+            {
+            }
+
+            try
+            {
+                List<string> BrukerWebTeknologierListe = BrukerCv.Kompetanse.WebTeknologier.Split(';').ToList();
+                ViewModel.BrukerWebTeknologier = from a in Katalog
+                                                 where BrukerWebTeknologierListe.Contains(a.ListeKatalogId.ToString())
+                                                 select a;
+            }
+            catch (Exception)
+            {
+            }
+
+            try
+            {
+                List<string> BrukerDatabasesystemerListe = BrukerCv.Kompetanse.Databasesystemer.Split(';').ToList();
+                ViewModel.BrukerDatabasesystemer = from a in Katalog
+                                                   where BrukerDatabasesystemerListe.Contains(a.ListeKatalogId.ToString())
+                                                   select a;
+            }
+            catch (Exception)
+            {
+            }
+
+            try
+            {
+                List<string> BrukerServersideListe = BrukerCv.Kompetanse.Serverside.Split(';').ToList();
+                ViewModel.BrukerServerside = from a in Katalog
+                                             where BrukerServersideListe.Contains(a.ListeKatalogId.ToString())
+                                             select a;
+            }
+            catch (Exception)
+            {
+            }
+
+            try
+            {
+                List<string> BrukerOperativsystemerListe = BrukerCv.Kompetanse.Operativsystemer.Split(';').ToList();
+                ViewModel.BrukerOperativsystemer = from a in Katalog
+                                                   where BrukerOperativsystemerListe.Contains(a.ListeKatalogId.ToString())
+                                                   select a;
+            }
+            catch (Exception)
+            {
+            }
+
+            try
+            {
+                List<string> BrukerAnnetListe = BrukerCv.Kompetanse.Annet.Split(';').ToList();
+                ViewModel.BrukerAnnet = from a in Katalog
+                                        where BrukerAnnetListe.Contains(a.ListeKatalogId.ToString())
+                                        select a;
+            }
+            catch (Exception)
+            {
+            }
+
+            return View(ViewModel);
         }
 
 

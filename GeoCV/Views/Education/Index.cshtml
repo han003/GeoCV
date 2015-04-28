@@ -53,9 +53,7 @@
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="my-education-tab">
 
-            <h4 id="elem-load">Henter utdannelse <i class="fa fa-spinner fa-spin"></i></h4>
-
-            <table id="education-table" class="table table-hover table-bordered hidden">
+            <table id="education-table" class="table table-hover table-bordered">
                 <thead>
                     <tr>
                         <th data-sort="string">Studiested <i class="fa pull-right hidden"></i></th>
@@ -66,8 +64,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                    
+
+                    @foreach (var BrukerUtdannelse in Model.Utdannelse)
+                    {
+                        <tr id="@BrukerUtdannelse.UtdannelseId">
+                            <td class="update-td col-lg-3">@BrukerUtdannelse.Studiested</td>
+                            <td class="update-td col-lg-5">@BrukerUtdannelse.Beskrivelse</td>
+                            <td class="update-td col-lg-1">@BrukerUtdannelse.Fra</td>
+                            <td class="update-td col-lg-1">@BrukerUtdannelse.Til</td>
+                            <td><a class="del-link col-lg-2">Slett</a></td>
+                        </tr>
+                    }
+
                 </tbody>
+
+
+
 
 
             </table>

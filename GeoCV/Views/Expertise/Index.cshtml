@@ -1,7 +1,7 @@
 ﻿@using System.Web.Optimization
 @using Microsoft.AspNet.Identity
 
-@model GeoCV.Models.CVVersjon
+@model GeoCV.Models.ExpertiseModel
 
 @{
     ViewBag.Title = "Nøkkelkompetanse";
@@ -36,43 +36,43 @@
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="programming-tab">
 
-                    @Html.Partial("_TabInnhold", new ViewDataDictionary { { "Tab", "Programmeringsspråk" } })
+                    @Html.Partial("_TabInnhold", Model, new ViewDataDictionary { { "Tab", "Programmeringsspråk" }, { "Bruker", Model.BrukerProgrammeringsspråk } })
 
                 </div>
 
                 <div role="tabpanel" class="tab-pane" id="framework-tab">
 
-                    @Html.Partial("_TabInnhold", new ViewDataDictionary { { "Tab", "Rammeverk" } })
+                    @Html.Partial("_TabInnhold", Model, new ViewDataDictionary { { "Tab", "Rammeverk" }, { "Bruker", Model.BrukerRammeverk } })
 
                 </div>
 
                 <div role="tabpanel" class="tab-pane" id="web-tech-tab">
 
-                    @Html.Partial("_TabInnhold", new ViewDataDictionary { { "Tab", "WebTeknologier" } })
+                    @Html.Partial("_TabInnhold", Model, new ViewDataDictionary { { "Tab", "WebTeknologier" }, { "Bruker", Model.BrukerWebTeknologier } })
 
                 </div>
 
                 <div role="tabpanel" class="tab-pane" id="database-tab">
 
-                    @Html.Partial("_TabInnhold", new ViewDataDictionary { { "Tab", "Databasesystemer" } })
+                    @Html.Partial("_TabInnhold", Model, new ViewDataDictionary { { "Tab", "Databasesystemer" }, { "Bruker", Model.BrukerDatabasesystemer } })
 
                 </div>
 
                 <div role="tabpanel" class="tab-pane" id="server-tab">
 
-                    @Html.Partial("_TabInnhold", new ViewDataDictionary { { "Tab", "Serverside" } })
+                    @Html.Partial("_TabInnhold", Model, new ViewDataDictionary { { "Tab", "Serverside" }, { "Bruker", Model.BrukerServerside } })
 
                 </div>
 
                 <div role="tabpanel" class="tab-pane" id="os-tab">
 
-                    @Html.Partial("_TabInnhold", new ViewDataDictionary { { "Tab", "Operativsystemer" } })
+                    @Html.Partial("_TabInnhold", Model, new ViewDataDictionary { { "Tab", "Operativsystemer" }, { "Bruker", Model.BrukerOperativsystemer } })
 
                 </div>
 
                 <div role="tabpanel" class="tab-pane" id="other-tab">
-                    
-                    @Html.Partial("_TabInnhold", new ViewDataDictionary { { "Tab", "Annet" } })
+
+                    @Html.Partial("_TabInnhold", Model, new ViewDataDictionary { { "Tab", "Annet" }, { "Bruker", Model.BrukerAnnet } })
 
                 </div>
 
