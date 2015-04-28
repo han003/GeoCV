@@ -15,37 +15,43 @@ namespace GeoCV.Controllers
         // GET: Personal
         public ActionResult Index()
         {
-            CVVersjon BrukerCv = GetUserCV();
+            // Opprett model
+            PersonalModel ViewModel = new PersonalModel();
 
+            // Hent CV
+            CVVersjon BrukerCv = GetBrukerCv(GetAspNetBrukerID());
+            ViewModel.BrukerCv = BrukerCv;
+            
             var Nasjonaliteter = from a in db.ListeKatalog
                                  where a.Katalog == "Nasjonaliteter"
                                  orderby a.Element ascending
                                  select a;
+            ViewModel.Nasjonaliteter = Nasjonaliteter;
 
             var Stillinger = from a in db.ListeKatalog
                              where a.Katalog == "Stillinger"
                              orderby a.Element ascending
                              select a;
+            ViewModel.Stillinger = Stillinger;
 
             var Språk = from a in db.ListeKatalog
                         where a.Katalog == "Språk"
                         orderby a.Element ascending
                         select a;
-
-            List<string> BrukerSpråkListe = BrukerCv.Person.Språk.Split(';').ToList();
-
-            var BrukerSpråk = from a in db.ListeKatalog
-                              where BrukerSpråkListe.Contains(a.ListeKatalogId.ToString())
-                              select a;
-
-
-            PersonalModel ViewModel = new PersonalModel();
-            ViewModel.BrukerCv = BrukerCv;
-            ViewModel.Nasjonaliteter = Nasjonaliteter;
-            ViewModel.Stillinger = Stillinger;
             ViewModel.Språk = Språk;
-            ViewModel.BrukerSpråk = BrukerSpråk;
 
+            // Prøv om det er noen verdier i stringen til språk
+            try
+            {
+                List<string> BrukerSpråkListe = BrukerCv.Person.Språk.Split(';').ToList();
+                var BrukerSpråk = from a in db.ListeKatalog
+                                  where BrukerSpråkListe.Contains(a.ListeKatalogId.ToString())
+                                  select a;
+                ViewModel.BrukerSpråk = BrukerSpråk;
+            }
+            catch (Exception)
+            {
+            }
 
             return View(ViewModel);
         }
@@ -53,7 +59,7 @@ namespace GeoCV.Controllers
         [HttpGet]
         public ActionResult GetLanguages()
         {
-            string UserId = GetAspNetUserID();
+            string UserId = GetAspNetBrukerID();
 
             var BrukerSpråk = from a in db.CVVersjon
                               where a.AspNetUserId.Equals(UserId)
@@ -78,7 +84,7 @@ namespace GeoCV.Controllers
         [HttpPost]
         public void Update(string Update, string Value)
         {
-            CVVersjon Cv = GetUserCV();
+            CVVersjon Cv = GetBrukerCv(GetAspNetBrukerID());
 
             switch (Update)
             {

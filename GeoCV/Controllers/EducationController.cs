@@ -16,13 +16,20 @@ namespace GeoCV.Controllers
         // GET: Education
         public ActionResult Index()
         {
-            return View(GetUserCV());
+            return View(GetBrukerCv(GetAspNetBrukerID()));
         }
 
         [HttpPost]
         public ActionResult AddNewEducation(string Skole, string Beskrivelse, Int16 Fra, Int16 Til)
         {
-            CVVersjon Cv = GetUserCV();
+            CVVersjon Cv = GetBrukerCv(GetAspNetBrukerID());
+
+            if (Fra > Til)
+            {
+                Int16 NyFra = Til;
+                Til = Fra;
+                Fra = NyFra;
+            }
 
             Utdannelse NewItem = new Utdannelse();
             NewItem.Studiested = Skole;
@@ -40,7 +47,7 @@ namespace GeoCV.Controllers
         [HttpPost]
         public void DeleteElement(int Id)
         {
-            var Utdannelse = GetUserCV().Utdannelse;
+            var Utdannelse = GetBrukerCv(GetAspNetBrukerID()).Utdannelse;
 
             Utdannelse ValgtUtdannelse = new Utdannelse();
 
@@ -59,7 +66,7 @@ namespace GeoCV.Controllers
         [HttpPost]
         public void ChangeElement(int Id, string NewValue, string Kolonne)
         {
-            var Utdannelse = GetUserCV().Utdannelse;
+            var Utdannelse = GetBrukerCv(GetAspNetBrukerID()).Utdannelse;
 
             foreach (var Item in Utdannelse)
             {

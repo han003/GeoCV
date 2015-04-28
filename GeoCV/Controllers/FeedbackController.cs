@@ -23,7 +23,7 @@ namespace GeoCV.Controllers
         [HttpPost]
         public void SendFeedback(string Feedback)
         {
-            var Bruker = GetUserCV().Person;
+            var Bruker = GetBrukerCv(GetAspNetBrukerID()).Person;
 
             Feedback NewFeedback = new Feedback();
             NewFeedback.Beskjed = Feedback;

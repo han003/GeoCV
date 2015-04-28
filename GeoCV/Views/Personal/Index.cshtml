@@ -116,7 +116,14 @@
                 <div class="form-group">
                     <label for="birthday-date" class="col-lg-2 control-label">Fødselsdato</label>
                     <div class="col-lg-8">
-                        <input id="birthday-date" value="@Model.BrukerCv.Person.Fødselsår.Value.ToString("dd. MMMM yyyy")" class="form-control" type="text">
+                        @if (Model.BrukerCv.Person.Fødselsår.Equals(null))
+                        {
+                            <input id="birthday-date" value="" class="form-control" type="text">
+                        }
+                        else
+                        {
+                            <input id="birthday-date" value="@Model.BrukerCv.Person.Fødselsår.Value.ToString("dd. MMMM yyyy")" class="form-control" type="text">
+                        }
                     </div>
                     <div id="Fødselsår-label" class="col-lg-2 side-label hidden">
                         <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
@@ -165,7 +172,14 @@
                 <div class="form-group">
                     <label for="@Html.DisplayNameFor(m => Model.BrukerCv.Person.ÅrErfaring)-txt" class="col-lg-2 control-label">År erfaring før Geomatikk</label>
                     <div class="col-lg-8">
-                        <input type="text" class="form-control update-txt col-lg-8" value="@Model.BrukerCv.Person.ÅrErfaring" id="@Html.DisplayNameFor(m => Model.BrukerCv.Person.ÅrErfaring)-txt">
+                        @if (Model.BrukerCv.Person.ÅrErfaring.Equals(null))
+                        {
+                            <input type="text" class="form-control update-txt col-lg-8" value="" id="@Html.DisplayNameFor(m => Model.BrukerCv.Person.ÅrErfaring)-txt">
+                        }
+                        else
+                        {
+                            <input type="text" class="form-control update-txt col-lg-8" value="@Model.BrukerCv.Person.ÅrErfaring" id="@Html.DisplayNameFor(m => Model.BrukerCv.Person.ÅrErfaring)-txt">
+                        }
                     </div>
                     <div id="ÅrErfaring-label" class="col-lg-2 side-label hidden">
                         <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
@@ -175,7 +189,14 @@
                 <div class="form-group">
                     <label for="geomatikk-start-date" class="col-lg-2 control-label">Startdato i Geomatikk</label>
                     <div class="col-lg-8">
-                        <input id="geomatikk-start-date" value="@Model.BrukerCv.Person.StartDato.Value.ToString("dd. MMMM yyyy")" class="form-control" type="text">
+                        @if (Model.BrukerCv.Person.StartDato.Equals(null))
+                        {
+                            <input id="geomatikk-start-date" value="" class="form-control" type="text">
+                        }
+                        else
+                        {
+                            <input id="geomatikk-start-date" value="@Model.BrukerCv.Person.StartDato.Value.ToString("dd. MMMM yyyy")" class="form-control" type="text">
+                        }
                     </div>
                     <div id="StartDato-label" class="col-lg-2 side-label hidden">
                         <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>

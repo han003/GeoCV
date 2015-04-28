@@ -14,7 +14,7 @@ namespace GeoCV.Controllers
 {
 
     [Authorize]
-    public class DownloadController : BaseController
+    public class PdfController : BaseController
     {
 
 
@@ -28,9 +28,9 @@ namespace GeoCV.Controllers
             return FontFactory.GetFont("Verdana", Tekststørrelse, Font.BOLD);
         }
 
-        public ActionResult Pdf()
+        public ActionResult LastNed(string AspNetId)
         {
-            CVVersjon BrukerCv = GetUserCV();
+            CVVersjon BrukerCv = GetBrukerCv(AspNetId);
 
             string FileName = BrukerCv.Person.Fornavn + " " + BrukerCv.Person.Etternavn + " - CV";
 
@@ -38,7 +38,6 @@ namespace GeoCV.Controllers
 
             Document CvPDF = new Document();
             PdfWriter.GetInstance(CvPDF, new FileStream(FilePath, FileMode.Create));
-
 
             CreateCv(CvPDF, BrukerCv);
 

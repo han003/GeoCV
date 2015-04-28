@@ -14,13 +14,13 @@ namespace GeoCV.Controllers
     {
         public ActionResult Index()
         {
-            return View(GetUserCV());
+            return View(GetBrukerCv(GetAspNetBrukerID()));
         }
 
         [HttpPost]
         public void Update(string Update, Boolean Value)
         {
-            CVVersjon Cv = GetUserCV();
+            CVVersjon Cv = GetBrukerCv(GetAspNetBrukerID());
 
             switch (Update)
             {
@@ -77,6 +77,10 @@ namespace GeoCV.Controllers
 
                 case "Operativsystemer":
                     Cv.Innstillinger.Operativsystemer = Value;
+                    break;
+
+                case "Annet":
+                    Cv.Innstillinger.Annet = Value;
                     break;
 
                 case "Utdannelse":

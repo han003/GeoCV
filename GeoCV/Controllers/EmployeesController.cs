@@ -17,13 +17,14 @@ namespace GeoCV.Controllers
         // GET: Employees
         public ActionResult Index()
         {
-            var CVer = from a in db.CVVersjon
-                       select a;
+            var Ansatte = from a in db.CVVersjon
+                          orderby a.Person.Fornavn ascending
+                          select a;
 
-            return View(CVer);
+            return View(Ansatte);
         }
 
-        public ActionResult ChangeUser(int Id)
+        public ActionResult EndreBruker(int Id)
         {
             // Finn ansatt med riktig ID
             var Query = from a in db.CVVersjon
@@ -80,23 +81,6 @@ namespace GeoCV.Controllers
             user.LockoutEnabled = true;
             user.LockoutEndDateUtc = DateTime.Now.AddYears(100);
             UserMan.Update(user);
-        }
-
-        [HttpGet]
-        public ActionResult GetEmployees()
-        {
-            var Employees = from a in db.CVVersjon
-                            orderby a.CVVersjonId descending
-                            select new
-                            {
-                                a.CVVersjonId,
-                                a.Aktiv,
-                                a.Person.Fornavn,
-                                a.Person.Mellomnavn,
-                                a.Person.Etternavn
-                            };
-
-            return Json(Employees, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

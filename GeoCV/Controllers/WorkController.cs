@@ -14,13 +14,19 @@ namespace GeoCV.Controllers
         // GET: Work
         public ActionResult Index()
         {
-            return View();
+            WorkModel NyModel = new WorkModel();
+            NyModel.BrukerCv = GetBrukerCv(GetAspNetBrukerID());
+            NyModel.Stillinger = from a in db.ListeKatalog
+                                 where a.Katalog.Equals("Stillinger")
+                                 select a;
+
+            return View(NyModel);
         }
 
         [HttpPost]
-        public void AddNewWork(string Arbeidsplass, string Stilling, string Beskrivelse, bool Nåværende, Int16 Fra, Int16 Til)
+        public ActionResult AddNewWork(string Arbeidsplass, string Stilling, string Beskrivelse, bool Nåværende, Int16 Fra, Int16 Til)
         {
-            CVVersjon Cv = GetUserCV();
+            CVVersjon Cv = GetBrukerCv(GetAspNetBrukerID());
 
             // Sjekk om den nye stillingen er satt som nåværende
             if (Nåværende)
@@ -59,38 +65,14 @@ namespace GeoCV.Controllers
             Cv.Arbeidserfaring.Add(NewItem);
 
             db.SaveChanges();
-        }
 
-        [HttpGet]
-        public ActionResult GetArbeidserfaring()
-        {
-            var Arbeidserfaring = GetUserCV().Arbeidserfaring;
-
-            List<Arbeidserfaring> ArbeidserfaringList = new List<Arbeidserfaring>();
-
-            foreach (var Item in Arbeidserfaring)
-            {
-                Arbeidserfaring NyArbeidserfaring = new Arbeidserfaring();
-                NyArbeidserfaring.ArbeidserfaringId = Item.ArbeidserfaringId;
-                NyArbeidserfaring.Arbeidsplass = Item.Arbeidsplass;
-                NyArbeidserfaring.Stilling = Item.Stilling;
-                NyArbeidserfaring.Nåværende = Item.Nåværende;
-                NyArbeidserfaring.Beskrivelse = Item.Beskrivelse;
-                NyArbeidserfaring.Fra = Item.Fra;
-                NyArbeidserfaring.Til = Item.Til;
-
-                ArbeidserfaringList.Add(NyArbeidserfaring);
-            }
-
-            List<Arbeidserfaring> SortertListe = ArbeidserfaringList.OrderByDescending(a => a.Fra).ToList();
-
-            return Json(SortertListe, JsonRequestBehavior.AllowGet);
+            return Json(NewItem.ArbeidserfaringId, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public void DeleteElement(int Id)
         {
-            var Arbeidserfaring = GetUserCV().Arbeidserfaring;
+            var Arbeidserfaring = GetBrukerCv(GetAspNetBrukerID()).Arbeidserfaring;
 
             Arbeidserfaring ValgtArbeidserfaring = new Arbeidserfaring();
 
@@ -109,7 +91,7 @@ namespace GeoCV.Controllers
         [HttpPost]
         public void ChangeElement(int Id, string NewValue, string Kolonne)
         {
-            var Arbeidserfaring = GetUserCV().Arbeidserfaring;
+            var Arbeidserfaring = GetBrukerCv(GetAspNetBrukerID()).Arbeidserfaring;
 
             foreach (var Item in Arbeidserfaring)
             {

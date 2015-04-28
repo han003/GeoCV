@@ -40,7 +40,7 @@
 
                 @Html.Partial("_Partial", Model.Innstillinger.Nasjonalitet, new ViewDataDictionary { { "Setting", "Nasjonalitet" } })
 
-                @Html.Partial("_Partial", Model.Innstillinger.Fødselsår, new ViewDataDictionary { { "Setting", "Fødselsår" } })
+                @Html.Partial("_Partial", Model.Innstillinger.Fødselsår, new ViewDataDictionary { { "Setting", "Fødselsdato" } })
 
             </form>
 
@@ -65,6 +65,8 @@
                 @Html.Partial("_Partial", Model.Innstillinger.Serverside, new ViewDataDictionary { { "Setting", "Serverside" } })
 
                 @Html.Partial("_Partial", Model.Innstillinger.Operativsystemer, new ViewDataDictionary { { "Setting", "Operativsystemer" } })
+
+                @Html.Partial("_Partial", Model.Innstillinger.Annet, new ViewDataDictionary { { "Setting", "Annet" } })
 
             </form>
 

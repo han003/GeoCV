@@ -14,7 +14,7 @@ namespace GeoCV.Controllers
     {
         public ActionResult Index()
         {
-            CVVersjon BrukerCv = GetUserCV();
+            CVVersjon BrukerCv = GetBrukerCv(GetAspNetBrukerID());
 
             var Prosjekter = from a in db.Prosjekt
                              select a;
@@ -53,7 +53,7 @@ namespace GeoCV.Controllers
         public void LeggTilProsjekt(int ProsjektId)
         {
             // Bruker data
-            var Bruker = GetUserCV();
+            var Bruker = GetBrukerCv(GetAspNetBrukerID());
 
             // Prosjekt data
             var Data = from a in db.Prosjekt
@@ -78,7 +78,7 @@ namespace GeoCV.Controllers
         [HttpGet]
         public ActionResult GetMineProsjekter()
         {
-            CVVersjon BrukerCv = GetUserCV();
+            CVVersjon BrukerCv = GetBrukerCv(GetAspNetBrukerID());
 
             var Data = from a in db.Medlem
                        where a.Person.PersonId.Equals(BrukerCv.Person.PersonId)
@@ -101,7 +101,7 @@ namespace GeoCV.Controllers
         public void EndreStilling(int ProsjektId, int NyStilling)
         {
             // Bruker data
-            var Bruker = GetUserCV();
+            var Bruker = GetBrukerCv(GetAspNetBrukerID());
 
             // Prosjekt data
             var Data = from a in db.Medlem
@@ -118,7 +118,7 @@ namespace GeoCV.Controllers
         public void EndreDato(int ProsjektId, string NyDato, string Type)
         {
             // Bruker data
-            var Bruker = GetUserCV();
+            var Bruker = GetBrukerCv(GetAspNetBrukerID());
 
             // Prosjekt data
             var Data = from a in db.Medlem

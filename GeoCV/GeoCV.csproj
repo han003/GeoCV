@@ -222,7 +222,7 @@
     <Compile Include="Controllers\DatabaseController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DocXController.cs" />
-    <Compile Include="Controllers\DownloadController.cs" />
+    <Compile Include="Controllers\PdfController.cs" />
     <Compile Include="Controllers\EditProjectController.cs" />
     <Compile Include="Controllers\EducationController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
@@ -293,6 +293,7 @@
     <Compile Include="Models\Utdannelse.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\WorkModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

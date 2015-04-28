@@ -15,7 +15,7 @@ namespace GeoCV.Controllers
         public ActionResult Index()
         {
             // Bruker CV
-            CVVersjon BrukerCv = GetUserCV();
+            CVVersjon BrukerCv = GetBrukerCv(GetAspNetBrukerID());
 
             // Model for å sendte til View
             ExpertiseModel ViewModel = new ExpertiseModel();
@@ -110,7 +110,7 @@ namespace GeoCV.Controllers
         [HttpPost]
         public void Update(string Update, string Value)
         {
-            CVVersjon Cv = GetUserCV();
+            CVVersjon Cv = GetBrukerCv(GetAspNetBrukerID());
 
             switch (Update)
             {

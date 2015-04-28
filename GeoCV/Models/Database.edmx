@@ -58,6 +58,7 @@
           <Property Name="Databasesystemer" Type="bit" Nullable="false" />
           <Property Name="Serverside" Type="bit" Nullable="false" />
           <Property Name="Operativsystemer" Type="bit" Nullable="false" />
+          <Property Name="Annet" Type="bit" Nullable="false" />
           <Property Name="Utdannelse" Type="bit" Nullable="false" />
           <Property Name="Arbeidserfaring" Type="bit" Nullable="false" />
           <Property Name="Prosjekter" Type="bit" Nullable="false" />
@@ -345,6 +346,7 @@
           <Property Name="Databasesystemer" Type="Boolean" Nullable="false" />
           <Property Name="Serverside" Type="Boolean" Nullable="false" />
           <Property Name="Operativsystemer" Type="Boolean" Nullable="false" />
+          <Property Name="Annet" Type="Boolean" Nullable="false" />
           <Property Name="Utdannelse" Type="Boolean" Nullable="false" />
           <Property Name="Arbeidserfaring" Type="Boolean" Nullable="false" />
           <Property Name="Prosjekter" Type="Boolean" Nullable="false" />
@@ -639,6 +641,7 @@
                 <ScalarProperty Name="Databasesystemer" ColumnName="Databasesystemer" />
                 <ScalarProperty Name="Serverside" ColumnName="Serverside" />
                 <ScalarProperty Name="Operativsystemer" ColumnName="Operativsystemer" />
+                <ScalarProperty Name="Annet" ColumnName="Annet" />
                 <ScalarProperty Name="Utdannelse" ColumnName="Utdannelse" />
                 <ScalarProperty Name="Arbeidserfaring" ColumnName="Arbeidserfaring" />
                 <ScalarProperty Name="Prosjekter" ColumnName="Prosjekter" />

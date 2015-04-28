@@ -29,7 +29,6 @@
         });
     });
 
-    refreshTable();
 });
 
 $('#work-add-btn').click(function () {
@@ -37,26 +36,26 @@ $('#work-add-btn').click(function () {
     $(this).blur();
 
     // Hent variabler
-    var workplace = $('#text-work-place').val();
-    var role = $('#text-work-role').val();
-    var description = $('#text-work-description').val();
-    var from = $('#work-select-from').val();
-    var to = $('#work-select-to').val();
+    var arbeidsplass = $('#text-work-place').val();
+    var stilling = $('#select-work-role').val();
+    var beskrivelse = $('#text-work-description').val();
+    var fra = $('#work-select-from').val();
+    var til = $('#work-select-to').val();
     var nåværende = ($('#nåværende-radio-btn label.active input').val() === 'true');
+
+    console.log(stilling);
 
     $.ajax({
         url: '/Work/AddNewWork',
-        data: { Arbeidsplass: workplace, Stilling: role, Beskrivelse: description, Nåværende: nåværende, Fra: from, Til: to },
+        data: { Arbeidsplass: arbeidsplass, Stilling: stilling, Beskrivelse: beskrivelse, Nåværende: nåværende, Fra: fra, Til: til },
         type: 'POST',
         beforeSend: function () {
             $('#work-add-btn').html('Legger til ny arbeidserfaring <i class="fa fa-spinner fa-spin"></i>');
         },
-        success: function (data) {
+        success: function (id) {
 
             // Tilbakestill ting
-            $('#text-work-place').val('');
-            $('#text-work-role').val('');
-            $('#text-work-description').val('');
+            $('#text-work-place, #text-work-role, #text-work-description').val('');
             $('#nåværende-radio-btn label:first').addClass('active');
             $('#nåværende-radio-btn label:last').removeClass('active');
             $('#work-select-to').closest('.form-group').removeClass('hidden');
@@ -64,69 +63,38 @@ $('#work-add-btn').click(function () {
             $('#work-select-to').val($('#work-select-to option:first').val());
             $('#work-add-btn').html('Legg til arbeidserfaring');
 
-            refreshTable();
+            console.log(id);
+
+            // Markup for å legge til utdannelsen i tabellen
+            var template = '<tr id="' + id + '">' +
+                                '<td data-id="' + id + '" data-stilling="' + stilling + '" data-kolonne="Arbeidsplass" data-verdi="' + arbeidsplass + '" class="update-td col-lg-2">' + arbeidsplass + '</td>' +
+                                '<td data-id="' + id + '" data-stilling="' + stilling + '" data-kolonne="Stilling" data-verdi="' + stilling + '" class="update-td col-lg-2">' + stilling + '</td>' +
+                                '<td data-id="' + id + '" data-stilling="' + stilling + '" data-kolonne="Beskrivelse" data-verdi="' + beskrivelse + '" class="update-td col-lg-2">' + beskrivelse + '</td>' +
+                                '<td data-id="' + id + '" data-stilling="' + stilling + '" data-kolonne="Fra" data-verdi="' + fra + '" class="update-td col-lg-2">' + fra + '</td>' +
+                                '<td data-id="' + id + '" data-stilling="' + stilling + '" data-kolonne="Til" data-verdi="' + ((nåværende) ? 'Nåværende' : til) + '" class="update-td col-lg-2">' + ((nåværende) ? 'Nåværende' : til) + '</td>' +
+                                '<td><a data-id="' + id + '" class="del-link col-lg-2">Slett</a></td>' +
+                            '</tr>';
+
+            // Finn nåværende hvis den eksisterer og bytt ut teksten med året som er nå
+            $('tbody td:contains("Nåværende")').html(new Date().getFullYear());
+
+            // Legg til
+            if (nåværende) {
+                $('tbody').prepend(template);
+            } else {
+                $('tbody').append(template);
+            }
+            
         }
     });
 
 });
 
-function refreshTable() {
-    $('table').addClass('hidden');
-    $('#elem-load').removeClass('hidden');
-
-    $.ajax({
-        url: '/Work/GetArbeidserfaring',
-        type: 'GET',
-        success: function (data) {
-            console.log(data);
-
-            // Fjern html så vi kan legge til på nytt
-            $('tbody').html('');
-
-            $.each(data, function (index, value) {
-
-                
-
-                var jobbId = value['ArbeidserfaringId'];
-                var arbeidsplass = value['Arbeidsplass'];
-                var stilling = value['Stilling'];
-                var nåværende = value['Nåværende'];
-                var beskrivelse = value['Beskrivelse'];
-                var fra = value['Fra'];
-                var til = (nåværende) ? 'Nåværende' : value['Til'];
-
-                // For valg av tekst å bruke
-                var template = '<tr id="' + jobbId + '">' +
-                                '<td class="update-td col-lg-2">' + arbeidsplass + '</td>' +
-                                '<td class="update-td col-lg-2">' + stilling + '</td>' +
-                                '<td class="update-td col-lg-4">' + beskrivelse + '</td>' +
-                                '<td class="update-td col-lg-1">' + fra + '</td>' +
-                                '<td class="update-td col-lg-1">' + til + '</td>' +
-                                '<td><a class="del-link col-lg-2">Slett</a></td>' +
-                            '</tr>';
-
-                if (nåværende) {
-                    $('tbody').prepend(template);
-                } else {
-                    $('tbody').append(template);
-                }
-            });
-
-            $('#elem-load').addClass('hidden');
-            $('table').removeClass('hidden');
-        }
-    });
-}
-
 $(document).on('click', '.del-link', function () {
 
-    console.log('Deleting..');
-
-    var elementId = $(this).closest('tr').attr('id');
+    var elementId = $(this).data('id');
     var trElement = $(this).closest('tr');
     var tdElement = $(this).closest('td');
-
-    tdElement.html('Sletter <i class="fa fa-spinner fa-spin"></i>');
 
     console.log('Id: ' + elementId);
 
@@ -134,9 +102,10 @@ $(document).on('click', '.del-link', function () {
         url: '/Work/DeleteElement',
         data: { Id: elementId },
         type: 'POST',
+        beforeSend: function(){
+            tdElement.html('Sletter <i class="fa fa-spinner fa-spin"></i>');
+        },
         success: function () {
-            console.log('Success');
-
             trElement.remove();
         }
     });
@@ -150,38 +119,25 @@ $('#editModal').on('shown.bs.modal', function (e) {
 $(document).on('click', '.update-td', function () {
 
     // Skjul alle elementer i modalen
-    $('#edit-txt').addClass('hidden');
-    $('#modal-select').addClass('hidden');
-    $('#nåværendeTekst').addClass('hidden');
+    $('#edit-txt, #modal-select, #nåværendeTekst, #editLoader').addClass('hidden');
 
     // Vis OK knappen i tilfellet den er skjult
     $('#editmodalAddItem').removeClass('hidden');
 
-    // Velg td elementet
-    var tdElement = $(this);
-
-    // Hent td index
-    var tdIndex = tdElement.index();
-
-    // Velg tr elementet
-    var trElement = tdElement.closest('tr');
+    // Finn indexen til tden som ble valgt
+    var tdIndex = $(this).index();
 
     // IDen til det som skal oppdateres
-    var elementId = trElement.attr('id');
+    var elementId = $(this).data('id');
 
     // Hent nåverende verdi
-    var editVal = tdElement.html().trim();
+    var editVal = $(this).data('verdi');
 
     // Hent arbeidsplass
-    var arbeidsplass = tdElement.parent().children('td').first().html();
+    var stilling = $(this).data('stilling');
 
     // Hent det som skal endres i databasen fra tablehead
-    var kolonneHtml = $('#work-table').find('th').eq(tdIndex).html();
-    var kolonne = kolonneHtml.substring(0, kolonneHtml.indexOf('<')).trim();
-
-    if (kolonne == '') {
-        kolonne = kolonneHtml;
-    }
+    var kolonne = $(this).data('kolonne');
 
     console.log(elementId + ' - ' + editVal + ' - ' + kolonne);
 
@@ -191,10 +147,11 @@ $(document).on('click', '.update-td', function () {
     // Lagre ID, index og kolonne til videre bruk
     $('#editModal').data('elementId', elementId);
     $('#editModal').data('dbKolonne', kolonne);
+    $('#editModal').data('tdIndex', tdIndex);
 
     // Vis relevante felter i modalen
     if (editVal === 'Nåværende') {
-        $('#nåværendeTekst').removeClass('hidden').html('<strong>' + arbeidsplass + '</strong> er satt som din nåværende stilling og dato kan ikke endres.<br />Vennligst legg til en ny stilling som nåværende for å endre.');
+        $('#nåværendeTekst').removeClass('hidden').html('<strong>' + stilling + '</strong> er satt som din nåværende stilling og dato kan ikke endres.<br />Vennligst legg til en ny stilling som nåværende for å endre.');
         $('#editmodalAddItem').addClass('hidden');
 
     } else if (kolonne == 'Fra' || kolonne == 'Til') {
@@ -205,9 +162,6 @@ $(document).on('click', '.update-td', function () {
         $('#edit-txt').removeClass('hidden');
         $('#edit-txt').val(editVal);
     }
-
-    // Skjul loading animasjonen
-    $('#editLoader').addClass('hidden');
 
     // Åpne modalen
     $('#editModal').modal();

@@ -185,6 +185,7 @@ namespace GeoCV.Controllers
                     CvInnstillinger.Databasesystemer = true;
                     CvInnstillinger.Serverside = true;
                     CvInnstillinger.Operativsystemer = true;
+                    CvInnstillinger.Annet = true;
                     CvInnstillinger.Utdannelse = true;
                     CvInnstillinger.Arbeidserfaring = true;
                     CvInnstillinger.Prosjekter = true;

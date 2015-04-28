@@ -32,54 +32,7 @@
         });
     });
 
-    getAnsatte();
-
 });
-
-function getAnsatte() {
-
-    $('#employee-load').removeClass('hidden');
-    $('table').addClass('hidden');
-
-    $.ajax({
-        url: '/Employees/GetEmployees',
-        dataType: 'json',
-        type: 'GET',
-        success: function (data) {
-
-            console.log(data);
-
-            var template = '';
-
-            $.each(data, function (index, value) {
-
-                var fornavn = (value['Fornavn'] != null) ? value['Fornavn'] : '';
-                var mellomnavn = (value['Mellomnavn'] != null) ? value['Mellomnavn'] : '';
-                var etternavn = (value['Etternavn'] != null) ? value['Etternavn'] : '';
-                var id = value['CVVersjonId'];
-                var aktiv = value['Aktiv'];
-
-                // For valg av tekst å bruke
-                var aktivTekst = (aktiv) ? '<td class="col-lg-2">Aktiv (<a class="deactivate-link">Deaktiver</a>)</td>' : '<td class="col-lg-2">Ikke Aktiv (<a class="activate-link">Aktiver</a>)</td>';
-
-                template += '<tr id="' + id + '">' +
-                                '<td class="col-lg-3">' + fornavn + '</td>' +
-                                '<td class="col-lg-4">' + etternavn + '</td>' +
-                                aktivTekst +
-                                '<td class="col-lg-2"><a href="ChangeUser/' + id + '">Rediger bruker</a></td>' +
-                                '<td class="col-lg-1"><a class="del-link col-lg-2">Slett</a></td>' +
-                            '</tr>';
-
-            });
-
-            $('tbody').html(template);
-
-            $('#employee-load').addClass('hidden');
-            $('table').removeClass('hidden');
-        }
-    });
-}
-
 
 $('#ny-ansatt-btn').click(function () {
 

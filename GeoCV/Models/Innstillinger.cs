@@ -34,6 +34,7 @@ namespace GeoCV.Models
         public bool Databasesystemer { get; set; }
         public bool Serverside { get; set; }
         public bool Operativsystemer { get; set; }
+        public bool Annet { get; set; }
         public bool Utdannelse { get; set; }
         public bool Arbeidserfaring { get; set; }
         public bool Prosjekter { get; set; }

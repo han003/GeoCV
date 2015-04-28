@@ -15,17 +15,15 @@ namespace GeoCV.Controllers
     {
         public CvPortalEntities db = new CvPortalEntities();
 
-        public string GetAspNetUserID()
+        public string GetAspNetBrukerID()
         {
             return (Session["ShadowUser"] != null) ? Session["ShadowUser"].ToString() : User.Identity.GetUserId();
         }
 
-        public CVVersjon GetUserCV()
+        public CVVersjon GetBrukerCv(string AspNetId)
         {
-            string UserId = GetAspNetUserID();
-
             var Data = from a in db.CVVersjon
-                       where a.AspNetUserId.Equals(UserId)
+                       where a.AspNetUserId.Equals(AspNetId)
                        select a;
 
             return Data.FirstOrDefault();

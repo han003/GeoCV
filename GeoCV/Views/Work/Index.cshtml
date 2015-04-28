@@ -1,6 +1,8 @@
 ﻿@using System.Web.Optimization
 @using Microsoft.AspNet.Identity
 
+@model GeoCV.Models.WorkModel
+
 @{
     ViewBag.Title = "Arbeidserfaring";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -25,7 +27,7 @@
                 <h4 id="editLoader">Jobber <i class="fa fa-spinner fa-spin"></i></h4>
                 <input id="edit-txt" type="text" class="form-control" autocomplete="off">
                 <select id="modal-select" class="form-control">
-                    @for (var i = 0; i <= 100; i++)
+                    @for (var i = 0; i <= 70; i++)
                     {
                         <option>@(@DateTime.Now.Year - i)</option>
                     }
@@ -54,9 +56,7 @@
             <div class="row">
                 <div class="col-lg-12">
 
-                    <h4 id="elem-load">Laster arbeidserfaring.. <i class="fa fa-spinner fa-spin"></i></h4>
-
-                    <table id="work-table" class="table table-hover table-bordered hidden">
+                    <table id="work-table" class="table table-hover table-bordered">
                         <thead>
                             <tr>
                                 <th data-sort="string">Arbeidsplass <i class="fa pull-right hidden"></i></th>
@@ -67,7 +67,34 @@
                                 <th>Slett</th>
                             </tr>
                         </thead>
-                        <tbody></tbody>
+                        <tbody>
+
+                            @foreach (var Arbeid in Model.BrukerCv.Arbeidserfaring.Where(x => x.Nåværende.Equals(true)))
+                            {
+                                <tr id="@Arbeid.ArbeidserfaringId">
+                                    <td data-id="@Arbeid.ArbeidserfaringId" data-stilling="@Arbeid.Stilling" data-kolonne="Arbeidsplass" data-verdi="@Arbeid.Arbeidsplass" class="update-td col-lg-2">@Arbeid.Arbeidsplass</td>
+                                    <td data-id="@Arbeid.ArbeidserfaringId" data-stilling="@Arbeid.Stilling" data-kolonne="Stilling" data-verdi="@Arbeid.Stilling" class="update-td col-lg-2">@Arbeid.Stilling</td>
+                                    <td data-id="@Arbeid.ArbeidserfaringId" data-stilling="@Arbeid.Stilling" data-kolonne="Beskrivelse" data-verdi="@Arbeid.Beskrivelse" class="update-td col-lg-4">@Arbeid.Beskrivelse</td>
+                                    <td data-id="@Arbeid.ArbeidserfaringId" data-stilling="@Arbeid.Stilling" data-kolonne="Fra" data-verdi="@Arbeid.Fra" class="update-td col-lg-1">@Arbeid.Fra</td>
+                                    <td data-id="@Arbeid.ArbeidserfaringId" data-stilling="@Arbeid.Stilling" data-kolonne="Til" data-verdi="Nåværende" class="update-td col-lg-1">Nåværende</td>
+                                    <td><a data-id="@Arbeid.ArbeidserfaringId" class="del-link col-lg-2">Slett</a></td>
+                                </tr>
+                            }
+
+                            @foreach (var Arbeid in Model.BrukerCv.Arbeidserfaring.Where(x => x.Nåværende.Equals(false)).OrderByDescending(x => x.Til))
+                            {
+                                <tr id="@Arbeid.ArbeidserfaringId">
+                                    <td data-id="@Arbeid.ArbeidserfaringId" data-stilling="@Arbeid.Stilling" data-kolonne="Arbeidsplass" data-verdi="@Arbeid.Arbeidsplass" class="update-td col-lg-2">@Arbeid.Arbeidsplass</td>
+                                    <td data-id="@Arbeid.ArbeidserfaringId" data-stilling="@Arbeid.Stilling" data-kolonne="Stilling" data-verdi="@Arbeid.Stilling" class="update-td col-lg-2">@Arbeid.Stilling</td>
+                                    <td data-id="@Arbeid.ArbeidserfaringId" data-stilling="@Arbeid.Stilling" data-kolonne="Beskrivelse" data-verdi="@Arbeid.Beskrivelse" class="update-td col-lg-4">@Arbeid.Beskrivelse</td>
+                                    <td data-id="@Arbeid.ArbeidserfaringId" data-stilling="@Arbeid.Stilling" data-kolonne="Fra" data-verdi="@Arbeid.Fra" class="update-td col-lg-1">@Arbeid.Fra</td>
+                                    <td data-id="@Arbeid.ArbeidserfaringId" data-stilling="@Arbeid.Stilling" data-kolonne="Til" data-verdi="@Arbeid.Til" class="update-td col-lg-1">@Arbeid.Til</td>
+                                    <td><a data-id="@Arbeid.ArbeidserfaringId" class="del-link col-lg-2">Slett</a></td>
+                                </tr>
+                            }
+
+                        </tbody>
+
                     </table>
                 </div>
             </div>
@@ -81,18 +108,21 @@
                     <div class="col-lg-8">
                         <input id="text-work-place" type="text" class="form-control" autocomplete="off">
                     </div>
-                    <div id="text-work-place-label" class="col-lg-2 side-label hidden">
-                        <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
-                    </div>
                 </div>
 
                 <div class="form-group">
                     <label for="text-work-place" class="col-lg-2 control-label">Stilling</label>
                     <div class="col-lg-8">
-                        <input id="text-work-role" type="text" class="form-control" autocomplete="off">
-                    </div>
-                    <div id="text-work-role-label" class="col-lg-2 side-label hidden">
-                        <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
+
+                        <select id="select-work-role" class="form-control stilling-select">
+
+                            @foreach (var Stilling in Model.Stillinger)
+                            {
+                                <option value="@Stilling.Element">@Stilling.Element</option>
+                            }
+
+                        </select>
+
                     </div>
                 </div>
 
@@ -100,9 +130,6 @@
                     <label for="text-work-description" class="col-lg-2 control-label">Beskrivelse</label>
                     <div class="col-lg-8">
                         <input id="text-work-description" type="text" class="form-control" autocomplete="off">
-                    </div>
-                    <div id="text-work-description-label" class="col-lg-2 side-label hidden">
-                        <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
                     </div>
                 </div>
 
@@ -118,9 +145,6 @@
                             </label>
                         </div>
                     </div>
-                    <div id="nåværende-radio-btn-label" class="col-lg-2 side-label hidden">
-                        <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
-                    </div>
                 </div>
 
                 <div class="form-group">
@@ -132,9 +156,6 @@
                                 <option>@(@DateTime.Now.Year - i)</option>
                             }
                         </select>
-                    </div>
-                    <div id="work-select-from-label" class="col-lg-2 side-label hidden">
-                        <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
                     </div>
                 </div>
 
@@ -148,17 +169,11 @@
                             }
                         </select>
                     </div>
-                    <div id="work-select-to-label" class="col-lg-2 side-label hidden">
-                        <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
-                    </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-lg-8 col-lg-offset-2">
                         <button id="work-add-btn" class="btn btn-success" type="button">Legg til arbeidserfaring</button>
-                    </div>
-                    <div id="work-add-btn-label" class="col-lg-2 side-label hidden">
-                        <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
                     </div>
                 </div>
 
