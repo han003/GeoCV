@@ -60,21 +60,27 @@ namespace GeoCV.Controllers
         }
 
         [HttpPost]
-        public void AddElement(string NyttElement, string Katalog)
+        public ActionResult AddElement(string NyttElement, string Katalog)
         {
             var Data = from a in db.ListeKatalog
                        where a.Element.Equals(NyttElement) && a.Katalog.Equals(Katalog)
                        select a;
 
+            int NyId = 0;
+
             if (Data.Count() == 0)
             {
-                ListeKatalog NewItem = new ListeKatalog();
-                NewItem.Katalog = Katalog;
-                NewItem.Element = NyttElement.Trim();
-                db.ListeKatalog.Add(NewItem);
+                ListeKatalog NyOppføring = new ListeKatalog();
+                NyOppføring.Katalog = Katalog;
+                NyOppføring.Element = NyttElement.Trim();
+                db.ListeKatalog.Add(NyOppføring);
 
                 db.SaveChanges();
+
+                NyId = NyOppføring.ListeKatalogId;
             }
+
+            return Json(NyId, JsonRequestBehavior.AllowGet);
         }
     }
 }

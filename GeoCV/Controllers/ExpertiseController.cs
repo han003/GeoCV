@@ -23,6 +23,7 @@ namespace GeoCV.Controllers
             // Legg til Katalog
             var Katalog = from a in db.ListeKatalog
                           where a.Katalog != "Nasjonaliteter" || a.Katalog != "Stillinger" || a.Katalog != "Språk"
+                          orderby a.Element descending
                           select a;
             ViewModel.Katalog = Katalog;
 
@@ -104,119 +105,6 @@ namespace GeoCV.Controllers
             }
 
             return View(ViewModel);
-        }
-
-
-        [HttpGet]
-        public ActionResult GetElements(string Katalog)
-        {
-            // Hent ID til bruker
-            string UserId = GetAspNetUserID();
-
-            IQueryable Bruker = Enumerable.Empty<IQueryable>().AsQueryable();
-
-            switch (Katalog)
-            {
-                case "Programmeringsspråk":
-                    Bruker = GetProgrammeringsspråk(UserId);
-                    break;
-                case "Rammeverk":
-                    Bruker = GetRammeverk(UserId);
-                    break;
-                case "WebTeknologier":
-                    Bruker = GetWebteknologier(UserId);
-                    break;
-                case "Databasesystemer":
-                    Bruker = GetDatabasesystemer(UserId);
-                    break;
-                case "Serverside":
-                    Bruker = GetServerside(UserId);
-                    break;
-                case "Operativsystemer":
-                    Bruker = GetOperativsystemer(UserId);
-                    break;
-                case "Annet":
-                    Bruker = GetAnnet(UserId);
-                    break;
-            }
-
-            var Element = from a in db.ListeKatalog
-                          where a.Katalog == Katalog
-                          orderby a.Element ascending
-                          select new
-                          {
-                              a.ListeKatalogId,
-                              a.Element
-                          };
-
-            List<IQueryable> Kombinert = new List<IQueryable>();
-            Kombinert.Add(Bruker);
-            Kombinert.Add(Element);
-
-            return Json(Kombinert, JsonRequestBehavior.AllowGet);
-        }
-
-        private IQueryable GetProgrammeringsspråk(string UserId)
-        {
-            var Bruker = from a in db.CVVersjon
-                         where a.AspNetUserId.Equals(UserId)
-                         select a.Kompetanse.Programmeringsspråk;
-
-            return Bruker;
-        }
-
-        private IQueryable GetRammeverk(string UserId)
-        {
-            var Bruker = from a in db.CVVersjon
-                         where a.AspNetUserId.Equals(UserId)
-                         select a.Kompetanse.Rammeverk;
-
-            return Bruker;
-        }
-
-        private IQueryable GetWebteknologier(string UserId)
-        {
-            var Bruker = from a in db.CVVersjon
-                         where a.AspNetUserId.Equals(UserId)
-                         select a.Kompetanse.WebTeknologier;
-
-            return Bruker;
-        }
-
-        private IQueryable GetDatabasesystemer(string UserId)
-        {
-            var Bruker = from a in db.CVVersjon
-                         where a.AspNetUserId.Equals(UserId)
-                         select a.Kompetanse.Databasesystemer;
-
-            return Bruker;
-        }
-
-        private IQueryable GetServerside(string UserId)
-        {
-            var Bruker = from a in db.CVVersjon
-                         where a.AspNetUserId.Equals(UserId)
-                         select a.Kompetanse.Serverside;
-
-            return Bruker;
-        }
-
-        private IQueryable GetOperativsystemer(string UserId)
-        {
-            var Bruker = from a in db.CVVersjon
-                         where a.AspNetUserId.Equals(UserId)
-                         select a.Kompetanse.Operativsystemer;
-
-            return Bruker;
-        }
-
-        private IQueryable GetAnnet(string UserId)
-        {
-            var Bruker = from a in db.CVVersjon
-                         where a.AspNetUserId.Equals(UserId)
-                         select a.Kompetanse.Annet;
-
-            return Bruker;
         }
 
         [HttpPost]

@@ -1,7 +1,4 @@
-﻿body {
-  overflow-y: scroll;
-}
-.tab-content {
+﻿.tab-content {
   padding: 15px;
   border: 1px solid #dddddd;
   border-top: none;

@@ -1,4 +1,4 @@
-﻿@model GeoCV.Models.ExpertiseModel
+﻿@model GeoCV.Models.PersonalModel
 
 <div class="row col-lg-12 filter-row">
     <div class="col-lg-4">
@@ -20,7 +20,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var Element in Model.Katalog.Where(x => x.Katalog.Equals(ViewData["Tab"])).OrderBy(x => x.Element))
+                    @foreach (var Element in Model.Språk.Where(x => x.Katalog.Equals(ViewData["Tab"])).OrderBy(x => x.Element))
                     {
                         bool LagtTil = false;
                         <tr>

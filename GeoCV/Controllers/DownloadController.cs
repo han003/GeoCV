@@ -16,7 +16,7 @@ namespace GeoCV.Controllers
     [Authorize]
     public class DownloadController : BaseController
     {
-        
+
 
         private Font NormalFont(int Tekststørrelse)
         {
@@ -49,7 +49,7 @@ namespace GeoCV.Controllers
 
             return File(Bytes, "application/pdf", FileName + ".pdf");
         }
-        
+
         private Document CreateCv(Document CvPDF, CVVersjon BrukerCv)
         {
             CvPDF.Open();
@@ -78,8 +78,11 @@ namespace GeoCV.Controllers
             CvPDF = Nasjonalitet(CvPDF, 144, BrukerCv);
 
             // ÅR ERFARING
+            int StartDato = BrukerCv.Person.StartDato.Value.Year;
+            int ÅrErfaring = Int32.Parse(BrukerCv.Person.ÅrErfaring.ToString()) + DateTime.Now.Year - StartDato;
+
             Paragraph ÅrErfaringEtikett = new Paragraph("Antall år relevant erfaring", FetFont(11));
-            Paragraph AnsattÅrErfaring = new Paragraph(BrukerCv.Person.ÅrErfaring.ToString() + " år", NormalFont(11));
+            Paragraph AnsattÅrErfaring = new Paragraph(ÅrErfaring + " år", NormalFont(11));
             CvPDF.Add(LeggTilTabell(ÅrErfaringEtikett, AnsattÅrErfaring, 144));
 
             // SPRÅK
@@ -105,23 +108,25 @@ namespace GeoCV.Controllers
             Paragraph Header = new Paragraph("Nøkkelkompetanse", FetFont(11));
             CvPDF.Add(LeggTilTabell(Header, null, 100));
 
-            // Programmeringsspråk
-            CvPDF.Add(LeggTilNøkkelkompetanse("Programmeringsspråk", 144, BrukerCv));
+            List<string> KompetanseListe = new List<string>();
+            KompetanseListe.Add("Programmeringsspråk");
+            KompetanseListe.Add("Rammeverk");
+            KompetanseListe.Add("WebTeknologier");
+            KompetanseListe.Add("Databasesystemer");
+            KompetanseListe.Add("Serverside");
+            KompetanseListe.Add("Operativsystemer");
+            KompetanseListe.Add("Annet");
 
-            // Rammeverk
-            CvPDF.Add(LeggTilNøkkelkompetanse("Rammeverk", 144, BrukerCv));
-
-            // WebTeknologier
-            CvPDF.Add(LeggTilNøkkelkompetanse("WebTeknologier", 144, BrukerCv));
-
-            // Databasesystemer
-            CvPDF.Add(LeggTilNøkkelkompetanse("Databasesystemer", 144, BrukerCv));
-
-            // Serverside
-            CvPDF.Add(LeggTilNøkkelkompetanse("Serverside", 144, BrukerCv));
-
-            // Operativsystemer
-            CvPDF.Add(LeggTilNøkkelkompetanse("Operativsystemer", 144, BrukerCv));
+            foreach (var Kompetanse in KompetanseListe)
+            {
+                try
+                {
+                    CvPDF.Add(LeggTilNøkkelkompetanse(Kompetanse, 144, BrukerCv));
+                }
+                catch (Exception)
+                {
+                }
+            }
 
             CvPDF.Add(Chunk.NEWLINE);
             return CvPDF;
@@ -171,6 +176,10 @@ namespace GeoCV.Controllers
                 case "Språk":
                     AnsattEkspertise = Ansatt.Person.Språk;
                     break;
+
+                case "Annet":
+                    AnsattEkspertise = Ansatt.Kompetanse.Annet;
+                    break;
             }
 
             // Prøv å legg IDer i en liste
@@ -192,9 +201,9 @@ namespace GeoCV.Controllers
                 // Fjern overfløding i starten
                 Innhold = Innhold.Substring(2);
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                Console.WriteLine("{0} Exception caught.", e);
+                return null;
             }
 
             Paragraph EkspertiseParagraf = (Ekspertise.Equals("Språk")) ? new Paragraph(Ekspertise, FetFont(11)) : new Paragraph(Ekspertise, NormalFont(11));
@@ -210,7 +219,7 @@ namespace GeoCV.Controllers
 
             var AnsattUtdannelse = BrukerCv.Utdannelse;
 
-            foreach (var Item in AnsattUtdannelse)
+            foreach (var Item in AnsattUtdannelse.OrderByDescending(x => x.Fra).ToList())
             {
                 string Etikett = Item.Fra + " - " + Item.Til;
                 string Innhold = Item.Beskrivelse + ". " + Item.Studiested;
@@ -230,20 +239,34 @@ namespace GeoCV.Controllers
             Paragraph Header = new Paragraph("Arbeidserfaring", FetFont(11));
             CvPDF.Add(LeggTilTabell(Header, null, 100));
 
-            var AnsattArbeidserfaring = BrukerCv.Arbeidserfaring;
+            var AnsattArbeidserfaring = BrukerCv.Arbeidserfaring.OrderByDescending(x => x.Fra).ToList();
 
-            foreach (var Item in AnsattArbeidserfaring)
+            // Sjekk om nåværende eksisterer først
+            foreach (var Item in AnsattArbeidserfaring.Where(x => x.Nåværende.Equals(true)))
             {
-                string Etikett;
-                if (Item.Nåværende)
-                {
-                    Etikett = Item.Fra + " - " + Int16.Parse(DateTime.Now.Year.ToString());
-                }
-                else
-                {
-                    Etikett = Item.Fra + " - " + Item.Til;
-                }
+                string Etikett = Item.Fra + " - ";
+                string Innhold = "Rolle: " + Item.Stilling + "\n" + Item.Beskrivelse;
 
+                Paragraph EtikettParagraf = new Paragraph(Etikett, FetFont(11));
+
+                // Paragrafer som er stylet
+                Paragraph ArbeidsplassParagraf = new Paragraph(Item.Arbeidsplass + ". ", FetFont(11));
+                Paragraph InnholdsParagraf = new Paragraph(Innhold, NormalFont(11));
+
+                // Paragraf for å holde de to andre paragrafene som har forskjellig stil
+                Paragraph TotalInnholdParagraf = new Paragraph();
+
+                // Legg til
+                TotalInnholdParagraf.Add(ArbeidsplassParagraf);
+                TotalInnholdParagraf.Add(InnholdsParagraf);
+
+                CvPDF.Add(LeggTilTabell(EtikettParagraf, TotalInnholdParagraf, 100));
+            }
+
+            // Legg til alt annet under nåværende
+            foreach (var Item in AnsattArbeidserfaring.Where(x => x.Nåværende.Equals(false)))
+            {
+                string Etikett = Item.Fra + " - " + Item.Til;
                 string Innhold = "Rolle: " + Item.Stilling + "\n" + Item.Beskrivelse;
 
                 Paragraph EtikettParagraf = new Paragraph(Etikett, FetFont(11));

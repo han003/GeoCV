@@ -1,10 +1,10 @@
-﻿#filter-row {
+﻿.filter-row {
   margin-bottom: 20px;
 }
 .element-table tr:hover i {
-  color: rgba(44, 213, 37, 0.84);
+  color: #0aef00;
 }
 .bruker-table tr:hover i {
-  color: rgba(230, 58, 58, 0.84);
+  color: #e63a3a;
 }
 /*# sourceMappingURL=expertise.css.map */

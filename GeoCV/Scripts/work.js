@@ -10,7 +10,7 @@
         // $(this) - this table object
 
         $.each($('#work-table th i'), function (index, value) {
-            console.log(index);
+
             if (index == kolonneIndex) {
                 $(this).removeClass('hidden');
                 $(this).removeClass('fa-sort-desc');
@@ -170,14 +170,14 @@ $(document).on('click', '.update-td', function () {
     var elementId = trElement.attr('id');
 
     // Hent nåverende verdi
-    var editVal = tdElement.html();
+    var editVal = tdElement.html().trim();
 
     // Hent arbeidsplass
     var arbeidsplass = tdElement.parent().children('td').first().html();
 
     // Hent det som skal endres i databasen fra tablehead
     var kolonneHtml = $('#work-table').find('th').eq(tdIndex).html();
-    var kolonne = kolonneHtml.substring(0, kolonneHtml.indexOf('<'));
+    var kolonne = kolonneHtml.substring(0, kolonneHtml.indexOf('<')).trim();
 
     if (kolonne == '') {
         kolonne = kolonneHtml;

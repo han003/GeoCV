@@ -14,9 +14,27 @@
     @Scripts.Render("~/Bundles/js/expertise")
 }
 
+<!-- Modal -->
+<div class="modal fade" id="leggTilModal" tabindex="-1" role="dialog" aria-labelledby="leggTilModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="leggTilModalLabel">Legg til</h4>
+            </div>
+            <div class="modal-body">
+                Vil du legge til <code id="modalLeggTilElement"></code> i katalogen <code id="modalLeggTilKatalog"></code>?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Avbryt (Esc)</button>
+                <button id="modal-LeggTil-btn" type="button" class="btn btn-primary">Legg til (Enter)</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-lg-12">
-
 
 
         <div role="tabpanel">

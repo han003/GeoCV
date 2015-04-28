@@ -5,11 +5,9 @@ $('.table-filter').keyup(function () {
 
     // Hent tekst som er skrevet inn
     var filterTekst = $(this).val();
-    console.log('Filter: ' + filterTekst);
 
     // Finn riktig katalog
-    var filterKatalog = $(this).attr('id').replace('-filter', '');
-    console.log('Katalog: ' + filterKatalog);
+    var filterKatalog = $(this).data('katalog');
 
     // Gå gjennom alle radene og legg IDene i en string
     $('#' + filterKatalog + '-alle-tabell tbody tr').each(function () {
@@ -34,6 +32,7 @@ $('.table-filter').keyup(function () {
 $('body').on('click', '.add-item-btn', function () {
 
     // Variabler
+    var tdElement = $(this).parent();
     var id = $(this).data('id');
     var katalog = $(this).data('katalog');
     var nyttElement = $(this).data('element');
@@ -45,20 +44,22 @@ $('body').on('click', '.add-item-btn', function () {
                                                      '</tr>');
 
     // Oppdater
-    oppdaterDatabase(katalog);
+    oppdaterDatabase(katalog, tdElement);
 
 });
 
 // What happens when removing a button
 $('body').on('click', '.remove-item-btn', function () {
 
+    var tdElement = $(this).parent();
     var katalog = $(this).data('katalog');
     $(this).closest('tr').remove();
 
-    oppdaterDatabase(katalog);
+    oppdaterDatabase(katalog, tdElement);
+
 });
 
-function oppdaterDatabase(katalog) {
+function oppdaterDatabase(katalog, tdElement) {
 
     // Tom variabel for å holde teksten
     var newValue = '';
@@ -76,5 +77,74 @@ function oppdaterDatabase(katalog) {
     console.log('Value: ' + newValue);
 
     // Update
-    $.post('/Expertise/Update', { Update: katalog, Value: newValue });
+    $.ajax({
+        url: '/Expertise/Update',
+        data: { Update: katalog, Value: newValue },
+        type: 'POST',
+        beforeSend: function () {
+
+            // Vis loading
+            tdElement.html('<i class="fa fa-spinner fa-spin"></i>');
+
+        },
+        success: function (id) {
+
+            tdElement.html('Lagt til');
+
+        }
+    });
 }
+
+$('.legg-til-element-btn').click(function () {
+
+    $(this).blur();
+
+    var katalog = $(this).data('katalog');
+    var element = $('#' + katalog + '-filter').val().trim();
+
+    console.log(element + ' i ' + katalog);
+
+    // Endre tekst
+    $('#modalLeggTilElement').html(element);
+    $('#modalLeggTilKatalog').html(katalog);
+
+    // Endre data i modalen sin legg til knapp
+    $('#modal-LeggTil-btn').data('katalog', katalog);
+    $('#modal-LeggTil-btn').data('element', element);
+
+    // Vis modal
+    $('#leggTilModal').modal();
+});
+
+$('#modal-LeggTil-btn').click(function () {
+
+    // Hent data
+    var katalog = $('#modal-LeggTil-btn').data('katalog');
+    var element = $('#modal-LeggTil-btn').data('element');
+
+    $.ajax({
+        url: '/Database/AddElement',
+        data: { NyttElement: element, Katalog: katalog },
+        type: 'POST',
+        beforeSend: function () {
+
+            // Vis loading
+            $('#modal-LeggTil-btn').html('<i class="fa fa-spinner fa-spin"></i>');
+
+        },
+        success: function (id) {
+
+            // Gammel tekst
+            $('#modal-LeggTil-btn').html('Legg til');
+
+            // Fjern modal
+            $('#leggTilModal').modal('hide')
+
+            // Legg til html
+            $('#' + katalog + '-alle-tabell tbody').append('<tr>' +
+                                                             '<td class="col-lg-5">' + element + '</td>' +
+                                                             '<td class="col-lg-1"><i data-katalog="' + katalog + '" data-id="' + id + '" data-element="' + element + '" class="fa fa-plus-square fa-lg add-item-btn"></i></td>' +
+                                                             '</tr>');
+        }
+    });
+});
