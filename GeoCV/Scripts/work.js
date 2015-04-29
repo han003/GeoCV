@@ -65,6 +65,13 @@ $('#work-add-btn').click(function () {
 
             console.log(id);
 
+            // Stokker om hvis datoene er i feil rekkefølge
+            if (fra > til) {
+                var nyFra = til;
+                til = fra;
+                fra = nyFra;
+            }
+
             // Markup for å legge til utdannelsen i tabellen
             var template = '<tr id="' + id + '">' +
                                 '<td data-id="' + id + '" data-stilling="' + stilling + '" data-kolonne="Arbeidsplass" data-verdi="' + arbeidsplass + '" class="update-td col-lg-2">' + arbeidsplass + '</td>' +
@@ -75,11 +82,11 @@ $('#work-add-btn').click(function () {
                                 '<td><a data-id="' + id + '" class="del-link col-lg-2">Slett</a></td>' +
                             '</tr>';
 
-            // Finn nåværende hvis den eksisterer og bytt ut teksten med året som er nå
-            $('tbody td:contains("Nåværende")').html(new Date().getFullYear());
-
+            
             // Legg til
             if (nåværende) {
+                // Finn nåværende hvis den eksisterer og bytt ut teksten med året som er nå
+                $('tbody td:contains("Nåværende")').html(new Date().getFullYear());
                 $('tbody').prepend(template);
             } else {
                 $('tbody').append(template);

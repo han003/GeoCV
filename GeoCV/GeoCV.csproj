@@ -260,6 +260,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Database.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\EditProjectModel.cs" />
     <Compile Include="Models\ExpertiseModel.cs" />
     <Compile Include="Models\Feedback.cs">
       <DependentUpon>Database.tt</DependentUpon>
@@ -721,6 +722,7 @@
     </Content>
     <Content Include="Views\Expertise\_TabInnhold.cshtml" />
     <Content Include="Views\Personal\_TabInnhold.cshtml" />
+    <Content Include="Views\Shared\_Layout2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

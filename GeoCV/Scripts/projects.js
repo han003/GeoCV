@@ -28,8 +28,6 @@
 
         });
     });
-
-    getProsjekter();
 });
 
 $('#prosjekt-filter').keyup(function () {
@@ -41,20 +39,17 @@ $('#prosjekt-filter').keyup(function () {
     $('#prosjekt-tabell tbody tr').each(function () {
 
         // Prosjekt tekst
-        var prosjektTekst = $(this).find('a').html().toLowerCase();
+        var prosjektNavn = $(this).data('navn').toLowerCase();
 
         // Kunde tekst
-        var kundeTekst = $(this).children('td').html().toLowerCase();
+        var prosjektKunde = $(this).data('kunde').toLowerCase();
 
         // Beskrivelse tekst
-        var beskrivelseTekst = $(this).children('td').next().next().html().toLowerCase();
+        var prosjektBeskrivelse = $(this).data('beskrivelse').toLowerCase();
 
         // Sjekk om elementet inneholder filter teksten
-        if (prosjektTekst.indexOf(filterTekst) >= 0 || kundeTekst.indexOf(filterTekst) >= 0 || beskrivelseTekst.indexOf(filterTekst) >= 0) {
+        if (prosjektNavn.indexOf(filterTekst) >= 0 || prosjektKunde.indexOf(filterTekst) >= 0 || prosjektBeskrivelse.indexOf(filterTekst) >= 0) {
             // Inneholder, så vis
-
-            console.log(prosjektTekst + kundeTekst + beskrivelseTekst + ': ' + filterTekst);
-
             $(this).removeClass('hidden');
         } else {
             // Skjul
@@ -64,54 +59,14 @@ $('#prosjekt-filter').keyup(function () {
     });
 });
 
-function getProsjekter() {
-    $('#edit-elem-load').removeClass('hidden');
-    $('table').addClass('hidden');
-
-    $.ajax({
-        url: '/Projects/getProsjekter',
-        type: 'GET',
-        success: function (data) {
-            console.log(data);
-
-            var template = '';
-
-            $.each(data, function (index, value) {
-
-                var prosjektId = value['ProsjektId'];
-                var prosjektKunde = value['Kunde'];
-                var prosjektNavn = value['Navn'];
-                var prosjektBeskrivelse = value['Beskrivelse'];
-                var prosjektFra = value['Fra'];
-                var prosjektTil = value['Til'];
-
-                var linkText = '/EditProject/Index/' + prosjektId;
-
-                // For valg av tekst å bruke
-                template += '<tr id="' + prosjektId + '">' +
-                                '<td class="col-lg-3">' + prosjektKunde + '</td>' +
-                                '<td class="col-lg-3"><a href="' + linkText + '">' + prosjektNavn + '</a></td>' +
-                                '<td class="col-lg-3">' + prosjektBeskrivelse + '</td>' +
-                                '<td class="col-lg-1"><a class="del-link">Slett</a></td>' +
-                            '</tr>';
-            });
-
-            $('tbody').html(template);
-
-            $('#edit-elem-load').addClass('hidden');
-            $('table').removeClass('hidden');
-        }
-    });
-}
-
 $(document).on('click', '.del-link', function () {
 
     // Prosjekt navn
-    var prosjektNavn = $(this).closest('tr').children('td').children('a').html();
+    var prosjektNavn = $(this).data('navn');
     console.log(prosjektNavn);
 
     // Prosjekt id
-    var prosjektId = $(this).closest('tr').attr('id');
+    var prosjektId = $(this).data('id');
     $('body').data('prosjektId', prosjektId);
     console.log(prosjektId);
 
@@ -124,6 +79,7 @@ $(document).on('click', '.del-link', function () {
 $('#slett-prosjekt-btn').click(function () {
 
     var prosjektId = $('body').data('prosjektId');
+    var trElement = $('#' + prosjektId).remove();
 
     $.ajax({
         url: '/Projects/SlettProsjekt',
@@ -162,28 +118,31 @@ $('#nytt-prosjekt-legg-til-btn').click(function () {
         data: { Kunde: prosjektKunde, Navn: prosjektNavn, Beskrivelse: prosjektBeskrivelse },
         type: 'POST',
         beforeSend: function () {
-
-            $('#nytt-prosjekt-legg-til-btn').html('Legger til.. <i class="fa fa-spinner fa-spin"></i>');
-
+            $('#nytt-prosjekt-legg-til-btn').html('Legger til prosjekt <i class="fa fa-spinner fa-spin"></i>');
         },
-        success: function () {
+        success: function (prosjektId) {
             console.log('Lagt til');
 
             // Tilbakestill tekstfelt
-            $('#ny-kunde-txt').val('');
-            $('#ny-prosjektnavn-txt').val('');
-            $('#ny-beskrivelse-txt').val('');
+            $('#nytt-prosjekt-tab input').val('');
 
             // Fjern loading animasjon
             $('#new-element-row').removeClass('hidden');
             $('#new-element-loading').addClass('hidden');
 
             // Endre tekst
-            $('#edit-elem-load').html('Oppdaterer prosjekter.. <i class="fa fa-spinner fa-spin"></i>');
             $('#nytt-prosjekt-legg-til-btn').html('Legg til nytt prosjekt');
 
-            // Oppdater prosjekter
-            getProsjekter();
+            // Legg til html
+            var linkText = '/EditProject/Index/' + prosjektId;
+            var template = '<tr id="' + prosjektId + '" data-id="' + prosjektId + '" data-kunde="' + prosjektKunde + '" data-navn="' + prosjektNavn + '" data-beskrivelse="' + prosjektBeskrivelse + '">' +
+                                '<td class="col-lg-3">' + prosjektKunde + '</td>' +
+                                '<td class="col-lg-3"><a href="' + linkText + '" target="_blank">' + prosjektNavn + '</a></td>' +
+                                '<td class="col-lg-3">' + prosjektBeskrivelse + '</td>' +
+                                '<td class="col-lg-1"><a class="del-link" data-id="' + prosjektId + '" data-navn="' + prosjektNavn + '">Slett</a></td>' +
+                            '</tr>';
+
+            $('#prosjekter-tab tbody').append(template);
         }
     });
 });

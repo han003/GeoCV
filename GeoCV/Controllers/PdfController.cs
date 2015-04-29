@@ -17,7 +17,6 @@ namespace GeoCV.Controllers
     public class PdfController : BaseController
     {
 
-
         private Font NormalFont(int Tekststørrelse)
         {
             return FontFactory.GetFont("Verdana", Tekststørrelse);
@@ -28,10 +27,23 @@ namespace GeoCV.Controllers
             return FontFactory.GetFont("Verdana", Tekststørrelse, Font.BOLD);
         }
 
-        public ActionResult LastNed(string AspNetId)
+        public ActionResult LastNed(int? Id)
         {
-            CVVersjon BrukerCv = GetBrukerCv(AspNetId);
+            CVVersjon BrukerCv = new CVVersjon();
 
+            if (Id.Equals(null))
+            {
+                BrukerCv = GetBrukerCv(GetAspNetBrukerID());
+            }
+            else
+            {
+                var Bruker = from a in db.CVVersjon
+                             where a.CVVersjonId == Id
+                             select a;
+
+                BrukerCv = Bruker.FirstOrDefault();
+            }
+            
             string FileName = BrukerCv.Person.Fornavn + " " + BrukerCv.Person.Etternavn + " - CV";
 
             var FilePath = Path.Combine(Path.GetTempPath(), "Temp.pdf");
@@ -77,7 +89,7 @@ namespace GeoCV.Controllers
             CvPDF = Nasjonalitet(CvPDF, 144, BrukerCv);
 
             // ÅR ERFARING
-            int StartDato = BrukerCv.Person.StartDato.Value.Year;
+            int StartDato = (BrukerCv.Person.StartDato.Equals(null)) ? 0 : BrukerCv.Person.StartDato.Value.Year;
             int ÅrErfaring = Int32.Parse(BrukerCv.Person.ÅrErfaring.ToString()) + DateTime.Now.Year - StartDato;
 
             Paragraph ÅrErfaringEtikett = new Paragraph("Antall år relevant erfaring", FetFont(11));
@@ -85,8 +97,14 @@ namespace GeoCV.Controllers
             CvPDF.Add(LeggTilTabell(ÅrErfaringEtikett, AnsattÅrErfaring, 144));
 
             // SPRÅK
-            CvPDF.Add(LeggTilNøkkelkompetanse("Språk", 144, BrukerCv));
-            CvPDF.Add(Chunk.NEWLINE);
+            try
+            {
+                CvPDF.Add(LeggTilNøkkelkompetanse("Språk", 144, BrukerCv));
+                CvPDF.Add(Chunk.NEWLINE);
+            }
+            catch (Exception)
+            {
+            }
 
             // NØKKELKOMPETANSE
             CvPDF = Nøkkelkompetanse(CvPDF, BrukerCv);

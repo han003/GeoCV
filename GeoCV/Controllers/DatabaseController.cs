@@ -13,22 +13,11 @@ namespace GeoCV.Controllers
         // GET: Database
         public ActionResult Index()
         {
-            return View();
-        }
+            var DatabaseElementer = from a in db.ListeKatalog
+                                    orderby a.Element ascending
+                                    select a;
 
-        [HttpGet]
-        public ActionResult GetDatabase()
-        {
-            var Data = from a in db.ListeKatalog
-                       orderby a.Element ascending
-                       select new
-                       {
-                           a.ListeKatalogId,
-                           a.Katalog,
-                           a.Element
-                       };
-
-            return Json(Data, JsonRequestBehavior.AllowGet);
+            return View(DatabaseElementer);
         }
 
         [HttpPost]

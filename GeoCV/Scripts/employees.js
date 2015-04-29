@@ -47,7 +47,7 @@ $('#ny-ansatt-btn').click(function () {
     $.ajax({
         url: '/Employees/RegistrerNyAnsatt',
         data: { Fornavn: Fornavn, Etternavn: Etternavn, Epost: Epost, Passord: Passord, Rolle: Rolle },
-        type: 'POST',
+        type: 'GET',
         beforeSend: function () {
 
             $('#ny-ansatt-btn').html('Legger til <i class="fa fa-spinner fa-pulse"></i>');
@@ -58,11 +58,6 @@ $('#ny-ansatt-btn').click(function () {
             $('input').val('');
             $('#Rolle-select').val('Bruker');
             $('#ny-ansatt-btn').html('Legg til');
-
-            getAnsatte();
-        },
-        error: function (data) {
-            console.log(data);
         }
     });
 
@@ -72,7 +67,7 @@ $(document).on('click', '.deactivate-link', function () {
 
     console.log('Deactivating..');
 
-    var userId = $(this).closest('tr').attr('id');
+    var userId = $(this).data('id');
     var tdElement = $(this).closest('td');
 
     console.log('Id: ' + userId);
@@ -99,7 +94,7 @@ $(document).on('click', '.activate-link', function () {
 
     console.log('Activating..');
 
-    var userId = $(this).closest('tr').attr('id');
+    var userId = $(this).data('id');
     var tdElement = $(this).closest('td');
 
     tdElement.html('Aktiverer <i class="fa fa-spinner fa-spin"></i>');

@@ -12,36 +12,15 @@ namespace GeoCV.Controllers
     {
         public ActionResult Index()
         {
-            return View();
-        }
-
-        [HttpGet]
-        public ActionResult GetProsjekter()
-        {
             var Prosjekter = from a in db.Prosjekt
                              orderby a.ProsjektId descending
                              select a;
 
-            List<Prosjekt> ProsjektListe = new List<Prosjekt>();
-
-            foreach (var Item in Prosjekter)
-            {
-                Prosjekt NyttProsjekt = new Prosjekt();
-                NyttProsjekt.ProsjektId = Item.ProsjektId;
-                NyttProsjekt.Kunde = Item.Kunde;
-                NyttProsjekt.Navn = Item.Navn;
-                NyttProsjekt.Beskrivelse = Item.Beskrivelse;
-                NyttProsjekt.Fra = Item.Fra;
-                NyttProsjekt.Til = Item.Til;
-
-                ProsjektListe.Add(NyttProsjekt);
-            }
-
-            return Json(ProsjektListe, JsonRequestBehavior.AllowGet);
+            return View(Prosjekter);
         }
 
         [HttpPost]
-        public void LeggTilProsjekt(string Kunde, string Navn, string Beskrivelse)
+        public ActionResult LeggTilProsjekt(string Kunde, string Navn, string Beskrivelse)
         {
             Prosjekt NewItem = new Prosjekt();
             NewItem.Kunde = Kunde.Trim();
@@ -52,6 +31,8 @@ namespace GeoCV.Controllers
             db.Prosjekt.Add(NewItem);
 
             db.SaveChanges();
+
+            return Json(NewItem.ProsjektId, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

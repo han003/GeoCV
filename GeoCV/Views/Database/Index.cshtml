@@ -1,6 +1,6 @@
 ﻿@using System.Web.Optimization
 
-@model GeoCV.Models.Prosjekt
+@model IEnumerable<GeoCV.Models.ListeKatalog>
 
 @{
     ViewBag.Title = "Database";
@@ -55,9 +55,8 @@
                 <div role="tabpanel" class="tab-pane active" id="edit-elem-tab">
                     <div class="row">
                         <div class="col-lg-6">
-                            <h4 id="edit-elem-load">Laster inn <i class="fa fa-spinner fa-pulse"></i></h4>
 
-                            <table id="database-tabell" class="table table-hover table-bordered hidden">
+                            <table id="database-tabell" class="table table-hover table-bordered">
                                 <thead>
                                     <tr>
                                         <th data-sort="string">Element <i class="fa pull-right hidden"></i></th>
@@ -65,7 +64,17 @@
                                         <th>Slett</th>
                                     </tr>
                                 </thead>
-                                <tbody></tbody>
+                                <tbody>
+                                    @foreach (var Oppføring in Model)
+                                    {
+                                        <tr id="@Oppføring.ListeKatalogId" data-katalog="@Oppføring.Katalog" data-element="@Oppføring.Element">
+                                            <td class="element-td col-lg-5" data-id="@Oppføring.ListeKatalogId" data-element="@Oppføring.Element">@Oppføring.Element</td>
+                                            <td class="katalog-td col-lg-5">@Oppføring.Katalog</td>
+                                            <td><a data-id="@Oppføring.ListeKatalogId" class="del-link col-lg-2">Slett</a></td>
+                                        </tr>
+                                    }
+                                </tbody>
+
                             </table>
 
                         </div>
@@ -76,34 +85,34 @@
 
                             <div id="btn-filter" class="btn-group" data-toggle="buttons">
                                 <label class="btn btn-primary">
-                                    <input id="Programmeringsspråk-check" type="checkbox" autocomplete="off">Programmeringsspråk
+                                    <input data-katalog="Programmeringsspråk" type="checkbox" autocomplete="off">Programmeringsspråk
                                 </label>
                                 <label class="btn btn-primary">
-                                    <input id="Rammeverk-check" type="checkbox" autocomplete="off">Rammeverk
+                                    <input data-katalog="Rammeverk" type="checkbox" autocomplete="off">Rammeverk
                                 </label>
                                 <label class="btn btn-primary">
-                                    <input id="WebTeknologier-check" type="checkbox" autocomplete="off">Web-teknologier
+                                    <input data-katalog="WebTeknologier" type="checkbox" autocomplete="off">Web-teknologier
                                 </label>
                                 <label class="btn btn-primary">
-                                    <input id="Databasesystemer-check" type="checkbox" autocomplete="off">Databasesystemer
+                                    <input data-katalog="Databasesystemer" type="checkbox" autocomplete="off">Databasesystemer
                                 </label>
                                 <label class="btn btn-primary">
-                                    <input id="Serverside-check" type="checkbox" autocomplete="off">Serverside
+                                    <input data-katalog="Serverside" type="checkbox" autocomplete="off">Serverside
                                 </label>
                                 <label class="btn btn-primary">
-                                    <input id="Operativsystemer-check" type="checkbox" autocomplete="off">Operativsystemer
+                                    <input data-katalog="Operativsystemer" type="checkbox" autocomplete="off">Operativsystemer
                                 </label>
                                 <label class="btn btn-primary">
-                                    <input id="Språk-check" type="checkbox" autocomplete="off">Språk
+                                    <input data-katalog="Språk" type="checkbox" autocomplete="off">Språk
                                 </label>
                                 <label class="btn btn-primary">
-                                    <input id="Stillinger-check" type="checkbox" autocomplete="off">Stillinger
+                                    <input data-katalog="Stillinger" type="checkbox" autocomplete="off">Stillinger
                                 </label>
                                 <label class="btn btn-primary">
-                                    <input id="Nasjonaliteter-check" type="checkbox" autocomplete="off">Nasjonaliteter
+                                    <input data-katalog="Nasjonaliteter" type="checkbox" autocomplete="off">Nasjonaliteter
                                 </label>
                                 <label class="btn btn-primary">
-                                    <input id="Annet-check" type="checkbox" autocomplete="off">Annet
+                                    <input data-katalog="Annet" type="checkbox" autocomplete="off">Annet
                                 </label>
                             </div>
 

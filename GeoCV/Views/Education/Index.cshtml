@@ -65,7 +65,7 @@
                 </thead>
                 <tbody>
 
-                    @foreach (var BrukerUtdannelse in Model.Utdannelse)
+                    @foreach (var BrukerUtdannelse in Model.Utdannelse.OrderByDescending(x => x.Til))
                     {
                         <tr id="@BrukerUtdannelse.UtdannelseId">
                             <td class="update-td col-lg-3">@BrukerUtdannelse.Studiested</td>

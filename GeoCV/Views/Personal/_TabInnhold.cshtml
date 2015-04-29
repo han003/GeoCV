@@ -26,14 +26,18 @@
                         <tr>
                             <td class="col-lg-5">@Element.Element</td>
 
-                            @foreach (var BrukerElement in ViewData["Bruker"] as IEnumerable<GeoCV.Models.ListeKatalog>)
+                            @if (ViewData["Bruker"] != null)
                             {
-                                if (BrukerElement.ListeKatalogId.Equals(Element.ListeKatalogId) && LagtTil.Equals(false))
+                                foreach (var BrukerElement in ViewData["Bruker"] as IEnumerable<GeoCV.Models.ListeKatalog>)
                                 {
-                                    <td class="col-lg-1">Lagt til</td>
-                                    LagtTil = true;
+                                    if (BrukerElement.ListeKatalogId.Equals(Element.ListeKatalogId) && LagtTil.Equals(false))
+                                    {
+                                        <td class="col-lg-1">Lagt til</td>
+                                        LagtTil = true;
+                                    }
                                 }
                             }
+                            
 
                             @if (LagtTil.Equals(false))
                             {
@@ -42,6 +46,8 @@
                         </tr>
                     }
                 </tbody>
+
+
 
             </table>
         </div>

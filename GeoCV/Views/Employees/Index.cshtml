@@ -47,15 +47,15 @@
                             <td class="col-lg-3">@Ansatt.Person.Etternavn</td>
                             @if (Ansatt.Aktiv)
                             {
-                                <td class="col-lg-2">Aktiv (<a class="deactivate-link">Deaktiver</a>)</td>
+                                <td class="col-lg-2">Aktiv (<a class="deactivate-link" data-id="@Ansatt.CVVersjonId">Deaktiver</a>)</td>
                             }
                             else
                             {
-                                <td class="col-lg-2">Ikke Aktiv (<a class="activate-link">Aktiver</a>)</td>
+                                <td class="col-lg-2">Ikke Aktiv (<a class="activate-link" data-id="@Ansatt.CVVersjonId">Aktiver</a>)</td>
                             }
                             <td class="col-lg-2">@Html.ActionLink("Rediger bruker", "EndreBruker", "Employees", new { Id = Ansatt.CVVersjonId }, null)</td>
-                            <td class="col-lg-3">@Html.ActionLink("Last ned", "LastNed", "Pdf", new { Id = Ansatt.AspNetUserId }, null)</td>
-                            <td class="col-lg-3">@Html.ActionLink("Slett", "SlettBruker", "Employees", new { Id = Ansatt.CVVersjonId }, null)</td>
+                            <td class="col-lg-1">@Html.ActionLink("Last ned", "LastNed", "Pdf", new { Id = Ansatt.CVVersjonId }, null)</td>
+                            <td class="col-lg-1">@Html.ActionLink("Slett", "SlettBruker", "Employees", new { Id = Ansatt.CVVersjonId }, null)</td>
                         </tr>
                     }
 

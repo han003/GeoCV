@@ -55,6 +55,13 @@ $('#education-add-btn').click(function () {
 
             console.log(data);
 
+            // Stokker om hvis datoene er i feil rekkefølge
+            if (fra > til) {
+                var nyFra = til;
+                til = fra;
+                fra = nyFra;
+            }
+
             // Markup for å legge til utdannelsen i tabellen
             var template =  '<tr id="' + data + '">' +
                                 '<td class="update-td col-lg-3">' + studiested + '</td>' +

@@ -11,18 +11,44 @@ namespace GeoCV.Controllers
     [Authorize(Roles = "Admin")]
     public class EditProjectController : BaseController
     {
+        public ActionResult Index(int Id)
+        {
+            EditProjectModel ViewModel = new EditProjectModel();
+            ViewModel.Prosjekt = GetProsjekt(Id);
+            ViewModel.TekniskeProfiler = GetTekniskeProfiler(Id);
+            ViewModel.KatalogElementer = GetKatalogElementer();
+
+            return View(ViewModel);
+        }
+
         private Prosjekt GetProsjekt(int Id)
         {
-            var Item = from a in db.Prosjekt
+            var Data = from a in db.Prosjekt
                        where a.ProsjektId.Equals(Id)
                        select a;
 
-            return Item.FirstOrDefault();
+            return Data.FirstOrDefault();
         }
 
-        public ActionResult Index(int Id)
+        private IEnumerable<ListeKatalog> GetKatalogElementer()
         {
-            return View(GetProsjekt(Id));
+            // Hent alt relatert til prosjekt fra databasen
+            var Items = from a in db.ListeKatalog
+                        where a.Katalog != "Stillinger" &&
+                              a.Katalog != "Nasjonaliteter" &&
+                              a.Katalog != "Språk"
+                        orderby a.Element ascending
+                        select a;
+
+            return Items;
+        }
+
+        private IEnumerable<TekniskProfil> GetTekniskeProfiler(int Id)
+        {
+            Prosjekt NåværendeProsjekt = GetProsjekt(Id);
+
+            IEnumerable<TekniskProfil> TekniskProfiler = NåværendeProsjekt.TekniskProfil;
+            return TekniskProfiler;
         }
 
         [HttpPost]
@@ -49,22 +75,6 @@ namespace GeoCV.Controllers
             db.SaveChanges();
         }
 
-        [HttpGet]
-        public ActionResult GetKatalogElementer()
-        {
-            // Hent alt relatert til prosjekt fra databasen
-            var Items = from a in db.ListeKatalog
-                        where a.Katalog != "Stillinger" &&
-                              a.Katalog != "Nasjonaliteter" &&
-                              a.Katalog != "Språk"
-                        orderby a.Element ascending
-                        select a;
-
-            // Send listen som et JSON elemnt til View
-            return Json(Items, JsonRequestBehavior.AllowGet);
-        }
-
-
         [HttpPost]
         public ActionResult LeggTilProfil(int Id, string Navn)
         {
@@ -81,28 +91,7 @@ namespace GeoCV.Controllers
             return Json(NyTekniskProfil.TekniskProfilId, JsonRequestBehavior.AllowGet);
         }
 
-
-        [HttpGet]
-        public ActionResult GetAlleTeknologier(int Id)
-        {
-            Prosjekt NåværendeProsjekt = GetProsjekt(Id);
-
-            List<TekniskProfil> ProfilListe = new List<TekniskProfil>();
-
-            foreach (var Profil in NåværendeProsjekt.TekniskProfil)
-            {
-
-                TekniskProfil NyProfil = new TekniskProfil();
-                NyProfil.TekniskProfilId = Profil.TekniskProfilId;
-                NyProfil.Navn = Profil.Navn;
-                NyProfil.Elementer = Profil.Elementer;
-                ProfilListe.Add(NyProfil);
-
-            }
-
-            // Send listen som et JSON elemnt til View
-            return Json(ProfilListe, JsonRequestBehavior.AllowGet);
-        }
+        
 
         [HttpPost]
         public void OppdaterProfil(int ProfilId, string Verdi)
@@ -142,40 +131,6 @@ namespace GeoCV.Controllers
             db.TekniskProfil.Remove(Profil);
 
             db.SaveChanges();
-        }
-
-        [HttpGet]
-        public ActionResult HentElementer(string Elementer)
-        {
-            string[] ElementIDer = Elementer.Split(';');
-            List<int> ElementIDerInt = new List<int>();
-
-            foreach (var ID in ElementIDer)
-            {
-                ElementIDerInt.Add(Int32.Parse(ID));
-            }
-
-            var Katalog = from a in db.ListeKatalog
-                          select a;
-
-            List<ListeKatalog> ProfilElementer = new List<ListeKatalog>();
-
-            foreach (var ElementID in ElementIDerInt)
-            {
-                foreach (var Item in Katalog)
-                {
-                    if (Item.ListeKatalogId.Equals(ElementID))
-                    {
-                        ListeKatalog Ny = new ListeKatalog();
-                        Ny.ListeKatalogId = Item.ListeKatalogId;
-                        Ny.Element = Item.Element;
-                        Ny.Katalog = Item.Katalog;
-                        ProfilElementer.Add(Ny);
-                    }
-                }
-            }
-
-            return Json(ProfilElementer, JsonRequestBehavior.AllowGet);
         }
     }
 }

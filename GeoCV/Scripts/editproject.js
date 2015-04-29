@@ -31,9 +31,6 @@ $(document).ready(function () {
 
         });
     });
-
-    getKatalogElementer();
-    leggTilTekniskeProfiler();
 });
 
 $('.table-filter').keyup(function () {
@@ -47,11 +44,8 @@ $('.table-filter').keyup(function () {
         // Element tekst
         var elementTekst = $(this).children('td').html().toLowerCase();
 
-        // Katalog tekst
-        var katalogTekst = $(this).children('td').next().html().toLowerCase();
-
         // Sjekk om elementet inneholder filter teksten
-        if (elementTekst.indexOf(filterTekst) >= 0 || katalogTekst.indexOf(filterTekst) >= 0) {
+        if (elementTekst.indexOf(filterTekst) >= 0) {
             // Inneholder, så vis
             $(this).removeClass('hidden');
         } else {
@@ -196,34 +190,6 @@ $(document).keypress(function (event) {
         endreProfilNavn();
     }
 });
-
-function getKatalogElementer() {
-
-    $.ajax({
-        url: '/EditProject/GetKatalogElementer',
-        type: 'GET',
-        dataType: 'json',
-        success: function (data) {
-
-            console.log(data);
-
-            var elementArray = new Array();
-            var idArray = new Array();
-
-            $.each(data, function (index, value) {
-                elementArray.push(value['Element']);
-                idArray.push(value['ListeKatalogId']);
-
-                // Lag tabell som viser alle elementer
-                $('#alle-elementer-tabell tbody').append('<tr id="' + value['ListeKatalogId'] + '">' +
-                                                               '<td class="col-lg-2">' + value['Element'] + '</td>' +
-                                                               '<td class="col-lg-3">' + value['Katalog'] + '</td>' +
-                                                               '<td class="col-lg-1">' + '<i class="fa fa-plus-square fa-lg add-item-btn"></i>' + '</td>' +
-                                                               '</tr>');
-            });
-        }
-    });
-}
 
 $('.update-txt').keyup(function () {
     updateProjectInfo($(this));
@@ -400,39 +366,6 @@ function oppdaterDatabase(profilTabell) {
     // Update
     $.post('/EditProject/OppdaterProfil', { ProfilId: profilId, Verdi: newValue });
 
-}
-
-
-function leggTilNyttPanel(profilId, navn){
-
-    var panelMal = '';
-
-    panelMal = '<div class="panel panel-default">' +
-                            '<div class="panel-heading" role="tab" id="' + navn + '-heading">' +
-                                '<h4 class="panel-title">' +                           // href="#' + navn + '-collapse"
-                                    '<a data-toggle="collapse" data-parent="#accordion" aria-expanded="false" aria-controls="' + navn + '-collapse">' +
-                                        navn + '<i class="fa fa-trash-o pull-right"></i><i class="fa fa-pencil-square-o pull-right"></i>' +
-                                    '</a>' +
-                                '</h4>' +
-                            '</div>' +
-                            '<div id="' + profilId + '-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="' + navn + '-heading">' +
-                                '<div class="panel-body">' +
-                                    '<table id="' + profilId + '-profil-table" class="table profil-tabell">' +
-                                        '<thead>' +
-                                            '<tr>' +
-                                                '<th class="col-lg-3">Element</th>' +
-                                                '<th class="col-lg-2">Katalog</th>' +
-                                                '<th class="col-lg-1"></th>' +
-                                            '</tr>' +
-                                        '</thead>' +
-                                        '<tbody>' +
-                                        '</tbody>' +
-                                    '</table>' +
-                                '</div>' +
-                            '</div>' +
-                        '</div>';
-
-    $('#accordion').prepend(panelMal);
 }
 
 function hentElementer(profilId, navn, elementer) {

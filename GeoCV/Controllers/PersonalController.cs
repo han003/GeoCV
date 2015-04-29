@@ -56,31 +56,6 @@ namespace GeoCV.Controllers
             return View(ViewModel);
         }
 
-        [HttpGet]
-        public ActionResult GetLanguages()
-        {
-            string UserId = GetAspNetBrukerID();
-
-            var BrukerSpråk = from a in db.CVVersjon
-                              where a.AspNetUserId.Equals(UserId)
-                              select a.Person.Språk;
-
-            var Språk = from a in db.ListeKatalog
-                        where a.Katalog == "Språk"
-                        orderby a.Element ascending
-                        select new
-                        {
-                            a.ListeKatalogId,
-                            a.Element
-                        };
-
-            List<IQueryable> Kombinert = new List<IQueryable>();
-            Kombinert.Add(BrukerSpråk);
-            Kombinert.Add(Språk);
-
-            return Json(Kombinert, JsonRequestBehavior.AllowGet);
-        }
-
         [HttpPost]
         public void Update(string Update, string Value)
         {

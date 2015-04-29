@@ -28,6 +28,5 @@ namespace GeoCV.Controllers
 
             return Data.FirstOrDefault();
         }
-
     }
 }

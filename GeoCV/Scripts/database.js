@@ -10,7 +10,7 @@
         // $(this) - this table object
 
         $.each($('#database-tabell th i'), function (index, value) {
-            console.log(index);
+
             if (index == kolonneIndex) {
                 $(this).removeClass('hidden');
                 $(this).removeClass('fa-sort-desc');
@@ -29,7 +29,6 @@
         });
     });
 
-    refreshTable();
 });
 
 $('button').click(function () {
@@ -37,15 +36,11 @@ $('button').click(function () {
 });
 
 $('#filter-txt').keyup(function () {
-
     filter();
-
 });
 
 $('label > input[type=checkbox]').on('change', function () {
-
     filter();
-
 });
 
 function filter() {
@@ -65,15 +60,12 @@ function filter() {
         var label = checkbox.parent('label'); // Checkboxen sin label
 
         // Navn på valgt katalog
-        var checkKatalog = checkbox.attr('id').substring(0, checkbox.attr('id').indexOf('-'));
+        var checkKatalog = checkbox.data('katalog');
 
         $('#database-tabell tbody tr').each(function () {
 
-            // Katalog tekst
-            var katalogTekst = $(this).children('td').next().html();
-
             // Sjekk om katalogen er valgt eller ikke
-            if (katalogTekst.indexOf(checkKatalog) >= 0) {
+            if ($(this).data('katalog').indexOf(checkKatalog) >= 0) {
                 // Inneholder, så vis
                 $(this).addClass('filter');
             }
@@ -90,10 +82,7 @@ function filter() {
     $('#database-tabell tbody tr').each(function () {
 
         // Element tekst
-        var elementTekst = $(this).children('td').html().toLowerCase();
-
-        // Katalog tekst
-        var katalogTekst = $(this).children('td').next().html().toLowerCase();
+        var elementTekst = $(this).data('element').toLowerCase();
 
         // Sjekk om elementet inneholder filter teksten
         if ((elementTekst.indexOf(filterTekst) >= 0) && $(this).hasClass('filter')) {
@@ -108,50 +97,12 @@ function filter() {
 
 }
 
-function refreshTable() {
-    $('#edit-elem-load').removeClass('hidden');
-    $('table').addClass('hidden');
-
-    $.ajax({
-        url: '/Database/GetDatabase',
-        type: 'GET',
-        success: function (data) {
-            console.log(data);
-
-            var template = '';
-
-            $.each(data, function (index, value) {
-
-                var id = value['ListeKatalogId'];
-                var element = value['Element'];
-                var katalog = value['Katalog'];
-
-                // For valg av tekst å bruke
-                template += '<tr id="' + id + '">' +
-                                '<td class="element-td col-lg-5">' + element + '</td>' +
-                                '<td class="katalog-td col-lg-5">' + katalog + '</td>' +
-                                '<td><a class="del-link col-lg-2">Slett</a></td>' +
-                            '</tr>';
-
-            });
-
-            $('tbody').html(template);
-
-            $('#edit-elem-load').addClass('hidden');
-            $('table').removeClass('hidden');
-        }
-    });
-}
-
 $(document).on('click', '.del-link', function () {
 
-    console.log('Deleting..');
-
-    var elementId = $(this).closest('tr').attr('id');
+    var elementId = $(this).data('id');
     var trElement = $(this).closest('tr');
-    var tdElement = $(this).closest('td');
 
-    tdElement.html('Sletter <i class="fa fa-spinner fa-spin"></i>');
+    $(this).closest('td').html('Sletter <i class="fa fa-spinner fa-spin"></i>');
 
     console.log('Id: ' + elementId);
 
@@ -174,11 +125,9 @@ $('#editModal').on('shown.bs.modal', function (e) {
 
 $(document).on('click', '.element-td', function () {
 
-    var elementId = $(this).closest('tr').attr('id');
+    var elementId = $(this).data('id');
 
-    var trElement = $(this).closest('tr');
-
-    var editVal = trElement.children('td:first').html();
+    var editVal = $(this).data('element');
 
     console.log(elementId);
 
@@ -221,10 +170,16 @@ function addNewItem() {
 
 
         },
-        success: function () {
+        success: function (id) {
             console.log('Lagt til');
 
-            refreshTable();
+            var template = '<tr id="' + id + '" data-katalog="' + katalog + '" data-element="' + element + '">' +
+                               '<td class="element-td col-lg-5" data-id="' + id + '" data-element="' + element + '">' + element + '</td>' +
+                               '<td class="katalog-td col-lg-5">' + katalog + '</td>' +
+                               '<td><a data-id="' + id + '" class="del-link col-lg-2">Slett</a></td>' +
+                           '</tr>';
+
+            $('#database-tabell tbody').append(template);
 
             $('#new-item-txt').val('');
             $('#new-element-row').removeClass('hidden');
@@ -254,6 +209,7 @@ function changeElement() {
     var elementId = $('#editModal').data('elementId');
     var value = $('#edit-txt').val();
     var trElement = $('#' + elementId);
+    var oppdatertTd = trElement.children('td:first');
 
     console.log('Ny tekst: ' + value + '(' + elementId + ')');
 
@@ -272,6 +228,10 @@ function changeElement() {
             console.log('Changed');
 
             trElement.children('td:first').html(value);
+            trElement.children('td:first').data('element', value);
+
+            // Fortell tabell sorteringen at verdien er endret
+            oppdatertTd.updateSortVal(value);
 
             $('#editModal').modal('hide');
         }
