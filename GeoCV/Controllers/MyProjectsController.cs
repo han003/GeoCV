@@ -5,68 +5,137 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 
 namespace GeoCV.Controllers
 {
     [Authorize]
-    public class MyProjectsController : Controller
+    public class MyProjectsController : BaseController
     {
-        private cvEntities db = new cvEntities();
-
-        // GET: Work
         public ActionResult Index()
         {
-            string UserId = User.Identity.GetUserId();
+            CVVersjon BrukerCv = GetBrukerCv(GetAspNetBrukerID());
 
-            var Item = from a in db.CVVersjon
-                       where a.AspNetUserId.Equals(UserId)
-                       select a;
+            var Prosjekter = from a in db.Prosjekt
+                             select a;
 
-            return View(Item.FirstOrDefault());
-        }
+            var Stillinger = from a in db.ListeKatalog
+                             where a.Katalog.Equals("Stillinger")
+                             select a;
 
-        [HttpGet]
-        public ActionResult GetProjects()
-        {
-            var Item = from a in db.Prosjekt
-                       orderby a.Navn ascending
-                       select a.Navn;
+            var Data = from a in db.Medlem
+                       where a.Person.PersonId.Equals(BrukerCv.Person.PersonId)
+                       select new MyProjectCustomObject
+                       {
+                           ProsjektId = a.Prosjekt.ProsjektId,
+                           ProsjektNavn = a.Prosjekt.Navn,
+                           ProsjektKunde = a.Prosjekt.Kunde,
 
-            return Json(Item, JsonRequestBehavior.AllowGet);
+                           ProsjektTekniskProfil = a.Prosjekt.TekniskProfil,
+
+                           MedlemId = a.MedlemId,
+                           MedlemRolle = a.Rolle,
+                           MedlemStart = a.Start,
+                           MedlemSlutt = a.Slutt
+                       };
+
+            //store data of both queries in your ViewModel class here:
+            var MyViewModel = new MyProjectViewModel();
+            MyViewModel.Prosjekt = Prosjekter;
+            MyViewModel.Stillinger = Stillinger;
+            MyViewModel.Data = Data;
+
+            //return ViewModel to View.
+            return View(MyViewModel);
         }
 
         [HttpPost]
-        public void AddNewProject(string Prosjekt, string Rolle)
+        public void LeggTilProsjekt(int ProsjektId)
         {
-            // Hent ID til bruker som er innlogget
-            string UserId = User.Identity.GetUserId();
+            // Bruker data
+            var Bruker = GetBrukerCv(GetAspNetBrukerID());
 
-            // Hent CVVersjon til innlogget bruker
-            var CvQuery = from a in db.CVVersjon
-                       where a.AspNetUserId.Equals(UserId)
-                       select a;
-
-            CVVersjon CvDb = CvQuery.FirstOrDefault();
-
-            // Hent valgt prosjekt
-            var ProsjektQuery = from a in db.Prosjekt
-                           where a.Navn.Equals(Prosjekt)
+            // Prosjekt data
+            var Data = from a in db.Prosjekt
+                           where a.ProsjektId.Equals(ProsjektId)
                            select a;
 
-            Prosjekt ProsjektDb = ProsjektQuery.FirstOrDefault();
+            var Prosjekt = Data.FirstOrDefault();
 
-            // Opprett bruker som ett nytt medlem
-            Medlem NyMedlem = new Medlem();
-            NyMedlem.Rolle = Rolle;
-            NyMedlem.Start = 1991;
-            NyMedlem.Slutt = 1991;
-            NyMedlem.Person = CvDb.Person;
-            NyMedlem.Prosjekt = ProsjektDb;
+            // Legg til brukeren som et medlem i valgt prosjekt
+            Medlem NyttMedlem = new Medlem();
+            NyttMedlem.Person = Bruker.Person;
+            NyttMedlem.Prosjekt = Prosjekt;
+            NyttMedlem.Rolle = 0;
+            NyttMedlem.Start = DateTime.Now;
+            NyttMedlem.Slutt = DateTime.Now;
 
-            // Legg til medlem
-            CvDb.Person.Medlem.Add(NyMedlem);
+            Prosjekt.Medlem.Add(NyttMedlem);
 
-            // Lagre endringer
+            db.SaveChanges();
+        }
+
+        [HttpGet]
+        public ActionResult GetMineProsjekter()
+        {
+            CVVersjon BrukerCv = GetBrukerCv(GetAspNetBrukerID());
+
+            var Data = from a in db.Medlem
+                       where a.Person.PersonId.Equals(BrukerCv.Person.PersonId)
+                       select new MyProjectCustomObject
+                       {
+                           ProsjektId = a.Prosjekt.ProsjektId,
+                           ProsjektNavn = a.Prosjekt.Navn,
+                           ProsjektKunde = a.Prosjekt.Kunde,
+
+                           MedlemId = a.MedlemId,
+                           MedlemRolle = a.Rolle,
+                           MedlemStart = a.Start,
+                           MedlemSlutt = a.Slutt
+                       };
+
+            return Json(Data, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public void EndreStilling(int ProsjektId, int NyStilling)
+        {
+            // Bruker data
+            var Bruker = GetBrukerCv(GetAspNetBrukerID());
+
+            // Prosjekt data
+            var Data = from a in db.Medlem
+                       where a.Person_PersonId.Equals(Bruker.Person.PersonId) && a.ProsjektProsjektId.Equals(ProsjektId)
+                       select a;
+
+            var ProMedlem = Data.FirstOrDefault();
+            ProMedlem.Rolle = NyStilling;
+
+            db.SaveChanges();
+        }
+
+        [HttpPost]
+        public void EndreDato(int ProsjektId, string NyDato, string Type)
+        {
+            // Bruker data
+            var Bruker = GetBrukerCv(GetAspNetBrukerID());
+
+            // Prosjekt data
+            var Data = from a in db.Medlem
+                       where a.Person_PersonId.Equals(Bruker.Person.PersonId) && a.ProsjektProsjektId.Equals(ProsjektId)
+                       select a;
+
+            var ProMedlem = Data.FirstOrDefault();
+            if (Type.Equals("fra"))
+            {
+                ProMedlem.Start = DateTime.Parse(NyDato);
+            }
+            else
+            {
+                ProMedlem.Slutt = DateTime.Parse(NyDato);
+            }
+            
+
             db.SaveChanges();
         }
     }

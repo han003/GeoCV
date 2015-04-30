@@ -9,62 +9,63 @@ using Microsoft.AspNet.Identity;
 namespace GeoCV.Controllers
 {
     [Authorize]
-    public class PersonalController : Controller
+    public class PersonalController : BaseController
     {
-
-        private cvEntities db = new cvEntities();
 
         // GET: Personal
         public ActionResult Index()
         {
-            string UserId = User.Identity.GetUserId();
+            // Opprett model
+            PersonalModel ViewModel = new PersonalModel();
 
-            var Item = from a in db.CVVersjon
-                       where a.AspNetUserId.Equals(UserId)
-                       select a;
+            // Hent CV
+            CVVersjon BrukerCv = GetBrukerCv(GetAspNetBrukerID());
+            ViewModel.BrukerCv = BrukerCv;
+            
+            var Nasjonaliteter = from a in db.ListeKatalog
+                                 where a.Katalog == "Nasjonaliteter"
+                                 orderby a.Element ascending
+                                 select a;
+            ViewModel.Nasjonaliteter = Nasjonaliteter;
 
-            return View(Item.FirstOrDefault());
+            var Stillinger = from a in db.ListeKatalog
+                             where a.Katalog == "Stillinger"
+                             orderby a.Element ascending
+                             select a;
+            ViewModel.Stillinger = Stillinger;
+
+            var Språk = from a in db.ListeKatalog
+                        where a.Katalog == "Språk"
+                        orderby a.Element ascending
+                        select a;
+            ViewModel.Språk = Språk;
+
+            // Prøv om det er noen verdier i stringen til språk
+            try
+            {
+                List<string> BrukerSpråkListe = BrukerCv.Person.Språk.Split(';').ToList();
+                var BrukerSpråk = from a in db.ListeKatalog
+                                  where BrukerSpråkListe.Contains(a.ListeKatalogId.ToString())
+                                  select a;
+                ViewModel.BrukerSpråk = BrukerSpråk;
+            }
+            catch (Exception)
+            {
+            }
+
+            return View(ViewModel);
         }
-
-        [HttpGet]
-        public ActionResult GetLanguages()
-        {
-            var Item = from a in db.ListeKatalog
-                       where a.Katalog == "Språk"
-                       orderby a.Element ascending
-                       select a.Element;
-
-            return Json(Item, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpPost]
-        public void InsertItem(string Insert, string Value)
-        {
-            ListeKatalog NewItem = new ListeKatalog();
-            NewItem.Katalog = Insert;
-            NewItem.Element = Value;
-            db.ListeKatalog.Add(NewItem);
-
-            db.SaveChanges();
-        }
-
 
         [HttpPost]
         public void Update(string Update, string Value)
         {
-
-            string UserId = User.Identity.GetUserId();
-
-            var Item = from a in db.CVVersjon
-                       where a.AspNetUserId.Equals(UserId)
-                       select a;
-
-            CVVersjon Cv = Item.FirstOrDefault();
+            CVVersjon Cv = GetBrukerCv(GetAspNetBrukerID());
 
             switch (Update)
             {
                 case "Fornavn":
                     Cv.Person.Fornavn = Value;
+                    Session["ShadowUserName"] = Value + " " + Cv.Person.Etternavn;
                     break;
 
                 case "Mellomnavn":
@@ -73,25 +74,30 @@ namespace GeoCV.Controllers
 
                 case "Etternavn":
                     Cv.Person.Etternavn = Value;
+                    Session["ShadowUserName"] = Cv.Person.Fornavn + " " + Value;
                     break;
                 case "Stilling":
-                    Cv.Person.Stilling = Value;
-                    break;
-
-                case "Fødselsår":
-                    Cv.Person.Fødselsår = Int16.Parse(Value);
+                    Cv.Person.Stilling = Int32.Parse(Value);
                     break;
 
                 case "Nasjonalitet":
-                    Cv.Person.Nasjonalitet = Value;
+                    Cv.Person.Nasjonalitet = Int32.Parse(Value);
                     break;
 
                 case "ÅrErfaring":
-                    Cv.Person.ÅrErfaring = Int16.Parse(Value);
+                    Cv.Person.ÅrErfaring = (Value.Trim().Equals("")) ? Int16.Parse("0") : Int16.Parse(Value);
                     break;
 
                 case "Språk":
                     Cv.Person.Språk = Value;
+                    break;
+
+                case "Fødselsår":
+                    Cv.Person.Fødselsår = DateTime.Parse(Value);
+                    break;
+
+                case "StartDato":
+                    Cv.Person.StartDato = DateTime.Parse(Value);
                     break;
             }
 

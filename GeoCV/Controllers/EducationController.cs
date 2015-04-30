@@ -5,37 +5,31 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 
 namespace GeoCV.Controllers
 {
 
     [Authorize]
-    public class EducationController : Controller
+    public class EducationController : BaseController
     {
-        private cvEntities db = new cvEntities();
-
         // GET: Education
         public ActionResult Index()
         {
-            string UserId = User.Identity.GetUserId();
-
-            var Item = from a in db.CVVersjon
-                       where a.AspNetUserId.Equals(UserId)
-                       select a;
-
-            return View(Item.FirstOrDefault());
+            return View(GetBrukerCv(GetAspNetBrukerID()));
         }
 
         [HttpPost]
-        public void AddNewEducation(string Skole, string Beskrivelse, Int16 Fra, Int16 Til)
+        public ActionResult AddNewEducation(string Skole, string Beskrivelse, Int16 Fra, Int16 Til)
         {
-            string UserId = User.Identity.GetUserId();
+            CVVersjon Cv = GetBrukerCv(GetAspNetBrukerID());
 
-            var Item = from a in db.CVVersjon
-                       where a.AspNetUserId.Equals(UserId)
-                       select a;
-
-            CVVersjon Cv = Item.FirstOrDefault();
+            if (Fra > Til)
+            {
+                Int16 NyFra = Til;
+                Til = Fra;
+                Fra = NyFra;
+            }
 
             Utdannelse NewItem = new Utdannelse();
             NewItem.Studiested = Skole;
@@ -46,7 +40,63 @@ namespace GeoCV.Controllers
             Cv.Utdannelse.Add(NewItem);
 
             db.SaveChanges();
+
+            return Json(NewItem.UtdannelseId, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public void DeleteElement(int Id)
+        {
+            var Utdannelse = GetBrukerCv(GetAspNetBrukerID()).Utdannelse;
+
+            Utdannelse ValgtUtdannelse = new Utdannelse();
+
+            foreach (var Item in Utdannelse)
+            {
+                if (Item.UtdannelseId == Id)
+                {
+                    ValgtUtdannelse = Item;
+                }
+            }
+
+            db.Utdannelse.Remove(ValgtUtdannelse);
+            db.SaveChanges();
+        }
+
+        [HttpPost]
+        public void ChangeElement(int Id, string NewValue, string Kolonne)
+        {
+            var Utdannelse = GetBrukerCv(GetAspNetBrukerID()).Utdannelse;
+
+            foreach (var Item in Utdannelse)
+            {
+                if (Item.UtdannelseId == Id)
+                {
+                    switch (Kolonne)
+                    {
+                        case "Studiested":
+                            Item.Studiested = NewValue;
+                            break;
+
+                        case "Beskrivelse":
+                            Item.Beskrivelse = NewValue;
+                            break;
+
+                        case "Fra":
+                            Item.Fra = Int16.Parse(NewValue);
+                            break;
+
+                        case "Til":
+                            Item.Til = Int16.Parse(NewValue);
+                            break;
+                    }
+                }
+            }
+
+            db.SaveChanges();
+        }
     }
 }
+
+
+        

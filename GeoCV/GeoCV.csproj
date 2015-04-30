@@ -218,9 +218,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AdminRolesController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
-    <Compile Include="Controllers\DownloadController.cs" />
+    <Compile Include="Controllers\DatabaseController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\DocXController.cs" />
+    <Compile Include="Controllers\PdfController.cs" />
     <Compile Include="Controllers\EditProjectController.cs" />
     <Compile Include="Controllers\EducationController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
@@ -228,12 +230,9 @@
     <Compile Include="Controllers\FeedbackController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\NewProjectController.cs" />
     <Compile Include="Controllers\PersonalController.cs" />
     <Compile Include="Controllers\MyProjectsController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
-    <Compile Include="Controllers\ReportController.cs" />
-    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\WorkController.cs" />
     <Compile Include="Global.asax.cs">
@@ -261,10 +260,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Database.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\EditProjectModel.cs" />
+    <Compile Include="Models\ExpertiseModel.cs" />
     <Compile Include="Models\Feedback.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Innstillinger.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
@@ -274,13 +274,17 @@
     <Compile Include="Models\ListeKatalog.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Medlem.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MyProjectCustomObject.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MyProjectViewModel.cs" />
     <Compile Include="Models\Person.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PersonalModel.cs" />
     <Compile Include="Models\Prosjekt.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
@@ -290,6 +294,7 @@
     <Compile Include="Models\Utdannelse.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\WorkModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -310,11 +315,35 @@
     <Content Include="Content\dashboard.min.css">
       <DependentUpon>dashboard.css</DependentUpon>
     </Content>
+    <Content Include="Content\database.css">
+      <DependentUpon>database.less</DependentUpon>
+    </Content>
+    <Content Include="Content\database.min.css">
+      <DependentUpon>database.css</DependentUpon>
+    </Content>
+    <Content Include="Content\editproject.css">
+      <DependentUpon>editproject.less</DependentUpon>
+    </Content>
+    <Content Include="Content\editproject.min.css">
+      <DependentUpon>editproject.css</DependentUpon>
+    </Content>
+    <Content Include="Content\education.css">
+      <DependentUpon>education.less</DependentUpon>
+    </Content>
+    <Content Include="Content\education.min.css">
+      <DependentUpon>education.css</DependentUpon>
+    </Content>
     <Content Include="Content\employees.css">
       <DependentUpon>employees.less</DependentUpon>
     </Content>
     <Content Include="Content\employees.min.css">
       <DependentUpon>employees.css</DependentUpon>
+    </Content>
+    <Content Include="Content\expertise.css">
+      <DependentUpon>expertise.less</DependentUpon>
+    </Content>
+    <Content Include="Content\expertise.min.css">
+      <DependentUpon>expertise.css</DependentUpon>
     </Content>
     <Content Include="Content\home.css">
       <DependentUpon>home.less</DependentUpon>
@@ -325,11 +354,48 @@
     <Content Include="Content\Images\favicon.png" />
     <Content Include="Content\Images\geomatikk logo.png" />
     <Content Include="Content\Images\shattered.png" />
+    <Content Include="Content\jquery-ui\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\jquery-ui\images\ui-bg_flat_0_eeeeee_40x100.png" />
+    <Content Include="Content\jquery-ui\images\ui-bg_flat_55_ffffff_40x100.png" />
+    <Content Include="Content\jquery-ui\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\jquery-ui\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\jquery-ui\images\ui-bg_highlight-soft_100_f6f6f6_1x100.png" />
+    <Content Include="Content\jquery-ui\images\ui-bg_highlight-soft_25_0073ea_1x100.png" />
+    <Content Include="Content\jquery-ui\images\ui-bg_highlight-soft_50_dddddd_1x100.png" />
+    <Content Include="Content\jquery-ui\images\ui-icons_0073ea_256x240.png" />
+    <Content Include="Content\jquery-ui\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\jquery-ui\images\ui-icons_666666_256x240.png" />
+    <Content Include="Content\jquery-ui\images\ui-icons_ff0084_256x240.png" />
+    <Content Include="Content\jquery-ui\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\jquery-ui\jquery-ui.css" />
+    <Content Include="Content\jquery-ui\jquery-ui.min.css">
+      <DependentUpon>jquery-ui.css</DependentUpon>
+    </Content>
+    <Content Include="Content\jquery-ui\jquery-ui.structure.css" />
+    <Content Include="Content\jquery-ui\jquery-ui.structure.min.css">
+      <DependentUpon>jquery-ui.structure.css</DependentUpon>
+    </Content>
+    <Content Include="Content\jquery-ui\jquery-ui.theme.css" />
+    <Content Include="Content\jquery-ui\jquery-ui.theme.min.css">
+      <DependentUpon>jquery-ui.theme.css</DependentUpon>
+    </Content>
     <Content Include="Content\main.css">
       <DependentUpon>main.less</DependentUpon>
     </Content>
     <Content Include="Content\main.min.css">
       <DependentUpon>main.css</DependentUpon>
+    </Content>
+    <Content Include="Content\myprojects.css">
+      <DependentUpon>myprojects.less</DependentUpon>
+    </Content>
+    <Content Include="Content\myprojects.min.css">
+      <DependentUpon>myprojects.css</DependentUpon>
+    </Content>
+    <Content Include="Content\personal.css">
+      <DependentUpon>personal.less</DependentUpon>
+    </Content>
+    <Content Include="Content\personal.min.css">
+      <DependentUpon>personal.css</DependentUpon>
     </Content>
     <Content Include="Content\projects.css">
       <DependentUpon>projects.less</DependentUpon>
@@ -343,28 +409,28 @@
     <Content Include="Content\settings.min.css">
       <DependentUpon>settings.css</DependentUpon>
     </Content>
+    <Content Include="Content\work.css">
+      <DependentUpon>work.less</DependentUpon>
+    </Content>
+    <Content Include="Content\work.min.css">
+      <DependentUpon>work.css</DependentUpon>
+    </Content>
     <Content Include="Global.asax" />
     <Content Include="Models\Database.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Database.edmx</DependentUpon>
       <LastGenOutput>Database.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\Database.edmx.sql" />
     <Content Include="Models\Database.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Database.edmx</DependentUpon>
       <LastGenOutput>Database.cs</LastGenOutput>
-    </Content>
-    <Content Include="Scripts\adminroles.js" />
-    <Content Include="Scripts\adminroles.min.js">
-      <DependentUpon>adminroles.js</DependentUpon>
     </Content>
     <Content Include="Scripts\bootstrap\bootstrap.js" />
     <Content Include="ApplicationInsights.config" />
     <Content Include="Content\animate.less" />
     <Content Include="Content\dashboard.less" />
     <Content Include="Content\home.less" />
-    <Content Include="Content\search.less" />
     <Content Include="Content\animate.css.map">
       <DependentUpon>animate.css</DependentUpon>
     </Content>
@@ -377,20 +443,17 @@
     <Content Include="Scripts\bootstrap\bootstrap.min.js">
       <DependentUpon>bootstrap.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\bootstrap\bootstrap3-typeahead.js" />
-    <Content Include="Scripts\bootstrap\bootstrap3-typeahead.min.js">
-      <DependentUpon>bootstrap3-typeahead.js</DependentUpon>
+    <Content Include="Scripts\database.js" />
+    <Content Include="Scripts\database.min.js">
+      <DependentUpon>database.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\bootstrap\bootstrapformhelpers\css\bootstrap-formhelpers.css" />
-    <Content Include="Scripts\bootstrap\bootstrapformhelpers\css\bootstrap-formhelpers.min.css" />
-    <Content Include="Scripts\bootstrap\bootstrapformhelpers\img\bootstrap-formhelpers-countries.flags-LICENSE.txt" />
-    <Content Include="Scripts\bootstrap\bootstrapformhelpers\img\bootstrap-formhelpers-countries.flags.png" />
-    <Content Include="Scripts\bootstrap\bootstrapformhelpers\img\bootstrap-formhelpers-currencies.flags.png" />
-    <Content Include="Scripts\bootstrap\bootstrapformhelpers\img\bootstrap-formhelpers-googlefonts.png" />
-    <Content Include="Scripts\bootstrap\bootstrapformhelpers\js\bootstrap-formhelpers.js" />
     <Content Include="Scripts\editproject.js" />
     <Content Include="Scripts\editproject.min.js">
       <DependentUpon>editproject.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\education.js" />
+    <Content Include="Scripts\education.min.js">
+      <DependentUpon>education.js</DependentUpon>
     </Content>
     <Content Include="Scripts\expertise.min.js">
       <DependentUpon>expertise.js</DependentUpon>
@@ -399,25 +462,24 @@
     <Content Include="Scripts\feedback.min.js">
       <DependentUpon>feedback.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\jquery-ui\jquery-ui.js" />
+    <Content Include="Scripts\jquery-ui\jquery-ui.min.js">
+      <DependentUpon>jquery-ui.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery-ui\region-nb.js" />
+    <Content Include="Scripts\jquery-ui\region-nb.min.js">
+      <DependentUpon>region-nb.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js">
+      <DependentUpon>moment-with-locales.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\myprojects.min.js">
       <DependentUpon>myprojects.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\newproject.js" />
-    <Content Include="Scripts\newproject.min.js">
-      <DependentUpon>newproject.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\personal.js" />
-    <Content Include="Scripts\cv-personlig.min.js">
-      <DependentUpon>personal.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\bootstrap\bootstrap.min.js.map">
       <DependentUpon>bootstrap.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\cv-personlig.min.js.map">
-      <DependentUpon>cv-personlig.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\bootstrap\bootstrap3-typeahead.min.js.map">
-      <DependentUpon>bootstrap3-typeahead.min.js</DependentUpon>
     </Content>
     <Content Include="Scripts\employees.min.js.map">
       <DependentUpon>employees.min.js</DependentUpon>
@@ -434,6 +496,59 @@
     <Content Include="Content\main.css.map">
       <DependentUpon>main.css</DependentUpon>
     </Content>
+    <Content Include="Content\employees.less" />
+    <Content Include="Content\employees.css.map">
+      <DependentUpon>employees.css</DependentUpon>
+    </Content>
+    <Content Include="Content\database.less" />
+    <Content Include="Content\database.css.map">
+      <DependentUpon>database.css</DependentUpon>
+    </Content>
+    <Content Include="Content\education.less" />
+    <Content Include="Content\education.css.map">
+      <DependentUpon>education.css</DependentUpon>
+    </Content>
+    <Content Include="Content\work.less" />
+    <Content Include="Content\work.css.map">
+      <DependentUpon>work.css</DependentUpon>
+    </Content>
+    <Content Include="Content\personal.less" />
+    <Content Include="Content\personal.css.map">
+      <DependentUpon>personal.css</DependentUpon>
+    </Content>
+    <Content Include="Content\expertise.less" />
+    <Content Include="Content\expertise.css.map">
+      <DependentUpon>expertise.css</DependentUpon>
+    </Content>
+    <Content Include="Content\editproject.less" />
+    <Content Include="Content\editproject.css.map">
+      <DependentUpon>editproject.css</DependentUpon>
+    </Content>
+    <Content Include="Content\myprojects.less" />
+    <Content Include="Content\myprojects.css.map">
+      <DependentUpon>myprojects.css</DependentUpon>
+    </Content>
+    <Content Include="Scripts\editproject.min.js.map">
+      <DependentUpon>editproject.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\expertise.min.js.map">
+      <DependentUpon>expertise.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\feedback.min.js.map">
+      <DependentUpon>feedback.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\education.min.js.map">
+      <DependentUpon>education.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\database.min.js.map">
+      <DependentUpon>database.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery-ui\jquery-ui.min.js.map">
+      <DependentUpon>jquery-ui.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery-ui\region-nb.min.js.map">
+      <DependentUpon>region-nb.min.js</DependentUpon>
+    </Content>
     <EntityDeploy Include="Models\Database.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Database.Designer.cs</LastGenOutput>
@@ -441,24 +556,7 @@
     <Content Include="Models\Database.edmx.diagram">
       <DependentUpon>Database.edmx</DependentUpon>
     </Content>
-    <Content Include="Content\employees.less" />
-    <Content Include="Content\employees.css.map">
-      <DependentUpon>employees.css</DependentUpon>
-    </Content>
-    <None Include="Properties\PublishProfiles\geocv %282%29.pubxml" />
-    <None Include="Properties\PublishProfiles\geocv.pubxml" />
-    <Content Include="Scripts\editproject.min.js.map">
-      <DependentUpon>editproject.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\expertise.min.js.map">
-      <DependentUpon>expertise.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\adminroles.min.js.map">
-      <DependentUpon>adminroles.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\feedback.min.js.map">
-      <DependentUpon>feedback.min.js</DependentUpon>
-    </Content>
+    <None Include="Properties\PublishProfiles\cvportal.pubxml" />
     <None Include="Scripts\jquery\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\employees.js" />
     <Content Include="Scripts\employees.min.js">
@@ -516,11 +614,17 @@
     <Content Include="Scripts\stuff\respond.min.js">
       <DependentUpon>respond.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\stuff\stupidtable.js" />
+    <Content Include="Scripts\stuff\stupidtable.min.js">
+      <DependentUpon>stupidtable.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\work.js" />
     <Content Include="Scripts\work.min.js">
       <DependentUpon>work.js</DependentUpon>
     </Content>
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -562,8 +666,6 @@
     </Content>
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Employees\Index.cshtml" />
-    <Content Include="Views\Report\Index.cshtml" />
-    <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Scripts\jquery\jquery.validate-vsdoc.min.js.map">
       <DependentUpon>jquery.validate-vsdoc.min.js</DependentUpon>
     </Content>
@@ -592,11 +694,7 @@
     <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
     <Content Include="Views\Manage\ManageLogins.cshtml" />
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
-    <Content Include="Views\NewProject\Index.cshtml" />
     <Content Include="Views\EditProject\Index.cshtml" />
-    <Content Include="Scripts\newproject.min.js.map">
-      <DependentUpon>newproject.min.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\personal.min.js.map">
       <DependentUpon>personal.min.js</DependentUpon>
     </Content>
@@ -606,7 +704,6 @@
     <Content Include="Scripts\settings.min.js.map">
       <DependentUpon>settings.min.js</DependentUpon>
     </Content>
-    <Content Include="Views\AdminRoles\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\work.min.js.map">
       <DependentUpon>work.min.js</DependentUpon>
@@ -616,6 +713,16 @@
     <Content Include="Scripts\myprojects.min.js.map">
       <DependentUpon>myprojects.min.js</DependentUpon>
     </Content>
+    <Content Include="Views\Database\Index.cshtml" />
+    <Content Include="Scripts\moment-with-locales.min.js.map">
+      <DependentUpon>moment-with-locales.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\stuff\stupidtable.min.js.map">
+      <DependentUpon>stupidtable.min.js</DependentUpon>
+    </Content>
+    <Content Include="Views\Expertise\_TabInnhold.cshtml" />
+    <Content Include="Views\Personal\_TabInnhold.cshtml" />
+    <Content Include="Views\Shared\_Layout2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

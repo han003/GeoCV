@@ -1,4 +1,15 @@
-﻿table tr[href] {
+﻿.table-hover > tbody > tr:hover {
   cursor: pointer;
+}
+td a {
+  color: white;
+  padding: 0;
+}
+#prosjekt-filter {
+  margin-bottom: 19px;
+}
+.del-link {
+  color: white;
+  padding: 0;
 }
 /*# sourceMappingURL=projects.css.map */

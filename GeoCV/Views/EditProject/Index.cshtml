@@ -1,9 +1,9 @@
 ﻿@using System.Web.Optimization
 
-@model GeoCV.Models.Prosjekt
+@model GeoCV.Models.EditProjectModel
 
 @{
-    ViewBag.Title = "Rediger Prosjekt";
+    ViewBag.Title = "Rediger " + Model.Prosjekt.Navn;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section css{
@@ -13,193 +13,221 @@
     @Scripts.Render("~/bundles/js/editproject")
 }
 
-<div class="row">
-    <div class="col-lg-12">
+<!-- Slett modal -->
+<div class="modal fade" id="slettModal" tabindex="-1" role="dialog" aria-labelledby="slettModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="slettModalLabel">Slett</h4>
+            </div>
+            <div class="modal-body">
+                Er du sikker på at du vil slette <code id="profil-slett-etikett"></code> profilen?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Nei (Esc)</button>
+                <button id="slett-profil-btn" type="button" class="btn btn-primary">Ja</button>
+                <i class="fa fa-spinner fa-spin fa-2x hidden"></i>
+            </div>
+        </div>
+    </div>
+</div>
 
-        <div role="tabpanel">
+<!-- Endre modal -->
+<div class="modal fade" id="endreModal" tabindex="-1" role="dialog" aria-labelledby="endreModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="endreModalLabel">Endre</h4>
+            </div>
+            <div class="modal-body">
+                <input id="endre-txt" type="text" class="form-control" autocomplete="off">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Avslutt (Esc)</button>
+                <button id="endre-profil-btn" type="button" class="btn btn-primary">Endre (Enter)</button>
+                <i class="fa fa-spinner fa-spin fa-2x hidden"></i>
+            </div>
+        </div>
+    </div>
+</div>
 
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#rediger-prosjekt" aria-controls="rediger-prosjekt" role="tab" data-toggle="tab">Rediger Prosjekt</a></li>
-                <li role="presentation"><a href="#tekniske-profiler" aria-controls="tekniske-profiler" role="tab" data-toggle="tab">Tekniske Profiler</a></li>
-                <li role="presentation"><a href="#ny-teknisk-profil" aria-controls="ny-teknisk-profil" role="tab" data-toggle="tab">Ny Teknisk Profil</a></li>
-                <li role="presentation"><a href="#medlemmer" aria-controls="medlemmer" role="tab" data-toggle="tab">Prosjekt Medlemmer</a></li>
-            </ul>
+<div role="tabpanel">
 
-            <!-- Tab panes -->
-            <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="rediger-prosjekt">
+    <!-- Nav tabs -->
+    <ul id="edit-pro-tabs" class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#rediger-prosjekt" aria-controls="rediger-prosjekt" role="tab" data-toggle="tab">Rediger prosjekt</a></li>
+        <li role="presentation"><a href="#tekniske-profiler" aria-controls="tekniske-profiler" role="tab" data-toggle="tab">Tekniske profiler</a></li>
+        <li role="presentation"><a href="#ny-teknisk-profil" aria-controls="ny-teknisk-profil" role="tab" data-toggle="tab">Ny teknisk profil</a></li>
+    </ul>
 
-                    <div class="row">
-                        <div class="col-lg-12">
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="rediger-prosjekt">
+            <div class="form-horizontal">
 
-                            <div class="form-horizontal">
-
-                                <div class="form-group">
-                                    <div class="col-lg-12">
-                                        <label>Navn</label>
-                                        <input type="text" class="form-control update-txt" value="@Model.Navn" id="@Html.DisplayNameFor(m => Model.Navn)-txt">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-lg-12">
-                                        <label>Kunde</label>
-                                        <input type="text" class="form-control update-txt" value="@Model.Kunde" id="@Html.DisplayNameFor(m => Model.Kunde)-txt">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-lg-12">
-                                        <label>Beskrivelse</label>
-                                        <input type="text" class="form-control update-txt" value="@Model.Beskrivelse" id="@Html.DisplayNameFor(m => Model.Beskrivelse)-txt">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-lg-12">
-                                        <label>Fra</label>
-                                        <input id="from-date" class="form-control update-txt" type="date">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-lg-12">
-                                        <label>Til</label>
-                                        <input id="to-date" class="form-control update-txt" type="date">
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
+                <div class="form-group">
+                    <label for="@Html.DisplayNameFor(m => Model.Prosjekt.Navn)-txt" class="col-lg-2 control-label">Navn</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control update-txt" value="@Model.Prosjekt.Navn" id="@Html.DisplayNameFor(m => Model.Prosjekt.Navn)-txt" autocomplete="off">
                     </div>
-
                 </div>
 
-
-
-
-
-                <div role="tabpanel" class="tab-pane" id="tekniske-profiler">
-
-                    <div class="row">
-                        <div class="col-lg-12">
-
-                            @foreach (var Item in Model.TekniskProfil)
-                            {
-                                <h2>@Item.Navn</h2>
-                                <h5>@Item.Elementer.Replace(';', ',')</h5>
-                                
-                            }
-
-                        </div>
+                <div class="form-group">
+                    <label for="@Html.DisplayNameFor(m => Model.Prosjekt.Kunde)-txt" class="col-lg-2 control-label">Kunde</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control update-txt" value="@Model.Prosjekt.Kunde" id="@Html.DisplayNameFor(m => Model.Prosjekt.Kunde)-txt" autocomplete="off">
                     </div>
-
-
                 </div>
 
-
-
-                <div role="tabpanel" class="tab-pane" id="ny-teknisk-profil">
-
-                    <div class="row">
-                        <div class="col-lg-12">
-
-                            <h3 id="tech-load">Laster inn <i class="fa fa-spinner fa-pulse"></i></h3>
-
-                            <div id="tech-form" class="form-horizontal hidden">
-
-                                <div class="form-group">
-                                    <div class="col-lg-12">
-                                        <label>Navn</label>
-                                        <input type="text" class="form-control" id="tech-name" placeholder="Navn for ny teknisk profil">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-lg-10">
-                                        <input id="tech-auto" type="text" class="form-control" placeholder="Legg til element" data-provide="typeahead" autocomplete="off">
-                                    </div>
-                                    <div class="col-lg-1">
-                                        <button id="tech-add-btn" type="button" class="btn btn-success" tabindex="-1">Legg til</button>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div id="tech-group" class="col-lg-12 added-btn-group">
-
-                                    </div>
-                                </div>
-
-                                <hr />
-
-                                <div class="form-group">
-                                    <div class="col-lg-12">
-                                        <button id="tech-save-btn" type="button" class="btn btn-success" tabindex="-1">Lagre Profil</button>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
+                <div class="form-group">
+                    <label for="@Html.DisplayNameFor(m => Model.Prosjekt.Beskrivelse)-txt" class="col-lg-2 control-label">Beskrivelse</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control update-txt" value="@Model.Prosjekt.Beskrivelse" id="@Html.DisplayNameFor(m => Model.Prosjekt.Beskrivelse)-txt" autocomplete="off">
                     </div>
-
                 </div>
 
+            </div>
+        </div>
 
 
-                <div role="tabpanel" class="tab-pane" id="medlemmer">
-
-                    <div class="row">
-                        <div class="col-lg-12">
 
 
-                            <table class="table table-hover table-bordered">
-                                <thead>
-                                    <tr>
-                                        <td>
-                                            <strong>Navn</strong>
-                                        </td>
-                                        <td>
-                                            <strong>Rolle</strong>
-                                        </td>
-                                        <td>
-                                            <strong>Start</strong>
-                                        </td>
-                                        <td>
-                                            <strong>Slutt</strong>
-                                        </td>
+
+        <div role="tabpanel" class="tab-pane" id="tekniske-profiler">
+
+            <div id="filter-row" class="row col-lg-12">
+                <div class="col-lg-6">
+                    <input id="alle-elementer-filter" type="text" class="form-control table-filter" placeholder="Filter" autocomplete="off">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="col-lg-12">
+                        <table id="alle-elementer-tabell" class="table element-table">
+                            <thead>
+                                <tr>
+                                    <th data-sort="string" class="col-lg-3">Element <i class="fa pull-right hidden"></i></th>
+                                    <th data-sort="string" class="col-lg-2">Katalog <i class="fa pull-right hidden"></i></th>
+                                    <th class="col-lg-1"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var Element in Model.KatalogElementer)
+                                {
+                                    <tr id="@Element.ListeKatalogId">
+                                        <td class="col-lg-2">@Element.Element</td>
+                                        <td class="col-lg-3">@Element.Katalog</td>
+                                        <td class="col-lg-1"><i class="fa fa-plus-square fa-lg add-item-btn"></i></td>
                                     </tr>
-                                </thead>
+                                }
 
-                                <tbody>
-
-                                    @foreach (var Item in Model.Medlem)
-                                    {
-                                        <tr>
-                                            <td>@Item.Person.Fornavn @Item.Person.Etternavn</td>
-                                            <td>@Item.Rolle</td>
-                                            <td>@Item.Start</td>
-                                            <td>@Item.Slutt</td>
-                                        </tr>
-                                    }
-
-                                </tbody>
-                            </table>
-                        </div>
+                            </tbody>
+                        </table>
 
                     </div>
+                </div>
 
+                <div class="col-lg-6">
+
+
+                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+                        <!-- Legg til paneler -->
+                        <div id="trenger-profil-warning" class="alert alert-warning hidden" role="alert"><i class="fa fa-exclamation-triangle"></i> Opprett en teknisk profil <a>her</a> for å legge til elementer</div>
+
+                        @foreach(var TekniskProfil in Model.TekniskeProfiler)
+                        {
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="@TekniskProfil.Navn-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" aria-expanded="false" aria-controls="@TekniskProfil.Navn-collapse">
+                                            @TekniskProfil.Navn <i class="fa fa-trash-o pull-right"></i><i class="fa fa-pencil-square-o pull-right"></i>
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="@TekniskProfil.TekniskProfilId-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="@TekniskProfil.Navn-heading">
+                                    <div class="panel-body">
+                                        <table id="@TekniskProfil.TekniskProfilId-profil-table" class="table profil-tabell">
+                                            <thead>
+                                                <tr>
+                                                    <th class="col-lg-3">Element</th>
+                                                    <th class="col-lg-2">Katalog</th>
+                                                    <th class="col-lg-1"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                @foreach (var TekniskElementId in TekniskProfil.Elementer.Split(';'))
+                                                {
+                                                    foreach (var KatalogElement in Model.KatalogElementer)
+                                                    {
+                                                        if (KatalogElement.ListeKatalogId.ToString().Equals(TekniskElementId))
+                                                        {
+                                                            <tr id="@TekniskElementId">
+                                                                <td class="col-lg-3">@KatalogElement.Element</td>
+                                                                <td class="col-lg-2">@KatalogElement.Katalog</td>
+                                                                <td class="col-lg-1"><i class="fa fa-minus-square fa-lg remove-item-btn"></i></td>
+                                                            </tr>
+                                                        }
+                                                    }
+                                                }
+
+                                            </tbody>
+
+
+
+
+
+
+
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
                 </div>
             </div>
 
         </div>
 
+
+
+        <div role="tabpanel" class="tab-pane" id="ny-teknisk-profil">
+            <div id="tech-form" class="form-horizontal">
+
+                <div class="form-group">
+                    <label for="ny-profil-navn-txt" class="col-lg-2 control-label">Navn</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control" id="ny-profil-navn-txt" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <button id="ny-profil-lagre-btn" type="button" class="btn btn-success" tabindex="-1">Legg til</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
     </div>
 
-
 </div>
+
+
+
+
+
+
+
+
 
 
 

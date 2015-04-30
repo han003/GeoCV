@@ -1,0 +1,11 @@
+﻿.table-hover > tbody > tr:hover {
+  cursor: pointer;
+}
+.del-link {
+  color: white;
+  padding: 0;
+}
+#filter-txt {
+  margin-bottom: 19px;
+}
+/*# sourceMappingURL=database.css.map */

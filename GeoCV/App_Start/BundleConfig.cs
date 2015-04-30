@@ -5,7 +5,6 @@ namespace GeoCV
 {
     public class BundleConfig
     {
-        // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
 
@@ -33,34 +32,11 @@ namespace GeoCV
                 .Include("~/Content/main.css")
                 .Include("~/Content/dashboard.css"));
 
-            // Search
-            bundles.Add(new ScriptBundle("~/Bundles/js/search")
-                .Include("~/Scripts/jquery/jquery-{version}.js")
-                .Include("~/Scripts/jquery/jquery.validate.js")
-                .Include("~/Scripts/bootstrap/*.js")
-                .Include("~/Scripts/search.js"));
-
-            bundles.Add(new StyleBundle("~/Bundles/css/search")
-                .Include("~/Content/bootstrap.css")
-                .Include("~/Content/main.css")
-                .Include("~/Content/search.css"));
-
-            // Customize
-            bundles.Add(new ScriptBundle("~/Bundles/js/customize")
-                .Include("~/Scripts/jquery/jquery-{version}.js")
-                .Include("~/Scripts/jquery/jquery.validate.js")
-                .Include("~/Scripts/bootstrap/*.js")
-                .Include("~/Scripts/customize.js"));
-
-            bundles.Add(new StyleBundle("~/Bundles/css/customize")
-                .Include("~/Content/bootstrap.css")
-                .Include("~/Content/main.css")
-                .Include("~/Content/customize.css"));
-
             // Employees
             bundles.Add(new ScriptBundle("~/Bundles/js/employees")
                 .Include("~/Scripts/jquery/jquery-{version}.js")
                 .Include("~/Scripts/jquery/jquery.validate.js")
+                .Include("~/Scripts/stuff/stupidtable.js")
                 .Include("~/Scripts/bootstrap/*.js")
                 .Include("~/Scripts/employees.js"));
 
@@ -73,6 +49,7 @@ namespace GeoCV
             bundles.Add(new ScriptBundle("~/Bundles/js/projects")
                 .Include("~/Scripts/jquery/jquery-{version}.js")
                 .Include("~/Scripts/jquery/jquery.validate.js")
+                .Include("~/Scripts/stuff/stupidtable.js")
                 .Include("~/Scripts/bootstrap/*.js")
                 .Include("~/Scripts/projects.js"));
 
@@ -133,12 +110,14 @@ namespace GeoCV
             bundles.Add(new ScriptBundle("~/Bundles/js/personal")
                 .Include("~/Scripts/jquery/jquery-{version}.js")
                 .Include("~/Scripts/jquery/jquery.validate.js")
+                .Include("~/Scripts/jquery-ui/*.js")
                 .Include("~/Scripts/bootstrap/*.js")
-                .Include("~/Scripts/bootstrap3-typeahead.js")
                 .Include("~/Scripts/personal.js"));
+            
 
             bundles.Add(new StyleBundle("~/Bundles/css/personal")
                 .Include("~/Content/bootstrap.css")
+                .Include("~/Content/jquery-ui/*.css")
                 .Include("~/Content/main.css")
                 .Include("~/Content/personal.css"));
 
@@ -147,65 +126,59 @@ namespace GeoCV
                 .Include("~/Scripts/jquery/jquery-{version}.js")
                 .Include("~/Scripts/jquery/jquery.validate.js")
                 .Include("~/Scripts/bootstrap/*.js")
-                .Include("~/Scripts/bootstrap3-typeahead.js")
                 .Include("~/Scripts/expertise.js"));
 
             bundles.Add(new StyleBundle("~/Bundles/css/expertise")
                 .Include("~/Content/bootstrap.css")
+                .Include("~/Content/expertise.css")
                 .Include("~/Content/main.css"));
 
             // Education
             bundles.Add(new ScriptBundle("~/Bundles/js/education")
                 .Include("~/Scripts/jquery/jquery-{version}.js")
                 .Include("~/Scripts/jquery/jquery.validate.js")
+                .Include("~/Scripts/stuff/stupidtable.js")
                 .Include("~/Scripts/bootstrap/*.js")
-                .Include("~/Scripts/bootstrap3-typeahead.js")
                 .Include("~/Scripts/education.js"));
 
             bundles.Add(new StyleBundle("~/Bundles/css/education")
                 .Include("~/Content/bootstrap.css")
+                .Include("~/Content/education.css")
                 .Include("~/Content/main.css"));
 
             // Work
             bundles.Add(new ScriptBundle("~/Bundles/js/work")
                 .Include("~/Scripts/jquery/jquery-{version}.js")
                 .Include("~/Scripts/jquery/jquery.validate.js")
+                .Include("~/Scripts/stuff/stupidtable.js")
                 .Include("~/Scripts/bootstrap/*.js")
-                .Include("~/Scripts/bootstrap3-typeahead.js")
                 .Include("~/Scripts/work.js"));
 
             bundles.Add(new StyleBundle("~/Bundles/css/work")
                 .Include("~/Content/bootstrap.css")
+                .Include("~/Content/work.css")
                 .Include("~/Content/main.css"));
 
             // My Projects
             bundles.Add(new ScriptBundle("~/Bundles/js/myprojects")
                 .Include("~/Scripts/jquery/jquery-{version}.js")
                 .Include("~/Scripts/jquery/jquery.validate.js")
+                .Include("~/Scripts/jquery-ui/*.js")
+                .Include("~/Scripts/stuff/stupidtable.js")
                 .Include("~/Scripts/bootstrap/*.js")
-                .Include("~/Scripts/bootstrap3-typeahead.js")
                 .Include("~/Scripts/myprojects.js"));
 
             bundles.Add(new StyleBundle("~/Bundles/css/myprojects")
                 .Include("~/Content/bootstrap.css")
-                .Include("~/Content/main.css"));
-
-            // New Project
-            bundles.Add(new ScriptBundle("~/Bundles/js/newproject")
-                .Include("~/Scripts/jquery/jquery-{version}.js")
-                .Include("~/Scripts/jquery/jquery.validate.js")
-                .Include("~/Scripts/bootstrap/*.js")
-                .Include("~/Scripts/newproject.js"));
-
-            bundles.Add(new StyleBundle("~/Bundles/css/newproject")
-                .Include("~/Content/bootstrap.css")
+                .Include("~/Content/jquery-ui/*.css")
                 .Include("~/Content/main.css")
-                .Include("~/Content/newproject.css"));
+                .Include("~/Content/myprojects.css"));
 
             // Edit Project
             bundles.Add(new ScriptBundle("~/Bundles/js/editproject")
                 .Include("~/Scripts/jquery/jquery-{version}.js")
                 .Include("~/Scripts/jquery/jquery.validate.js")
+                .Include("~/Scripts/stuff/stupidtable.js")
                 .Include("~/Scripts/bootstrap/*.js")
                 .Include("~/Scripts/editproject.js"));
 
@@ -226,31 +199,30 @@ namespace GeoCV
                 .Include("~/Content/main.css")
                 .Include("~/Content/settings.css"));
 
-            // Admin Roles
-            bundles.Add(new ScriptBundle("~/Bundles/js/adminroles")
-                .Include("~/Scripts/jquery/jquery-{version}.js")
-                .Include("~/Scripts/jquery/jquery.validate.js")
-                .Include("~/Scripts/bootstrap/*.js")
-                .Include("~/Scripts/bootstrap3-typeahead.js")
-                .Include("~/Scripts/adminroles.js"));
-
-            bundles.Add(new StyleBundle("~/Bundles/css/adminroles")
-                .Include("~/Content/bootstrap.css")
-                .Include("~/Content/main.css")
-                .Include("~/Content/adminroles.css"));
-
             // Feedback
             bundles.Add(new ScriptBundle("~/Bundles/js/feedback")
                 .Include("~/Scripts/jquery/jquery-{version}.js")
                 .Include("~/Scripts/jquery/jquery.validate.js")
                 .Include("~/Scripts/bootstrap/*.js")
-                .Include("~/Scripts/bootstrap3-typeahead.js")
                 .Include("~/Scripts/feedback.js"));
 
             bundles.Add(new StyleBundle("~/Bundles/css/feedback")
                 .Include("~/Content/bootstrap.css")
                 .Include("~/Content/main.css")
                 .Include("~/Content/feedback.css"));
+
+            // Database
+            bundles.Add(new ScriptBundle("~/Bundles/js/database")
+                .Include("~/Scripts/jquery/jquery-{version}.js")
+                .Include("~/Scripts/jquery/jquery.validate.js")
+                .Include("~/Scripts/stuff/stupidtable.js")
+                .Include("~/Scripts/bootstrap/*.js")
+                .Include("~/Scripts/database.js"));
+
+            bundles.Add(new StyleBundle("~/Bundles/css/database")
+                .Include("~/Content/bootstrap.css")
+                .Include("~/Content/main.css")
+                .Include("~/Content/database.css"));
 
             // BundleTable.EnableOptimizations = true;
         }

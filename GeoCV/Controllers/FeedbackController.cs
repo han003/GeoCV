@@ -9,10 +9,8 @@ using GeoCV.Models;
 namespace GeoCV.Controllers
 {
     [Authorize]
-    public class FeedbackController : Controller
+    public class FeedbackController : BaseController
     {
-        private cvEntities db = new cvEntities();
-
         // GET: Feedback
         public ActionResult Index()
         {
@@ -25,13 +23,7 @@ namespace GeoCV.Controllers
         [HttpPost]
         public void SendFeedback(string Feedback)
         {
-            string UserId = User.Identity.GetUserId();
-
-            var Item = from a in db.CVVersjon
-                         where a.AspNetUserId.Equals(UserId)
-                         select a.Person;
-
-            var Bruker = Item.FirstOrDefault();
+            var Bruker = GetBrukerCv(GetAspNetBrukerID()).Person;
 
             Feedback NewFeedback = new Feedback();
             NewFeedback.Beskjed = Feedback;

@@ -120,7 +120,7 @@
         <div class="col-lg-3">
             <div class="panel panel-default">
 
-                <a class="panel-link" href="~/Download/Pdf">
+                <a class="panel-link" href="~/Pdf/LastNed">
                     <div class="panel-body">
                         <i class="fa fa-file-pdf-o"></i>
                         <div>
@@ -135,7 +135,7 @@
         <div class="col-lg-3">
             <div class="panel panel-default">
 
-                <a class="panel-link" href="/Download/Word">
+                <a class="panel-link" href="~/Download/Word">
                     <div class="panel-body">
                         <i class="fa fa-file-word-o fa-flip-horizontal"></i>
                         <div>
@@ -147,30 +147,14 @@
             </div>
         </div>
 
-@if (User.IsInRole("Admin")) { 
-        
-        <div class="col-lg-3">
-            <div class="panel panel-default">
 
-                <a class="panel-link" href="/Search/">
-                    <div class="panel-body">
-                        <i class="fa fa-search"></i>
-                        <div>
-                            SØK
-                        </div>
-                    </div>
-                </a>
+        @if (User.IsInRole("Admin"))
+        {
 
-            </div>
-        </div>
-        
-        
-       
-        
             <div class="col-lg-3">
-                <div class="panel panel-default">
+                <div class="panel panel-default admin">
 
-                    <a class="panel-link" href="/Employees/">
+                    <a class="panel-link" href="~/Employees/">
                         <div class="panel-body">
                             <i class="fa fa-users"></i>
                             <div>
@@ -181,7 +165,42 @@
 
                 </div>
             </div>
-           
+            
+            <div class="col-lg-3">
+                <div class="panel panel-default admin">
+
+                    <a class="panel-link" href="~/Projects/">
+                        <div class="panel-body">
+                            <i class="fa fa-folder-open"></i>
+                            <div>
+                                Alle Prosjekter
+                            </div>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="panel panel-default admin">
+
+                    <a class="panel-link" href="~/Database/">
+                        <div class="panel-body">
+                            <i class="fa fa-database"></i>
+                            <div>
+                                Database
+                            </div>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+
+
+
+
+
+
         }
 
     </div>

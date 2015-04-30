@@ -26,14 +26,11 @@
 
         <br /><br />
 
-        <h6><strong>PS: denne feedback siden er bare midlertidig, og ikke en del av den endelige versjonen! Takk for feedback!</strong></h6>
-
         @if (User.IsInRole("Admin"))
         {
             foreach (var Feedback in Model)
             {
                 <hr />
-                <h3>@Feedback.Person - @Feedback.Dato</h3>
                 <h5>@Feedback.Beskjed</h5>
 
             }

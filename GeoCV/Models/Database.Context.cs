@@ -13,10 +13,10 @@ namespace GeoCV.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class cvEntities : DbContext
+    public partial class CvPortalEntities : DbContext
     {
-        public cvEntities()
-            : base("name=cvEntities")
+        public CvPortalEntities()
+            : base("name=CvPortalEntities")
         {
         }
     
@@ -30,11 +30,11 @@ namespace GeoCV.Models
         public virtual DbSet<Feedback> Feedback { get; set; }
         public virtual DbSet<Innstillinger> Innstillinger { get; set; }
         public virtual DbSet<Kompetanse> Kompetanse { get; set; }
+        public virtual DbSet<ListeKatalog> ListeKatalog { get; set; }
         public virtual DbSet<Medlem> Medlem { get; set; }
         public virtual DbSet<Person> Person { get; set; }
         public virtual DbSet<Prosjekt> Prosjekt { get; set; }
         public virtual DbSet<TekniskProfil> TekniskProfil { get; set; }
         public virtual DbSet<Utdannelse> Utdannelse { get; set; }
-        public virtual DbSet<ListeKatalog> ListeKatalog { get; set; }
     }
 }

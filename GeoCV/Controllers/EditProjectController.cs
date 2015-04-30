@@ -9,27 +9,52 @@ namespace GeoCV.Controllers
 {
 
     [Authorize(Roles = "Admin")]
-    public class EditProjectController : Controller
+    public class EditProjectController : BaseController
     {
-        private cvEntities db = new cvEntities();
-
         public ActionResult Index(int Id)
         {
-            var Item = from a in db.Prosjekt
+            EditProjectModel ViewModel = new EditProjectModel();
+            ViewModel.Prosjekt = GetProsjekt(Id);
+            ViewModel.TekniskeProfiler = GetTekniskeProfiler(Id);
+            ViewModel.KatalogElementer = GetKatalogElementer();
+
+            return View(ViewModel);
+        }
+
+        private Prosjekt GetProsjekt(int Id)
+        {
+            var Data = from a in db.Prosjekt
                        where a.ProsjektId.Equals(Id)
                        select a;
 
-            return View(Item.FirstOrDefault());
+            return Data.FirstOrDefault();
+        }
+
+        private IEnumerable<ListeKatalog> GetKatalogElementer()
+        {
+            // Hent alt relatert til prosjekt fra databasen
+            var Items = from a in db.ListeKatalog
+                        where a.Katalog != "Stillinger" &&
+                              a.Katalog != "Nasjonaliteter" &&
+                              a.Katalog != "Språk"
+                        orderby a.Element ascending
+                        select a;
+
+            return Items;
+        }
+
+        private IEnumerable<TekniskProfil> GetTekniskeProfiler(int Id)
+        {
+            Prosjekt NåværendeProsjekt = GetProsjekt(Id);
+
+            IEnumerable<TekniskProfil> TekniskProfiler = NåværendeProsjekt.TekniskProfil;
+            return TekniskProfiler;
         }
 
         [HttpPost]
         public void UpdateProjectInfo(int Id, string Update, string Value)
         {
-            var Item = from a in db.Prosjekt
-                       where a.ProsjektId.Equals(Id)
-                       select a;
-
-            Prosjekt Pro = Item.FirstOrDefault();
+            Prosjekt Pro = GetProsjekt(Id);
 
             switch (Update)
             {
@@ -50,36 +75,62 @@ namespace GeoCV.Controllers
             db.SaveChanges();
         }
 
-        [HttpGet]
-        public ActionResult GetElements()
-        {
-            // Velg alle programmeringsspråk i databasen
-            var Items = from a in db.ListeKatalog
-                        orderby a.Element ascending
-                        select a.Element;
-
-            // Send listen som et JSON elemnt til View
-            return Json(Items, JsonRequestBehavior.AllowGet);
-        }
-
-
         [HttpPost]
-        public void AddTechProfile(int Id, string Navn, string Elementer)
+        public ActionResult LeggTilProfil(int Id, string Navn)
         {
-            var Item = from a in db.Prosjekt
-                       where a.ProsjektId.Equals(Id)
-                       select a;
-
-            Prosjekt Pro = Item.FirstOrDefault();
+            Prosjekt Pro = GetProsjekt(Id);
 
             TekniskProfil NyTekniskProfil = new TekniskProfil();
             NyTekniskProfil.Navn = Navn;
-            NyTekniskProfil.Elementer = Elementer;
+            NyTekniskProfil.Elementer = "";
 
             Pro.TekniskProfil.Add(NyTekniskProfil);
 
             db.SaveChanges();
+
+            return Json(NyTekniskProfil.TekniskProfilId, JsonRequestBehavior.AllowGet);
         }
 
+        
+
+        [HttpPost]
+        public void OppdaterProfil(int ProfilId, string Verdi)
+        {
+            var Profil = from a in db.TekniskProfil
+                         where a.TekniskProfilId.Equals(ProfilId)
+                         select a;
+
+            TekniskProfil OppdaterProfil = Profil.FirstOrDefault();
+            OppdaterProfil.Elementer = Verdi;
+
+            db.SaveChanges();
+        }
+
+        [HttpPost]
+        public void EndreProfilNavn(int ProfilId, string Navn)
+        {
+            var Profil = from a in db.TekniskProfil
+                         where a.TekniskProfilId.Equals(ProfilId)
+                         select a;
+
+            TekniskProfil OppdaterProfil = Profil.FirstOrDefault();
+            OppdaterProfil.Navn = Navn;
+
+            db.SaveChanges();
+        }
+
+        [HttpPost]
+        public void SlettProfil(int Id)
+        {
+            var Data = from a in db.TekniskProfil
+                         where a.TekniskProfilId.Equals(Id)
+                         select a;
+
+            TekniskProfil Profil = Data.FirstOrDefault();
+
+            db.TekniskProfil.Remove(Profil);
+
+            db.SaveChanges();
+        }
     }
 }

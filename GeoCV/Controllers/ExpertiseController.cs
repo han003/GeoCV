@@ -9,111 +9,108 @@ using Microsoft.AspNet.Identity;
 namespace GeoCV.Controllers
 {
     [Authorize]
-    public class ExpertiseController : Controller
+    public class ExpertiseController : BaseController
     {
-        private cvEntities db = new cvEntities();
-
         // GET: Expertise
         public ActionResult Index()
         {
-            string UserId = User.Identity.GetUserId();
+            // Bruker CV
+            CVVersjon BrukerCv = GetBrukerCv(GetAspNetBrukerID());
 
-            var Item = from a in db.CVVersjon
-                       where a.AspNetUserId.Equals(UserId)
-                       select a;
+            // Model for å sendte til View
+            ExpertiseModel ViewModel = new ExpertiseModel();
+            
+            // Legg til Katalog
+            var Katalog = from a in db.ListeKatalog
+                          where a.Katalog != "Nasjonaliteter" || a.Katalog != "Stillinger" || a.Katalog != "Språk"
+                          orderby a.Element descending
+                          select a;
+            ViewModel.Katalog = Katalog;
 
-            return View(Item.FirstOrDefault());
-        }
+            try
+            {
+                List<string> BrukerProgrammeringsspråkListe = BrukerCv.Kompetanse.Programmeringsspråk.Split(';').ToList();
+                ViewModel.BrukerProgrammeringsspråk = from a in Katalog
+                                                      where BrukerProgrammeringsspråkListe.Contains(a.ListeKatalogId.ToString())
+                                                      select a;
+            }
+            catch (Exception)
+            {
+            }
 
+            try
+            {
+                List<string> BrukerRammeverkListe = BrukerCv.Kompetanse.Rammeverk.Split(';').ToList();
+                ViewModel.BrukerRammeverk = from a in Katalog
+                                            where BrukerRammeverkListe.Contains(a.ListeKatalogId.ToString())
+                                            select a;
+            }
+            catch (Exception)
+            {
+            }
 
-        [HttpGet]
-        public ActionResult GetProgrammingLanguages()
-        {
-            var Item = from a in db.ListeKatalog
-                       where a.Katalog == "ProgrammeringsSpråk"
-                       orderby a.Element ascending
-                       select a.Element;
+            try
+            {
+                List<string> BrukerWebTeknologierListe = BrukerCv.Kompetanse.WebTeknologier.Split(';').ToList();
+                ViewModel.BrukerWebTeknologier = from a in Katalog
+                                                 where BrukerWebTeknologierListe.Contains(a.ListeKatalogId.ToString())
+                                                 select a;
+            }
+            catch (Exception)
+            {
+            }
 
-            return Json(Item, JsonRequestBehavior.AllowGet);
-        }
+            try
+            {
+                List<string> BrukerDatabasesystemerListe = BrukerCv.Kompetanse.Databasesystemer.Split(';').ToList();
+                ViewModel.BrukerDatabasesystemer = from a in Katalog
+                                                   where BrukerDatabasesystemerListe.Contains(a.ListeKatalogId.ToString())
+                                                   select a;
+            }
+            catch (Exception)
+            {
+            }
 
-        [HttpGet]
-        public ActionResult GetFrameworks()
-        {
-            var Item = from a in db.ListeKatalog
-                       where a.Katalog == "Rammeverk"
-                       orderby a.Element ascending
-                       select a.Element;
+            try
+            {
+                List<string> BrukerServersideListe = BrukerCv.Kompetanse.Serverside.Split(';').ToList();
+                ViewModel.BrukerServerside = from a in Katalog
+                                             where BrukerServersideListe.Contains(a.ListeKatalogId.ToString())
+                                             select a;
+            }
+            catch (Exception)
+            {
+            }
 
-            return Json(Item, JsonRequestBehavior.AllowGet);
-        }
+            try
+            {
+                List<string> BrukerOperativsystemerListe = BrukerCv.Kompetanse.Operativsystemer.Split(';').ToList();
+                ViewModel.BrukerOperativsystemer = from a in Katalog
+                                                   where BrukerOperativsystemerListe.Contains(a.ListeKatalogId.ToString())
+                                                   select a;
+            }
+            catch (Exception)
+            {
+            }
 
-        [HttpGet]
-        public ActionResult GetWebTechnologies()
-        {
-            var Item = from a in db.ListeKatalog
-                       where a.Katalog == "Webteknologi"
-                       orderby a.Element ascending
-                       select a.Element;
+            try
+            {
+                List<string> BrukerAnnetListe = BrukerCv.Kompetanse.Annet.Split(';').ToList();
+                ViewModel.BrukerAnnet = from a in Katalog
+                                        where BrukerAnnetListe.Contains(a.ListeKatalogId.ToString())
+                                        select a;
+            }
+            catch (Exception)
+            {
+            }
 
-            return Json(Item, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpGet]
-        public ActionResult GetDatabaseSystems()
-        {
-            var Item = from a in db.ListeKatalog
-                       where a.Katalog == "Databasesystem"
-                       orderby a.Element ascending
-                       select a.Element;
-
-            return Json(Item, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpGet]
-        public ActionResult GetServerside()
-        {
-            var Item = from a in db.ListeKatalog
-                       where a.Katalog == "Serverside"
-                       orderby a.Element ascending
-                       select a.Element;
-
-            return Json(Item, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpGet]
-        public ActionResult GetOperatingSystems()
-        {
-            var Item = from a in db.ListeKatalog
-                       where a.Katalog == "Operativsystem"
-                       orderby a.Element ascending
-                       select a.Element;
-
-            return Json(Item, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpPost]
-        public void InsertItem(string Insert, string Value)
-        {
-            ListeKatalog NewItem = new ListeKatalog();
-            NewItem.Katalog = Insert;
-            NewItem.Element = Value;
-            db.ListeKatalog.Add(NewItem);
-
-            db.SaveChanges();
+            return View(ViewModel);
         }
 
         [HttpPost]
         public void Update(string Update, string Value)
         {
-
-            string UserId = User.Identity.GetUserId();
-
-            var Item = from a in db.CVVersjon
-                       where a.AspNetUserId.Equals(UserId)
-                       select a;
-
-            CVVersjon Cv = Item.FirstOrDefault();
+            CVVersjon Cv = GetBrukerCv(GetAspNetBrukerID());
 
             switch (Update)
             {
@@ -140,8 +137,11 @@ namespace GeoCV.Controllers
                 case "Operativsystemer":
                     Cv.Kompetanse.Operativsystemer = Value;
                     break;
-            }
 
+                case "Annet":
+                    Cv.Kompetanse.Annet = Value;
+                    break;
+            }
 
             db.SaveChanges();
         }

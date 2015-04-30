@@ -10,33 +10,17 @@ using Microsoft.AspNet.Identity.EntityFramework;
 namespace GeoCV.Controllers
 {
     [Authorize]
-    public class SettingsController : Controller
+    public class SettingsController : BaseController
     {
-        private cvEntities db = new cvEntities();
-
-        // GET: Settings
         public ActionResult Index()
         {
-            string UserId = User.Identity.GetUserId();
-
-            var Item = from a in db.CVVersjon
-                       where a.AspNetUserId.Equals(UserId)
-                       select a;
-
-            return View(Item.FirstOrDefault());
+            return View(GetBrukerCv(GetAspNetBrukerID()));
         }
 
         [HttpPost]
         public void Update(string Update, Boolean Value)
         {
-            
-            string UserId = User.Identity.GetUserId();
-
-            var Item = from a in db.CVVersjon
-                       where a.AspNetUserId.Equals(UserId)
-                       select a;
-
-            CVVersjon Cv = Item.FirstOrDefault();
+            CVVersjon Cv = GetBrukerCv(GetAspNetBrukerID());
 
             switch (Update)
             {
@@ -93,6 +77,10 @@ namespace GeoCV.Controllers
 
                 case "Operativsystemer":
                     Cv.Innstillinger.Operativsystemer = Value;
+                    break;
+
+                case "Annet":
+                    Cv.Innstillinger.Annet = Value;
                     break;
 
                 case "Utdannelse":

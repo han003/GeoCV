@@ -16,7 +16,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 namespace GeoCV.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
@@ -75,23 +75,22 @@ namespace GeoCV.Controllers
             {
                 return View(model);
             }
-
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
-            {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
-            }
+                // This doesn't count login failures towards account lockout
+                // To enable password failures to trigger account lockout, change to shouldLockout: true
+                var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+                switch (result)
+                {
+                    case SignInStatus.Success:
+                        return RedirectToAction("Index", "Dashboard");
+                    case SignInStatus.LockedOut:
+                        return View("Lockout");
+                    case SignInStatus.RequiresVerification:
+                        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    case SignInStatus.Failure:
+                    default:
+                        ModelState.AddModelError("", "Invalid login attempt.");
+                        return View(model);
+                }
         }
 
         //
@@ -145,7 +144,6 @@ namespace GeoCV.Controllers
             return View();
         }
 
-        //
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
@@ -156,18 +154,19 @@ namespace GeoCV.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
+                UserManager.UserLockoutEnabledByDefault = false;
+
                 if (result.Succeeded)
                 {
-                    // Database
-                    cvEntities db = new cvEntities();
-
                     // Create new CV
                     CVVersjon Cv = new CVVersjon();
                     Cv.AspNetUserId = user.Id;
+                    Cv.Aktiv = true;
 
                     Person CvPerson = new Person();
                     CvPerson.Fornavn = model.Fornavn;
                     CvPerson.Etternavn = model.Etternavn;
+                    CvPerson.ÅrErfaring = 0;
 
                     Kompetanse CvKompetanse = new Kompetanse();
 
@@ -186,6 +185,7 @@ namespace GeoCV.Controllers
                     CvInnstillinger.Databasesystemer = true;
                     CvInnstillinger.Serverside = true;
                     CvInnstillinger.Operativsystemer = true;
+                    CvInnstillinger.Annet = true;
                     CvInnstillinger.Utdannelse = true;
                     CvInnstillinger.Arbeidserfaring = true;
                     CvInnstillinger.Prosjekter = true;
@@ -200,7 +200,7 @@ namespace GeoCV.Controllers
                     // Roles
                     var RoleMan = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
                     var UserMan = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
-                    
+
                     // Employee role
                     string EmployeeRole = "Bruker";
 
@@ -209,22 +209,15 @@ namespace GeoCV.Controllers
                     {
                         var RoleResult = RoleMan.Create(new IdentityRole(EmployeeRole));
                         if (!RoleResult.Succeeded)
-                        { 
+                        {
                             // Error stuff
                         };
                     }
 
                     // Add user to role
                     UserMan.AddToRole(user.Id, EmployeeRole);
-
-
-
+                    
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
-                    // Send an email with this link
-                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
                     return RedirectToAction("Index", "Dashboard");
                 }
@@ -453,7 +446,7 @@ namespace GeoCV.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            AuthenticationManager.SignOut();
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }
 

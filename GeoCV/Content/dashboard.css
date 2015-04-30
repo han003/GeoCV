@@ -8,25 +8,28 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  height: 170px;
+  height: 145px;
   cursor: pointer;
-  font-size: 20px;
-  -moz-transition: background 0.4s;
-  -o-transition: background 0.4s;
-  -webkit-transition: background 0.4s;
-  transition: background 0.4s;
+  font-size: 17px;
+  -moz-transition: background 0.5s;
+  -o-transition: background 0.5s;
+  -webkit-transition: background 0.5s;
+  transition: background 0.5s;
 }
 .panel-link .panel-body i {
   font-size: 60px !important;
 }
+.admin {
+  margin-top: 80px;
+}
 .panel {
-  -moz-transition: background 0.4s;
-  -o-transition: background 0.4s;
-  -webkit-transition: background 0.4s;
-  transition: background 0.4s;
+  -moz-transition: background 0.5s;
+  -o-transition: background 0.5s;
+  -webkit-transition: background 0.5s;
+  transition: background 0.5s;
 }
 .panel:hover {
-  background: #e6e6e6;
+  background: rgba(255, 255, 255, 0.4);
   color: black;
 }
 /*# sourceMappingURL=dashboard.css.map */

@@ -13,50 +13,117 @@
     @Scripts.Render("~/bundles/js/projects")
 }
 
-<div class="container">
-    <div class="row">
+<!-- Slett modal -->
+<div class="modal fade" id="slettModal" tabindex="-1" role="dialog" aria-labelledby="slettModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="slettModalLabel">Slett</h4>
+            </div>
+            <div class="modal-body">
+                Er du sikker på at du vil slette <code id="prosjekt-slett-etikett"></code> prosjektet?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Nei (Esc)</button>
+                <button id="slett-prosjekt-btn" type="button" class="btn btn-primary">Ja</button>
+                <i class="fa fa-spinner fa-spin fa-2x hidden"></i>
+            </div>
+        </div>
+    </div>
+</div>
 
-        <div class="form-group">
-            <input type="text" class="form-control" id="search-project" placeholder="Søk etter prosjekt">
+<div role="tabpanel">
+
+    <!-- Nav tabs -->
+    <ul id="prosjekt-tabs" class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#prosjekter-tab" aria-controls="prosjekter-tab" role="tab" data-toggle="tab">Prosjekter</a></li>
+        <li role="presentation"><a href="#nytt-prosjekt-tab" aria-controls="nytt-prosjekt-tab" role="tab" data-toggle="tab">Nytt prosjekt</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="prosjekter-tab">
+            <div class="row">
+                <div class="col-lg-12">
+                    <input type="text" class="form-control" id="prosjekt-filter" placeholder="Filter">
+
+                    <table id="prosjekt-tabell" class="table table-hover table-bordered sortable">
+                        <thead>
+                            <tr>
+                                <th data-sort="string">Kunde <i class="fa pull-right hidden"></i></th>
+                                <th data-sort="string">Prosjekt navn <i class="fa pull-right hidden"></i></th>
+                                <th data-sort="string">Beskrivelse <i class="fa pull-right hidden"></i></th>
+                                <th>Slett</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var Prosjekt in Model)
+                            {
+                                <tr id="@Prosjekt.ProsjektId" data-id="@Prosjekt.ProsjektId" data-kunde="@Prosjekt.Kunde" data-navn="@Prosjekt.Navn" data-beskrivelse="@Prosjekt.Beskrivelse">
+                                    <td class="col-lg-3">@Prosjekt.Kunde</td>
+                                    <td class="col-lg-3">@Html.ActionLink(@Prosjekt.Navn, "Index", "EditProject", new { Id = @Prosjekt.ProsjektId }, new {target = "_blank"})</td>
+                                    <td class="col-lg-3">@Prosjekt.Beskrivelse</td>
+                                    <td class="col-lg-1"><a class="del-link" data-id="@Prosjekt.ProsjektId" data-navn="@Prosjekt.Navn">Slett</a></td>
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+
+
+
+                </div>
+            </div>
         </div>
 
-        <table class="table table-hover table-bordered">
-            <thead>
-                <tr>
-                    <td>
-                        <strong>Prosjekt</strong>
-                    </td>
-                    <td>
-                        <strong>Kunde</strong>
-                    </td>
-                    <td>
-                        <strong>Beskrivelse</strong>
-                    </td>
-                    <td>
-                        <strong>Fra</strong>
-                    </td>
-                    <td>
-                        <strong>Til</strong>
-                    </td>
-                </tr>
-            </thead>
+        <div role="tabpanel" class="tab-pane" id="nytt-prosjekt-tab">
+            <div class="form-horizontal">
 
-            <tbody>
-                
-                @foreach (var Item in Model)
-                {
-                        <tr href="~/EditProject/Index/@Item.ProsjektId">
-                            <td>@Item.Navn</td>
-                            <td>@Item.Kunde</td>
-                            <td>@Item.Beskrivelse</td>
-                            <td>@Item.Fra</td>
-                            <td>@Item.Til</td>
-                        </tr>
-                }
+                <div class="form-group">
+                    <label for="ny-kunde-txt" class="col-lg-2 control-label">Kunde</label>
+                    <div class="col-lg-8">
+                        <input id="ny-kunde-txt" type="text" class="form-control" autocomplete="off">
+                    </div>
+                    <div id="ny-kunde-txt-label" class="col-lg-2 side-label hidden">
+                        <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
+                    </div>
+                </div>
 
-            </tbody>
-        </table>
+                <div class="form-group">
+                    <label for="ny-prosjektnavn-txt" class="col-lg-2 control-label">Prosjektnavn</label>
+                    <div class="col-lg-8">
+                        <input id="ny-prosjektnavn-txt" type="text" class="form-control" autocomplete="off">
+                    </div>
+                    <div id="ny-prosjektnavn-txt-label" class="col-lg-2 side-label hidden">
+                        <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
+                    </div>
+                </div>
 
+                <div class="form-group">
+                    <label for="ny-beskrivelse-txt" class="col-lg-2 control-label">Beskrivelse</label>
+                    <div class="col-lg-8">
+                        <input id="ny-beskrivelse-txt" type="text" class="form-control" autocomplete="off">
+                    </div>
+                    <div id="ny-beskrivelse-txt-label" class="col-lg-2 side-label hidden">
+                        <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <button id="nytt-prosjekt-legg-til-btn" class="btn btn-success" type="button">Legg til nytt prosjekt</button>
+                    </div>
+                    <div id="nytt-prosjekt-legg-til-btn-label" class="col-lg-2 side-label hidden">
+                        <span class="label label-warning">Oppdaterer <i class="fa fa-spinner fa-pulse"></i></span>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
     </div>
 </div>
 

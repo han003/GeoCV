@@ -1,236 +1,150 @@
-﻿/////////////////// GET AUTO COMPLETE ITEMS
+﻿// Globale variabler
+var dbOppdateringsKolonne;
 
-$(document).ready(function () {
-    refreshAutoLists();
-})
+$('.table-filter').keyup(function () {
 
-function refreshAutoLists() {
-    $.get('/Expertise/GetProgrammingLanguages', function (data) {
-        console.log(data);
-        $(function () {
-            $("#Programmeringsspråk-auto").typeahead({
-                minLength: 0,
-                source: data
-            });
-        });
+    // Hent tekst som er skrevet inn
+    var filterTekst = $(this).val();
 
-        $("#Programmeringsspråk-load").addClass('hidden');
-        $("#Programmeringsspråk-form").removeClass('hidden');
+    // Finn riktig katalog
+    var filterKatalog = $(this).data('katalog');
 
-        $("#Programmeringsspråk-auto").data('json', data);
-    }, 'json');
+    // Gå gjennom alle radene og legg IDene i en string
+    $('#' + filterKatalog + '-alle-tabell tbody tr').each(function () {
 
-    $.get('/Expertise/GetFrameworks', function (data) {
-        console.log(data);
-        $(function () {
-            $("#Rammeverk-auto").typeahead({
-                minLength: 0,
-                source: data
-            });
-        });
+        // Finn tekst
+        var trElementTekst = $(this).children('td').html();
 
-        $("#Rammeverk-load").addClass('hidden');
-        $("#Rammeverk-form").removeClass('hidden');
+        // Sjekk om elementet inneholder filter teksten
+        if (trElementTekst.toLowerCase().indexOf(filterTekst.toLowerCase()) >= 0) {
+            // Inneholder, så vis
+            $(this).removeClass('hidden');
+        } else {
+            // Skjul
+            $(this).addClass('hidden');
+        }
 
-        $("#Rammeverk-auto").data('json', data);
-    }, 'json');
+    });
 
-    $.get('/Expertise/GetWebTechnologies', function (data) {
-        console.log(data);
-        $(function () {
-            $("#WebTeknologier-auto").typeahead({
-                minLength: 0,
-                source: data
-            });
-        });
-
-        $("#WebTeknologier-load").addClass('hidden');
-        $("#WebTeknologier-form").removeClass('hidden');
-
-        $("#WebTeknologier-auto").data('json', data);
-    }, 'json');
-
-    $.get('/Expertise/GetDatabaseSystems', function (data) {
-        console.log(data);
-        $(function () {
-            $("#Databasesystemer-auto").typeahead({
-                minLength: 0,
-                source: data
-            });
-        });
-
-        $("#Databasesystemer-load").addClass('hidden');
-        $("#Databasesystemer-form").removeClass('hidden');
-
-        $("#Databasesystemer-auto").data('json', data);
-    }, 'json');
-
-    $.get('/Expertise/GetServerside', function (data) {
-        console.log(data);
-        $(function () {
-            $("#Serverside-auto").typeahead({
-                minLength: 0,
-                source: data
-            });
-        });
-
-        $("#Serverside-load").addClass('hidden');
-        $("#Serverside-form").removeClass('hidden');
-
-        $("#Serverside-auto").data('json', data);
-    }, 'json');
-
-    $.get('/Expertise/GetOperatingSystems', function (data) {
-        console.log(data);
-        $(function () {
-            $("#Operativsystemer-auto").typeahead({
-                minLength: 0,
-                source: data
-            });
-        });
-
-        $("#Operativsystemer-load").addClass('hidden');
-        $("#Operativsystemer-form").removeClass('hidden');
-
-        $("#Operativsystemer-auto").data('json', data);
-    }, 'json');
-}
-
-
-//////////////////// INSERT NEW AUTO STUFF
-
-var autoTextfield;
-var userAutoInput;
-var databaseUpdateColumn;
-
-// What happens when add button is clicked
-$('.add-item-btn').click(function () {
-    addItem($(this));
 });
 
-// What happens when the Enter key is pressed
-$('.add-item-auto').keypress(function (event) {
-    var keycode = (event.keyCode ? event.keyCode : event.which);
-    if (keycode == '13') {
-        addItem($(this));
-    }
+// What happens when add button is clicked
+$('body').on('click', '.add-item-btn', function () {
+
+    // Variabler
+    var tdElement = $(this).parent();
+    var id = $(this).data('id');
+    var katalog = $(this).data('katalog');
+    var nyttElement = $(this).data('element');
+
+    // Legg til html
+    $('#' + katalog + '-bruker-tabell tbody').append('<tr>' +
+                                                     '<td class="col-lg-5">' + nyttElement + '</td>' +
+                                                     '<td class="col-lg-1"><i data-katalog="' + katalog + '" data-id="' + id + '" data-element="' + nyttElement + '" class="fa fa-minus-square fa-lg remove-item-btn"></i></td>' +
+                                                     '</tr>');
+
+    // Oppdater
+    oppdaterDatabase(katalog, tdElement);
+
 });
 
 // What happens when removing a button
-$('body').on('click', '.added-btn', function () {
+$('body').on('click', '.remove-item-btn', function () {
 
-    databaseUpdateColumn = $(this).parent().attr('id');
-    databaseUpdateColumn = databaseUpdateColumn.substring(0, databaseUpdateColumn.indexOf('-'));
+    var tdElement = $(this).parent();
+    var katalog = $(this).data('katalog');
+    $(this).closest('tr').remove();
 
-    $(this).remove();
-    updateDatabase();
+    oppdaterDatabase(katalog, tdElement);
+
 });
 
-function addItem(element) {
-    databaseUpdateColumn = element.attr('id');
-    databaseUpdateColumn = databaseUpdateColumn.substring(0, databaseUpdateColumn.indexOf('-'));
+function oppdaterDatabase(katalog, tdElement) {
 
-    console.log('Column: ' + databaseUpdateColumn)
-
-    // Get textfield
-    autoTextfield = $('#' + databaseUpdateColumn + '-auto');
-
-    // Get value
-    userAutoInput = autoTextfield.val();
-
-    console.log('Value: ' + userAutoInput)
-
-    // Check if the value is already in the database
-    var json = autoTextfield.data('json');
-
-    if (itemExists(userAutoInput, json)) {
-        $('#' + databaseUpdateColumn + '-group').append('<button type="button" class="btn btn-info added-btn" tabindex="-1">' + userAutoInput + '</button>');
-        autoTextfield.val('');
-        updateDatabase();
-    } else {
-        $('#modalAddText').append('<code>' + userAutoInput + '</code> finnes ikke i databasen, vil legge den til?');
-        $('#myModal').modal();
-    }
-}
-
-// Check if item exsists in the json data
-function itemExists(userAutoInput, json) {
-    var exists = false;
-    $.each(json, function (name, value) {
-        if (userAutoInput.toLowerCase() == value.toLowerCase()) {
-            exists = true;
-        }
-    });
-    return exists;
-}
-
-// Enter key when the modal is visible
-$(document).keypress(function (event) {
-    var keycode = (event.keyCode ? event.keyCode : event.which);
-    if (keycode == '13' && $('#myModal').is(":visible")) {
-        addToDatabase();
-    }
-});
-
-// Close modal if Esc is pressed
-$(document).keypress(function (event) {
-    var keycode = (event.keyCode ? event.keyCode : event.which);
-    if (keycode == '27' && $('#myModal').is(":visible")) {
-        $('#myModal').modal('hide');
-    }
-});
-
-// Reset the text in the modal whenever the modal is hidden
-$('#myModal').on('hidden.bs.modal', function (event) {
-    $('#modalAddText').text('');
-});
-
-// If modal button to add is clicked, add new item to database
-$('#modalAddItem').click(function () {
-    addToDatabase();
-});
-
-// Add new item to the database
-function addToDatabase() {
-    // Insert into database
-    insertAutoItem(databaseUpdateColumn, userAutoInput);
-
-    // Hide modal
-    $('#myModal').modal('hide');
-
-    // Append the new button
-    $('#' + databaseUpdateColumn + '-group').append('<button type="button" class="btn btn-info added-btn" tabindex="-1">' + userAutoInput + '</button>');
-
-    // Erase the text in the autocomplete textfield
-    autoTextfield.val('');
-
-    // Update field in database
-    updateDatabase();
-}
-
-function insertAutoItem(databaseUpdateColumn, userAutoInput) {
-    console.log('Inserting ' + userAutoInput + ' into ' + databaseUpdateColumn)
-    $.post('/Expertise/InsertItem', { Insert: databaseUpdateColumn, Value: userAutoInput }, function () {
-        refreshAutoLists();
-    });
-}
-
-function updateDatabase() {
-
-    // Empty var to hold text
+    // Tom variabel for å holde teksten
     var newValue = '';
 
-    // Loop through all buttons
-    $('#' + databaseUpdateColumn + '-group button').each(function () {
-        newValue += $(this).text() + ';';
+    // Gå gjennom alle radene og legg IDene i en string
+    $('#' + katalog + '-bruker-tabell tbody tr i').each(function () {
+        var id = $(this).data('id');
+        newValue += id + ';';
     });
 
-    // Remove last ;
+    // Fjern siste ';' fra stringen
     newValue = newValue.substring(0, newValue.length - 1);
 
-    console.log("Table: " + databaseUpdateColumn);
-    console.log("Value: " + newValue);
+    console.log('Table: ' + katalog);
+    console.log('Value: ' + newValue);
 
     // Update
-    $.post('/Expertise/Update', { Update: databaseUpdateColumn, Value: newValue });
+    $.ajax({
+        url: '/Expertise/Update',
+        data: { Update: katalog, Value: newValue },
+        type: 'POST',
+        beforeSend: function () {
+
+            // Vis loading
+            tdElement.html('<i class="fa fa-spinner fa-spin"></i>');
+
+        },
+        success: function (id) {
+
+            tdElement.html('Lagt til');
+
+        }
+    });
 }
+
+$('.legg-til-element-btn').click(function () {
+
+    $(this).blur();
+
+    var katalog = $(this).data('katalog');
+    var element = $('#' + katalog + '-filter').val().trim();
+
+    console.log(element + ' i ' + katalog);
+
+    // Endre tekst
+    $('#modalLeggTilElement').html(element);
+    $('#modalLeggTilKatalog').html(katalog);
+
+    // Endre data i modalen sin legg til knapp
+    $('#modal-LeggTil-btn').data('katalog', katalog);
+    $('#modal-LeggTil-btn').data('element', element);
+
+    // Vis modal
+    $('#leggTilModal').modal();
+});
+
+$('#modal-LeggTil-btn').click(function () {
+
+    // Hent data
+    var katalog = $('#modal-LeggTil-btn').data('katalog');
+    var element = $('#modal-LeggTil-btn').data('element');
+
+    $.ajax({
+        url: '/Database/AddElement',
+        data: { NyttElement: element, Katalog: katalog },
+        type: 'POST',
+        beforeSend: function () {
+
+            // Vis loading
+            $('#modal-LeggTil-btn').html('<i class="fa fa-spinner fa-spin"></i>');
+
+        },
+        success: function (id) {
+
+            // Gammel tekst
+            $('#modal-LeggTil-btn').html('Legg til');
+
+            // Fjern modal
+            $('#leggTilModal').modal('hide')
+
+            // Legg til html
+            $('#' + katalog + '-alle-tabell tbody').append('<tr>' +
+                                                             '<td class="col-lg-5">' + element + '</td>' +
+                                                             '<td class="col-lg-1"><i data-katalog="' + katalog + '" data-id="' + id + '" data-element="' + element + '" class="fa fa-plus-square fa-lg add-item-btn"></i></td>' +
+                                                             '</tr>');
+        }
+    });
+});

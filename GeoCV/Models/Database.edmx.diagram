@@ -4,26 +4,26 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5998eb30692b4225b0cbc1deabb0d887" Name="Diagram1">
-        <EntityTypeShape EntityType="cvModel.Arbeidserfaring" Width="1.5" PointX="5.25" PointY="2.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="cvModel.CVVersjon" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="cvModel.Feedback" Width="1.5" PointX="8.5" PointY="7.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="cvModel.Innstillinger" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="cvModel.Kompetanse" Width="1.5" PointX="0.75" PointY="10.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="cvModel.Medlem" Width="1.5" PointX="6" PointY="6.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="cvModel.Person" Width="1.5" PointX="0.75" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="cvModel.Prosjekt" Width="1.5" PointX="3.75" PointY="13.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="cvModel.TekniskProfil" Width="1.5" PointX="6" PointY="13.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="cvModel.Utdannelse" Width="1.5" PointX="5.25" PointY="10.25" IsExpanded="true" />
-        <AssociationConnector Association="cvModel.FK_CVVersjonArbeidserfaring" ManuallyRouted="false" />
-        <AssociationConnector Association="cvModel.FK_CVVersjonInnstillinger" ManuallyRouted="false" />
-        <AssociationConnector Association="cvModel.FK_CVVersjonKompetanse" ManuallyRouted="false" />
-        <AssociationConnector Association="cvModel.FK_CVVersjonPerson" ManuallyRouted="false" />
-        <AssociationConnector Association="cvModel.FK_CVVersjonUtdannelse" ManuallyRouted="false" />
-        <AssociationConnector Association="cvModel.FK_MedlemPerson" ManuallyRouted="false" />
-        <AssociationConnector Association="cvModel.FK_ProsjektMedlem" ManuallyRouted="false" />
-        <AssociationConnector Association="cvModel.FK_ProsjektTekniskProfil" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="cvModel.ListeKatalog" Width="1.5" PointX="8.5" PointY="3.75" />
+      <Diagram DiagramId="f99a985268f9403db7890db9f4f197eb" Name="Diagram1">
+        <EntityTypeShape EntityType="CvPortalModel.Arbeidserfaring" Width="1.5" PointX="5.25" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="CvPortalModel.CVVersjon" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CvPortalModel.Feedback" Width="1.5" PointX="7.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CvPortalModel.Innstillinger" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CvPortalModel.Kompetanse" Width="1.5" PointX="0.75" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CvPortalModel.ListeKatalog" Width="1.5" PointX="8.75" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CvPortalModel.Medlem" Width="1.5" PointX="6" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CvPortalModel.Person" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CvPortalModel.Prosjekt" Width="1.5" PointX="3.75" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CvPortalModel.TekniskProfil" Width="1.5" PointX="6" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="CvPortalModel.Utdannelse" Width="1.5" PointX="5.25" PointY="11.5" IsExpanded="true" />
+        <AssociationConnector Association="CvPortalModel.FK_CVVersjonArbeidserfaring" ManuallyRouted="false" />
+        <AssociationConnector Association="CvPortalModel.FK_CVVersjonInnstillinger" ManuallyRouted="false" />
+        <AssociationConnector Association="CvPortalModel.FK_CVVersjonKompetanse" ManuallyRouted="false" />
+        <AssociationConnector Association="CvPortalModel.FK_CVVersjonPerson" ManuallyRouted="false" />
+        <AssociationConnector Association="CvPortalModel.FK_CVVersjonUtdannelse" ManuallyRouted="false" />
+        <AssociationConnector Association="CvPortalModel.FK_MedlemPerson" ManuallyRouted="false" />
+        <AssociationConnector Association="CvPortalModel.FK_ProsjektMedlem" ManuallyRouted="false" />
+        <AssociationConnector Association="CvPortalModel.FK_ProsjektTekniskProfil" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
