@@ -1,38 +1,12 @@
-﻿@using System.Web.Optimization
-@using Microsoft.AspNet.Identity
-
-@model GeoCV.Models.CVVersjon
-
-@{
+﻿@{
     ViewBag.Title = "Geomatikk CV";
-    Layout = "~/Views/Shared/_Layout2.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section css{
+    @Styles.Render("~/Bundles/css/home")
+}
+@section scripts{
+    @Scripts.Render("~/Bundles/js/home")
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-    @Styles.Render("~/Bundles/css/home")
-</head>
-<body>
-    <div>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-
-
-                    <h1>Her er det ingen forside (ennå).</h1>
-                    <h3>Men du kan logge inn @Html.ActionLink("her", "Login", "Account").</h3>
-                    <h3>Eller opprette en bruker @Html.ActionLink("her", "Register", "Account").</h3>
-
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-    @Scripts.Render("~/Bundles/js/home")
-</body>
-</html>
+@Html.Partial("~/Views/Shared/_LoginBox.cshtml")

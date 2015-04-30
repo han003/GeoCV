@@ -9,21 +9,18 @@ namespace GeoCV
         {
 
             // Home
-            bundles.Add(new ScriptBundle("~/Bundles/js/home")
-                .Include("~/Scripts/jquery/jquery-{version}.js")
-                .Include("~/Scripts/jquery/jquery.validate.js")
-                .Include("~/Scripts/bootstrap/*.js")
-                .Include("~/Scripts/home.js"));
-
             bundles.Add(new StyleBundle("~/Bundles/css/home")
-                .Include("~/Content/bootstrap.css")
                 .Include("~/Content/main.css")
                 .Include("~/Content/home.css"));
+
+            // Login
+            bundles.Add(new StyleBundle("~/Bundles/css/login")
+                .Include("~/Content/main.css")
+                .Include("~/Content/login.css"));
 
             // Dashboard
             bundles.Add(new ScriptBundle("~/Bundles/js/dashboard")
                 .Include("~/Scripts/jquery/jquery-{version}.js")
-                .Include("~/Scripts/jquery/jquery.validate.js")
                 .Include("~/Scripts/bootstrap/*.js")
                 .Include("~/Scripts/dashboard.js"));
 
@@ -35,7 +32,6 @@ namespace GeoCV
             // Employees
             bundles.Add(new ScriptBundle("~/Bundles/js/employees")
                 .Include("~/Scripts/jquery/jquery-{version}.js")
-                .Include("~/Scripts/jquery/jquery.validate.js")
                 .Include("~/Scripts/stuff/stupidtable.js")
                 .Include("~/Scripts/bootstrap/*.js")
                 .Include("~/Scripts/employees.js"));
@@ -48,7 +44,6 @@ namespace GeoCV
             // Admin Projects
             bundles.Add(new ScriptBundle("~/Bundles/js/projects")
                 .Include("~/Scripts/jquery/jquery-{version}.js")
-                .Include("~/Scripts/jquery/jquery.validate.js")
                 .Include("~/Scripts/stuff/stupidtable.js")
                 .Include("~/Scripts/bootstrap/*.js")
                 .Include("~/Scripts/projects.js"));
@@ -61,7 +56,6 @@ namespace GeoCV
             // Register
             bundles.Add(new ScriptBundle("~/Bundles/js/register")
                 .Include("~/Scripts/jquery/jquery-{version}.js")
-                .Include("~/Scripts/jquery/jquery.validate.js")
                 .Include("~/Scripts/bootstrap/*.js")
                 .Include("~/Scripts/register.js"));
 
@@ -70,22 +64,9 @@ namespace GeoCV
                 .Include("~/Content/main.css")
                 .Include("~/Content/register.css"));
 
-            // Login
-            bundles.Add(new ScriptBundle("~/Bundles/js/login")
-                .Include("~/Scripts/jquery/jquery-{version}.js")
-                .Include("~/Scripts/jquery/jquery.validate.js")
-                .Include("~/Scripts/bootstrap/*.js")
-                .Include("~/Scripts/login.js"));
-
-            bundles.Add(new StyleBundle("~/Bundles/css/login")
-                .Include("~/Content/bootstrap.css")
-                .Include("~/Content/main.css")
-                .Include("~/Content/login.css"));
-
             // Manage
             bundles.Add(new ScriptBundle("~/Bundles/js/manage")
                 .Include("~/Scripts/jquery/jquery-{version}.js")
-                .Include("~/Scripts/jquery/jquery.validate.js")
                 .Include("~/Scripts/bootstrap/*.js")
                 .Include("~/Scripts/manage.js"));
 
@@ -97,7 +78,6 @@ namespace GeoCV
             // Change Password
             bundles.Add(new ScriptBundle("~/Bundles/js/changepass")
                 .Include("~/Scripts/jquery/jquery-{version}.js")
-                .Include("~/Scripts/jquery/jquery.validate.js")
                 .Include("~/Scripts/bootstrap/*.js")
                 .Include("~/Scripts/changepass.js"));
 
@@ -109,7 +89,6 @@ namespace GeoCV
             // Personal
             bundles.Add(new ScriptBundle("~/Bundles/js/personal")
                 .Include("~/Scripts/jquery/jquery-{version}.js")
-                .Include("~/Scripts/jquery/jquery.validate.js")
                 .Include("~/Scripts/jquery-ui/*.js")
                 .Include("~/Scripts/bootstrap/*.js")
                 .Include("~/Scripts/personal.js"));
@@ -124,7 +103,6 @@ namespace GeoCV
             // Expertise
             bundles.Add(new ScriptBundle("~/Bundles/js/expertise")
                 .Include("~/Scripts/jquery/jquery-{version}.js")
-                .Include("~/Scripts/jquery/jquery.validate.js")
                 .Include("~/Scripts/bootstrap/*.js")
                 .Include("~/Scripts/expertise.js"));
 
@@ -136,7 +114,6 @@ namespace GeoCV
             // Education
             bundles.Add(new ScriptBundle("~/Bundles/js/education")
                 .Include("~/Scripts/jquery/jquery-{version}.js")
-                .Include("~/Scripts/jquery/jquery.validate.js")
                 .Include("~/Scripts/stuff/stupidtable.js")
                 .Include("~/Scripts/bootstrap/*.js")
                 .Include("~/Scripts/education.js"));
@@ -149,7 +126,6 @@ namespace GeoCV
             // Work
             bundles.Add(new ScriptBundle("~/Bundles/js/work")
                 .Include("~/Scripts/jquery/jquery-{version}.js")
-                .Include("~/Scripts/jquery/jquery.validate.js")
                 .Include("~/Scripts/stuff/stupidtable.js")
                 .Include("~/Scripts/bootstrap/*.js")
                 .Include("~/Scripts/work.js"));
@@ -162,7 +138,6 @@ namespace GeoCV
             // My Projects
             bundles.Add(new ScriptBundle("~/Bundles/js/myprojects")
                 .Include("~/Scripts/jquery/jquery-{version}.js")
-                .Include("~/Scripts/jquery/jquery.validate.js")
                 .Include("~/Scripts/jquery-ui/*.js")
                 .Include("~/Scripts/stuff/stupidtable.js")
                 .Include("~/Scripts/bootstrap/*.js")
@@ -177,7 +152,6 @@ namespace GeoCV
             // Edit Project
             bundles.Add(new ScriptBundle("~/Bundles/js/editproject")
                 .Include("~/Scripts/jquery/jquery-{version}.js")
-                .Include("~/Scripts/jquery/jquery.validate.js")
                 .Include("~/Scripts/stuff/stupidtable.js")
                 .Include("~/Scripts/bootstrap/*.js")
                 .Include("~/Scripts/editproject.js"));
@@ -190,7 +164,6 @@ namespace GeoCV
             // Settings
             bundles.Add(new ScriptBundle("~/Bundles/js/settings")
                 .Include("~/Scripts/jquery/jquery-{version}.js")
-                .Include("~/Scripts/jquery/jquery.validate.js")
                 .Include("~/Scripts/bootstrap/*.js")
                 .Include("~/Scripts/settings.js"));
 
@@ -202,7 +175,6 @@ namespace GeoCV
             // Feedback
             bundles.Add(new ScriptBundle("~/Bundles/js/feedback")
                 .Include("~/Scripts/jquery/jquery-{version}.js")
-                .Include("~/Scripts/jquery/jquery.validate.js")
                 .Include("~/Scripts/bootstrap/*.js")
                 .Include("~/Scripts/feedback.js"));
 
@@ -214,7 +186,6 @@ namespace GeoCV
             // Database
             bundles.Add(new ScriptBundle("~/Bundles/js/database")
                 .Include("~/Scripts/jquery/jquery-{version}.js")
-                .Include("~/Scripts/jquery/jquery.validate.js")
                 .Include("~/Scripts/stuff/stupidtable.js")
                 .Include("~/Scripts/bootstrap/*.js")
                 .Include("~/Scripts/database.js"));

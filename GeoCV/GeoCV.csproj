@@ -379,6 +379,12 @@
     <Content Include="Content\jquery-ui\jquery-ui.theme.min.css">
       <DependentUpon>jquery-ui.theme.css</DependentUpon>
     </Content>
+    <Content Include="Content\login.css">
+      <DependentUpon>login.less</DependentUpon>
+    </Content>
+    <Content Include="Content\login.min.css">
+      <DependentUpon>login.css</DependentUpon>
+    </Content>
     <Content Include="Content\main.css">
       <DependentUpon>main.less</DependentUpon>
     </Content>
@@ -556,6 +562,10 @@
     <Content Include="Models\Database.edmx.diagram">
       <DependentUpon>Database.edmx</DependentUpon>
     </Content>
+    <Content Include="Content\login.less" />
+    <Content Include="Content\login.css.map">
+      <DependentUpon>login.css</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\cvportal.pubxml" />
     <None Include="Scripts\jquery\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\employees.js" />
@@ -722,7 +732,7 @@
     </Content>
     <Content Include="Views\Expertise\_TabInnhold.cshtml" />
     <Content Include="Views\Personal\_TabInnhold.cshtml" />
-    <Content Include="Views\Shared\_Layout2.cshtml" />
+    <Content Include="Views\Shared\_LoginBox.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
