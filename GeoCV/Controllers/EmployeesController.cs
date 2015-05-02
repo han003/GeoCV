@@ -173,7 +173,7 @@ namespace GeoCV.Controllers
                 CvInnstillinger.Fødselsår = true;
                 CvInnstillinger.Programmeringsspråk = true;
                 CvInnstillinger.Rammeverk = true;
-                CvInnstillinger.WebTeknologier = true;
+                CvInnstillinger.Webteknologier = true;
                 CvInnstillinger.Databasesystemer = true;
                 CvInnstillinger.Serverside = true;
                 CvInnstillinger.Operativsystemer = true;

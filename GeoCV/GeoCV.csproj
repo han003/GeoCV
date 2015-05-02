@@ -259,11 +259,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Database.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\TekniskProfilModel.cs" />
-    <Compile Include="Models\ExpertiseModel.cs" />
-    <Compile Include="Models\Feedback.cs">
-      <DependentUpon>Database.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Innstillinger.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
@@ -276,20 +271,22 @@
     <Compile Include="Models\Medlem.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\MyProjectCustomObject.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\MyProjectViewModel.cs" />
     <Compile Include="Models\Person.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PersonalModel.cs" />
     <Compile Include="Models\Prosjekt.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TekniskProfil.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TekniskProfilModel.cs" />
+    <Compile Include="Models\ExpertiseModel.cs" />
+    <Compile Include="Models\MyProjectCustomObject.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MyProjectViewModel.cs" />
+    <Compile Include="Models\PersonalModel.cs" />
     <Compile Include="Models\Utdannelse.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
@@ -434,16 +431,6 @@
       <DependentUpon>work.css</DependentUpon>
     </Content>
     <Content Include="Global.asax" />
-    <Content Include="Models\Database.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Database.edmx</DependentUpon>
-      <LastGenOutput>Database.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\Database.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Database.edmx</DependentUpon>
-      <LastGenOutput>Database.cs</LastGenOutput>
-    </Content>
     <Content Include="ApplicationInsights.config" />
     <Content Include="Content\animate.less" />
     <Content Include="Content\dashboard.less" />
@@ -456,6 +443,16 @@
     </Content>
     <Content Include="Content\home.css.map">
       <DependentUpon>home.css</DependentUpon>
+    </Content>
+    <Content Include="Models\Database.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Database.edmx</DependentUpon>
+      <LastGenOutput>Database.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Database.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Database.edmx</DependentUpon>
+      <LastGenOutput>Database.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\plugins\bootstrap-switch.js" />
     <Content Include="Scripts\plugins\bootstrap-switch.min.js">
@@ -561,13 +558,6 @@
     <Content Include="Scripts\jquery-ui\region-nb.min.js.map">
       <DependentUpon>region-nb.min.js</DependentUpon>
     </Content>
-    <EntityDeploy Include="Models\Database.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Database.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Database.edmx.diagram">
-      <DependentUpon>Database.edmx</DependentUpon>
-    </Content>
     <Content Include="Content\login.less" />
     <Content Include="Content\login.css.map">
       <DependentUpon>login.css</DependentUpon>
@@ -575,6 +565,13 @@
     <Content Include="Content\theme\sb-admin-2.less" />
     <Content Include="Content\theme\sb-admin-2.css.map">
       <DependentUpon>sb-admin-2.css</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\Database.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Database.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Database.edmx.diagram">
+      <DependentUpon>Database.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\cvportal.pubxml" />
     <Content Include="Scripts\theme\metisMenu.min.js.map">

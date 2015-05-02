@@ -1,10 +1,4 @@
-﻿#alle-elementer-filter {
-  margin-bottom: 20px;
-}
-#alle-prosjekter-tabell tbody tr:hover i {
-  color: rgba(44, 213, 37, 0.84);
-}
-.kalender {
+﻿.kalender {
   cursor: pointer;
 }
 .alert {
@@ -14,15 +8,28 @@
   cursor: pointer;
 }
 .list-group {
-  margin: 0;
+  margin-bottom: 0;
 }
-.prosjekt-panel .panel-body {
-  padding-bottom: 0;
+.list-group li {
+  display: flex;
+  align-items: center;
 }
-.teknisk-panel select {
-  margin-bottom: 15px;
+.list-group li .list-group-item-text {
+  -ms-flex: 1;
+  flex: 1;
 }
-.well {
+.list-group li:hover {
+  background: #d9edf7;
+  cursor: pointer;
+}
+.list-group li:hover i {
+  display: inline-block !important;
+}
+.prosjekt-panel .form-group:last-child {
+  margin-bottom: 0;
+}
+.prosjekt-panel .well {
+  margin-top: 15px;
   margin-bottom: 0;
 }
 /*# sourceMappingURL=myprojects.css.map */

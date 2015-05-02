@@ -10,7 +10,7 @@ namespace GeoCV.Models
         public IEnumerable<ListeKatalog> Katalog { get; set; }
         public IEnumerable<ListeKatalog> BrukerProgrammeringsspråk { get; set; }
         public IEnumerable<ListeKatalog> BrukerRammeverk { get; set; }
-        public IEnumerable<ListeKatalog> BrukerWebTeknologier { get; set; }
+        public IEnumerable<ListeKatalog> BrukerWebteknologier { get; set; }
         public IEnumerable<ListeKatalog> BrukerDatabasesystemer { get; set; }
         public IEnumerable<ListeKatalog> BrukerServerside { get; set; }
         public IEnumerable<ListeKatalog> BrukerOperativsystemer { get; set; }

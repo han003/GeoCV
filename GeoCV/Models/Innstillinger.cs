@@ -30,7 +30,7 @@ namespace GeoCV.Models
         public bool Fødselsår { get; set; }
         public bool Programmeringsspråk { get; set; }
         public bool Rammeverk { get; set; }
-        public bool WebTeknologier { get; set; }
+        public bool Webteknologier { get; set; }
         public bool Databasesystemer { get; set; }
         public bool Serverside { get; set; }
         public bool Operativsystemer { get; set; }

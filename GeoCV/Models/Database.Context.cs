@@ -27,7 +27,6 @@ namespace GeoCV.Models
     
         public virtual DbSet<Arbeidserfaring> Arbeidserfaring { get; set; }
         public virtual DbSet<CVVersjon> CVVersjon { get; set; }
-        public virtual DbSet<Feedback> Feedback { get; set; }
         public virtual DbSet<Innstillinger> Innstillinger { get; set; }
         public virtual DbSet<Kompetanse> Kompetanse { get; set; }
         public virtual DbSet<ListeKatalog> ListeKatalog { get; set; }

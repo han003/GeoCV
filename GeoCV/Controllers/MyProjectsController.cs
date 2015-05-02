@@ -37,6 +37,7 @@ namespace GeoCV.Controllers
 
                            MedlemId = a.MedlemId,
                            MedlemRolle = a.Rolle,
+                           MedlemTekniskProfil = a.TekniskProfil,
                            MedlemStart = a.Start,
                            MedlemSlutt = a.Slutt
                        };
@@ -77,7 +78,8 @@ namespace GeoCV.Controllers
             Medlem NyttMedlem = new Medlem();
             NyttMedlem.Person = Bruker.Person;
             NyttMedlem.Prosjekt = Prosjekt;
-            NyttMedlem.Rolle = 0;
+            NyttMedlem.Rolle = null;
+            NyttMedlem.TekniskProfil = null;
             NyttMedlem.Start = DateTime.Now;
             NyttMedlem.Slutt = DateTime.Now;
 
@@ -97,9 +99,22 @@ namespace GeoCV.Controllers
                        where a.Person_PersonId.Equals(Bruker.Person.PersonId) && a.ProsjektProsjektId.Equals(ProsjektId)
                        select a;
 
-            var ProMedlem = Data.FirstOrDefault();
-            ProMedlem.Rolle = NyStilling;
+            Data.FirstOrDefault().Rolle = NyStilling;
+            db.SaveChanges();
+        }
 
+        [HttpPost]
+        public void EndreTekniskProfil(int ProsjektId, int NyTekniskProfil)
+        {
+            // Bruker data
+            var Bruker = GetBrukerCv(GetAspNetBrukerID());
+
+            // Prosjekt data
+            var Data = from a in db.Medlem
+                       where a.Person_PersonId.Equals(Bruker.Person.PersonId) && a.ProsjektProsjektId.Equals(ProsjektId)
+                       select a;
+
+            Data.FirstOrDefault().TekniskProfil = NyTekniskProfil;
             db.SaveChanges();
         }
 

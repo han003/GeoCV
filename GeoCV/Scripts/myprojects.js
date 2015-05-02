@@ -37,40 +37,15 @@
 
 });
 
-$(document).on('click', '.fa-plus-square', function () {
-
-    // Id
-    var prosjektId = $(this).closest('tr').attr('id');
-    console.log('Prosjekt: ' + prosjektId);
-
-    // <td> element
-    var tdElement = $(this).parent();
-
-    $.ajax({
-        url: '/MyProjects/LeggTilProsjekt',
-        data: { ProsjektId: prosjektId },
-        type: 'POST',
-        beforeSend: function(){
-
-            tdElement.html('<i class="fa fa-spinner fa-spin"></i>');
-
-        },
-        success: function () {
-
-            tdElement.html('Lagt til');
-        }
-    });
-
-});
-
 $('.stilling-select').change(function () {
 
     // Id
-    var selectId = $(this).attr('id');
-    var prosjektId = selectId.substring(selectId.indexOf('-') + 1, selectId.length);
+    var prosjektId = $(this).data('prosjektid');
 
     // Ny stilling id
     var nyStilling = $(this).val();
+
+    console.log(prosjektId + ': ' + nyStilling)
 
     $.ajax({
         url: '/MyProjects/EndreStilling',
@@ -88,11 +63,68 @@ $('.stilling-select').change(function () {
 
 });
 
+$('.teknisk-profil-select').change(function () {
+
+    // Id
+    var prosjektId = $(this).data('prosjektid');
+
+    // Ny stilling id
+    var nyTekniskProfil = $(this).val();
+
+    console.log(prosjektId + ': ' + nyTekniskProfil)
+
+    $.ajax({
+        url: '/MyProjects/EndreTekniskProfil',
+        data: { ProsjektId: prosjektId, NyTekniskProfil: nyTekniskProfil },
+        type: 'POST',
+        beforeSend: function () {
+
+            // Animasjon
+
+        },
+        success: function () {
+
+            $.each($('.prosjekt-panel[data-prosjektid="' + prosjektId + '"] .well[data-tekniskprofilid="' + nyTekniskProfil + '"]'), function (index, value) {
+                $(this).removeClass('hidden');
+            });
+            $.each($('.prosjekt-panel[data-prosjektid="' + prosjektId + '"] .well[data-tekniskprofilid!="' + nyTekniskProfil + '"]'), function (index, value) {
+                $(this).addClass('hidden');
+            });
+
+        }
+    });
+
+});
+
+$('.list-group-item').click(function () {
+
+    var prosjektId = $(this).data('prosjektid');
+    console.log(prosjektId);
+
+
+    // Vis eller skjul => ikonet
+    $.each($('#mine-prosjekter-panel .panel-body i[data-prosjektid!="' + prosjektId + '"]'), function (index, value) {
+        $(this).addClass('hidden');
+    });
+    $.each($('#mine-prosjekter-panel .panel-body i[data-prosjektid="' + prosjektId + '"]'), function (index, value) {
+        $(this).removeClass('hidden');
+    });
+    
+
+    // Vis paneler relatert til prosjektet som ble valgt
+    $.each($('.prosjekt-panel[data-prosjektid!="' + prosjektId + '"]'), function (index, value) {
+        $(this).addClass('hidden');
+    });
+    $.each($('.prosjekt-panel[data-prosjektid="' + prosjektId + '"]'), function (index, value) {
+        $(this).removeClass('hidden');
+    });
+
+});
+
 $('.kalender').change(function () {
 
     // Id
-    var datoVelger = $(this).attr('id');
-    var prosjektId = datoVelger.substring(datoVelger.lastIndexOf('-') + 1, datoVelger.length);
+    var prosjektId = $(this).data('prosjektid');
 
     // Ny stilling id
     var nyDato = $(this).val();

@@ -4,7 +4,7 @@
 @model GeoCV.Models.ExpertiseModel
 
 @{
-    ViewBag.Title = "WebTeknologier";
+    ViewBag.Title = "Webteknologier";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section css{
@@ -15,4 +15,4 @@
 }
 
 @Html.Partial("_LeggTilModal")
-@Html.Partial("_TabInnhold", Model, new ViewDataDictionary { { "Tab", ViewBag.Title }, { "Bruker", Model.BrukerWebTeknologier } })
+@Html.Partial("_TabInnhold", Model, new ViewDataDictionary { { "Tab", ViewBag.Title }, { "Bruker", Model.BrukerWebteknologier } })

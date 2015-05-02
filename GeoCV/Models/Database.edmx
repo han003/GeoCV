@@ -30,15 +30,6 @@
           <Property Name="Kompetanse_KompetanseId" Type="int" Nullable="false" />
           <Property Name="Innstillinger_InnstillingerId" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="Feedback">
-          <Key>
-            <PropertyRef Name="FeedbackId" />
-          </Key>
-          <Property Name="FeedbackId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Beskjed" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Person" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Dato" Type="datetime" Nullable="false" />
-        </EntityType>
         <EntityType Name="Innstillinger">
           <Key>
             <PropertyRef Name="InnstillingerId" />
@@ -54,7 +45,7 @@
           <Property Name="Fødselsår" Type="bit" Nullable="false" />
           <Property Name="Programmeringsspråk" Type="bit" Nullable="false" />
           <Property Name="Rammeverk" Type="bit" Nullable="false" />
-          <Property Name="WebTeknologier" Type="bit" Nullable="false" />
+          <Property Name="Webteknologier" Type="bit" Nullable="false" />
           <Property Name="Databasesystemer" Type="bit" Nullable="false" />
           <Property Name="Serverside" Type="bit" Nullable="false" />
           <Property Name="Operativsystemer" Type="bit" Nullable="false" />
@@ -70,7 +61,7 @@
           <Property Name="KompetanseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Programmeringsspråk" Type="nvarchar(max)" />
           <Property Name="Rammeverk" Type="nvarchar(max)" />
-          <Property Name="WebTeknologier" Type="nvarchar(max)" />
+          <Property Name="Webteknologier" Type="nvarchar(max)" />
           <Property Name="Databasesystemer" Type="nvarchar(max)" />
           <Property Name="Serverside" Type="nvarchar(max)" />
           <Property Name="Operativsystemer" Type="nvarchar(max)" />
@@ -89,7 +80,8 @@
             <PropertyRef Name="MedlemId" />
           </Key>
           <Property Name="MedlemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Rolle" Type="int" Nullable="false" />
+          <Property Name="Rolle" Type="int" />
+          <Property Name="TekniskProfil" Type="int" />
           <Property Name="Start" Type="datetime" Nullable="false" />
           <Property Name="Slutt" Type="datetime" Nullable="false" />
           <Property Name="ProsjektProsjektId" Type="int" Nullable="false" />
@@ -240,7 +232,6 @@
         <EntityContainer Name="CvPortalModelStoreContainer">
           <EntitySet Name="Arbeidserfaring" EntityType="Self.Arbeidserfaring" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CVVersjon" EntityType="Self.CVVersjon" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Feedback" EntityType="Self.Feedback" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Innstillinger" EntityType="Self.Innstillinger" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Kompetanse" EntityType="Self.Kompetanse" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ListeKatalog" EntityType="Self.ListeKatalog" Schema="dbo" store:Type="Tables" />
@@ -318,15 +309,6 @@
           <NavigationProperty Name="Person" Relationship="Self.FK_CVVersjonPerson" FromRole="CVVersjon" ToRole="Person" />
           <NavigationProperty Name="Utdannelse" Relationship="Self.FK_CVVersjonUtdannelse" FromRole="CVVersjon" ToRole="Utdannelse" />
         </EntityType>
-        <EntityType Name="Feedback">
-          <Key>
-            <PropertyRef Name="FeedbackId" />
-          </Key>
-          <Property Name="FeedbackId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Beskjed" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Person" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Dato" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
         <EntityType Name="Innstillinger">
           <Key>
             <PropertyRef Name="InnstillingerId" />
@@ -342,7 +324,7 @@
           <Property Name="Fødselsår" Type="Boolean" Nullable="false" />
           <Property Name="Programmeringsspråk" Type="Boolean" Nullable="false" />
           <Property Name="Rammeverk" Type="Boolean" Nullable="false" />
-          <Property Name="WebTeknologier" Type="Boolean" Nullable="false" />
+          <Property Name="Webteknologier" Type="Boolean" Nullable="false" />
           <Property Name="Databasesystemer" Type="Boolean" Nullable="false" />
           <Property Name="Serverside" Type="Boolean" Nullable="false" />
           <Property Name="Operativsystemer" Type="Boolean" Nullable="false" />
@@ -359,7 +341,7 @@
           <Property Name="KompetanseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Programmeringsspråk" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Rammeverk" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="WebTeknologier" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Webteknologier" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Databasesystemer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Serverside" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Operativsystemer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -379,7 +361,8 @@
             <PropertyRef Name="MedlemId" />
           </Key>
           <Property Name="MedlemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Rolle" Type="Int32" Nullable="false" />
+          <Property Name="Rolle" Type="Int32" />
+          <Property Name="TekniskProfil" Type="Int32" />
           <Property Name="Start" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Slutt" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ProsjektProsjektId" Type="Int32" Nullable="false" />
@@ -538,7 +521,6 @@
         <EntityContainer Name="CvPortalEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Arbeidserfaring" EntityType="Self.Arbeidserfaring" />
           <EntitySet Name="CVVersjon" EntityType="Self.CVVersjon" />
-          <EntitySet Name="Feedback" EntityType="Self.Feedback" />
           <EntitySet Name="Innstillinger" EntityType="Self.Innstillinger" />
           <EntitySet Name="Kompetanse" EntityType="Self.Kompetanse" />
           <EntitySet Name="ListeKatalog" EntityType="Self.ListeKatalog" />
@@ -613,16 +595,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Feedback">
-            <EntityTypeMapping TypeName="CvPortalModel.Feedback">
-              <MappingFragment StoreEntitySet="Feedback">
-                <ScalarProperty Name="FeedbackId" ColumnName="FeedbackId" />
-                <ScalarProperty Name="Beskjed" ColumnName="Beskjed" />
-                <ScalarProperty Name="Person" ColumnName="Person" />
-                <ScalarProperty Name="Dato" ColumnName="Dato" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Innstillinger">
             <EntityTypeMapping TypeName="CvPortalModel.Innstillinger">
               <MappingFragment StoreEntitySet="Innstillinger">
@@ -637,7 +609,7 @@
                 <ScalarProperty Name="Fødselsår" ColumnName="Fødselsår" />
                 <ScalarProperty Name="Programmeringsspråk" ColumnName="Programmeringsspråk" />
                 <ScalarProperty Name="Rammeverk" ColumnName="Rammeverk" />
-                <ScalarProperty Name="WebTeknologier" ColumnName="WebTeknologier" />
+                <ScalarProperty Name="Webteknologier" ColumnName="Webteknologier" />
                 <ScalarProperty Name="Databasesystemer" ColumnName="Databasesystemer" />
                 <ScalarProperty Name="Serverside" ColumnName="Serverside" />
                 <ScalarProperty Name="Operativsystemer" ColumnName="Operativsystemer" />
@@ -654,7 +626,7 @@
                 <ScalarProperty Name="KompetanseId" ColumnName="KompetanseId" />
                 <ScalarProperty Name="Programmeringsspråk" ColumnName="Programmeringsspråk" />
                 <ScalarProperty Name="Rammeverk" ColumnName="Rammeverk" />
-                <ScalarProperty Name="WebTeknologier" ColumnName="WebTeknologier" />
+                <ScalarProperty Name="Webteknologier" ColumnName="Webteknologier" />
                 <ScalarProperty Name="Databasesystemer" ColumnName="Databasesystemer" />
                 <ScalarProperty Name="Serverside" ColumnName="Serverside" />
                 <ScalarProperty Name="Operativsystemer" ColumnName="Operativsystemer" />
@@ -676,6 +648,7 @@
               <MappingFragment StoreEntitySet="Medlem">
                 <ScalarProperty Name="MedlemId" ColumnName="MedlemId" />
                 <ScalarProperty Name="Rolle" ColumnName="Rolle" />
+                <ScalarProperty Name="TekniskProfil" ColumnName="TekniskProfil" />
                 <ScalarProperty Name="Start" ColumnName="Start" />
                 <ScalarProperty Name="Slutt" ColumnName="Slutt" />
                 <ScalarProperty Name="ProsjektProsjektId" ColumnName="ProsjektProsjektId" />

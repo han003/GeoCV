@@ -84,9 +84,9 @@ namespace GeoCV.Controllers
 
             try
             {
-                List<string> BrukerWebTeknologierListe = BrukerCv.Kompetanse.WebTeknologier.Split(';').ToList();
-                ViewModel.BrukerWebTeknologier = from a in Katalog
-                                                 where BrukerWebTeknologierListe.Contains(a.ListeKatalogId.ToString())
+                List<string> BrukerWebteknologierListe = BrukerCv.Kompetanse.Webteknologier.Split(';').ToList();
+                ViewModel.BrukerWebteknologier = from a in Katalog
+                                                 where BrukerWebteknologierListe.Contains(a.ListeKatalogId.ToString())
                                                  select a;
             }
             catch (Exception)
@@ -211,8 +211,8 @@ namespace GeoCV.Controllers
                     Cv.Kompetanse.Rammeverk = Value;
                     break;
 
-                case "WebTeknologier":
-                    Cv.Kompetanse.WebTeknologier = Value;
+                case "Webteknologier":
+                    Cv.Kompetanse.Webteknologier = Value;
                     break;
 
                 case "Databasesystemer":

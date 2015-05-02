@@ -128,7 +128,7 @@ namespace GeoCV.Controllers
             List<string> KompetanseListe = new List<string>();
             KompetanseListe.Add("Programmeringsspråk");
             KompetanseListe.Add("Rammeverk");
-            KompetanseListe.Add("WebTeknologier");
+            KompetanseListe.Add("Webteknologier");
             KompetanseListe.Add("Databasesystemer");
             KompetanseListe.Add("Serverside");
             KompetanseListe.Add("Operativsystemer");
@@ -174,8 +174,8 @@ namespace GeoCV.Controllers
                     AnsattEkspertise = Ansatt.Kompetanse.Rammeverk;
                     break;
 
-                case "WebTeknologier":
-                    AnsattEkspertise = Ansatt.Kompetanse.WebTeknologier;
+                case "Webteknologier":
+                    AnsattEkspertise = Ansatt.Kompetanse.Webteknologier;
                     break;
 
                 case "Databasesystemer":

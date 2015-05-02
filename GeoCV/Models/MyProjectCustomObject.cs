@@ -14,7 +14,8 @@ namespace GeoCV.Models
         public IEnumerable<TekniskProfil> ProsjektTekniskProfil { get; set; }
 
         public int MedlemId { get; set; }
-        public int MedlemRolle { get; set; }
+        public int? MedlemRolle { get; set; }
+        public int? MedlemTekniskProfil { get; set; }
         public DateTime MedlemStart { get; set; }
         public DateTime MedlemSlutt { get; set; }
     }
