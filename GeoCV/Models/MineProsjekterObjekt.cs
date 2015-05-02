@@ -5,7 +5,7 @@ using System.Web;
 
 namespace GeoCV.Models
 {
-    public class MyProjectCustomObject
+    public class MineProsjekterObjekt
     {
         public int ProsjektId { get; set; }
         public string ProsjektKunde { get; set; }

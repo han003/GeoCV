@@ -1,17 +1,17 @@
 ﻿@using System.Web.Optimization
 @using Microsoft.AspNet.Identity
 
-@model GeoCV.Models.MyProjectViewModel
+@model GeoCV.Models.MineProsjekterIndexModel
 
 @{
     ViewBag.Title = "Mine prosjekter";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section css{
-    @Styles.Render("~/Bundles/css/myprojects")
+    @Styles.Render("~/Bundles/css/MineProsjekterIndex")
 }
 @section scripts{
-    @Scripts.Render("~/Bundles/js/myprojects")
+    @Scripts.Render("~/Bundles/js/MineProsjekterIndex")
 }
 
 <div id="page-wrapper">
@@ -31,7 +31,7 @@
                     <ul class="list-group">
                         @foreach (var Prosjekt in Model.Data)
                         {
-                            <li class="list-group-item" data-prosjektid="@Prosjekt.ProsjektId"><div class="list-group-item-text">@Prosjekt.ProsjektNavn</div><i class="fa fa-chevron-right pull-right hidden" data-prosjektid="@Prosjekt.ProsjektId"></i></li>
+                            <li class="list-group-item list-group-item-default" data-prosjektid="@Prosjekt.ProsjektId"><div class="list-group-item-text">@Prosjekt.ProsjektNavn</div><i class="fa fa-chevron-right pull-right hidden" data-prosjektid="@Prosjekt.ProsjektId"></i></li>
                         }
                     </ul>
 
@@ -56,7 +56,7 @@
 
                                         @if (Prosjekt.MedlemRolle.Equals(null))
                                         {
-                                            <option selected>Ingen rolle valgt</option>
+                                            <option selected></option>
                                         }
 
                                         @foreach (var Stilling in Model.Stillinger)
@@ -97,6 +97,14 @@
 
                     </div>
                 </div>
+
+                    <div class="panel panel-danger prosjekt-panel hidden" data-prosjektid="@Prosjekt.ProsjektId">
+                        <div class="panel-heading"><i class="fa fa-trash"></i> Fjern</div>
+                        <div class="panel-body">
+                            <button type="button" class="btn btn-danger col-lg-12 fjern-prosjekt-btn" data-prosjektid="@Prosjekt.ProsjektId">Fjern fra mine prosjekter</button>
+                        </div>
+                    </div>
+
             }
 
         </div>
@@ -113,7 +121,7 @@
 
                             @if (Prosjekt.MedlemTekniskProfil.Equals(null))
                             {
-                                <option selected value="Teknisk profil ikke valgt">Teknisk profil ikke valgt</option>
+                                <option selected value="Teknisk profil ikke valgt"></option>
 
                                 foreach (var Profil in Prosjekt.ProsjektTekniskProfil)
                                 {

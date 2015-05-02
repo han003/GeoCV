@@ -6,35 +6,6 @@
         dateFormat: 'dd. MM yy'
     });
 
-    // Sorter valgt tabell
-    $('#alle-prosjekter-tabell').stupidtable();
-
-    // Gjør stuff etter at tabellen er sortert
-    $('#alle-prosjekter-tabell').bind('aftertablesort', function (event, data) {
-        var kolonneIndex = data.column;
-        var sorteringRetning = data.direction;
-        // $(this) - this table object
-
-        $.each($('#alle-prosjekter-tabell th i'), function (index, value) {
-
-            if (index == kolonneIndex) {
-                $(this).removeClass('hidden');
-                $(this).removeClass('fa-sort-desc');
-                $(this).removeClass('fa-sort-asc');
-
-                if (sorteringRetning == 'asc') {
-                    $(this).addClass('fa-sort-asc');
-                } else {
-                    $(this).addClass('fa-sort-desc');
-                }
-
-            } else {
-                $(this).addClass('hidden');
-            }
-
-        });
-    });
-
 });
 
 $('.stilling-select').change(function () {
@@ -48,7 +19,7 @@ $('.stilling-select').change(function () {
     console.log(prosjektId + ': ' + nyStilling)
 
     $.ajax({
-        url: '/MyProjects/EndreStilling',
+        url: '/MineProsjekter/EndreStilling',
         data: { ProsjektId: prosjektId, NyStilling: nyStilling },
         type: 'POST',
         beforeSend: function () {
@@ -74,7 +45,7 @@ $('.teknisk-profil-select').change(function () {
     console.log(prosjektId + ': ' + nyTekniskProfil)
 
     $.ajax({
-        url: '/MyProjects/EndreTekniskProfil',
+        url: '/MineProsjekter/EndreTekniskProfil',
         data: { ProsjektId: prosjektId, NyTekniskProfil: nyTekniskProfil },
         type: 'POST',
         beforeSend: function () {
@@ -101,7 +72,6 @@ $('.list-group-item').click(function () {
     var prosjektId = $(this).data('prosjektid');
     console.log(prosjektId);
 
-
     // Vis eller skjul => ikonet
     $.each($('#mine-prosjekter-panel .panel-body i[data-prosjektid!="' + prosjektId + '"]'), function (index, value) {
         $(this).addClass('hidden');
@@ -109,7 +79,6 @@ $('.list-group-item').click(function () {
     $.each($('#mine-prosjekter-panel .panel-body i[data-prosjektid="' + prosjektId + '"]'), function (index, value) {
         $(this).removeClass('hidden');
     });
-    
 
     // Vis paneler relatert til prosjektet som ble valgt
     $.each($('.prosjekt-panel[data-prosjektid!="' + prosjektId + '"]'), function (index, value) {
@@ -135,8 +104,28 @@ $('.kalender').change(function () {
     console.log(type);
 
     $.ajax({
-        url: '/MyProjects/EndreDato',
+        url: '/MineProsjekter/EndreDato',
         data: { ProsjektId: prosjektId, NyDato: nyDato, Type: type },
+        type: 'POST',
+        beforeSend: function () {
+
+        },
+        success: function () {
+
+            console.log('Endret');
+
+        }
+    });
+
+});
+
+$('.fjern-prosjekt-btn').click(function () {
+
+    var prosjektId = $(this).data('prosjektid');
+
+    $.ajax({
+        url: '/MineProsjekter/FjernProsjekt',
+        data: { ProsjektId: prosjektId },
         type: 'POST',
         beforeSend: function () {
 

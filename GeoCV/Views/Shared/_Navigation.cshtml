@@ -194,10 +194,10 @@
                     <a href="#"><i class="fa fa-folder-open fa-fw"></i> Prosjekter<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            @Html.ActionLink("Mine prosjekter", "Min", "MyProjects")
+                            @Html.ActionLink("Mine prosjekter", "Index", "MineProsjekter")
                         </li>
                         <li>
-                            @Html.ActionLink("Legg til prosjekt", "Ny", "MyProjects")
+                            @Html.ActionLink("Legg til prosjekt", "LeggTil", "MineProsjekter")
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->
@@ -234,7 +234,7 @@
                                 <a href="#">Prosjekter <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li>
-                                        @Html.ActionLink("Oversikt", "Oversikt", "Projects")
+                                        @Html.ActionLink("Oversikt", "Index", "Projects")
                                     </li>
                                     <li>
                                         @Html.ActionLink("Legg til", "LeggTil", "Projects")

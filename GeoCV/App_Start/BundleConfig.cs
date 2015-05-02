@@ -143,19 +143,34 @@ namespace GeoCV
                 .Include("~/Content/work.css")
                 .Include("~/Content/main.css"));
 
-            // My Projects
-            bundles.Add(new ScriptBundle("~/Bundles/js/myprojects")
+            // Mine Prosjekter
+            bundles.Add(new ScriptBundle("~/Bundles/js/MineProsjekterIndex")
                 .Include("~/Scripts/jquery/jquery-{version}.js")
                 .Include("~/Scripts/jquery-ui/*.js")
                 .Include("~/Scripts/plugins/*.js")
                 .Include("~/Scripts/theme/*.js")
-                .Include("~/Scripts/myprojects.js"));
+                .Include("~/Scripts/MineProsjekter/Index.js"));
 
-            bundles.Add(new StyleBundle("~/Bundles/css/myprojects")
+            bundles.Add(new StyleBundle("~/Bundles/css/MineProsjekterIndex")
                 .Include("~/Content/theme/*.css")
                 .Include("~/Content/jquery-ui/*.css")
                 .Include("~/Content/main.css")
-                .Include("~/Content/myprojects.css"));
+                .Include("~/Content/MineProsjekter/Index.css"));
+
+            //////////////////////
+
+            bundles.Add(new ScriptBundle("~/Bundles/js/MineProsjekterLeggTil")
+                .Include("~/Scripts/jquery/jquery-{version}.js")
+                .Include("~/Scripts/jquery-ui/*.js")
+                .Include("~/Scripts/plugins/*.js")
+                .Include("~/Scripts/theme/*.js")
+                .Include("~/Scripts/MineProsjekter/LeggTil.js"));
+
+            bundles.Add(new StyleBundle("~/Bundles/css/MineProsjekterLeggTil")
+                .Include("~/Content/theme/*.css")
+                .Include("~/Content/jquery-ui/*.css")
+                .Include("~/Content/main.css")
+                .Include("~/Content/MineProsjekter/LeggTil.css"));
 
             // Teknisk profil
             bundles.Add(new ScriptBundle("~/Bundles/js/tekniskprofil")

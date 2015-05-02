@@ -1,0 +1,71 @@
+﻿@using System.Web.Optimization
+@using Microsoft.AspNet.Identity
+
+@model GeoCV.Models.MineProsjekterLeggTilModel
+
+@{
+    ViewBag.Title = "Legg til prosjekt";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section css{
+    @Styles.Render("~/Bundles/css/MineProsjekterLeggTil")
+}
+@section scripts{
+    @Scripts.Render("~/Bundles/js/MineProsjekterLeggTil")
+}
+
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Legg til prosjekt</h1>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading"><i class="fa fa-folder-open"></i> Alle prosjekter</div>
+                <div class="panel-body">
+
+                    <ul class="list-group">
+                        @foreach (var Prosjekt in Model.AlleProsjekter)
+                        {
+                            bool BrukerHarLagtTil = false;
+                            foreach (var BrukerProsjekt in Model.BrukerProsjekter)
+                            {
+                                if (Prosjekt.ProsjektId.Equals(BrukerProsjekt.Prosjekt.ProsjektId))
+                                {
+                                    BrukerHarLagtTil = true;
+                                    <li class="list-group-item list-group-item-success" data-prosjektid="@Prosjekt.ProsjektId"><div class="list-group-item-text" data-prosjektnavn="@Prosjekt.Navn">@Prosjekt.Navn</div><i class="fa fa-check" data-prosjektid="@Prosjekt.ProsjektId"></i></li>
+                                }
+                            }
+
+                            if (!BrukerHarLagtTil)
+                            {
+                                <li class="list-group-item list-group-item-default" data-prosjektid="@Prosjekt.ProsjektId"><div class="list-group-item-text" data-prosjektnavn="@Prosjekt.Navn">@Prosjekt.Navn</div><i class="fa fa-plus hidden" data-prosjektid="@Prosjekt.ProsjektId"></i></li>
+                            }
+                        }
+                    </ul>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="panel panel-info">
+                <div class="panel-heading"><i class="fa fa-filter"></i> Prosjekt filter</div>
+                <div class="panel-body">
+
+                    <input type="text" class="form-control prosjekt-filter" placeholder="Filter" autocomplete="off">
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+</div>

@@ -1,0 +1,35 @@
+﻿.kalender {
+  cursor: pointer;
+}
+.alert {
+  cursor: default;
+}
+.alert a {
+  cursor: pointer;
+}
+.list-group {
+  margin-bottom: 0;
+}
+.list-group li {
+  display: flex;
+  align-items: center;
+}
+.list-group li .list-group-item-text {
+  -ms-flex: 1;
+  flex: 1;
+}
+.list-group .list-group-item-default:hover {
+  background: #d9edf7;
+  cursor: pointer;
+}
+.list-group .list-group-item-default:hover i {
+  display: inline-block !important;
+}
+.prosjekt-panel .form-group:last-child {
+  margin-bottom: 0;
+}
+.prosjekt-panel .well {
+  margin-top: 15px;
+  margin-bottom: 0;
+}
+/*# sourceMappingURL=MineProsjekter.css.map */

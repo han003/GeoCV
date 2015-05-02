@@ -10,9 +10,9 @@ using Newtonsoft.Json;
 namespace GeoCV.Controllers
 {
     [Authorize]
-    public class MyProjectsController : BaseController
+    public class MineProsjekterController : BaseController
     {
-        public ActionResult Min()
+        public ActionResult Index()
         {
             CVVersjon BrukerCv = GetBrukerCv(GetAspNetBrukerID());
 
@@ -27,7 +27,7 @@ namespace GeoCV.Controllers
 
             var Data = from a in db.Medlem
                        where a.Person.PersonId.Equals(BrukerCv.Person.PersonId)
-                       select new MyProjectCustomObject
+                       select new MineProsjekterObjekt
                        {
                            ProsjektId = a.Prosjekt.ProsjektId,
                            ProsjektNavn = a.Prosjekt.Navn,
@@ -43,22 +43,30 @@ namespace GeoCV.Controllers
                        };
 
             //store data of both queries in your ViewModel class here:
-            var MyViewModel = new MyProjectViewModel();
-            MyViewModel.Katalog = katalog;
-            MyViewModel.Prosjekt = Prosjekter;
-            MyViewModel.Stillinger = Stillinger;
-            MyViewModel.Data = Data;
+            var ViewModel = new MineProsjekterIndexModel();
+            ViewModel.Katalog = katalog;
+            ViewModel.Prosjekt = Prosjekter;
+            ViewModel.Stillinger = Stillinger;
+            ViewModel.Data = Data;
 
             //return ViewModel to View.
-            return View(MyViewModel);
+            return View(ViewModel);
         }
 
-        public ActionResult Ny()
+        public ActionResult LeggTil()
         {
-            var Prosjekter = from a in db.Prosjekt
-                             select a;
+            CVVersjon BrukerCv = GetBrukerCv(GetAspNetBrukerID());
 
-            return View(Prosjekter);
+            MineProsjekterLeggTilModel ViewModel = new MineProsjekterLeggTilModel();
+
+            ViewModel.AlleProsjekter = from a in db.Prosjekt
+                                       select a;
+
+            ViewModel.BrukerProsjekter = from a in db.Medlem
+                                         where a.Person_PersonId.Equals(BrukerCv.Person.PersonId)
+                                         select a;
+
+            return View(ViewModel);
         }
 
         [HttpPost]
@@ -67,25 +75,33 @@ namespace GeoCV.Controllers
             // Bruker data
             var Bruker = GetBrukerCv(GetAspNetBrukerID());
 
-            // Prosjekt data
-            var Data = from a in db.Prosjekt
+            // Sjekk for å se om det er registrert fra før i databasen
+            var Medlemsjekk = from a in db.Medlem
+                              where a.ProsjektProsjektId.Equals(ProsjektId) && a.Person_PersonId.Equals(Bruker.Person.PersonId)
+                              select a;
+
+            if (Medlemsjekk.Count() == 0)
+            {
+                // Prosjekt data
+                var Data = from a in db.Prosjekt
                            where a.ProsjektId.Equals(ProsjektId)
                            select a;
 
-            var Prosjekt = Data.FirstOrDefault();
+                var Prosjekt = Data.FirstOrDefault();
 
-            // Legg til brukeren som et medlem i valgt prosjekt
-            Medlem NyttMedlem = new Medlem();
-            NyttMedlem.Person = Bruker.Person;
-            NyttMedlem.Prosjekt = Prosjekt;
-            NyttMedlem.Rolle = null;
-            NyttMedlem.TekniskProfil = null;
-            NyttMedlem.Start = DateTime.Now;
-            NyttMedlem.Slutt = DateTime.Now;
+                // Legg til brukeren som et medlem i valgt prosjekt
+                Medlem NyttMedlem = new Medlem();
+                NyttMedlem.Person = Bruker.Person;
+                NyttMedlem.Prosjekt = Prosjekt;
+                NyttMedlem.Rolle = null;
+                NyttMedlem.TekniskProfil = null;
+                NyttMedlem.Start = DateTime.Now;
+                NyttMedlem.Slutt = DateTime.Now;
 
-            Prosjekt.Medlem.Add(NyttMedlem);
+                Prosjekt.Medlem.Add(NyttMedlem);
 
-            db.SaveChanges();
+                db.SaveChanges();
+            }
         }
 
         [HttpPost]
@@ -139,6 +155,18 @@ namespace GeoCV.Controllers
                 ProMedlem.Slutt = DateTime.Parse(NyDato);
             }
 
+            db.SaveChanges();
+        }
+
+        [HttpPost]
+        public void FjernProsjekt(int ProsjektId)
+        {
+            // Bruker data
+            var Bruker = GetBrukerCv(GetAspNetBrukerID());
+
+            Medlem BrukerData = db.Medlem.Where(x => x.Person_PersonId.Equals(Bruker.Person.PersonId) && x.ProsjektProsjektId.Equals(ProsjektId)).FirstOrDefault();
+
+            db.Medlem.Remove(BrukerData);
             db.SaveChanges();
         }
     }

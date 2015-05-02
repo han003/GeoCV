@@ -18,11 +18,11 @@
   -ms-flex: 1;
   flex: 1;
 }
-.list-group li:hover {
+.list-group .list-group-item-default:hover {
   background: #d9edf7;
   cursor: pointer;
 }
-.list-group li:hover i {
+.list-group .list-group-item-default:hover i {
   display: inline-block !important;
 }
 .prosjekt-panel .form-group:last-child {
@@ -32,4 +32,4 @@
   margin-top: 15px;
   margin-bottom: 0;
 }
-/*# sourceMappingURL=myprojects.css.map */
+/*# sourceMappingURL=LeggTil.css.map */

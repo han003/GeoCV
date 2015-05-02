@@ -230,7 +230,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PersonalController.cs" />
-    <Compile Include="Controllers\MyProjectsController.cs" />
+    <Compile Include="Controllers\MineProsjekterController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\WorkController.cs" />
@@ -271,6 +271,7 @@
     <Compile Include="Models\Medlem.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MineProsjekterLeggTilModel.cs" />
     <Compile Include="Models\Person.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
@@ -282,10 +283,10 @@
     </Compile>
     <Compile Include="Models\TekniskProfilModel.cs" />
     <Compile Include="Models\ExpertiseModel.cs" />
-    <Compile Include="Models\MyProjectCustomObject.cs" />
+    <Compile Include="Models\MineProsjekterObjekt.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\MyProjectViewModel.cs" />
+    <Compile Include="Models\MineProsjekterIndexModel.cs" />
     <Compile Include="Models\PersonalModel.cs" />
     <Compile Include="Models\Utdannelse.cs">
       <DependentUpon>Database.tt</DependentUpon>
@@ -300,6 +301,19 @@
     </Content>
     <Content Include="Content\animate.min.css">
       <DependentUpon>animate.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Images\bakgrunn.jpg" />
+    <Content Include="Content\MineProsjekter\Index.css">
+      <DependentUpon>Index.less</DependentUpon>
+    </Content>
+    <Content Include="Content\MineProsjekter\Index.min.css">
+      <DependentUpon>Index.css</DependentUpon>
+    </Content>
+    <Content Include="Content\MineProsjekter\LeggTil.css">
+      <DependentUpon>LeggTil.less</DependentUpon>
+    </Content>
+    <Content Include="Content\MineProsjekter\LeggTil.min.css">
+      <DependentUpon>LeggTil.css</DependentUpon>
     </Content>
     <Content Include="Content\plugins\bootstrap-switch.css" />
     <Content Include="Content\plugins\bootstrap-switch.min.css">
@@ -396,11 +410,11 @@
     <Content Include="Content\main.min.css">
       <DependentUpon>main.css</DependentUpon>
     </Content>
-    <Content Include="Content\myprojects.css">
-      <DependentUpon>myprojects.less</DependentUpon>
+    <Content Include="Content\MineProsjekter.css">
+      <DependentUpon>MineProsjekter.less</DependentUpon>
     </Content>
-    <Content Include="Content\myprojects.min.css">
-      <DependentUpon>myprojects.css</DependentUpon>
+    <Content Include="Content\MineProsjekter.min.css">
+      <DependentUpon>MineProsjekter.css</DependentUpon>
     </Content>
     <Content Include="Content\personal.css">
       <DependentUpon>personal.less</DependentUpon>
@@ -454,6 +468,8 @@
       <DependentUpon>Database.edmx</DependentUpon>
       <LastGenOutput>Database.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\MineProsjekter\Index.js" />
+    <Content Include="Scripts\MineProsjekter\LeggTil.js" />
     <Content Include="Scripts\plugins\bootstrap-switch.js" />
     <Content Include="Scripts\plugins\bootstrap-switch.min.js">
       <DependentUpon>bootstrap-switch.js</DependentUpon>
@@ -484,13 +500,6 @@
     <Content Include="Scripts\jquery-ui\region-nb.js" />
     <Content Include="Scripts\jquery-ui\region-nb.min.js">
       <DependentUpon>region-nb.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\moment-with-locales.js" />
-    <Content Include="Scripts\moment-with-locales.min.js">
-      <DependentUpon>moment-with-locales.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\myprojects.min.js">
-      <DependentUpon>myprojects.js</DependentUpon>
     </Content>
     <Content Include="Scripts\personal.js" />
     <Content Include="Scripts\employees.min.js.map">
@@ -536,9 +545,9 @@
     <Content Include="Content\tekniskprofil.css.map">
       <DependentUpon>tekniskprofil.css</DependentUpon>
     </Content>
-    <Content Include="Content\myprojects.less" />
-    <Content Include="Content\myprojects.css.map">
-      <DependentUpon>myprojects.css</DependentUpon>
+    <Content Include="Content\MineProsjekter.less" />
+    <Content Include="Content\MineProsjekter.css.map">
+      <DependentUpon>MineProsjekter.css</DependentUpon>
     </Content>
     <Content Include="Scripts\tekniskprofil.min.js.map">
       <DependentUpon>tekniskprofil.min.js</DependentUpon>
@@ -573,6 +582,14 @@
     <Content Include="Models\Database.edmx.diagram">
       <DependentUpon>Database.edmx</DependentUpon>
     </Content>
+    <Content Include="Content\MineProsjekter\Index.less" />
+    <Content Include="Content\MineProsjekter\LeggTil.less" />
+    <Content Include="Content\MineProsjekter\LeggTil.css.map">
+      <DependentUpon>LeggTil.css</DependentUpon>
+    </Content>
+    <Content Include="Content\MineProsjekter\Index.css.map">
+      <DependentUpon>Index.css</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\cvportal.pubxml" />
     <Content Include="Scripts\theme\metisMenu.min.js.map">
       <DependentUpon>metisMenu.min.js</DependentUpon>
@@ -605,7 +622,6 @@
     <Content Include="Scripts\personal.min.js">
       <DependentUpon>personal.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\myprojects.js" />
     <Content Include="Scripts\projects.js" />
     <Content Include="Scripts\projects.min.js">
       <DependentUpon>projects.js</DependentUpon>
@@ -699,12 +715,6 @@
     <Content Include="Scripts\work.min.js.map">
       <DependentUpon>work.min.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\myprojects.min.js.map">
-      <DependentUpon>myprojects.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\moment-with-locales.min.js.map">
-      <DependentUpon>moment-with-locales.min.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\plugins\stupidtable.min.js.map">
       <DependentUpon>stupidtable.min.js</DependentUpon>
     </Content>
@@ -728,14 +738,14 @@
     <Content Include="Views\Work\Min.cshtml" />
     <Content Include="Views\Work\_RedigerModal.cshtml" />
     <Content Include="Views\Work\Ny.cshtml" />
-    <Content Include="Views\MyProjects\Min.cshtml" />
-    <Content Include="Views\MyProjects\Ny.cshtml" />
+    <Content Include="Views\MineProsjekter\Index.cshtml" />
+    <Content Include="Views\MineProsjekter\LeggTil.cshtml" />
     <Content Include="Views\Database\Rediger.cshtml" />
     <Content Include="Views\Database\_RedigerModal.cshtml" />
     <Content Include="Views\Database\Ny.cshtml" />
     <Content Include="Views\Employees\Oversikt.cshtml" />
     <Content Include="Views\Employees\LeggTil.cshtml" />
-    <Content Include="Views\Projects\Oversikt.cshtml" />
+    <Content Include="Views\Projects\Index.cshtml" />
     <Content Include="Views\Projects\LeggTil.cshtml" />
     <Content Include="Views\Projects\_SlettModal.cshtml" />
     <Content Include="Views\TekniskProfil\Oversikt.cshtml" />

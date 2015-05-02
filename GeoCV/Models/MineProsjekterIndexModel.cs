@@ -5,11 +5,11 @@ using System.Web;
 
 namespace GeoCV.Models
 {
-    public class MyProjectViewModel
+    public class MineProsjekterIndexModel
     {
         public IEnumerable<Prosjekt> Prosjekt { get; set; }
         public IEnumerable<ListeKatalog> Stillinger { get; set; }
-        public IEnumerable<MyProjectCustomObject> Data { get; set; }
+        public IEnumerable<MineProsjekterObjekt> Data { get; set; }
         public IEnumerable<ListeKatalog> Katalog { get; set; }
     }
 }
