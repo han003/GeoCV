@@ -10,11 +10,9 @@
         // $(this) - this table object
 
         $.each($('#prosjekt-tabell th i'), function (index, value) {
-            console.log(index);
+
             if (index == kolonneIndex) {
-                $(this).removeClass('hidden');
-                $(this).removeClass('fa-sort-desc');
-                $(this).removeClass('fa-sort-asc');
+                $(this).removeClass('hidden fa-sort-desc fa-sort-asc');
 
                 if (sorteringRetning == 'asc') {
                     $(this).addClass('fa-sort-asc');

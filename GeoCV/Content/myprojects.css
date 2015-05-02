@@ -4,9 +4,6 @@
 #alle-prosjekter-tabell tbody tr:hover i {
   color: rgba(44, 213, 37, 0.84);
 }
-.panel-body {
-  background: #5c5c5c;
-}
 .kalender {
   cursor: pointer;
 }
@@ -15,5 +12,17 @@
 }
 .alert a {
   cursor: pointer;
+}
+.list-group {
+  margin: 0;
+}
+.prosjekt-panel .panel-body {
+  padding-bottom: 0;
+}
+.teknisk-panel select {
+  margin-bottom: 15px;
+}
+.well {
+  margin-bottom: 0;
 }
 /*# sourceMappingURL=myprojects.css.map */

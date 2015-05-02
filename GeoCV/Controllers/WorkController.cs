@@ -11,16 +11,20 @@ namespace GeoCV.Controllers
     [Authorize]
     public class WorkController : BaseController
     {
-        // GET: Work
-        public ActionResult Index()
+        public ActionResult Min()
         {
-            WorkModel NyModel = new WorkModel();
-            NyModel.BrukerCv = GetBrukerCv(GetAspNetBrukerID());
-            NyModel.Stillinger = from a in db.ListeKatalog
-                                 where a.Katalog.Equals("Stillinger")
-                                 select a;
+            return View(GetBrukerCv(GetAspNetBrukerID()));
+        }
 
-            return View(NyModel);
+        public ActionResult Ny()
+        {
+            WorkModel ViewModel = new WorkModel();
+            ViewModel.BrukerCv = GetBrukerCv(GetAspNetBrukerID());
+            ViewModel.Stillinger = from a in db.ListeKatalog
+                                   where a.Katalog.Equals("Stillinger")
+                                   select a;
+
+            return View(ViewModel);
         }
 
         [HttpPost]

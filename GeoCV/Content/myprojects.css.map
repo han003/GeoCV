@@ -1,1 +1,1 @@
-﻿{"version":3,"sources":["myprojects.less"],"names":[],"mappings":"AAAA;EACI,mBAAA;;AAGJ,uBAAwB,MAAM,GAAE,MAAO;EACnC,8BAAA;;AAGJ;EACI,mBAAA;;AAGJ;EACI,eAAA;;AAGJ;EACI,eAAA;;AADJ,MAGI;EACI,eAAA","file":"myprojects.css"}
+﻿{"version":3,"sources":["myprojects.less"],"names":[],"mappings":"AAAA;EACI,mBAAA;;AAGJ,uBAAwB,MAAM,GAAE,MAAO;EACnC,8BAAA;;AAGJ;EACI,eAAA;;AAGJ;EACI,eAAA;;AADJ,MAGI;EACI,eAAA;;AAIR;EACI,SAAA;;AAGJ,eACI;EACI,iBAAA;;AAIR,cACI;EACI,mBAAA;;AAIR;EACI,gBAAA","file":"myprojects.css"}

@@ -2,14 +2,16 @@
   cursor: pointer;
 }
 td a {
-  color: white;
   padding: 0;
-}
-#prosjekt-filter {
-  margin-bottom: 19px;
 }
 .del-link {
   color: white;
   padding: 0;
+}
+.panel .table {
+  margin-bottom: 0;
+}
+.form-horizontal .form-group:last-child {
+  margin-bottom: 0;
 }
 /*# sourceMappingURL=projects.css.map */

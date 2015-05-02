@@ -6,6 +6,7 @@
     <title>@ViewBag.Title</title>
     <link rel="shortcut icon" href="~/Content/Images/favicon.png" />
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     @RenderSection("css", required: false)
 
@@ -23,75 +24,22 @@
 </head>
 
 <body>
-    <div class="navbar navbar-default">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Geomatikk CV", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Dashboard", "Index", "Dashboard")</li>
+    
+    @Html.Partial("_Navigation")
+
+    @RenderBody()
 
 
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Navigasjon <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="~/Personal/">Personlig Informasjon</a></li>
-                            <li><a href="~/Expertise/">Nøkkelkompetanse</a></li>
-
-                            <li><a href="~/Education/">Utdannelse</a></li>
-                            <li><a href="~/Work/">Arbeidserfaring</a></li>
-                            <li><a href="~/MyProjects/">Prosjekter</a></li>
-
-                            <li class="divider"></li>
-                            <li><a href="~/Settings/">Innstillinger</a></li>
-                            <li class="divider"></li>
-                            <li><a href="~/Pdf/LastNed">Last ned CV</a></li>
-                        </ul>
-
-
-
-                    </li>
-
-                    <li>@Html.ActionLink("Feedback", "Index", "Feedback")</li>
-
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Admin <span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="~/Employees/">Ansatte</a></li>
-                                <li><a href="~/Projects/">Alle Prosjekter</a></li>
-                                <li><a href="~/Database/">Database</a></li>
-                            </ul>
-                        </li>
-
-                        if(Session["ShadowUser"] != null){
-                            <li>@Html.ActionLink("Surfer som " + Session["ShadowUserName"], "EndSession", "Dashboard", null, new { id = "shadowBrukerLink" })</li>
-                        }
-
-                    }
-
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
-
-        </div>
-    </div>
-
-    <div class="container">
-
-        @RenderBody()
-
-    </div>
-
-    <footer></footer>
-
+    
     @RenderSection("scripts", required: false)
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script>
+        $('#side-menu').metisMenu();
+
+        var browserHoyde = window.innerHeight - 51;
+        if (browserHoyde > $('#page-wrapper').css('height').replace('px', '')) {
+            $('#page-wrapper').css('height', browserHoyde + 'px');
+        }
+    </script>
 </body>
 </html>

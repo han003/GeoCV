@@ -10,13 +10,18 @@ namespace GeoCV.Controllers
     [Authorize(Roles = "Admin")]
     public class ProjectsController : BaseController
     {
-        public ActionResult Index()
+        public ActionResult Oversikt()
         {
             var Prosjekter = from a in db.Prosjekt
                              orderby a.ProsjektId descending
                              select a;
 
             return View(Prosjekter);
+        }
+
+        public ActionResult LeggTil()
+        {
+            return View();
         }
 
         [HttpPost]

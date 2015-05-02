@@ -1,0 +1,279 @@
+﻿@using Microsoft.AspNet.Identity
+
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">Geomatikk CV Portal</a>
+    </div>
+    <!-- /.navbar-header -->
+    <ul class="nav navbar-top-links navbar-right">
+        @if (User.IsInRole("Admin"))
+        {
+            if (Session["ShadowUser"] != null)
+            {
+                <li class="dropdown">
+                    <a id="shadowBrukerLink" class="dropdown-toggle" href="~/Dashboard/EndSession">
+                        <i class="fa fa-user-secret fa-fw"></i>  Surfer som @Session["ShadowUserName"]
+                    </a>
+                </li>
+            }
+        }
+        
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-alerts">
+                <li>
+                    <a href="#">
+                        <div>
+                            <i class="fa fa-comment fa-fw"></i> New Comment
+                            <span class="pull-right text-muted small">4 minutes ago</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="#">
+                        <div>
+                            <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+                            <span class="pull-right text-muted small">12 minutes ago</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="#">
+                        <div>
+                            <i class="fa fa-envelope fa-fw"></i> Message Sent
+                            <span class="pull-right text-muted small">4 minutes ago</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="#">
+                        <div>
+                            <i class="fa fa-tasks fa-fw"></i> New Task
+                            <span class="pull-right text-muted small">4 minutes ago</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="#">
+                        <div>
+                            <i class="fa fa-upload fa-fw"></i> Server Rebooted
+                            <span class="pull-right text-muted small">4 minutes ago</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a class="text-center" href="#">
+                        <strong>See All Alerts</strong>
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </li>
+            </ul>
+            <!-- /.dropdown-alerts -->
+        </li>
+        <!-- /.dropdown -->
+
+
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-user">
+                <li>
+                    <a href="#"><i class="fa fa-user fa-fw"></i> Profil</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-sign-out fa-fw"></i> Logg av</a>
+                    }
+                </li>
+            </ul>
+            <!-- /.dropdown-user -->
+        </li>
+
+        <!-- /.dropdown -->
+    </ul>
+    <!-- /.navbar-top-links -->
+    <div class="navbar-default sidebar" role="navigation">
+        <div class="sidebar-nav navbar-collapse">
+            <ul class="nav" id="side-menu">
+                <li class="sidebar-search">
+                    <div class="input-group custom-search-form">
+                        <input type="text" class="form-control" placeholder="Søk" disabled>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" disabled>
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                    <!-- /input-group -->
+                </li>
+                <li>
+                    @Html.ActionLink("Dashbord", "Index", "Dashboard")
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-info-circle fa-fw"></i> Personlig<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            @Html.ActionLink("Personlig Informasjon", "Information", "Personal")
+                        </li>
+                        <li>
+                            @Html.ActionLink("Språk", "Languages", "Personal")
+                        </li>
+                    </ul>
+                    <!-- /.nav-second-level -->
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-desktop fa-fw"></i> Nøkkelkompetanse<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            @Html.ActionLink("Programmeringsspråk", "Programmeringsspraak", "Expertise")
+                        </li>
+                        <li>
+                            @Html.ActionLink("Rammeverk", "Rammeverk", "Expertise")
+                        </li>
+                        <li>
+                            @Html.ActionLink("Webteknologier", "Webteknologier", "Expertise")
+                        </li>
+                        <li>
+                            @Html.ActionLink("Databasesystemer", "Databasesystemer", "Expertise")
+                        </li>
+                        <li>
+                            @Html.ActionLink("Serverside", "Serverside", "Expertise")
+                        </li>
+                        <li>
+                            @Html.ActionLink("Operativsystemer", "Operativsystemer", "Expertise")
+                        </li>
+                        <li>
+                            @Html.ActionLink("Annet", "Annet", "Expertise")
+                        </li>
+                    </ul>
+                    <!-- /.nav-second-level -->
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-graduation-cap fa-fw"></i> Utdannelse<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            @Html.ActionLink("Min utdannelse", "Min", "Education")
+                        </li>
+                        <li>
+                            @Html.ActionLink("Legg til utdannelse", "Ny", "Education")
+                        </li>
+                    </ul>
+                    <!-- /.nav-second-level -->
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-suitcase fa-fw"></i> Arbeidserfaring<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            @Html.ActionLink("Min arbeidserfaring", "Min", "Work")
+                        </li>
+                        <li>
+                            @Html.ActionLink("Legg til arbeidserfaring", "Ny", "Work")
+                        </li>
+                    </ul>
+                    <!-- /.nav-second-level -->
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-folder-open fa-fw"></i> Prosjekter<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            @Html.ActionLink("Mine prosjekter", "Min", "MyProjects")
+                        </li>
+                        <li>
+                            @Html.ActionLink("Legg til prosjekt", "Ny", "MyProjects")
+                        </li>
+                    </ul>
+                    <!-- /.nav-second-level -->
+                </li>
+
+                @if (User.IsInRole("Admin"))
+                {
+                    <li>
+                        <a href="#"><i class="fa fa-lock fa-fw"></i> Administrator<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="#">Ansatte <span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li>
+                                        @Html.ActionLink("Oversikt", "Oversikt", "Employees")
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("Legg til", "LeggTil", "Employees")
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">Database <span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li>
+                                        @Html.ActionLink("Rediger", "Rediger", "Database")
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("Legg til element", "Ny", "Database")
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">Prosjekter <span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li>
+                                        @Html.ActionLink("Oversikt", "Oversikt", "Projects")
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("Legg til", "LeggTil", "Projects")
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">Tekniske profiler <span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li>
+                                        @Html.ActionLink("Oversikt", "Oversikt", "TekniskProfil")
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("Legg til", "LeggTil", "TekniskProfil")
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                }
+                
+                <li>
+                    <a href="~/Settings/Index"><i class="fa fa-cog fa-fw"></i> Innstillinger</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-download fa-fw"></i> Last ned CV<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            @Html.ActionLink("PDF", "LastNed", "Pdf")
+                        </li>
+                        <li>
+                            @Html.ActionLink("Word", "LastNed", "Pdf")
+                        </li>
+                    </ul>
+                    <!-- /.nav-second-level -->
+                </li>
+            </ul>
+        </div>
+        <!-- /.sidebar-collapse -->
+    </div>
+    <!-- /.navbar-static-side -->
+</nav>

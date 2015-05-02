@@ -1,0 +1,66 @@
+﻿@using System.Web.Optimization
+@using Microsoft.AspNet.Identity
+@using GeoCV.Models
+
+@model IEnumerable<GeoCV.Models.CVVersjon>
+
+@{
+    ViewBag.Title = "Ansatt oversikt";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section css{
+    @Styles.Render("~/bundles/css/employees")
+}
+@section scripts{
+    @Scripts.Render("~/bundles/js/employees")
+}
+
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Ansatt oversikt</h1>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-12">
+            <table id="ansatt-tabell" class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th data-sort="string">Fornavn <i class="fa pull-right hidden"></i></th>
+                        <th data-sort="string">Etternavn <i class="fa pull-right hidden"></i></th>
+                        <th>Status</th>
+                        <th>Rediger</th>
+                        <th>CV</th>
+                        <th>Slett</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var Ansatt in Model)
+                    {
+                        <tr>
+                            <td class="col-lg-3">@Ansatt.Person.Fornavn</td>
+                            <td class="col-lg-3">@Ansatt.Person.Etternavn</td>
+                            @if (Ansatt.Aktiv)
+                            {
+                                <td class="col-lg-2">Aktiv (<a class="deactivate-link" data-id="@Ansatt.CVVersjonId">Deaktiver</a>)</td>
+                            }
+                            else
+                            {
+                                <td class="col-lg-2">Ikke Aktiv (<a class="activate-link" data-id="@Ansatt.CVVersjonId">Aktiver</a>)</td>
+                            }
+                            <td class="col-lg-2">@Html.ActionLink("Rediger bruker", "EndreBruker", "Employees", new { Id = Ansatt.CVVersjonId }, null)</td>
+                            <td class="col-lg-1">@Html.ActionLink("Last ned", "LastNed", "Pdf", new { Id = Ansatt.CVVersjonId }, null)</td>
+                            <td class="col-lg-1">@Html.ActionLink("Slett", "SlettBruker", "Employees", new { Id = Ansatt.CVVersjonId }, null)</td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+</div>

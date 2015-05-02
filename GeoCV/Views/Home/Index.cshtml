@@ -1,12 +1,67 @@
-﻿@{
+﻿@using GeoCV.Models
+@model LoginViewModel
+
+@{
     ViewBag.Title = "Geomatikk CV";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-@section css{
-    @Styles.Render("~/Bundles/css/home")
-}
-@section scripts{
-    @Scripts.Render("~/Bundles/js/home")
+    Layout = null;
 }
 
-@Html.Partial("~/Views/Shared/_LoginBox.cshtml")
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Geomatikk CV</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    @Styles.Render("~/Bundles/css/home")
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Logg inn</h3>
+                    </div>
+                    <div class="panel-body">
+
+                        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            <fieldset>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", autocomplete = "off" })
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", autocomplete = "off" })
+                                </div>
+
+                                <div class="checkbox">
+                                    <input data-val="true" data-val-required="The Remember me? field is required." id="husk-meg" name="RememberMe" type="checkbox" value="true">
+                                    <label for="husk-meg">Forbli pålogget</label>
+                                </div>
+
+                                <input type="submit" value="Logg inn" class="btn btn-lg btn-success btn-block" />
+                            </fieldset>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    @Scripts.Render("~/Bundles/js/home")
+</body>
+</html>

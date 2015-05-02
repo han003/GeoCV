@@ -14,8 +14,7 @@ namespace GeoCV.Controllers
     [Authorize(Roles = "Admin")]
     public class EmployeesController : BaseController
     {
-        // GET: Employees
-        public ActionResult Index()
+        public ActionResult Oversikt()
         {
             var Ansatte = from a in db.CVVersjon
                           orderby a.Person.Fornavn ascending
@@ -23,6 +22,12 @@ namespace GeoCV.Controllers
 
             return View(Ansatte);
         }
+
+        public ActionResult LeggTil()
+        {
+            return View();
+        }
+
 
         public ActionResult EndreBruker(int Id)
         {
@@ -134,7 +139,7 @@ namespace GeoCV.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> RegistrerNyAnsatt(String Fornavn, String Etternavn, String Epost, String Passord, String Rolle)
+        public async Task<ActionResult> RegistrerNyAnsatt(string Fornavn, string Etternavn, string Epost, string Passord, string Rolle)
         {
             // Roles
             var RoleMan = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));

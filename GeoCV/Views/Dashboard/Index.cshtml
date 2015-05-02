@@ -1,9 +1,10 @@
 ﻿@using System.Web.Optimization
+
 @model GeoCV.Models.CVVersjon
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = "Dashboard";
+    ViewBag.Title = "Dashbord";
 }
 @section css{
     @Styles.Render("~/bundles/css/dashboard")
@@ -12,196 +13,21 @@
     @Scripts.Render("~/bundles/js/dashboard")
 }
 
-<div class="container">
+<div id="page-wrapper">
     <div class="row">
-
-        <div class="col-lg-3">
-            <div class="panel panel-default">
-
-                <a class="panel-link" href="~/Personal/">
-                    <div class="panel-body">
-                        <i class="fa fa-info-circle"></i>
-                        <div>
-                            Personlig Informasjon
-                        </div>
-                    </div>
-                </a>
-
-            </div>
+        <div class="col-lg-12">
+            @if (Model.Person.Fornavn.Substring(Model.Person.Fornavn.Length - 1).Equals("s"))
+            {
+                <h1 class="page-header">@Model.Person.Fornavn' dashbord</h1>
+            }
+            else
+            {
+                <h1 class="page-header">@Model.Person.Fornavn's dashbord</h1>
+            }
         </div>
-
-        <div class="col-lg-3">
-            <div class="panel panel-default">
-
-                <a class="panel-link" href="~/Expertise/">
-                    <div class="panel-body">
-                        <i class="fa fa-terminal"></i>
-                        <div>
-                            Nøkkelkompetanse
-                        </div>
-                    </div>
-                </a>
-
-            </div>
-        </div>
-
-        <div class="col-lg-3">
-            <div class="panel panel-default">
-
-                <a class="panel-link" href="~/Education/">
-                    <div class="panel-body">
-                        <i class="fa fa-graduation-cap"></i>
-                        <div>
-                            Utdannelse
-                        </div>
-                    </div>
-                </a>
-
-            </div>
-        </div>
-
-        <div class="col-lg-3">
-            <div class="panel panel-default">
-
-                <a class="panel-link" href="~/Work/">
-                    <div class="panel-body">
-                        <i class="fa fa-building"></i>
-                        <div>
-                            Arbeidserfaring
-                        </div>
-                    </div>
-                </a>
-
-            </div>
-        </div>
-
-
-
     </div>
-</div>
 
-
-
-<div class="container">
     <div class="row">
-
-
-        <div class="col-lg-3">
-            <div class="panel panel-default">
-
-                <a class="panel-link" href="~/MyProjects/">
-                    <div class="panel-body">
-                        <i class="fa fa-folder-open"></i>
-                        <div>
-                            Prosjekter
-                        </div>
-                    </div>
-                </a>
-
-            </div>
-        </div>
-
-
-        <div class="col-lg-3">
-            <div class="panel panel-default">
-
-                <a class="panel-link" href="~/Settings/">
-                    <div class="panel-body">
-                        <i class="fa fa-cog"></i>
-                        <div>
-                            CV Innstillinger
-                        </div>
-                    </div>
-                </a>
-
-            </div>
-        </div>
-
-        <div class="col-lg-3">
-            <div class="panel panel-default">
-
-                <a class="panel-link" href="~/Pdf/LastNed">
-                    <div class="panel-body">
-                        <i class="fa fa-file-pdf-o"></i>
-                        <div>
-                            Last ned PDF
-                        </div>
-                    </div>
-                </a>
-
-            </div>
-        </div>
-
-        <div class="col-lg-3">
-            <div class="panel panel-default">
-
-                <a class="panel-link" href="~/Download/Word">
-                    <div class="panel-body">
-                        <i class="fa fa-file-word-o fa-flip-horizontal"></i>
-                        <div>
-                            Last ned Word
-                        </div>
-                    </div>
-                </a>
-
-            </div>
-        </div>
-
-
-        @if (User.IsInRole("Admin"))
-        {
-
-            <div class="col-lg-3">
-                <div class="panel panel-default admin">
-
-                    <a class="panel-link" href="~/Employees/">
-                        <div class="panel-body">
-                            <i class="fa fa-users"></i>
-                            <div>
-                                Ansatte
-                            </div>
-                        </div>
-                    </a>
-
-                </div>
-            </div>
-            
-            <div class="col-lg-3">
-                <div class="panel panel-default admin">
-
-                    <a class="panel-link" href="~/Projects/">
-                        <div class="panel-body">
-                            <i class="fa fa-folder-open"></i>
-                            <div>
-                                Alle Prosjekter
-                            </div>
-                        </div>
-                    </a>
-
-                </div>
-            </div>
-
-            <div class="col-lg-3">
-                <div class="panel panel-default admin">
-
-                    <a class="panel-link" href="~/Database/">
-                        <div class="panel-body">
-                            <i class="fa fa-database"></i>
-                            <div>
-                                Database
-                            </div>
-                        </div>
-                    </a>
-
-                </div>
-            </div>
-
-
-
-
-
-
-        }
 
     </div>
 </div>

@@ -1,0 +1,55 @@
+﻿@using System.Web.Optimization
+@using Microsoft.AspNet.Identity
+
+@model GeoCV.Models.CVVersjon
+
+@{
+    ViewBag.Title = "Min utdannelse";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section css{
+    @Styles.Render("~/Bundles/css/education")
+}
+@section scripts{
+    @Scripts.Render("~/Bundles/js/education")
+}
+
+@Html.Partial("_RedigerModal")
+
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1 class="page-header">Min utdannelse</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <table id="education-table" class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th data-sort="string">Studiested <i class="fa pull-right hidden"></i></th>
+                        <th data-sort="string">Beskrivelse <i class="fa pull-right hidden"></i></th>
+                        <th data-sort="int">Fra <i class="fa pull-right hidden"></i></th>
+                        <th data-sort="int">Til <i class="fa pull-right hidden"></i></th>
+                        <th>Slett</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var BrukerUtdannelse in Model.Utdannelse.OrderByDescending(x => x.Til))
+                    {
+                        <tr id="@BrukerUtdannelse.UtdannelseId">
+                            <td class="update-td col-lg-3">@BrukerUtdannelse.Studiested</td>
+                            <td class="update-td col-lg-5">@BrukerUtdannelse.Beskrivelse</td>
+                            <td class="update-td col-lg-1">@BrukerUtdannelse.Fra</td>
+                            <td class="update-td col-lg-1">@BrukerUtdannelse.Til</td>
+                            <td><a class="del-link col-lg-2">Slett</a></td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,137 @@
+﻿@using System.Web.Optimization
+
+@model IEnumerable<GeoCV.Models.Prosjekt>
+
+@{
+    ViewBag.Title = "Prosjektoversikt";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section css{
+    @Styles.Render("~/bundles/css/projects")
+}
+@section scripts{
+    @Scripts.Render("~/bundles/js/projects")
+}
+
+@Html.Partial("_SlettModal")
+
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Prosjektoversikt</h1>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-6">
+
+            <div class="panel panel-default">
+                <div class="panel-heading"><i class="fa fa-filter"></i> Prosjekt filter</div>
+                <div class="panel-body">
+
+                    <input type="text" class="form-control" id="prosjekt-filter" placeholder="Filter">
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-6">
+
+            <div class="panel panel-default">
+                <div class="panel-heading"><i class="fa fa-folder-open"></i> Prosjekter</div>
+                <div class="panel-body">
+
+                    <table id="prosjekt-tabell" class="table table-hover sortable">
+                        <thead>
+                            <tr>
+                                <th data-sort="string">Kunde <i class="fa fa-sort pull-right"></i></th>
+                                <th data-sort="string">Prosjekt navn <i class="fa fa-sort pull-right"></i></th>
+                                <th data-sort="string">Beskrivelse <i class="fa fa-sort pull-right"></i></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var Prosjekt in Model)
+                            {
+                                <tr id="@Prosjekt.ProsjektId" data-id="@Prosjekt.ProsjektId" data-kunde="@Prosjekt.Kunde" data-navn="@Prosjekt.Navn" data-beskrivelse="@Prosjekt.Beskrivelse">
+                                    <td class="col-lg-3">@Prosjekt.Kunde</td>
+                                    <td class="col-lg-3">@Prosjekt.Navn</td>
+                                    <td class="col-lg-3">@Prosjekt.Beskrivelse</td>
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-sm-4">
+
+            @foreach (var Prosjekt in Model)
+            {
+                <div class="panel panel-default">
+                    <div class="panel-heading"><i class="fa fa-pencil-square"></i> Rediger @Prosjekt.Navn</div>
+                    <div class="panel-body">
+
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <input type="text" class="form-control update-txt" value="@Prosjekt.Navn" autocomplete="off">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <input type="text" class="form-control update-txt" value="@Prosjekt.Kunde" autocomplete="off">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <input type="text" class="form-control update-txt" value="@Prosjekt.Beskrivelse" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="col-sm-2">
+
+            @foreach (var Prosjekt in Model)
+            {
+                <div class="panel panel-info">
+                    <div class="panel-heading"><i class="fa fa-external-link"></i> Tekniske profiler</div>
+                    <div class="panel-body">
+
+                        <button type="button" class="btn btn-primary col-lg-12">Tekniske profiler</button>
+                    </div>
+                </div>
+
+                <div class="panel panel-danger">
+                    <div class="panel-heading"><i class="fa fa-trash-o"></i> Slett</div>
+                    <div class="panel-body">
+
+                        <button type="button" class="btn btn-danger col-lg-12">Slett</button>
+
+                    </div>
+                </div>
+            }
+        </div>
+
+
+
+    </div>
+</div>

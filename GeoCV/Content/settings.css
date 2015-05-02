@@ -1,8 +1,12 @@
-﻿.form-group {
+﻿.list-group {
+  margin-bottom: 0;
+}
+.list-group li {
   display: flex;
   align-items: center;
 }
-.form-group label {
-  font-size: 14px;
+.switch-text {
+  -ms-flex: 1;
+  flex: 1;
 }
 /*# sourceMappingURL=settings.css.map */

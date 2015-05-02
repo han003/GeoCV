@@ -1,0 +1,18 @@
+﻿@using System.Web.Optimization
+@using Microsoft.AspNet.Identity
+
+@model GeoCV.Models.ExpertiseModel
+
+@{
+    ViewBag.Title = "Annet";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section css{
+    @Styles.Render("~/Bundles/css/expertise")
+}
+@section scripts{
+    @Scripts.Render("~/Bundles/js/expertise")
+}
+
+@Html.Partial("_LeggTilModal")
+@Html.Partial("_TabInnhold", Model, new ViewDataDictionary { { "Tab", ViewBag.Title }, { "Bruker", Model.BrukerAnnet } })

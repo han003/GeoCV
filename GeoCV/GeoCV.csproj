@@ -223,11 +223,10 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DocXController.cs" />
     <Compile Include="Controllers\PdfController.cs" />
-    <Compile Include="Controllers\EditProjectController.cs" />
+    <Compile Include="Controllers\TekniskProfilController.cs" />
     <Compile Include="Controllers\EducationController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\ExpertiseController.cs" />
-    <Compile Include="Controllers\FeedbackController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PersonalController.cs" />
@@ -260,7 +259,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Database.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\EditProjectModel.cs" />
+    <Compile Include="Models\TekniskProfilModel.cs" />
     <Compile Include="Models\ExpertiseModel.cs" />
     <Compile Include="Models\Feedback.cs">
       <DependentUpon>Database.tt</DependentUpon>
@@ -305,9 +304,19 @@
     <Content Include="Content\animate.min.css">
       <DependentUpon>animate.css</DependentUpon>
     </Content>
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css">
-      <DependentUpon>bootstrap.css</DependentUpon>
+    <Content Include="Content\plugins\bootstrap-switch.css" />
+    <Content Include="Content\plugins\bootstrap-switch.min.css">
+      <DependentUpon>bootstrap-switch.css</DependentUpon>
+    </Content>
+    <Content Include="Content\theme\metisMenu.css" />
+    <Content Include="Content\theme\metisMenu.min.css">
+      <DependentUpon>metisMenu.css</DependentUpon>
+    </Content>
+    <Content Include="Content\theme\sb-admin-2.css">
+      <DependentUpon>sb-admin-2.less</DependentUpon>
+    </Content>
+    <Content Include="Content\theme\sb-admin-2.min.css">
+      <DependentUpon>sb-admin-2.css</DependentUpon>
     </Content>
     <Content Include="Content\dashboard.css">
       <DependentUpon>dashboard.less</DependentUpon>
@@ -321,11 +330,11 @@
     <Content Include="Content\database.min.css">
       <DependentUpon>database.css</DependentUpon>
     </Content>
-    <Content Include="Content\editproject.css">
-      <DependentUpon>editproject.less</DependentUpon>
+    <Content Include="Content\tekniskprofil.css">
+      <DependentUpon>tekniskprofil.less</DependentUpon>
     </Content>
-    <Content Include="Content\editproject.min.css">
-      <DependentUpon>editproject.css</DependentUpon>
+    <Content Include="Content\tekniskprofil.min.css">
+      <DependentUpon>tekniskprofil.css</DependentUpon>
     </Content>
     <Content Include="Content\education.css">
       <DependentUpon>education.less</DependentUpon>
@@ -353,7 +362,6 @@
     </Content>
     <Content Include="Content\Images\favicon.png" />
     <Content Include="Content\Images\geomatikk logo.png" />
-    <Content Include="Content\Images\shattered.png" />
     <Content Include="Content\jquery-ui\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\jquery-ui\images\ui-bg_flat_0_eeeeee_40x100.png" />
     <Content Include="Content\jquery-ui\images\ui-bg_flat_55_ffffff_40x100.png" />
@@ -403,6 +411,10 @@
     <Content Include="Content\personal.min.css">
       <DependentUpon>personal.css</DependentUpon>
     </Content>
+    <Content Include="Content\plugins\flat-checkradio.css" />
+    <Content Include="Content\plugins\flat-checkradio.min.css">
+      <DependentUpon>flat-checkradio.css</DependentUpon>
+    </Content>
     <Content Include="Content\projects.css">
       <DependentUpon>projects.less</DependentUpon>
     </Content>
@@ -432,7 +444,6 @@
       <DependentUpon>Database.edmx</DependentUpon>
       <LastGenOutput>Database.cs</LastGenOutput>
     </Content>
-    <Content Include="Scripts\bootstrap\bootstrap.js" />
     <Content Include="ApplicationInsights.config" />
     <Content Include="Content\animate.less" />
     <Content Include="Content\dashboard.less" />
@@ -446,16 +457,21 @@
     <Content Include="Content\home.css.map">
       <DependentUpon>home.css</DependentUpon>
     </Content>
-    <Content Include="Scripts\bootstrap\bootstrap.min.js">
-      <DependentUpon>bootstrap.js</DependentUpon>
+    <Content Include="Scripts\plugins\bootstrap-switch.js" />
+    <Content Include="Scripts\plugins\bootstrap-switch.min.js">
+      <DependentUpon>bootstrap-switch.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\theme\metisMenu.js" />
+    <Content Include="Scripts\theme\metisMenu.min.js">
+      <DependentUpon>metisMenu.js</DependentUpon>
     </Content>
     <Content Include="Scripts\database.js" />
     <Content Include="Scripts\database.min.js">
       <DependentUpon>database.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\editproject.js" />
-    <Content Include="Scripts\editproject.min.js">
-      <DependentUpon>editproject.js</DependentUpon>
+    <Content Include="Scripts\tekniskprofil.js" />
+    <Content Include="Scripts\tekniskprofil.min.js">
+      <DependentUpon>tekniskprofil.js</DependentUpon>
     </Content>
     <Content Include="Scripts\education.js" />
     <Content Include="Scripts\education.min.js">
@@ -463,10 +479,6 @@
     </Content>
     <Content Include="Scripts\expertise.min.js">
       <DependentUpon>expertise.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\feedback.js" />
-    <Content Include="Scripts\feedback.min.js">
-      <DependentUpon>feedback.js</DependentUpon>
     </Content>
     <Content Include="Scripts\jquery-ui\jquery-ui.js" />
     <Content Include="Scripts\jquery-ui\jquery-ui.min.js">
@@ -484,9 +496,6 @@
       <DependentUpon>myprojects.js</DependentUpon>
     </Content>
     <Content Include="Scripts\personal.js" />
-    <Content Include="Scripts\bootstrap\bootstrap.min.js.map">
-      <DependentUpon>bootstrap.min.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\employees.min.js.map">
       <DependentUpon>employees.min.js</DependentUpon>
     </Content>
@@ -526,22 +535,19 @@
     <Content Include="Content\expertise.css.map">
       <DependentUpon>expertise.css</DependentUpon>
     </Content>
-    <Content Include="Content\editproject.less" />
-    <Content Include="Content\editproject.css.map">
-      <DependentUpon>editproject.css</DependentUpon>
+    <Content Include="Content\tekniskprofil.less" />
+    <Content Include="Content\tekniskprofil.css.map">
+      <DependentUpon>tekniskprofil.css</DependentUpon>
     </Content>
     <Content Include="Content\myprojects.less" />
     <Content Include="Content\myprojects.css.map">
       <DependentUpon>myprojects.css</DependentUpon>
     </Content>
-    <Content Include="Scripts\editproject.min.js.map">
-      <DependentUpon>editproject.min.js</DependentUpon>
+    <Content Include="Scripts\tekniskprofil.min.js.map">
+      <DependentUpon>tekniskprofil.min.js</DependentUpon>
     </Content>
     <Content Include="Scripts\expertise.min.js.map">
       <DependentUpon>expertise.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\feedback.min.js.map">
-      <DependentUpon>feedback.min.js</DependentUpon>
     </Content>
     <Content Include="Scripts\education.min.js.map">
       <DependentUpon>education.min.js</DependentUpon>
@@ -566,7 +572,14 @@
     <Content Include="Content\login.css.map">
       <DependentUpon>login.css</DependentUpon>
     </Content>
+    <Content Include="Content\theme\sb-admin-2.less" />
+    <Content Include="Content\theme\sb-admin-2.css.map">
+      <DependentUpon>sb-admin-2.css</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\cvportal.pubxml" />
+    <Content Include="Scripts\theme\metisMenu.min.js.map">
+      <DependentUpon>metisMenu.min.js</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\employees.js" />
     <Content Include="Scripts\employees.min.js">
@@ -604,28 +617,16 @@
     <Content Include="Scripts\settings.min.js">
       <DependentUpon>settings.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\stuff\modernizr-2.8.3.js" />
     <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\npm.min.js">
       <DependentUpon>npm.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\stuff\modernizr-2.8.3.min.js">
-      <DependentUpon>modernizr-2.8.3.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\stuff\respond.js" />
-    <Content Include="Scripts\stuff\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\search.js" />
     <Content Include="Scripts\search.min.js">
       <DependentUpon>search.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\stuff\respond.matchmedia.addListener.min.js">
-      <DependentUpon>respond.matchmedia.addListener.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\stuff\respond.min.js">
-      <DependentUpon>respond.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\stuff\stupidtable.js" />
-    <Content Include="Scripts\stuff\stupidtable.min.js">
+    <Content Include="Scripts\plugins\stupidtable.js" />
+    <Content Include="Scripts\plugins\stupidtable.min.js">
       <DependentUpon>stupidtable.js</DependentUpon>
     </Content>
     <Content Include="Scripts\work.js" />
@@ -661,7 +662,6 @@
     <Content Include="Views\Manage\Index.cshtml" />
     <Content Include="Views\Manage\SetPassword.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Scripts\jquery\jquery-2.1.3.intellisense.min.js.map">
       <DependentUpon>jquery-2.1.3.intellisense.min.js</DependentUpon>
     </Content>
@@ -675,7 +675,6 @@
       <DependentUpon>search.min.js</DependentUpon>
     </Content>
     <Content Include="Views\Dashboard\Index.cshtml" />
-    <Content Include="Views\Employees\Index.cshtml" />
     <Content Include="Scripts\jquery\jquery.validate-vsdoc.min.js.map">
       <DependentUpon>jquery.validate-vsdoc.min.js</DependentUpon>
     </Content>
@@ -685,26 +684,11 @@
     <Content Include="Scripts\jquery\jquery.validate.unobtrusive.min.js.map">
       <DependentUpon>jquery.validate.unobtrusive.min.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\stuff\modernizr-2.8.3.min.js.map">
-      <DependentUpon>modernizr-2.8.3.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\stuff\respond.min.js.map">
-      <DependentUpon>respond.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\stuff\respond.matchmedia.addListener.min.js.map">
-      <DependentUpon>respond.matchmedia.addListener.min.js</DependentUpon>
-    </Content>
-    <Content Include="Views\Projects\Index.cshtml" />
-    <Content Include="Views\Personal\Index.cshtml" />
-    <Content Include="Views\Expertise\Index.cshtml" />
-    <Content Include="Views\Education\Index.cshtml" />
-    <Content Include="Views\Work\Index.cshtml" />
     <Content Include="Views\Settings\Index.cshtml" />
     <Content Include="Views\Settings\_Partial.cshtml" />
     <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
     <Content Include="Views\Manage\ManageLogins.cshtml" />
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
-    <Content Include="Views\EditProject\Index.cshtml" />
     <Content Include="Scripts\personal.min.js.map">
       <DependentUpon>personal.min.js</DependentUpon>
     </Content>
@@ -718,21 +702,52 @@
     <Content Include="Scripts\work.min.js.map">
       <DependentUpon>work.min.js</DependentUpon>
     </Content>
-    <Content Include="Views\Feedback\Index.cshtml" />
-    <Content Include="Views\MyProjects\Index.cshtml" />
     <Content Include="Scripts\myprojects.min.js.map">
       <DependentUpon>myprojects.min.js</DependentUpon>
     </Content>
-    <Content Include="Views\Database\Index.cshtml" />
     <Content Include="Scripts\moment-with-locales.min.js.map">
       <DependentUpon>moment-with-locales.min.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\stuff\stupidtable.min.js.map">
+    <Content Include="Scripts\plugins\stupidtable.min.js.map">
       <DependentUpon>stupidtable.min.js</DependentUpon>
     </Content>
     <Content Include="Views\Expertise\_TabInnhold.cshtml" />
     <Content Include="Views\Personal\_TabInnhold.cshtml" />
-    <Content Include="Views\Shared\_LoginBox.cshtml" />
+    <Content Include="Views\Shared\_Navigation.cshtml" />
+    <Content Include="Views\Personal\Information.cshtml" />
+    <Content Include="Views\Personal\Languages.cshtml" />
+    <Content Include="Views\Expertise\Programmeringsspraak.cshtml" />
+    <Content Include="Views\Expertise\Rammeverk.cshtml" />
+    <Content Include="Views\Expertise\Webteknologier.cshtml" />
+    <Content Include="Views\Expertise\Databasesystemer.cshtml" />
+    <Content Include="Views\Expertise\Serverside.cshtml" />
+    <Content Include="Views\Expertise\Operativsystemer.cshtml" />
+    <Content Include="Views\Expertise\Annet.cshtml" />
+    <Content Include="Views\Expertise\_LeggTilModal.cshtml" />
+    <Content Include="Views\Personal\_LeggTilModal.cshtml" />
+    <Content Include="Views\Education\Min.cshtml" />
+    <Content Include="Views\Education\_RedigerModal.cshtml" />
+    <Content Include="Views\Education\Ny.cshtml" />
+    <Content Include="Views\Work\Min.cshtml" />
+    <Content Include="Views\Work\_RedigerModal.cshtml" />
+    <Content Include="Views\Work\Ny.cshtml" />
+    <Content Include="Views\MyProjects\Min.cshtml" />
+    <Content Include="Views\MyProjects\Ny.cshtml" />
+    <Content Include="Views\Database\Rediger.cshtml" />
+    <Content Include="Views\Database\_RedigerModal.cshtml" />
+    <Content Include="Views\Database\Ny.cshtml" />
+    <Content Include="Views\Employees\Oversikt.cshtml" />
+    <Content Include="Views\Employees\LeggTil.cshtml" />
+    <Content Include="Views\Projects\Oversikt.cshtml" />
+    <Content Include="Views\Projects\LeggTil.cshtml" />
+    <Content Include="Views\Projects\_SlettModal.cshtml" />
+    <Content Include="Views\TekniskProfil\Oversikt.cshtml" />
+    <Content Include="Views\TekniskProfil\_SlettModal.cshtml" />
+    <Content Include="Views\TekniskProfil\_EndreModal.cshtml" />
+    <Content Include="Views\TekniskProfil\LeggTil.cshtml" />
+    <Content Include="Scripts\plugins\bootstrap-switch.min.js.map">
+      <DependentUpon>bootstrap-switch.min.js</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

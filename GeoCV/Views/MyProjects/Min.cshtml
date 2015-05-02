@@ -1,0 +1,143 @@
+﻿@using System.Web.Optimization
+@using Microsoft.AspNet.Identity
+
+@model GeoCV.Models.MyProjectViewModel
+
+@{
+    ViewBag.Title = "Mine prosjekter";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section css{
+    @Styles.Render("~/Bundles/css/myprojects")
+}
+@section scripts{
+    @Scripts.Render("~/Bundles/js/myprojects")
+}
+
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Mine prosjekter</h1>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">Prosjekter</div>
+                <div class="panel-body">
+
+                    <ul class="list-group">
+                        @foreach (var Prosjekt in Model.Data)
+                        {
+                            <li class="list-group-item">@Prosjekt.ProsjektNavn</li>
+                        }
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+
+            @foreach (var Prosjekt in Model.Data)
+            {
+            <div class="panel panel-default prosjekt-panel">
+                <div class="panel-heading">@Prosjekt.ProsjektNavn</div>
+                <div class="panel-body">
+
+                    <div class="form-horizontal">
+
+                        <div class="form-group">
+                            <label for="stilling-@Prosjekt.ProsjektId" class="col-lg-2 control-label">Stilling</label>
+                            <div class="col-lg-10">
+                                <select class="form-control">
+
+                                    @if (Prosjekt.MedlemRolle.Equals(0))
+                                        {
+                                    <option selected>Ingen rolle valgt</option>
+                                        }
+
+                                    @foreach (var Stilling in Model.Stillinger)
+                                        {
+                                            if (Prosjekt.MedlemRolle.Equals(Stilling.ListeKatalogId))
+                                            {
+                                    <option selected value="@Stilling.ListeKatalogId">@Stilling.Element</option>
+                                            }
+                                            else
+                                            {
+                                    <option value="@Stilling.ListeKatalogId">@Stilling.Element</option>
+                                            }
+                                        }
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="prosjekt-fra-@Prosjekt.ProsjektId" class="col-lg-2 control-label">Fra</label>
+                            <div class="col-lg-10">
+                                <input id="prosjekt-fra-@Prosjekt.ProsjektId" class="form-control kalender" type="text" value="@Prosjekt.MedlemStart.ToString("dd. MMMM yyyy")">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="prosjekt-til-@Prosjekt.ProsjektId" class="col-lg-2 control-label">Til</label>
+                            <div class="col-lg-10">
+                                <input id="prosjekt-til-@Prosjekt.ProsjektId" class="form-control kalender" type="text" value="@Prosjekt.MedlemSlutt.ToString("dd. MMMM yyyy")">
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+            </div>
+            }
+
+        </div>
+
+        <div class="col-sm-4">
+
+            @foreach (var Prosjekt in Model.Data)
+            {
+                <div class="panel panel-default teknisk-panel">
+                    <div class="panel-heading">Teknisk profil</div>
+                    <div class="panel-body">
+
+                        <select class="form-control stilling-select">
+
+                            @foreach (var Profil in Prosjekt.ProsjektTekniskProfil)
+                            {
+                                <option value="@Profil.TekniskProfilId">@Profil.Navn</option>
+                            }
+
+                        </select>
+
+                        @foreach (var Profil in Prosjekt.ProsjektTekniskProfil)
+                        {
+                            <div class="well">
+                                @foreach (var ElementId in Profil.Elementer.Split(';'))
+                                {
+                                    foreach (var Element in Model.Katalog)
+                                    {
+                                        if (Element.ListeKatalogId.ToString().Equals(ElementId))
+                                        {
+                                            <div>@Element.Element</div>
+                                        }
+                                    }
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+
+        </div>
+
+    </div>
+</div>

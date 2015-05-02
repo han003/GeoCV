@@ -18,7 +18,7 @@ namespace GeoCV.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return View(GetBrukerCv(GetAspNetBrukerID()));
         }
 
 

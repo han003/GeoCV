@@ -12,16 +12,18 @@ namespace GeoCV.Controllers
     [Authorize]
     public class MyProjectsController : BaseController
     {
-        public ActionResult Index()
+        public ActionResult Min()
         {
             CVVersjon BrukerCv = GetBrukerCv(GetAspNetBrukerID());
 
             var Prosjekter = from a in db.Prosjekt
                              select a;
 
-            var Stillinger = from a in db.ListeKatalog
-                             where a.Katalog.Equals("Stillinger")
-                             select a;
+            var katalog = from a in db.ListeKatalog
+                          where a.Katalog != "Språk" || a.Katalog != "Nasjonaliteter"
+                          select a;
+
+            var Stillinger = katalog.Where(x => x.Katalog.Equals("Stillinger"));
 
             var Data = from a in db.Medlem
                        where a.Person.PersonId.Equals(BrukerCv.Person.PersonId)
@@ -41,12 +43,21 @@ namespace GeoCV.Controllers
 
             //store data of both queries in your ViewModel class here:
             var MyViewModel = new MyProjectViewModel();
+            MyViewModel.Katalog = katalog;
             MyViewModel.Prosjekt = Prosjekter;
             MyViewModel.Stillinger = Stillinger;
             MyViewModel.Data = Data;
 
             //return ViewModel to View.
             return View(MyViewModel);
+        }
+
+        public ActionResult Ny()
+        {
+            var Prosjekter = from a in db.Prosjekt
+                             select a;
+
+            return View(Prosjekter);
         }
 
         [HttpPost]
@@ -73,28 +84,6 @@ namespace GeoCV.Controllers
             Prosjekt.Medlem.Add(NyttMedlem);
 
             db.SaveChanges();
-        }
-
-        [HttpGet]
-        public ActionResult GetMineProsjekter()
-        {
-            CVVersjon BrukerCv = GetBrukerCv(GetAspNetBrukerID());
-
-            var Data = from a in db.Medlem
-                       where a.Person.PersonId.Equals(BrukerCv.Person.PersonId)
-                       select new MyProjectCustomObject
-                       {
-                           ProsjektId = a.Prosjekt.ProsjektId,
-                           ProsjektNavn = a.Prosjekt.Navn,
-                           ProsjektKunde = a.Prosjekt.Kunde,
-
-                           MedlemId = a.MedlemId,
-                           MedlemRolle = a.Rolle,
-                           MedlemStart = a.Start,
-                           MedlemSlutt = a.Slutt
-                       };
-
-            return Json(Data, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -134,7 +123,6 @@ namespace GeoCV.Controllers
             {
                 ProMedlem.Slutt = DateTime.Parse(NyDato);
             }
-            
 
             db.SaveChanges();
         }

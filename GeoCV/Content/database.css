@@ -2,10 +2,18 @@
   cursor: pointer;
 }
 .del-link {
-  color: white;
   padding: 0;
 }
-#filter-txt {
-  margin-bottom: 19px;
+.filter-panel input[type="text"] {
+  margin-bottom: 15px;
+}
+.filter-panel .list-group {
+  margin-bottom: 0;
+}
+.katalog-panel .list-group {
+  margin-bottom: 0;
+}
+.nytt-element-panel input {
+  margin-bottom: 15px;
 }
 /*# sourceMappingURL=database.css.map */

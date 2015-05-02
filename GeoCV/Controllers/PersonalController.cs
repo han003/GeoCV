@@ -13,7 +13,7 @@ namespace GeoCV.Controllers
     {
 
         // GET: Personal
-        public ActionResult Index()
+        public ActionResult Information()
         {
             // Opprett model
             PersonalModel ViewModel = new PersonalModel();
@@ -33,6 +33,18 @@ namespace GeoCV.Controllers
                              orderby a.Element ascending
                              select a;
             ViewModel.Stillinger = Stillinger;
+
+            return View(ViewModel);
+        }
+
+        public ActionResult Languages()
+        {
+            // Opprett model
+            PersonalModel ViewModel = new PersonalModel();
+
+            // Hent CV
+            CVVersjon BrukerCv = GetBrukerCv(GetAspNetBrukerID());
+            ViewModel.BrukerCv = BrukerCv;
 
             var Språk = from a in db.ListeKatalog
                         where a.Katalog == "Språk"

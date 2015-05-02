@@ -13,10 +13,14 @@ namespace GeoCV.Controllers
     [Authorize]
     public class EducationController : BaseController
     {
-        // GET: Education
-        public ActionResult Index()
+        public ActionResult Min()
         {
             return View(GetBrukerCv(GetAspNetBrukerID()));
+        }
+
+        public ActionResult Ny()
+        {
+            return View();
         }
 
         [HttpPost]
@@ -47,50 +51,32 @@ namespace GeoCV.Controllers
         [HttpPost]
         public void DeleteElement(int Id)
         {
-            var Utdannelse = GetBrukerCv(GetAspNetBrukerID()).Utdannelse;
-
-            Utdannelse ValgtUtdannelse = new Utdannelse();
-
-            foreach (var Item in Utdannelse)
-            {
-                if (Item.UtdannelseId == Id)
-                {
-                    ValgtUtdannelse = Item;
-                }
-            }
-
-            db.Utdannelse.Remove(ValgtUtdannelse);
+            db.Utdannelse.Remove(GetBrukerCv(GetAspNetBrukerID()).Utdannelse.Where(x => x.UtdannelseId.Equals(Id)).FirstOrDefault());
             db.SaveChanges();
         }
 
         [HttpPost]
         public void ChangeElement(int Id, string NewValue, string Kolonne)
         {
-            var Utdannelse = GetBrukerCv(GetAspNetBrukerID()).Utdannelse;
+            var Utdannelse = GetBrukerCv(GetAspNetBrukerID()).Utdannelse.Where(x => x.UtdannelseId.Equals(Id)).FirstOrDefault();
 
-            foreach (var Item in Utdannelse)
+            switch (Kolonne)
             {
-                if (Item.UtdannelseId == Id)
-                {
-                    switch (Kolonne)
-                    {
-                        case "Studiested":
-                            Item.Studiested = NewValue;
-                            break;
+                case "Studiested":
+                    Utdannelse.Studiested = NewValue;
+                    break;
 
-                        case "Beskrivelse":
-                            Item.Beskrivelse = NewValue;
-                            break;
+                case "Beskrivelse":
+                    Utdannelse.Beskrivelse = NewValue;
+                    break;
 
-                        case "Fra":
-                            Item.Fra = Int16.Parse(NewValue);
-                            break;
+                case "Fra":
+                    Utdannelse.Fra = Int16.Parse(NewValue);
+                    break;
 
-                        case "Til":
-                            Item.Til = Int16.Parse(NewValue);
-                            break;
-                    }
-                }
+                case "Til":
+                    Utdannelse.Til = Int16.Parse(NewValue);
+                    break;
             }
 
             db.SaveChanges();

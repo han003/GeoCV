@@ -11,20 +11,25 @@ namespace GeoCV.Controllers
     [Authorize]
     public class ExpertiseController : BaseController
     {
-        // GET: Expertise
-        public ActionResult Index()
+        private IOrderedQueryable<ListeKatalog> GetKatalog()
+        {
+            var Katalog = from a in db.ListeKatalog
+                          where a.Katalog != "Nasjonaliteter" || a.Katalog != "Stillinger" || a.Katalog != "Språk"
+                          orderby a.Element descending
+                          select a;
+
+            return Katalog;
+        }
+
+        public ActionResult Programmeringsspraak()
         {
             // Bruker CV
             CVVersjon BrukerCv = GetBrukerCv(GetAspNetBrukerID());
 
             // Model for å sendte til View
             ExpertiseModel ViewModel = new ExpertiseModel();
-            
-            // Legg til Katalog
-            var Katalog = from a in db.ListeKatalog
-                          where a.Katalog != "Nasjonaliteter" || a.Katalog != "Stillinger" || a.Katalog != "Språk"
-                          orderby a.Element descending
-                          select a;
+
+            var Katalog = GetKatalog();
             ViewModel.Katalog = Katalog;
 
             try
@@ -38,6 +43,20 @@ namespace GeoCV.Controllers
             {
             }
 
+            return View(ViewModel);
+        }
+
+        public ActionResult Rammeverk()
+        {
+            // Bruker CV
+            CVVersjon BrukerCv = GetBrukerCv(GetAspNetBrukerID());
+
+            // Model for å sendte til View
+            ExpertiseModel ViewModel = new ExpertiseModel();
+
+            var Katalog = GetKatalog();
+            ViewModel.Katalog = Katalog;
+
             try
             {
                 List<string> BrukerRammeverkListe = BrukerCv.Kompetanse.Rammeverk.Split(';').ToList();
@@ -48,6 +67,20 @@ namespace GeoCV.Controllers
             catch (Exception)
             {
             }
+
+            return View(ViewModel);
+        }
+
+        public ActionResult Webteknologier()
+        {
+            // Bruker CV
+            CVVersjon BrukerCv = GetBrukerCv(GetAspNetBrukerID());
+
+            // Model for å sendte til View
+            ExpertiseModel ViewModel = new ExpertiseModel();
+
+            var Katalog = GetKatalog();
+            ViewModel.Katalog = Katalog;
 
             try
             {
@@ -60,6 +93,20 @@ namespace GeoCV.Controllers
             {
             }
 
+            return View(ViewModel);
+        }
+
+        public ActionResult Databasesystemer()
+        {
+            // Bruker CV
+            CVVersjon BrukerCv = GetBrukerCv(GetAspNetBrukerID());
+
+            // Model for å sendte til View
+            ExpertiseModel ViewModel = new ExpertiseModel();
+
+            var Katalog = GetKatalog();
+            ViewModel.Katalog = Katalog;
+
             try
             {
                 List<string> BrukerDatabasesystemerListe = BrukerCv.Kompetanse.Databasesystemer.Split(';').ToList();
@@ -71,16 +118,44 @@ namespace GeoCV.Controllers
             {
             }
 
+            return View(ViewModel);
+        }
+
+        public ActionResult Serverside()
+        {
+            // Bruker CV
+            CVVersjon BrukerCv = GetBrukerCv(GetAspNetBrukerID());
+
+            // Model for å sendte til View
+            ExpertiseModel ViewModel = new ExpertiseModel();
+
+            var Katalog = GetKatalog();
+            ViewModel.Katalog = Katalog;
+
             try
             {
-                List<string> BrukerServersideListe = BrukerCv.Kompetanse.Serverside.Split(';').ToList();
+                List<string> ServersideListe = BrukerCv.Kompetanse.Serverside.Split(';').ToList();
                 ViewModel.BrukerServerside = from a in Katalog
-                                             where BrukerServersideListe.Contains(a.ListeKatalogId.ToString())
+                                             where ServersideListe.Contains(a.ListeKatalogId.ToString())
                                              select a;
             }
             catch (Exception)
             {
             }
+
+            return View(ViewModel);
+        }
+
+        public ActionResult Operativsystemer()
+        {
+            // Bruker CV
+            CVVersjon BrukerCv = GetBrukerCv(GetAspNetBrukerID());
+
+            // Model for å sendte til View
+            ExpertiseModel ViewModel = new ExpertiseModel();
+
+            var Katalog = GetKatalog();
+            ViewModel.Katalog = Katalog;
 
             try
             {
@@ -92,6 +167,20 @@ namespace GeoCV.Controllers
             catch (Exception)
             {
             }
+
+            return View(ViewModel);
+        }
+
+        public ActionResult Annet()
+        {
+            // Bruker CV
+            CVVersjon BrukerCv = GetBrukerCv(GetAspNetBrukerID());
+
+            // Model for å sendte til View
+            ExpertiseModel ViewModel = new ExpertiseModel();
+
+            var Katalog = GetKatalog();
+            ViewModel.Katalog = Katalog;
 
             try
             {

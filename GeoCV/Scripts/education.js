@@ -172,11 +172,11 @@ function changeElement() {
 
     // Hent ID og kolonne for oppdatering
     var elementId = $('#editModal').data('elementId');
-    var kolonne = $('#editModal').data('dbKolonne');
+    var kolonne = $('#editModal').data('dbKolonne').trim();
 
     // Hent den nye verdien
     var value = '';
-    if (kolonne.trim() == 'Fra' || kolonne.trim() == 'Til') {
+    if (kolonne == 'Fra' || kolonne == 'Til') {
         value = $('#modal-select').val();
     } else {
         value = $('#edit-txt').val();
@@ -185,7 +185,9 @@ function changeElement() {
     // Hent tr elementet som ble valgt
     var trElement = $('#' + elementId);
 
-    console.log('Ny tekst: ' + value + '(' + elementId + ')');
+    console.log('Id: ' + elementId);
+    console.log('Verdi: ' + value);
+    console.log('Kolonne: ' + kolonne);
 
     $.ajax({
         url: '/Education/ChangeElement',

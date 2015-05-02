@@ -10,8 +10,16 @@ namespace GeoCV.Controllers
     [Authorize(Roles = "Admin")]
     public class DatabaseController : BaseController
     {
-        // GET: Database
-        public ActionResult Index()
+        public ActionResult Rediger()
+        {
+            var DatabaseElementer = from a in db.ListeKatalog
+                                    orderby a.Element ascending
+                                    select a;
+
+            return View(DatabaseElementer);
+        }
+
+        public ActionResult Ny()
         {
             var DatabaseElementer = from a in db.ListeKatalog
                                     orderby a.Element ascending
