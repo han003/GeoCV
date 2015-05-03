@@ -1,0 +1,179 @@
+﻿@using System.Web.Optimization
+
+@model GeoCV.Models.TekniskProfilModel
+
+@{
+    ViewBag.Title = "Tekniske profiler";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section css{
+    @Styles.Render("~/bundles/css/TekniskProfilIndex")
+}
+@section scripts{
+    @Scripts.Render("~/bundles/js/TekniskProfilIndex")
+}
+
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Tekniske profiler</h1>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-lg-4">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading"><i class="fa fa-filter"></i> Prosjekt filter</div>
+                <div class="panel-body">
+
+                    <input type="text" class="form-control" id="prosjekt-filter" placeholder="Filter">
+
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="col-lg-4 col-lg-offset-4">
+
+            <div id="katalog-filter-panel" class="panel panel-info hidden">
+                <div class="panel-heading"><i class="fa fa-filter"></i> Katalog filter</div>
+                <div class="panel-body">
+
+                    <input type="text" class="form-control" id="katalog-filter" placeholder="Filter">
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-lg-4">
+
+            <div id="prosjekt-panel" class="panel panel-primary tabell-panel">
+                <div class="panel-heading"><i class="fa fa-folder-open"></i> Velg prosjekt</div>
+                <div class="panel-body">
+
+                    <table id="prosjekt-tabell" class="table table-hover sortable">
+                        <thead>
+                            <tr>
+                                <th data-sort="string"><div class="th-flex"><div>Kunde</div><i class="fa fa-sort"></i></div></th>
+                                <th data-sort="string"><div class="th-flex"><div>Prosjekt navn</div><i class="fa fa-sort"></i></div></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var Prosjekt in Model.Prosjekter)
+                            {
+                                <tr id="@Prosjekt.ProsjektId" class="prosjekt-rad" data-prosjektid="@Prosjekt.ProsjektId" data-kunde="@Prosjekt.Kunde" data-navn="@Prosjekt.Navn">
+                                    <td class="col-lg-3">@Prosjekt.Kunde</td>
+                                    <td class="col-lg-3"><div class="td-flex"><div>@Prosjekt.Navn</div><i class="fa fa-chevron-right hidden"></i></div></td>
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="col-lg-4">
+            @foreach (var Prosjekt in Model.Prosjekter)
+            {
+
+                <div class="panel panel-primary prosjekt-profil-panel hidden" data-prosjektid="@Prosjekt.ProsjektId">
+                    <div class="panel-heading"><i class="fa fa-code"></i> @Prosjekt.Navn profiler</div>
+                    <div class="panel-body">
+
+                        <ul class="list-group teknisk-profil-liste">
+                            @foreach (var TekniskProfil in Prosjekt.TekniskProfil)
+                            {
+                                <li class="list-group-item list-group-item-default" data-tekprofilid="@TekniskProfil.TekniskProfilId"><div>@TekniskProfil.Navn</div><i class="fa fa-chevron-down hidden" data-prosjektid="@Prosjekt.ProsjektId"></i></li>
+                            }
+                        </ul>
+
+                    </div>
+                </div>
+
+                foreach (var TekniskProfil in Prosjekt.TekniskProfil)
+                {
+                    <div class="panel panel-info tabell-panel teknisk-profil-panel hidden" data-tekprofilid="@TekniskProfil.TekniskProfilId">
+                        <div class="panel-heading"><i class="fa fa-code"></i> @TekniskProfil.Navn</div>
+                        <div class="panel-body">
+
+                            <table class="table table-hover sortable teknisk-tabell">
+                                <thead>
+                                    <tr>
+                                        <th class="col-lg-5" data-sort="string-ins">Element</th>
+                                        <th class="col-lg-7">Katalog</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var ElementString in TekniskProfil.Elementer.Split(';'))
+                                    {
+                                        foreach (var KatalogElement in Model.KatalogElementer)
+                                        {
+                                            if (KatalogElement.ListeKatalogId.ToString().Equals(ElementString))
+                                            {
+                                                <tr data-katalogelementid="@KatalogElement.ListeKatalogId" data-tekprofilid="@TekniskProfil.TekniskProfilId">
+                                                    <td class="col-lg-5">@KatalogElement.Element</td>
+                                                    <td class="col-lg-7"><div class="td-flex"><div>@KatalogElement.Katalog</div><i class="fa fa-minus-square hidden"></i></div></td>
+                                                </tr>
+
+                                                break;
+                                            }
+                                        }
+                                    }
+                                </tbody>
+
+                            </table>
+
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+
+        <div class="col-lg-4">
+
+            <div id="katalog-panel" class="panel panel-info tabell-panel hidden">
+                <div class="panel-heading"><i class="fa fa-database"></i> Velg katalog elementer</div>
+                <div class="panel-body">
+
+                    <table id="katalog-tabell" class="table table-hover sortable">
+                        <thead>
+                            <tr>
+                                <th class="col-lg-6" data-sort="string"><div class="th-flex"><div>Element</div><i class="fa fa-sort"></i></div></th>
+                                <th class="col-lg-6" data-sort="string"><div class="th-flex"><div>Katalog</div><i class="fa fa-sort"></i></div></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var Element in Model.KatalogElementer)
+                            {
+                                <tr data-katalogelementid="@Element.ListeKatalogId" data-katalogelement="@Element.Element" data-katalog="@Element.Katalog">
+                                    <td class="col-lg-6">@Element.Element</td>
+                                    <td class="col-lg-6"><div class="td-flex"><div>@Element.Katalog</div><i class="fa fa-plus-square hidden"></i></div></td>
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

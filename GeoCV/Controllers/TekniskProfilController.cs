@@ -11,7 +11,7 @@ namespace GeoCV.Controllers
     [Authorize(Roles = "Admin")]
     public class TekniskProfilController : BaseController
     {
-        public ActionResult Oversikt()
+        public ActionResult Index()
         {
             TekniskProfilModel ViewModel = new TekniskProfilModel();
             ViewModel.Prosjekter = GetProsjekter();
@@ -23,7 +23,10 @@ namespace GeoCV.Controllers
 
         public ActionResult LeggTil()
         {
-            return View();
+            var ViewData = from a in db.Prosjekt
+                           select a;
+
+            return View(ViewData);
         }
 
         private IEnumerable<Prosjekt> GetProsjekter()
@@ -78,13 +81,7 @@ namespace GeoCV.Controllers
         [HttpPost]
         public void OppdaterProfil(int ProfilId, string Verdi)
         {
-            var Profil = from a in db.TekniskProfil
-                         where a.TekniskProfilId.Equals(ProfilId)
-                         select a;
-
-            TekniskProfil OppdaterProfil = Profil.FirstOrDefault();
-            OppdaterProfil.Elementer = Verdi;
-
+            db.TekniskProfil.Where(x => x.TekniskProfilId.Equals(ProfilId)).FirstOrDefault().Elementer = Verdi;
             db.SaveChanges();
         }
 

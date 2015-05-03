@@ -1,0 +1,98 @@
+﻿@info-bakgrunnsfarge: #D9EDF7;
+@success-bakgrunnsfarge: #dff0d8;
+@danger-bakgrunnsfarge: #f2dede;
+@info-tekstfarge: #31708f;
+@success-tekstfarge: #3c763d;
+@danger-tekstfarge: #a94442;
+
+#prosjekt-panel, #katalog-panel {
+    #prosjekt-tabell {
+        tbody {
+            tr:hover {
+                background: @info-bakgrunnsfarge;
+                color: @info-tekstfarge;
+                cursor: pointer;
+            }
+            tr:hover i{
+                display: inline-block !important;
+            }
+        }
+    }
+
+    #katalog-tabell {
+        tbody {
+            tr:hover {
+                background: @success-bakgrunnsfarge;
+                color: @success-tekstfarge;
+                cursor: pointer;
+            }
+            tr:hover i{
+                display: inline-block !important;
+            }
+        }
+    }
+}
+
+.teknisk-tabell {
+    tbody {
+        tr:hover {
+            background: @danger-bakgrunnsfarge;
+            color: @danger-tekstfarge;
+            cursor: pointer;
+        }
+
+        tr:hover i {
+            display: inline-block !important;
+        }
+    }
+}
+
+.tabell-panel {
+    .panel-body {
+        padding: 0;
+
+        table {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.th-flex, .td-flex {
+    display: flex;
+    align-items: center;
+
+    div {
+        -ms-flex: 1;
+        flex: 1;
+    }
+}
+
+.list-group {
+    margin-bottom: 0;
+
+    li {
+        display: flex;
+        align-items: center;
+
+        div {
+            -ms-flex: 1;
+            flex: 1;
+        }
+    }
+
+    .list-group-item-default:hover {
+        background: @info-bakgrunnsfarge;
+        color: @info-tekstfarge;
+        cursor: pointer;
+    }
+
+    .list-group-item-default:hover i {
+        display: inline-block !important;
+    }
+}
+
+.valgt-list-group-item {
+    background: @info-bakgrunnsfarge;
+    color: @info-tekstfarge;
+    cursor: default;
+}

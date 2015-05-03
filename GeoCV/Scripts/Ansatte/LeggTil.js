@@ -76,7 +76,7 @@ $(document).on('click', '.deactivate-link', function () {
         url: '/Employees/Deactivate',
         data: { Id: userId },
         type: 'POST',
-        beforeSend: function() {
+        beforeSend: function () {
             tdElement.html('Deaktiverer <i class="fa fa-spinner fa-spin"></i>');
         },
         success: function () {
@@ -111,7 +111,7 @@ $(document).on('click', '.activate-link', function () {
             tdElement.html('Aktiv (<a class="deactivate-link">Deaktiver</a>)');
         }
     });
-    
+
 });
 
 $(document).on('click', '.del-link', function () {

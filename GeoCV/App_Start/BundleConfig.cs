@@ -37,17 +37,30 @@ namespace GeoCV
                 .Include("~/Content/main.css")
                 .Include("~/Content/dashboard.css"));
 
-            // Employees
-            bundles.Add(new ScriptBundle("~/Bundles/js/employees")
+            // Ansatte
+            bundles.Add(new ScriptBundle("~/Bundles/js/AnsatteIndex")
                 .Include("~/Scripts/jquery/jquery-{version}.js")
                 .Include("~/Scripts/plugins/*.js")
                 .Include("~/Scripts/theme/*.js")
-                .Include("~/Scripts/employees.js"));
+                .Include("~/Scripts/Ansatte/Index.js"));
 
-            bundles.Add(new StyleBundle("~/Bundles/css/employees")
+            bundles.Add(new StyleBundle("~/Bundles/css/AnsatteIndex")
                 .Include("~/Content/theme/*.css")
                 .Include("~/Content/main.css")
-                .Include("~/Content/employees.css"));
+                .Include("~/Content/Ansatte/Index.css"));
+
+            /////////////////////
+
+            bundles.Add(new ScriptBundle("~/Bundles/js/AnsatteLeggTil")
+                .Include("~/Scripts/jquery/jquery-{version}.js")
+                .Include("~/Scripts/plugins/*.js")
+                .Include("~/Scripts/theme/*.js")
+                .Include("~/Scripts/Ansatte/LeggTil.js"));
+
+            bundles.Add(new StyleBundle("~/Bundles/css/AnsatteLeggTil")
+                .Include("~/Content/theme/*.css")
+                .Include("~/Content/main.css")
+                .Include("~/Content/Ansatte/LeggTil.css"));
 
             // Admin Projects
             bundles.Add(new ScriptBundle("~/Bundles/js/projects")
@@ -173,16 +186,29 @@ namespace GeoCV
                 .Include("~/Content/MineProsjekter/LeggTil.css"));
 
             // Teknisk profil
-            bundles.Add(new ScriptBundle("~/Bundles/js/tekniskprofil")
+            bundles.Add(new ScriptBundle("~/Bundles/js/TekniskProfilIndex")
                 .Include("~/Scripts/jquery/jquery-{version}.js")
                 .Include("~/Scripts/plugins/*.js")
                 .Include("~/Scripts/theme/*.js")
-                .Include("~/Scripts/tekniskprofil.js"));
+                .Include("~/Scripts/TekniskProfil/Index.js"));
 
-            bundles.Add(new StyleBundle("~/Bundles/css/tekniskprofil")
+            bundles.Add(new StyleBundle("~/Bundles/css/TekniskProfilIndex")
                 .Include("~/Content/theme/*.css")
                 .Include("~/Content/main.css")
-                .Include("~/Content/tekniskprofil.css"));
+                .Include("~/Content/TekniskProfil/Index.css"));
+
+            //////////////////////////////////////
+
+            bundles.Add(new ScriptBundle("~/Bundles/js/TekniskProfilLeggTil")
+                .Include("~/Scripts/jquery/jquery-{version}.js")
+                .Include("~/Scripts/plugins/*.js")
+                .Include("~/Scripts/theme/*.js")
+                .Include("~/Scripts/TekniskProfil/LeggTil.js"));
+
+            bundles.Add(new StyleBundle("~/Bundles/css/TekniskProfilLeggTil")
+                .Include("~/Content/theme/*.css")
+                .Include("~/Content/main.css")
+                .Include("~/Content/TekniskProfil/LeggTil.css"));
 
             // Settings
             bundles.Add(new ScriptBundle("~/Bundles/js/settings")

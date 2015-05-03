@@ -12,9 +12,9 @@ using System.Web.Mvc;
 namespace GeoCV.Controllers
 {
     [Authorize(Roles = "Admin")]
-    public class EmployeesController : BaseController
+    public class AnsatteController : BaseController
     {
-        public ActionResult Oversikt()
+        public ActionResult Index()
         {
             var Ansatte = from a in db.CVVersjon
                           orderby a.Person.Fornavn ascending
@@ -47,7 +47,7 @@ namespace GeoCV.Controllers
         }
 
         [HttpPost]
-        public void Activate(int Id)
+        public void Aktiver(int Id)
         {
             // Finn CVen som har brukerens ID
             var Item = from a in db.CVVersjon
@@ -68,7 +68,7 @@ namespace GeoCV.Controllers
         }
 
         [HttpPost]
-        public void Deactivate(int Id)
+        public void Deaktiver(int Id)
         {
             // Finn CVen som har brukerens Id
             var Item = from a in db.CVVersjon
@@ -120,22 +120,6 @@ namespace GeoCV.Controllers
             var UserMan = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
             var user = UserMan.FindById(Cv.AspNetUserId);
             UserMan.Delete(user);
-        }
-
-        [HttpGet]
-        public ActionResult Search(string Search)
-        {
-            var Employees = from a in db.Person
-                            where a.Fornavn.Contains(Search) || a.Etternavn.Contains(Search)
-                            select new
-                            {
-                                a.PersonId,
-                                a.Fornavn,
-                                a.Etternavn,
-                                a.CVVersjon.FirstOrDefault().CVVersjonId
-                            };
-
-            return Json(Employees, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
