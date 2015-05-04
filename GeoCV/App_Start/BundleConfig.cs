@@ -62,17 +62,30 @@ namespace GeoCV
                 .Include("~/Content/main.css")
                 .Include("~/Content/Ansatte/LeggTil.css"));
 
-            // Admin Projects
-            bundles.Add(new ScriptBundle("~/Bundles/js/projects")
+            // Prosjekter
+            bundles.Add(new ScriptBundle("~/Bundles/js/ProsjekterIndex")
                 .Include("~/Scripts/jquery/jquery-{version}.js")
                 .Include("~/Scripts/plugins/*.js")
                 .Include("~/Scripts/theme/*.js")
-                .Include("~/Scripts/projects.js"));
+                .Include("~/Scripts/Prosjekter/Index.js"));
 
-            bundles.Add(new StyleBundle("~/Bundles/css/projects")
+            bundles.Add(new StyleBundle("~/Bundles/css/ProsjekterIndex")
                 .Include("~/Content/theme/*.css")
                 .Include("~/Content/main.css")
-                .Include("~/Content/projects.css"));
+                .Include("~/Content/Prosjekter/Index.css"));
+
+            //////////////////////////////////////
+
+            bundles.Add(new ScriptBundle("~/Bundles/js/ProsjekterLeggTil")
+                .Include("~/Scripts/jquery/jquery-{version}.js")
+                .Include("~/Scripts/plugins/*.js")
+                .Include("~/Scripts/theme/*.js")
+                .Include("~/Scripts/Prosjekter/LeggTil.js"));
+
+            bundles.Add(new StyleBundle("~/Bundles/css/ProsjekterLeggTil")
+                .Include("~/Content/theme/*.css")
+                .Include("~/Content/main.css")
+                .Include("~/Content/Prosjekter/LeggTil.css"));
 
             // Register
             bundles.Add(new ScriptBundle("~/Bundles/js/register")

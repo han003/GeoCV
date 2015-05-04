@@ -8,7 +8,7 @@ using System.Web.Mvc;
 namespace GeoCV.Controllers
 {
     [Authorize(Roles = "Admin")]
-    public class ProjectsController : BaseController
+    public class ProsjekterController : BaseController
     {
         public ActionResult Index()
         {

@@ -45,8 +45,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="DocX">
+    <Reference Include="DocX, Version=1.0.1.13, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DocX.1.0.0.13\lib\net40\DocX.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -221,7 +222,7 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DatabaseController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\DocXController.cs" />
+    <Compile Include="Controllers\WordController.cs" />
     <Compile Include="Controllers\PdfController.cs" />
     <Compile Include="Controllers\TekniskProfilController.cs" />
     <Compile Include="Controllers\EducationController.cs" />
@@ -231,7 +232,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PersonalController.cs" />
     <Compile Include="Controllers\MineProsjekterController.cs" />
-    <Compile Include="Controllers\ProjectsController.cs" />
+    <Compile Include="Controllers\ProsjekterController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\WorkController.cs" />
     <Compile Include="Global.asax.cs">
@@ -324,6 +325,18 @@
     <Content Include="Content\plugins\bootstrap-switch.css" />
     <Content Include="Content\plugins\bootstrap-switch.min.css">
       <DependentUpon>bootstrap-switch.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Prosjekter\Index.css">
+      <DependentUpon>Index.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Prosjekter\Index.min.css">
+      <DependentUpon>Index.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Prosjekter\LeggTil.css">
+      <DependentUpon>LeggTil.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Prosjekter\LeggTil.min.css">
+      <DependentUpon>LeggTil.css</DependentUpon>
     </Content>
     <Content Include="Content\TekniskProfil\Index.css">
       <DependentUpon>Index.less</DependentUpon>
@@ -426,12 +439,6 @@
     <Content Include="Content\plugins\flat-checkradio.min.css">
       <DependentUpon>flat-checkradio.css</DependentUpon>
     </Content>
-    <Content Include="Content\projects.css">
-      <DependentUpon>projects.less</DependentUpon>
-    </Content>
-    <Content Include="Content\projects.min.css">
-      <DependentUpon>projects.css</DependentUpon>
-    </Content>
     <Content Include="Content\settings.css">
       <DependentUpon>settings.less</DependentUpon>
     </Content>
@@ -476,6 +483,8 @@
     <Content Include="Scripts\plugins\bootstrap-switch.min.js">
       <DependentUpon>bootstrap-switch.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\Prosjekter\Index.js" />
+    <Content Include="Scripts\Prosjekter\LeggTil.js" />
     <Content Include="Scripts\TekniskProfil\Index.js" />
     <Content Include="Scripts\TekniskProfil\Index.min.js">
       <DependentUpon>Index.js</DependentUpon>
@@ -508,10 +517,6 @@
       <DependentUpon>region-nb.js</DependentUpon>
     </Content>
     <Content Include="Scripts\personal.js" />
-    <Content Include="Content\projects.less" />
-    <Content Include="Content\projects.css.map">
-      <DependentUpon>projects.css</DependentUpon>
-    </Content>
     <Content Include="Content\settings.less" />
     <Content Include="Content\settings.css.map">
       <DependentUpon>settings.css</DependentUpon>
@@ -590,6 +595,14 @@
     <Content Include="Content\Ansatte\Index.css.map">
       <DependentUpon>Index.css</DependentUpon>
     </Content>
+    <Content Include="Content\Prosjekter\Index.less" />
+    <Content Include="Content\Prosjekter\LeggTil.less" />
+    <Content Include="Content\Prosjekter\LeggTil.css.map">
+      <DependentUpon>LeggTil.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Prosjekter\Index.css.map">
+      <DependentUpon>Index.css</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\cvportal.pubxml" />
     <Content Include="Scripts\theme\metisMenu.min.js.map">
       <DependentUpon>metisMenu.min.js</DependentUpon>
@@ -618,10 +631,6 @@
     <Content Include="Scripts\personal.min.js">
       <DependentUpon>personal.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\projects.js" />
-    <Content Include="Scripts\projects.min.js">
-      <DependentUpon>projects.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\settings.js" />
     <Content Include="Scripts\settings.min.js">
       <DependentUpon>settings.js</DependentUpon>
@@ -629,10 +638,6 @@
     <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\npm.min.js">
       <DependentUpon>npm.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\search.js" />
-    <Content Include="Scripts\search.min.js">
-      <DependentUpon>search.js</DependentUpon>
     </Content>
     <Content Include="Scripts\plugins\stupidtable.js" />
     <Content Include="Scripts\plugins\stupidtable.min.js">
@@ -680,9 +685,6 @@
     <Content Include="Scripts\npm.min.js.map">
       <DependentUpon>npm.min.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\search.min.js.map">
-      <DependentUpon>search.min.js</DependentUpon>
-    </Content>
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Scripts\jquery\jquery.validate-vsdoc.min.js.map">
       <DependentUpon>jquery.validate-vsdoc.min.js</DependentUpon>
@@ -700,9 +702,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Scripts\personal.min.js.map">
       <DependentUpon>personal.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\projects.min.js.map">
-      <DependentUpon>projects.min.js</DependentUpon>
     </Content>
     <Content Include="Scripts\settings.min.js.map">
       <DependentUpon>settings.min.js</DependentUpon>
@@ -741,9 +740,9 @@
     <Content Include="Views\Database\Ny.cshtml" />
     <Content Include="Views\Ansatte\Index.cshtml" />
     <Content Include="Views\Ansatte\LeggTil.cshtml" />
-    <Content Include="Views\Projects\Index.cshtml" />
-    <Content Include="Views\Projects\LeggTil.cshtml" />
-    <Content Include="Views\Projects\_SlettModal.cshtml" />
+    <Content Include="Views\Prosjekter\Index.cshtml" />
+    <Content Include="Views\Prosjekter\LeggTil.cshtml" />
+    <Content Include="Views\Prosjekter\_SlettModal.cshtml" />
     <Content Include="Views\TekniskProfil\Index.cshtml" />
     <Content Include="Views\TekniskProfil\_SlettModal.cshtml" />
     <Content Include="Views\TekniskProfil\_EndreModal.cshtml" />

@@ -80,10 +80,10 @@ $('#slett-prosjekt-btn').click(function () {
     var trElement = $('#' + prosjektId).remove();
 
     $.ajax({
-        url: '/Projects/SlettProsjekt',
+        url: '/Prosjekter/SlettProsjekt',
         data: { Id: prosjektId },
         type: 'POST',
-        beforeSend: function(){
+        beforeSend: function () {
 
             $('#slettModal button').addClass('hidden');
             $('#slettModal i').removeClass('hidden');
@@ -104,7 +104,7 @@ $('#slettModal').on('hidden.bs.modal', function () {
 })
 
 $('#nytt-prosjekt-legg-til-btn').click(function () {
-    
+
     $(this).blur();
 
     var prosjektKunde = $('#ny-kunde-txt').val();
@@ -112,7 +112,7 @@ $('#nytt-prosjekt-legg-til-btn').click(function () {
     var prosjektBeskrivelse = $('#ny-beskrivelse-txt').val();
 
     $.ajax({
-        url: '/Projects/LeggTilProsjekt',
+        url: '/Prosjekter/LeggTilProsjekt',
         data: { Kunde: prosjektKunde, Navn: prosjektNavn, Beskrivelse: prosjektBeskrivelse },
         type: 'POST',
         beforeSend: function () {
