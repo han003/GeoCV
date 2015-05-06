@@ -91,6 +91,9 @@ $(document).on('click', '.slett-utdannelse-btn', function () {
         type: 'POST',
         success: function () {
             console.log('Success');
+
+            tabellTr.remove();
+            panel.remove();
         }
     });
 
