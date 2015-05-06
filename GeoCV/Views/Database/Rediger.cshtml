@@ -13,51 +13,24 @@
     @Scripts.Render("~/bundles/js/database")
 }
 
-@Html.Partial("_RedigerModal")
-
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Rediger database</h1>
+            <h1 class="page-header"><i class="fa fa-database"></i> Rediger database</h1>
         </div>
     </div>
 
     <div class="row">
 
-        <div class="col-lg-5">
-
-            <table id="database-tabell" class="table table-hover table-bordered">
-                <thead>
-                    <tr>
-                        <th data-sort="string">Element <i class="fa pull-right hidden"></i></th>
-                        <th data-sort="string">Katalog <i class="fa pull-right hidden"></i></th>
-                        <th>Slett</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var Oppføring in Model)
-                    {
-                        <tr id="@Oppføring.ListeKatalogId" data-katalog="@Oppføring.Katalog" data-element="@Oppføring.Element">
-                            <td class="element-td col-lg-5" data-id="@Oppføring.ListeKatalogId" data-element="@Oppføring.Element">@Oppføring.Element</td>
-                            <td class="katalog-td col-lg-5">@Oppføring.Katalog</td>
-                            <td><a data-id="@Oppføring.ListeKatalogId" class="del-link col-lg-2">Slett</a></td>
-                        </tr>
-                    }
-                </tbody>
-
-            </table>
-
-        </div>
-
         <div class="col-lg-2">
 
-            <div class="panel panel-default filter-panel">
-                <div class="panel-heading">Katalog filter</div>
+            <div class="panel panel-primary filter-panel">
+                <div class="panel-heading"><i class="fa fa-filter"></i> Database filter</div>
                 <div class="panel-body">
 
-                    <input type="text" class="form-control" placeholder="Filter" autocomplete="off">
+                    <input id="filter-txt" type="text" class="form-control" placeholder="Filter" autocomplete="off">
 
-                    <ul class="list-group">
+                    <ul id="filter-group" class="list-group">
                         @foreach (var Katalog in Model.Select(x => x.Katalog).Distinct())
                         {
                             <li class="list-group-item">@Katalog</li>
@@ -71,5 +44,70 @@
 
         </div>
 
+        <div class="col-lg-4">
+
+            <div id="database-panel" class="panel panel-primary">
+                <div class="panel-heading"><i class="fa fa-database"></i> Database</div>
+                <div class="panel-body">
+
+                    <table id="database-tabell" class="table table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th data-sort="string">Element <i class="fa fa-sort pull-right"></i></th>
+                                <th data-sort="string">Katalog <i class="fa fa-sort pull-right"></i></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var Element in Model)
+                            {
+                                <tr id="@Element.ListeKatalogId" data-elementid="@Element.ListeKatalogId" data-katalog="@Element.Katalog" data-element="@Element.Element">
+                                    <td class="element-td col-lg-5" data-id="@Element.ListeKatalogId" data-element="@Element.Element">@Element.Element</td>
+                                    <td class="katalog-td col-lg-5">@Element.Katalog</td>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <div class="col-lg-4">
+
+            @foreach (var Element in Model)
+            {
+                <div class="panel panel-primary element-panel hidden" data-elementid="@Element.ListeKatalogId">
+                    <div class="panel-heading">@Element.Element</div>
+                    <div class="panel-body">
+
+                        <div class="form-horizontal">
+
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">Element</label>
+                                <div class="col-lg-10">
+                                    <input type="text" class="form-control update-txt col-lg-10" value="@Element.Element">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-10 col-lg-offset-2">
+                                    <button type="button" class="btn btn-danger slett-element-btn" data-elementid="@Element.ListeKatalogId">Slett</button>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            }
+
+            
+
+        </div>
     </div>
 </div>

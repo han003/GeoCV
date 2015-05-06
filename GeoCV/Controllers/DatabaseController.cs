@@ -29,7 +29,7 @@ namespace GeoCV.Controllers
         }
 
         [HttpPost]
-        public void DeleteElement(int Id)
+        public void SlettElement(int Id)
         {
             var Item = from a in db.ListeKatalog
                           where a.ListeKatalogId.Equals(Id)

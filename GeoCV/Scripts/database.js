@@ -39,7 +39,17 @@ $('#filter-txt').keyup(function () {
     filter();
 });
 
-$('label > input[type=checkbox]').on('change', function () {
+$('#filter-group li').on('click', function () {
+
+    if ($(this).hasClass('list-group-item-success'))
+    {
+        $(this).removeClass('list-group-item-success');
+    }
+    else
+    {
+        $(this).addClass('list-group-item-success');
+    }
+    
     filter();
 });
 
@@ -54,13 +64,10 @@ function filter() {
     var antallCheckboxer = 0;
 
     // Gå gjennom hver checkbox for å se om den er valgt
-    $('label > input[type="checkbox"]:checked').each(function (index, element) {
-
-        var checkbox = $(element); // Checkboxen
-        var label = checkbox.parent('label'); // Checkboxen sin label
+    $('#filter-group li.list-group-item-success').each(function (index, element) {
 
         // Navn på valgt katalog
-        var checkKatalog = checkbox.data('katalog');
+        var checkKatalog = $(this).html();
 
         $('#database-tabell tbody tr').each(function () {
 
@@ -97,144 +104,44 @@ function filter() {
 
 }
 
-$(document).on('click', '.del-link', function () {
+$(document).on('click', '.slett-element-btn', function () {
 
-    var elementId = $(this).data('id');
-    var trElement = $(this).closest('tr');
-
-    $(this).closest('td').html('Sletter <i class="fa fa-spinner fa-spin"></i>');
+    var elementId = $(this).data('elementid');
+    var panel = $(this).closest('.panel');
+    var tabellTr = $('#database-tabell tr[data-elementid="' + elementId + '"]');
 
     console.log('Id: ' + elementId);
 
+    tabellTr.remove();
+    panel.remove();
+
     $.ajax({
-        url: '/Database/DeleteElement',
+        url: '/Database/SlettElement',
         data: { Id: elementId },
         type: 'POST',
         success: function () {
-            console.log('Success');
 
-            trElement.remove();
+
+
         }
     });
 
 });
 
-$('#editModal').on('shown.bs.modal', function (e) {
-    $('#edit-txt').focus();
-})
+$(document).on('click', '#database-tabell tbody tr', function () {
 
-$(document).on('click', '.element-td', function () {
+    // Valgt element
+    var valgtElement = $(this).data('elementid');
 
-    var elementId = $(this).data('id');
+    console.log(valgtElement);
 
-    var editVal = $(this).data('element');
-
-    console.log(elementId);
-
-    $('#edit-txt').val(editVal);
-
-    $('#editModal').data('elementId', elementId);
-
-    $('#edit-txt').removeClass('hidden');
-    $('#editLoader').addClass('hidden');
-
-    $('#editModal').modal();
-});
-
-$(document).on('click', '#add-item-btn', function () {
-    addNewItem();
-});
-
-// What happens when the Enter key is pressed
-$('#new-item-txt').keypress(function (event) {
-    var keycode = (event.keyCode ? event.keyCode : event.which);
-    if (keycode == '13') {
-        addNewItem();
-    }
-});
-
-function addNewItem() {
-    var element = $('#new-item-txt').val();
-    var katalog = $('#katalog-select option:selected').attr('id');
-
-    console.log('Legg til "' + element + '" i katalogen "' + katalog + '"');
-
-    $.ajax({
-        url: '/Database/AddElement',
-        data: { NyttElement: element, Katalog: katalog },
-        type: 'POST',
-        beforeSend: function () {
-
-            $('#new-element-row').addClass('hidden');
-            $('#new-element-loading').removeClass('hidden');
-
-
-        },
-        success: function (id) {
-            console.log('Lagt til');
-
-            var template = '<tr id="' + id + '" data-katalog="' + katalog + '" data-element="' + element + '">' +
-                               '<td class="element-td col-lg-5" data-id="' + id + '" data-element="' + element + '">' + element + '</td>' +
-                               '<td class="katalog-td col-lg-5">' + katalog + '</td>' +
-                               '<td><a data-id="' + id + '" class="del-link col-lg-2">Slett</a></td>' +
-                           '</tr>';
-
-            $('#database-tabell tbody').append(template);
-
-            $('#new-item-txt').val('');
-            $('#new-element-row').removeClass('hidden');
-            $('#new-element-loading').addClass('hidden');
-
-            $('#new-item-txt').focus();
-        }
+    // For hvert panel som har klassen og rett prosjekt id (bare ett panel)
+    $.each($('.element-panel[data-elementid="' + valgtElement + '"]'), function (index, value) {
+        $(this).removeClass('hidden');
     });
-}
-
-
-// Enter key when the modal is visible
-$(document).keypress(function (event) {
-    var keycode = (event.keyCode ? event.keyCode : event.which);
-    if (keycode == '13' && $('#editModal').is(":visible")) {
-        changeElement();
-    }
-});
-
-// If modal button to add is clicked, add new item to database
-$('#editmodalAddItem').click(function () {
-    changeElement();
-});
-
-function changeElement() {
-
-    var elementId = $('#editModal').data('elementId');
-    var value = $('#edit-txt').val();
-    var trElement = $('#' + elementId);
-    var oppdatertTd = trElement.children('td:first');
-
-    console.log('Ny tekst: ' + value + '(' + elementId + ')');
-
-    $.ajax({
-        url: '/Database/ChangeElement',
-        data: { Id: elementId, NewValue: value },
-        type: 'POST',
-        beforeSend: function () {
-
-            $('#edit-txt').addClass('hidden');
-            $('#editLoader').removeClass('hidden');
-            
-
-        },
-        success: function () {
-            console.log('Changed');
-
-            trElement.children('td:first').html(value);
-            trElement.children('td:first').data('element', value);
-
-            // Fortell tabell sorteringen at verdien er endret
-            oppdatertTd.updateSortVal(value);
-
-            $('#editModal').modal('hide');
-        }
+    // For hvert panel som har klassen men ikke rett prosjekt id (alle de andre)
+    $.each($('.element-panel[data-elementid!="' + valgtElement + '"]'), function (index, value) {
+        $(this).addClass('hidden');
     });
 
-}
+});
