@@ -37,11 +37,7 @@ namespace GeoCV.Controllers
             }
             else
             {
-                var Bruker = from a in db.CVVersjon
-                             where a.CVVersjonId == Id
-                             select a;
-
-                BrukerCv = Bruker.FirstOrDefault();
+                BrukerCv = db.CVVersjon.Where(x => x.CVVersjonId.Equals(Id)).FirstOrDefault();
             }
             
             string FileName = BrukerCv.Person.Fornavn + " " + BrukerCv.Person.Etternavn + " - CV";
@@ -89,7 +85,7 @@ namespace GeoCV.Controllers
             CvPDF = Nasjonalitet(CvPDF, 144, BrukerCv);
 
             // ÅR ERFARING
-            int StartDato = (BrukerCv.Person.StartDato.Equals(null)) ? 0 : BrukerCv.Person.StartDato.Value.Year;
+            int StartDato = (BrukerCv.Person.StartDato.Equals(null)) ? DateTime.Now.Year : BrukerCv.Person.StartDato.Value.Year;
             int ÅrErfaring = Int32.Parse(BrukerCv.Person.ÅrErfaring.ToString()) + DateTime.Now.Year - StartDato;
 
             Paragraph ÅrErfaringEtikett = new Paragraph("Antall år relevant erfaring", FetFont(11));
@@ -114,6 +110,9 @@ namespace GeoCV.Controllers
 
             // ARBEIDSERFARING
             CvPDF = Arbeidserfaring(CvPDF, BrukerCv);
+
+            // PROSJEKTER
+            CvPDF = Prosjekter(CvPDF, BrukerCv);
 
             CvPDF.Close();
             return CvPDF;
@@ -300,6 +299,97 @@ namespace GeoCV.Controllers
                 TotalInnholdParagraf.Add(InnholdsParagraf);
 
                 CvPDF.Add(LeggTilTabell(EtikettParagraf, TotalInnholdParagraf, 100));
+            }
+
+            CvPDF.Add(Chunk.NEWLINE);
+            return CvPDF;
+        }
+
+        private Document Prosjekter(Document CvPDF, CVVersjon BrukerCv)
+        {
+            // Arbeidserfaring header
+            Paragraph Header = new Paragraph("Utvalgte prosjekter", FetFont(11));
+            CvPDF.Add(LeggTilTabell(Header, null, 100));
+
+            var MedlemIProsjekt = db.Medlem.Where(x => x.Person.PersonId.Equals(BrukerCv.Person.PersonId));
+
+            // Legg til alle prosjekter
+            foreach (var MedlemData in MedlemIProsjekt.OrderByDescending(x => x.Start))
+            {
+                string MedlemRolle = "";
+
+                foreach (var Element in db.ListeKatalog)
+                {
+                    if (Element.ListeKatalogId.Equals(MedlemData.Rolle))
+                    {
+                        MedlemRolle = Element.Element;
+                    }
+                }
+
+                string Etikett = MedlemData.Start.Year + " - " + MedlemData.Slutt.Year;
+                string Innhold = MedlemData.Prosjekt.Kunde + ": " + MedlemData.Prosjekt.Navn + ". Rolle: " + MedlemRolle + ".";
+
+                Paragraph EtikettParagraf = new Paragraph(Etikett, FetFont(11));
+
+                // Paragrafer som er stylet
+                Paragraph KundeParagraf = new Paragraph(MedlemData.Prosjekt.Kunde + ". ", FetFont(11));
+                Paragraph InnholdsParagraf = new Paragraph(Innhold, NormalFont(11));
+
+                // Paragraf for å holde de to andre paragrafene som har forskjellig stil
+                Paragraph TotalInnholdParagraf = new Paragraph();
+
+                // Legg til tabell
+                TotalInnholdParagraf.Add(KundeParagraf);
+                TotalInnholdParagraf.Add(InnholdsParagraf);
+
+                CvPDF.Add(LeggTilTabell(EtikettParagraf, TotalInnholdParagraf, 100));
+
+                // Legg til liste med tekniske profiler
+                List TekniskProfilListe = new List(List.UNORDERED, 10f);
+                TekniskProfilListe.SetListSymbol("\u2022");
+                TekniskProfilListe.IndentationLeft = 150f;
+
+                // 29
+                int? MedlemTekniskProfil = MedlemData.TekniskProfil;
+
+                // "7,19,44,34"
+                string TekniskProfilElementer = db.TekniskProfil.Where(x => x.TekniskProfilId == MedlemTekniskProfil).FirstOrDefault().Elementer;
+
+                List<string> ElementListeString = TekniskProfilElementer.Split(';').ToList();
+                List<int> ElementListeInt = new List<int>();
+
+                foreach (var Element in ElementListeString)
+                {
+                    ElementListeInt.Add(int.Parse(Element));
+                }
+
+                var ListeKatalogData = from a in db.ListeKatalog
+                                       where ElementListeInt.Contains(a.ListeKatalogId)
+                                       select a;
+
+                // Legg til i en liste
+                string[] KatalogArray = new string[7] { "Programmeringsspråk", "WebTeknologier", "Rammeverk", "Serverside", "Databasesystemer", "Operativsystemer", "Annet" };
+
+                foreach (var Katalog in KatalogArray)
+                {
+                    string KatalogString = "";
+                    foreach (var Element in ListeKatalogData.Where(x => x.Katalog.Equals(Katalog)))
+                    {
+                        KatalogString += ", " + Element.Element;
+                    }
+                    // Fjern overfløding i starten
+                    try
+                    {
+                        KatalogString = KatalogString.Substring(2);
+                    }
+                    catch (Exception)
+                    {
+
+                    }
+                    TekniskProfilListe.Add(KatalogString);
+                }
+
+                CvPDF.Add(TekniskProfilListe);
             }
 
             CvPDF.Add(Chunk.NEWLINE);

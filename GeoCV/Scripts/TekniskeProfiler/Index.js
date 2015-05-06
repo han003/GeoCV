@@ -239,7 +239,7 @@ $(document).on('click', '#katalog-tabell tbody tr', function () {
 
         // Update
         $.ajax({
-            url: '/TekniskProfil/OppdaterProfil',
+            url: '/TekniskeProfiler/OppdaterProfil',
             data: { ProfilId: tekniskProfilId, Verdi: nyVerdi },
             type: 'POST',
             success: function () {

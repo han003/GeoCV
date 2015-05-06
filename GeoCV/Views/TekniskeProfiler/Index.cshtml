@@ -107,8 +107,10 @@
                         <div class="panel-heading"><i class="fa fa-code"></i> @Prosjekt.Navn profiler</div>
                         @if (Prosjekt.TekniskProfil.Count == 0)
                         {
-                            <div class="alert alert-info" role="alert"><i class="fa fa-info-circle"></i> <strong>@Prosjekt.Navn</strong> inneholder ingen tekniske profiler</div>
-                            <a href="/TekniskProfil/LeggTil?ProsjektId=@Prosjekt.ProsjektId"><button type="button" class="btn btn-primary col-lg-6">Legg til profil</button></a>
+                            <div class="panel-body">
+                                <div class="alert alert-info" role="alert"><i class="fa fa-info-circle"></i> <strong>@Prosjekt.Navn</strong> inneholder ingen tekniske profiler</div>
+                                <a href="/TekniskeProfiler/LeggTilSlett?ProsjektId=@Prosjekt.ProsjektId"><button type="button" class="btn btn-primary col-lg-6">Legg til profil</button></a>
+                            </div>
                         }
 
                         <ul class="list-group teknisk-profil-liste">
@@ -126,8 +128,10 @@
                         <div class="panel-heading"><i class="fa fa-code"></i> @Prosjekt.Navn profiler</div>
                         @if (Prosjekt.TekniskProfil.Count == 0)
                         {
-                            <div class="alert alert-info" role="alert"><i class="fa fa-info-circle"></i> <strong>@Prosjekt.Navn</strong> inneholder ingen tekniske profiler</div>
-                            <a href="/TekniskProfil/LeggTil?ProsjektId=@Prosjekt.ProsjektId"><button type="button" class="btn btn-primary col-lg-6">Legg til profil</button></a>
+                            <div class="panel-body">
+                                <div class="alert alert-info" role="alert"><i class="fa fa-info-circle"></i> <strong>@Prosjekt.Navn</strong> inneholder ingen tekniske profiler</div>
+                                <a href="/TekniskeProfiler/LeggTilSlett?ProsjektId=@Prosjekt.ProsjektId"><button type="button" class="btn btn-primary col-lg-6">Legg til profil</button></a>
+                            </div>
                         }
 
                         <ul class="list-group teknisk-profil-liste">
@@ -199,7 +203,7 @@
                             {
                                 <tr data-katalogelementid="@Element.ListeKatalogId" data-katalogelement="@Element.Element" data-katalog="@Element.Katalog">
                                     <td class="col-lg-6">@Element.Element</td>
-                                    <td class="col-lg-6"><div class="td-flex"><div>@Element.Katalog</div><i class="fa fa-plus-square hidden"></i></div></td>
+                                    <td class="col-lg-6"><div class="td-flex"legg><div>@Element.Katalog</div><i class="fa fa-plus-square hidden"></i></div></td>
                                 </tr>
                             }
 

@@ -83,17 +83,17 @@ $(document).on('click', '.slett-utdannelse-btn', function () {
     var panel = $(this).closest('.panel');
     var tabellTr = $('#education-table tr[data-utdannelseid="' + elementId + '"]');
 
+    tabellTr.remove();
+    panel.remove();
+
     console.log('Id: ' + elementId);
 
     $.ajax({
-        url: '/Education/DeleteEdlement',
+        url: '/Education/DeleteElement',
         data: { Id: elementId },
         type: 'POST',
         success: function () {
             console.log('Success');
-
-            tabellTr.remove();
-            panel.remove();
         }
     });
 

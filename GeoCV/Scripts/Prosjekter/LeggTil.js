@@ -1,7 +1,14 @@
 ﻿$('#nytt-prosjekt-legg-til-btn').click(function () {
+    LeggTilProsjekt();
+});
 
-    $(this).blur();
+$('.nytt-prosjekt-input').keyup(function (event) {
+    if (event.keyCode == 13) {
+        LeggTilProsjekt();
+    }
+});
 
+function LeggTilProsjekt() {
     var prosjektKunde = $('#ny-kunde-txt').val();
     var prosjektNavn = $('#ny-prosjektnavn-txt').val();
     var prosjektBeskrivelse = $('#ny-beskrivelse-txt').val();
@@ -23,5 +30,5 @@
             $('#nytt-prosjekt-legg-til-btn').html('Legg til nytt prosjekt');
         }
     });
-});
+}
 

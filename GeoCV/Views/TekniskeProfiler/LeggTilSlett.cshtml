@@ -50,53 +50,106 @@
 
             @foreach (var Prosjekt in Model)
             {
-                <div class="panel panel-info hidden" data-prosjektid="@Prosjekt.ProsjektId">
-                    <div class="panel-heading"><div class="td-flex"><div><i class="fa fa-plus"></i> @Prosjekt.Navn</div><i class="fa fa-spinner fa-spin hidden ny-teknisk-profil-loader"></i></div></div>
-                    <div class="panel-body">
-
-                        <div class="form-horizontal">
-
-                            <div class="form-group">
-                                <label for="ny-profil-navn-txt" class="col-lg-2 control-label">Navn</label>
-                                <div class="col-lg-10">
-                                    <input type="text" class="form-control ny-profil-navn-txt" autocomplete="off" data-prosjektid="@Prosjekt.ProsjektId" data-prosjektnavn="@Prosjekt.Navn">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="col-lg-8 col-lg-offset-2">
-                                    <button type="button" class="btn btn-primary ny-profil-lagre-btn" tabindex="-1" data-prosjektid="@Prosjekt.ProsjektId" data-prosjektnavn="@Prosjekt.Navn">Legg til</button>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
-
-
-                <div class="panel panel-info hidden eksisterende-profiler-panel" data-prosjektid="@Prosjekt.ProsjektId">
-                    <div class="panel-heading"> Eksisterende profiler</div>
-                    @if (Prosjekt.TekniskProfil.Count.Equals(0))
-                    {
+                if (Request.Params["ProsjektId"] == Prosjekt.ProsjektId.ToString())
+                {
+                    <div class="panel panel-info" data-prosjektid="@Prosjekt.ProsjektId">
+                        <div class="panel-heading"><div class="td-flex"><div><i class="fa fa-plus"></i> @Prosjekt.Navn</div><i class="fa fa-spinner fa-spin hidden ny-teknisk-profil-loader"></i></div></div>
                         <div class="panel-body">
-                            <strong>@Prosjekt.Navn</strong> inneholder ingen tekniske profiler.
+
+                            <div class="form-horizontal">
+
+                                <div class="form-group">
+                                    <label for="ny-profil-navn-txt" class="col-lg-2 control-label">Navn</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" class="form-control ny-profil-navn-txt" autocomplete="off" data-prosjektid="@Prosjekt.ProsjektId" data-prosjektnavn="@Prosjekt.Navn">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-lg-8 col-lg-offset-2">
+                                        <button type="button" class="btn btn-primary ny-profil-lagre-btn" tabindex="-1" data-prosjektid="@Prosjekt.ProsjektId" data-prosjektnavn="@Prosjekt.Navn">Legg til</button>
+                                    </div>
+                                </div>
+
+                            </div>
+
                         </div>
-                    }
-                    
-                    <ul class="list-group">
-                        @foreach (var TekniskProfil in Prosjekt.TekniskProfil)
+                    </div>
+
+
+                    <div class="panel panel-info eksisterende-profiler-panel" data-prosjektid="@Prosjekt.ProsjektId">
+                        <div class="panel-heading"> Eksisterende profiler</div>
+                        @if (Prosjekt.TekniskProfil.Count.Equals(0))
                         {
-                            <li class="list-group-item">
-                                <div>@TekniskProfil.Navn</div>
-                                <span class="label label-primary">
-                                    <a href="/TekniskeProfiler/?ProsjektId=@Prosjekt.ProsjektId?TekniskId=@TekniskProfil.TekniskProfilId">Rediger</a>
-                                </span>
-                                <span class="label label-danger slett-label" data-tekniskid="@TekniskProfil.TekniskProfilId">Slett</span>
-                            </li>
+                            <div class="panel-body">
+                                <strong>@Prosjekt.Navn</strong> inneholder ingen tekniske profiler.
+                            </div>
                         }
-                    </ul>
-                </div>
+
+                        <ul class="list-group">
+                            @foreach (var TekniskProfil in Prosjekt.TekniskProfil)
+                            {
+                                <li class="list-group-item">
+                                    <div>@TekniskProfil.Navn</div>
+                                    <span class="label label-primary">
+                                        <a href="/TekniskeProfiler/?ProsjektId=@Prosjekt.ProsjektId?TekniskId=@TekniskProfil.TekniskProfilId">Rediger</a>
+                                    </span>
+                                    <span class="label label-danger slett-label" data-tekniskid="@TekniskProfil.TekniskProfilId">Slett</span>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+                else
+                {
+                    <div class="panel panel-info hidden" data-prosjektid="@Prosjekt.ProsjektId">
+                        <div class="panel-heading"><div class="td-flex"><div><i class="fa fa-plus"></i> @Prosjekt.Navn</div><i class="fa fa-spinner fa-spin hidden ny-teknisk-profil-loader"></i></div></div>
+                        <div class="panel-body">
+
+                            <div class="form-horizontal">
+
+                                <div class="form-group">
+                                    <label for="ny-profil-navn-txt" class="col-lg-2 control-label">Navn</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" class="form-control ny-profil-navn-txt" autocomplete="off" data-prosjektid="@Prosjekt.ProsjektId" data-prosjektnavn="@Prosjekt.Navn">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-lg-8 col-lg-offset-2">
+                                        <button type="button" class="btn btn-primary ny-profil-lagre-btn" tabindex="-1" data-prosjektid="@Prosjekt.ProsjektId" data-prosjektnavn="@Prosjekt.Navn">Legg til</button>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="panel panel-info hidden eksisterende-profiler-panel" data-prosjektid="@Prosjekt.ProsjektId">
+                        <div class="panel-heading"> Eksisterende profiler</div>
+                        @if (Prosjekt.TekniskProfil.Count.Equals(0))
+                        {
+                            <div class="panel-body">
+                                <strong>@Prosjekt.Navn</strong> inneholder ingen tekniske profiler.
+                            </div>
+                        }
+
+                        <ul class="list-group">
+                            @foreach (var TekniskProfil in Prosjekt.TekniskProfil)
+                            {
+                                <li class="list-group-item">
+                                    <div>@TekniskProfil.Navn</div>
+                                    <span class="label label-primary">
+                                        <a href="/TekniskeProfiler/?ProsjektId=@Prosjekt.ProsjektId?TekniskId=@TekniskProfil.TekniskProfilId">Rediger</a>
+                                    </span>
+                                    <span class="label label-danger slett-label" data-tekniskid="@TekniskProfil.TekniskProfilId">Slett</span>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
             }
 
         </div>
