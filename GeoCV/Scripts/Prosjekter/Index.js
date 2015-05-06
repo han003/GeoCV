@@ -28,6 +28,10 @@
     });
 });
 
+$('button').click(function () {
+    $(this).blur();
+});
+
 $('#prosjekt-filter').keyup(function () {
     // Hent tekst som er skrevet inn
     var filterTekst = $(this).val().toLowerCase();
@@ -57,27 +61,53 @@ $('#prosjekt-filter').keyup(function () {
     });
 });
 
-$(document).on('click', '.del-link', function () {
+// Når man klikker på et prosjekt for å endre prosjektet
+$(document).on('click', '#prosjekt-tabell tbody tr', function () {
 
-    // Prosjekt navn
-    var prosjektNavn = $(this).data('navn');
-    console.log(prosjektNavn);
+    // Hvis valgt tr er valgt fra før, ikke gjør noe
+    if (!$(this).hasClass('valgt-list-group-item')) {
 
-    // Prosjekt id
-    var prosjektId = $(this).data('id');
-    $('body').data('prosjektId', prosjektId);
-    console.log(prosjektId);
+        // valgt tr
+        var prosjektId = $(this).data('prosjektid');
 
-    $('#prosjekt-slett-etikett').html(prosjektNavn);
+        // Marker at denne tr er valgt
+        $.each($('#prosjekt-tabell tbody tr'), function (index, value) {
+            if ($(this).data('prosjektid') == prosjektId) {
+                $(this).addClass('valgt-tr');
+                $(this).find('i').removeClass('hidden');
+            } else {
+                $(this).removeClass('valgt-tr');
+                $(this).find('i').addClass('hidden');
+            }
+        });
 
-    $('#slettModal').modal();
+        // Skjul alle prosjekter
+        $.each($('.prosjekt-info-panel'), function (index, value) {
+            $(this).addClass('hidden');
+        });
+
+        console.log(prosjektId);
+
+        // For hvert panel som har klassen og rett prosjekt id (bare ett panel)
+        $.each($('.prosjekt-info-panel[data-prosjektid="' + prosjektId + '"]'), function (index, value) {
+            $(this).removeClass('hidden');
+        });
+
+    }
+});
+
+$('.slett-prosjekt').click(function () {
+
+    $(this).parent().next().removeClass('hidden');
 
 });
 
-$('#slett-prosjekt-btn').click(function () {
+$('.bekreft-slett').click(function () {
 
-    var prosjektId = $('body').data('prosjektId');
-    var trElement = $('#' + prosjektId).remove();
+    var spinner = $(this).parent().parent().prev().find('i.fa-spinner');
+    var prosjektId = $(this).data('prosjektid');
+
+    console.log(spinner.html());
 
     $.ajax({
         url: '/Prosjekter/SlettProsjekt',
@@ -85,63 +115,79 @@ $('#slett-prosjekt-btn').click(function () {
         type: 'POST',
         beforeSend: function () {
 
-            $('#slettModal button').addClass('hidden');
-            $('#slettModal i').removeClass('hidden');
+            spinner.removeClass('hidden');
 
         },
         success: function () {
-            console.log('Success');
-            $('#slettModal').modal('hide');
-            $('#' + prosjektId).remove();
+
+            console.log('Slettet');
+
+            // For hvert panel som har klassen og rett prosjekt id
+            $.each($('.prosjekt-info-panel[data-prosjektid="' + prosjektId + '"]'), function (index, value) {
+                $(this).remove();
+            });
+
+            $.each($('#prosjekt-tabell tbody tr'), function (index, value) {
+                if ($(this).find('i').hasClass('hidden')) {
+                    // Gjør ingenting
+                } else {
+                    $(this).remove();
+                }
+            });
+
         }
     });
+
 });
 
-// Det som skjer når modalen er ferdig med skjule animasjonen
-$('#slettModal').on('hidden.bs.modal', function () {
-    $('#slettModal button').removeClass('hidden');
-    $('#slettModal i').addClass('hidden');
-})
+$('.avbryt-slett').click(function () {
 
-$('#nytt-prosjekt-legg-til-btn').click(function () {
+    $(this).parent().addClass('hidden');
 
-    $(this).blur();
+});
 
-    var prosjektKunde = $('#ny-kunde-txt').val();
-    var prosjektNavn = $('#ny-prosjektnavn-txt').val();
-    var prosjektBeskrivelse = $('#ny-beskrivelse-txt').val();
+var delay = (function () {
+    var timer = 0;
+    return function (callback, ms) {
+        clearTimeout(timer);
+        timer = setTimeout(callback, ms);
+    };
+})();
 
-    $.ajax({
-        url: '/Prosjekter/LeggTilProsjekt',
-        data: { Kunde: prosjektKunde, Navn: prosjektNavn, Beskrivelse: prosjektBeskrivelse },
-        type: 'POST',
-        beforeSend: function () {
-            $('#nytt-prosjekt-legg-til-btn').html('Legger til prosjekt <i class="fa fa-spinner fa-spin"></i>');
-        },
-        success: function (prosjektId) {
-            console.log('Lagt til');
+$('.prosjekt-info-panel input').keyup(function () {
 
-            // Tilbakestill tekstfelt
-            $('#nytt-prosjekt-tab input').val('');
+    var spinner = $(this).closest('.panel-body').prev().find('i.fa-spinner');
+    var inputTekstfelt = $(this);
 
-            // Fjern loading animasjon
-            $('#new-element-row').removeClass('hidden');
-            $('#new-element-loading').addClass('hidden');
+    delay(function () {
 
-            // Endre tekst
-            $('#nytt-prosjekt-legg-til-btn').html('Legg til nytt prosjekt');
+        var prosjektId = inputTekstfelt.data('prosjektid');
+        var tekstfelt = inputTekstfelt.data('tekstfelt').toLowerCase();
+        var nyVerdi = inputTekstfelt.val();
 
-            // Legg til html
-            var linkText = '/EditProject/Index/' + prosjektId;
-            var template = '<tr id="' + prosjektId + '" data-id="' + prosjektId + '" data-kunde="' + prosjektKunde + '" data-navn="' + prosjektNavn + '" data-beskrivelse="' + prosjektBeskrivelse + '">' +
-                                '<td class="col-lg-3">' + prosjektKunde + '</td>' +
-                                '<td class="col-lg-3"><a href="' + linkText + '" target="_blank">' + prosjektNavn + '</a></td>' +
-                                '<td class="col-lg-3">' + prosjektBeskrivelse + '</td>' +
-                                '<td class="col-lg-1"><a class="del-link" data-id="' + prosjektId + '" data-navn="' + prosjektNavn + '">Slett</a></td>' +
-                            '</tr>';
+        // Update
+        $.ajax({
+            url: '/Prosjekter/EndreProsjektInfo',
+            data: { Id: prosjektId, NyVerdi: nyVerdi, Tekstfelt: tekstfelt },
+            type: 'POST',
+            beforeSend: function () {
 
-            $('#prosjekter-tab tbody').append(template);
-        }
-    });
+                console.log(prosjektId);
+                console.log(nyVerdi);
+                console.log(tekstfelt);
+                spinner.removeClass('hidden');
+
+            },
+            success: function () {
+
+                spinner.addClass('hidden');
+
+                $('.prosjekt-td[data-prosjektid="' + prosjektId + '"][data-tdfelt="' + tekstfelt + '"]').html(nyVerdi);
+
+            }
+        });
+
+    }, 400);
+
 });
 

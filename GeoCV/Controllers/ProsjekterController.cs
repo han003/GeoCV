@@ -57,7 +57,34 @@ namespace GeoCV.Controllers
             db.Prosjekt.Remove(ValgtProsjekt);
             db.SaveChanges();
 
-            RedirectToAction("Index", "Projects");
+            // RedirectToAction("Index", "Prosjekter");
+        }
+
+        [HttpPost]
+        public void EndreProsjektInfo(int Id, string NyVerdi, string Tekstfelt)
+        {
+            var ProsjektData = from a in db.Prosjekt
+                               where a.ProsjektId.Equals(Id)
+                               select a;
+
+            var Prosjekt = ProsjektData.FirstOrDefault();
+
+            switch (Tekstfelt)
+            {
+                case "navn":
+                    Prosjekt.Navn = NyVerdi;
+                    break;
+
+                case "kunde":
+                    Prosjekt.Kunde = NyVerdi;
+                    break;
+
+                case "beskrivelse":
+                    Prosjekt.Beskrivelse = NyVerdi;
+                    break;
+            }
+
+            db.SaveChanges();
         }
     }
 }

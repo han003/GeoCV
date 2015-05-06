@@ -25,29 +25,29 @@ namespace GeoCV.Controllers
 
             var Stillinger = katalog.Where(x => x.Katalog.Equals("Stillinger"));
 
-            var Data = from a in db.Medlem
-                       where a.Person.PersonId.Equals(BrukerCv.Person.PersonId)
-                       select new MineProsjekterObjekt
-                       {
-                           ProsjektId = a.Prosjekt.ProsjektId,
-                           ProsjektNavn = a.Prosjekt.Navn,
-                           ProsjektKunde = a.Prosjekt.Kunde,
+            var BrukerProsjekter = from a in db.Medlem
+                                   where a.Person.PersonId.Equals(BrukerCv.Person.PersonId)
+                                   select new MineProsjekterObjekt
+                                   {
+                                       ProsjektId = a.Prosjekt.ProsjektId,
+                                       ProsjektNavn = a.Prosjekt.Navn,
+                                       ProsjektKunde = a.Prosjekt.Kunde,
 
-                           ProsjektTekniskProfil = a.Prosjekt.TekniskProfil,
+                                       ProsjektTekniskProfil = a.Prosjekt.TekniskProfil,
 
-                           MedlemId = a.MedlemId,
-                           MedlemRolle = a.Rolle,
-                           MedlemTekniskProfil = a.TekniskProfil,
-                           MedlemStart = a.Start,
-                           MedlemSlutt = a.Slutt
-                       };
+                                       MedlemId = a.MedlemId,
+                                       MedlemRolle = a.Rolle,
+                                       MedlemTekniskProfil = a.TekniskProfil,
+                                       MedlemStart = a.Start,
+                                       MedlemSlutt = a.Slutt
+                                   };
 
             //store data of both queries in your ViewModel class here:
             var ViewModel = new MineProsjekterIndexModel();
             ViewModel.Katalog = katalog;
             ViewModel.Prosjekt = Prosjekter;
             ViewModel.Stillinger = Stillinger;
-            ViewModel.Data = Data;
+            ViewModel.BrukerProsjekter = BrukerProsjekter;
 
             //return ViewModel to View.
             return View(ViewModel);

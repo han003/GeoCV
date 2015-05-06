@@ -9,9 +9,9 @@ namespace GeoCV.Controllers
 {
 
     [Authorize(Roles = "Admin")]
-    public class TekniskProfilController : BaseController
+    public class TekniskeProfilerController : BaseController
     {
-        public ActionResult Index()
+        public ActionResult Index(int? ProsjektId)
         {
             TekniskProfilModel ViewModel = new TekniskProfilModel();
             ViewModel.Prosjekter = GetProsjekter();
@@ -21,7 +21,7 @@ namespace GeoCV.Controllers
             return View(ViewModel);
         }
 
-        public ActionResult LeggTil()
+        public ActionResult LeggTilSlett(int? ProsjektId)
         {
             var ViewData = from a in db.Prosjekt
                            select a;
@@ -59,16 +59,16 @@ namespace GeoCV.Controllers
         }
 
         [HttpPost]
-        public ActionResult LeggTilProfil(int Id, string Navn)
+        public ActionResult LeggTilProfil(int ProsjektId, string NyProfilNavn)
         {
             var Data = from a in db.Prosjekt
-                           where a.ProsjektId.Equals(Id)
+                           where a.ProsjektId.Equals(ProsjektId)
                            select a;
 
             Prosjekt Pro = Data.FirstOrDefault();
 
             TekniskProfil NyTekniskProfil = new TekniskProfil();
-            NyTekniskProfil.Navn = Navn;
+            NyTekniskProfil.Navn = NyProfilNavn;
             NyTekniskProfil.Elementer = "";
 
             Pro.TekniskProfil.Add(NyTekniskProfil);
@@ -99,16 +99,9 @@ namespace GeoCV.Controllers
         }
 
         [HttpPost]
-        public void SlettProfil(int Id)
+        public void SlettProfil(int TekniskId)
         {
-            var Data = from a in db.TekniskProfil
-                         where a.TekniskProfilId.Equals(Id)
-                         select a;
-
-            TekniskProfil Profil = Data.FirstOrDefault();
-
-            db.TekniskProfil.Remove(Profil);
-
+            db.TekniskProfil.Remove(db.TekniskProfil.Where(x => x.TekniskProfilId.Equals(TekniskId)).FirstOrDefault());
             db.SaveChanges();
         }
     }

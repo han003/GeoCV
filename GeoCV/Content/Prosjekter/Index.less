@@ -1,9 +1,60 @@
-﻿#prosjekt-tabell{
-    margin-bottom: 0;
+﻿@info-bakgrunnsfarge: #D9EDF7;
+@info-tekstfarge: #31708f;
+
+#prosjekt-panel .panel-body {
+    padding: 0;
+
+    #prosjekt-tabell {
+        margin-bottom: 0;
+
+        tbody {
+            tr:hover {
+                background: @info-bakgrunnsfarge;
+                color: @info-tekstfarge;
+                cursor: pointer;
+            }
+
+            tr:hover i {
+                display: inline-block !important;
+            }
+        }
+    }
 }
 
-.form-horizontal{
-    .form-group:last-child{
+.td-flex {
+    display: flex;
+    align-items: center;
+
+    div {
+        -ms-flex: 1;
+        flex: 1;
+    }
+}
+
+.form-horizontal {
+    .form-group:last-child {
         margin-bottom: 0;
+    }
+}
+
+.valgt-tr {
+    background: @info-bakgrunnsfarge;
+    color: @info-tekstfarge;
+    cursor: default;
+}
+
+button a, button a:hover, button a:focus {
+    color: white;
+    text-decoration: none;
+}
+
+.slett-panel {
+    .col-lg-12 {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .bekreftelses-rad{
+        margin-top: 10px;
     }
 }

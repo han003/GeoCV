@@ -73,10 +73,10 @@ $('.list-group-item').click(function () {
     console.log(prosjektId);
 
     // Vis eller skjul => ikonet
-    $.each($('#mine-prosjekter-panel .panel-body i[data-prosjektid!="' + prosjektId + '"]'), function (index, value) {
+    $.each($('#mine-prosjekter-panel ul i[data-prosjektid!="' + prosjektId + '"]'), function (index, value) {
         $(this).addClass('hidden');
     });
-    $.each($('#mine-prosjekter-panel .panel-body i[data-prosjektid="' + prosjektId + '"]'), function (index, value) {
+    $.each($('#mine-prosjekter-panel ul i[data-prosjektid="' + prosjektId + '"]'), function (index, value) {
         $(this).removeClass('hidden');
     });
 

@@ -9,7 +9,7 @@ namespace GeoCV.Models
     {
         public IEnumerable<Prosjekt> Prosjekt { get; set; }
         public IEnumerable<ListeKatalog> Stillinger { get; set; }
-        public IEnumerable<MineProsjekterObjekt> Data { get; set; }
+        public IEnumerable<MineProsjekterObjekt> BrukerProsjekter { get; set; }
         public IEnumerable<ListeKatalog> Katalog { get; set; }
     }
 }

@@ -13,8 +13,6 @@
     @Scripts.Render("~/bundles/js/ProsjekterIndex")
 }
 
-@Html.Partial("_SlettModal")
-
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
@@ -26,7 +24,7 @@
 
         <div class="col-lg-6">
 
-            <div class="panel panel-default">
+            <div class="panel panel-primary">
                 <div class="panel-heading"><i class="fa fa-filter"></i> Prosjekt filter</div>
                 <div class="panel-body">
 
@@ -43,7 +41,7 @@
 
         <div class="col-lg-6">
 
-            <div class="panel panel-default">
+            <div id="prosjekt-panel" class="panel panel-primary">
                 <div class="panel-heading"><i class="fa fa-folder-open"></i> Prosjekter</div>
                 <div class="panel-body">
 
@@ -59,10 +57,10 @@
 
                             @foreach (var Prosjekt in Model)
                             {
-                                <tr id="@Prosjekt.ProsjektId" data-id="@Prosjekt.ProsjektId" data-kunde="@Prosjekt.Kunde" data-navn="@Prosjekt.Navn" data-beskrivelse="@Prosjekt.Beskrivelse">
-                                    <td class="col-lg-3">@Prosjekt.Kunde</td>
-                                    <td class="col-lg-3">@Prosjekt.Navn</td>
-                                    <td class="col-lg-3">@Prosjekt.Beskrivelse</td>
+                                <tr id="@Prosjekt.ProsjektId" data-prosjektid="@Prosjekt.ProsjektId" data-kunde="@Prosjekt.Kunde" data-navn="@Prosjekt.Navn" data-beskrivelse="@Prosjekt.Beskrivelse">
+                                    <td class="col-lg-3 prosjekt-td" data-prosjektid="@Prosjekt.ProsjektId" data-tdfelt="kunde">@Prosjekt.Kunde</td>
+                                    <td class="col-lg-3 prosjekt-td" data-prosjektid="@Prosjekt.ProsjektId" data-tdfelt="navn">@Prosjekt.Navn</td>
+                                    <td class="col-lg-3"><div class="td-flex"><div class="prosjekt-td" data-prosjektid="@Prosjekt.ProsjektId" data-tdfelt="beskrivelse">@Prosjekt.Beskrivelse</div><i class="fa fa-chevron-right hidden"></i></div></td>
                                 </tr>
                             }
 
@@ -79,26 +77,29 @@
 
             @foreach (var Prosjekt in Model)
             {
-                <div class="panel panel-default">
-                    <div class="panel-heading"><i class="fa fa-pencil-square"></i> Rediger @Prosjekt.Navn</div>
+                <div class="panel panel-success prosjekt-info-panel hidden" data-prosjektid="@Prosjekt.ProsjektId">
+                    <div class="panel-heading"><div class="td-flex"><div><i class="fa fa-pencil-square"></i> Rediger @Prosjekt.Navn</div><i class="fa fa-spinner fa-spin hidden"></i></div></div>
                     <div class="panel-body">
 
                         <div class="form-horizontal">
                             <div class="form-group">
-                                <div class="col-lg-12">
-                                    <input type="text" class="form-control update-txt" value="@Prosjekt.Navn" autocomplete="off">
+                                <label class="col-lg-3 control-label">Navn</label>
+                                <div class="col-lg-9">
+                                    <input type="text" class="form-control" value="@Prosjekt.Navn" autocomplete="off" data-prosjektid="@Prosjekt.ProsjektId" data-tekstfelt="navn">
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <div class="col-lg-12">
-                                    <input type="text" class="form-control update-txt" value="@Prosjekt.Kunde" autocomplete="off">
+                                <label class="col-lg-3 control-label">Kunde</label>
+                                <div class="col-lg-9">
+                                    <input type="text" class="form-control" value="@Prosjekt.Kunde" autocomplete="off" data-prosjektid="@Prosjekt.ProsjektId" data-tekstfelt="kunde">
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <div class="col-lg-12">
-                                    <input type="text" class="form-control update-txt" value="@Prosjekt.Beskrivelse" autocomplete="off">
+                                <label class="col-lg-3 control-label">Beskrivelse</label>
+                                <div class="col-lg-9">
+                                    <input type="text" class="form-control" value="@Prosjekt.Beskrivelse" autocomplete="off" data-prosjektid="@Prosjekt.ProsjektId" data-tekstfelt="beskrivelse">
                                 </div>
                             </div>
                         </div>
@@ -112,26 +113,31 @@
 
             @foreach (var Prosjekt in Model)
             {
-                <div class="panel panel-info">
+                <div class="panel panel-primary prosjekt-info-panel hidden" data-prosjektid="@Prosjekt.ProsjektId">
                     <div class="panel-heading"><i class="fa fa-external-link"></i> Tekniske profiler</div>
                     <div class="panel-body">
-
-                        <button type="button" class="btn btn-primary col-lg-12">Tekniske profiler</button>
+                        <a href="/TekniskeProfiler/?ProsjektId=@Prosjekt.ProsjektId"><button type="button" class="btn btn-primary col-lg-12">Gå til tekniske profiler</button></a>
                     </div>
                 </div>
 
-                <div class="panel panel-danger">
-                    <div class="panel-heading"><i class="fa fa-trash"></i> Slett</div>
+                <div class="panel panel-danger prosjekt-info-panel slett-panel hidden" data-prosjektid="@Prosjekt.ProsjektId">
+                    <div class="panel-heading"><div class="td-flex"><div><i class="fa fa-trash"></i> Slett</div><i class="fa fa-spinner fa-spin hidden"></i></div></div>
                     <div class="panel-body">
 
-                        <button type="button" class="btn btn-danger col-lg-12">Slett</button>
+                        <div class="col-lg-12">
+                            <button type="button" class="btn btn-danger col-lg-12 slett-prosjekt" data-prosjektid="@Prosjekt.ProsjektId">Slett</button>
+                        </div>
+
+                        <div class="col-lg-12 bekreftelses-rad hidden">
+                            <button type="button" class="btn btn-danger col-lg-5 bekreft-slett" data-prosjektid="@Prosjekt.ProsjektId">Bekreft</button>
+                            <button type="button" class="btn btn-success col-lg-5 col-lg-offset-2 avbryt-slett">Avbryt</button>
+                        </div>
+
 
                     </div>
                 </div>
             }
         </div>
-
-
 
     </div>
 </div>

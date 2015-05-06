@@ -1,0 +1,119 @@
+﻿@using System.Web.Optimization
+
+@model IEnumerable<GeoCV.Models.Prosjekt>
+
+@{
+    ViewBag.Title = "Legg til / slett profiler";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section css{
+    @Styles.Render("~/bundles/css/TekniskeProfilerLeggTil")
+}
+@section scripts{
+    @Scripts.Render("~/bundles/js/TekniskeProfilerLeggTil")
+}
+
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header"><i class="fa fa-code"></i> @ViewBag.Title</h1>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-lg-4">
+            <div id="velg-prosjekt-panel" class="panel panel-primary">
+                <div class="panel-heading"><i class="fa fa-folder-open"></i> Velg prosjekt</div>
+                <ul class="list-group">
+                    @foreach (var Prosjekt in Model)
+                    {
+                        if (Request.Params["ProsjektId"] == Prosjekt.ProsjektId.ToString())
+                        {
+                            <li class="list-group-item list-group-item-default valgt-li" data-prosjektid="@Prosjekt.ProsjektId" data-prosjektnavn="@Prosjekt.Navn">
+                                <div class="list-group-item-text">@Prosjekt.Navn</div><i class="fa fa-chevron-right pull-right" data-prosjektid="@Prosjekt.ProsjektId"></i>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="list-group-item list-group-item-default" data-prosjektid="@Prosjekt.ProsjektId" data-prosjektnavn="@Prosjekt.Navn">
+                                <div class="list-group-item-text">@Prosjekt.Navn</div><i class="fa fa-chevron-right pull-right hidden" data-prosjektid="@Prosjekt.ProsjektId"></i>
+                            </li>
+                        }
+                    }
+                </ul>
+
+            </div>
+        </div>
+
+        <div id="valgt-prosjekt-kolonne" class="col-lg-4">
+
+            @foreach (var Prosjekt in Model)
+            {
+                <div class="panel panel-info hidden" data-prosjektid="@Prosjekt.ProsjektId">
+                    <div class="panel-heading"><div class="td-flex"><div><i class="fa fa-plus"></i> @Prosjekt.Navn</div><i class="fa fa-spinner fa-spin hidden ny-teknisk-profil-loader"></i></div></div>
+                    <div class="panel-body">
+
+                        <div class="form-horizontal">
+
+                            <div class="form-group">
+                                <label for="ny-profil-navn-txt" class="col-lg-2 control-label">Navn</label>
+                                <div class="col-lg-10">
+                                    <input type="text" class="form-control ny-profil-navn-txt" autocomplete="off" data-prosjektid="@Prosjekt.ProsjektId" data-prosjektnavn="@Prosjekt.Navn">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-8 col-lg-offset-2">
+                                    <button type="button" class="btn btn-primary ny-profil-lagre-btn" tabindex="-1" data-prosjektid="@Prosjekt.ProsjektId" data-prosjektnavn="@Prosjekt.Navn">Legg til</button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="panel panel-info hidden eksisterende-profiler-panel" data-prosjektid="@Prosjekt.ProsjektId">
+                    <div class="panel-heading"> Eksisterende profiler</div>
+                    @if (Prosjekt.TekniskProfil.Count.Equals(0))
+                    {
+                        <div class="panel-body">
+                            <strong>@Prosjekt.Navn</strong> inneholder ingen tekniske profiler.
+                        </div>
+                    }
+                    
+                    <ul class="list-group">
+                        @foreach (var TekniskProfil in Prosjekt.TekniskProfil)
+                        {
+                            <li class="list-group-item">
+                                <div>@TekniskProfil.Navn</div>
+                                <span class="label label-primary">
+                                    <a href="/TekniskeProfiler/?ProsjektId=@Prosjekt.ProsjektId?TekniskId=@TekniskProfil.TekniskProfilId">Rediger</a>
+                                </span>
+                                <span class="label label-danger slett-label" data-tekniskid="@TekniskProfil.TekniskProfilId">Slett</span>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+
+        </div>
+
+        <div class="col-lg-4">
+
+            <div id="suksess-panel" class="panel panel-success hidden">
+                <div class="panel-heading">Suksess <i id="skjul-suksess-panel" class="fa fa-times pull-right"></i></div>
+                <div class="panel-body">
+
+                    <div id="suksess-tekst"><strong id="profil-navn">Profil</strong> ble suksessfult lagt til i <strong id="prosjekt-navn">prosjekt</strong>.</div>
+                    <a href="#"><button type="button" class="btn btn-success col-lg-6">Rediger</button></a>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

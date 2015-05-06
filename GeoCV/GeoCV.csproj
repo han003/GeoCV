@@ -224,7 +224,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\WordController.cs" />
     <Compile Include="Controllers\PdfController.cs" />
-    <Compile Include="Controllers\TekniskProfilController.cs" />
+    <Compile Include="Controllers\TekniskeProfilerController.cs" />
     <Compile Include="Controllers\EducationController.cs" />
     <Compile Include="Controllers\AnsatteController.cs" />
     <Compile Include="Controllers\ExpertiseController.cs" />
@@ -297,12 +297,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\animate.css">
-      <DependentUpon>animate.less</DependentUpon>
-    </Content>
-    <Content Include="Content\animate.min.css">
-      <DependentUpon>animate.css</DependentUpon>
-    </Content>
     <Content Include="Content\Ansatte\Index.css">
       <DependentUpon>Index.less</DependentUpon>
     </Content>
@@ -338,27 +332,21 @@
     <Content Include="Content\Prosjekter\LeggTil.min.css">
       <DependentUpon>LeggTil.css</DependentUpon>
     </Content>
-    <Content Include="Content\TekniskProfil\Index.css">
+    <Content Include="Content\TekniskeProfiler\Index.css">
       <DependentUpon>Index.less</DependentUpon>
     </Content>
-    <Content Include="Content\TekniskProfil\Index.min.css">
+    <Content Include="Content\TekniskeProfiler\Index.min.css">
       <DependentUpon>Index.css</DependentUpon>
     </Content>
-    <Content Include="Content\TekniskProfil\LeggTil.css">
+    <Content Include="Content\TekniskeProfiler\LeggTil.css">
       <DependentUpon>LeggTil.less</DependentUpon>
     </Content>
-    <Content Include="Content\TekniskProfil\LeggTil.min.css">
+    <Content Include="Content\TekniskeProfiler\LeggTil.min.css">
       <DependentUpon>LeggTil.css</DependentUpon>
     </Content>
-    <Content Include="Content\theme\metisMenu.css" />
-    <Content Include="Content\theme\metisMenu.min.css">
-      <DependentUpon>metisMenu.css</DependentUpon>
-    </Content>
-    <Content Include="Content\theme\sb-admin-2.css">
-      <DependentUpon>sb-admin-2.less</DependentUpon>
-    </Content>
-    <Content Include="Content\theme\sb-admin-2.min.css">
-      <DependentUpon>sb-admin-2.css</DependentUpon>
+    <Content Include="Content\theme\bootstrap.css" />
+    <Content Include="Content\theme\bootstrap.min.css">
+      <DependentUpon>bootstrap.css</DependentUpon>
     </Content>
     <Content Include="Content\dashboard.css">
       <DependentUpon>dashboard.less</DependentUpon>
@@ -453,12 +441,8 @@
     </Content>
     <Content Include="Global.asax" />
     <Content Include="ApplicationInsights.config" />
-    <Content Include="Content\animate.less" />
     <Content Include="Content\dashboard.less" />
     <Content Include="Content\home.less" />
-    <Content Include="Content\animate.css.map">
-      <DependentUpon>animate.css</DependentUpon>
-    </Content>
     <Content Include="Content\dashboard.css.map">
       <DependentUpon>dashboard.css</DependentUpon>
     </Content>
@@ -485,13 +469,17 @@
     </Content>
     <Content Include="Scripts\Prosjekter\Index.js" />
     <Content Include="Scripts\Prosjekter\LeggTil.js" />
-    <Content Include="Scripts\TekniskProfil\Index.js" />
-    <Content Include="Scripts\TekniskProfil\Index.min.js">
+    <Content Include="Scripts\TekniskeProfiler\Index.js" />
+    <Content Include="Scripts\TekniskeProfiler\Index.min.js">
       <DependentUpon>Index.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\TekniskProfil\LeggTil.js" />
-    <Content Include="Scripts\TekniskProfil\LeggTil.min.js">
+    <Content Include="Scripts\TekniskeProfiler\LeggTil.js" />
+    <Content Include="Scripts\TekniskeProfiler\LeggTil.min.js">
       <DependentUpon>LeggTil.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\theme\bootstrap.js" />
+    <Content Include="Scripts\theme\bootstrap.min.js">
+      <DependentUpon>bootstrap.js</DependentUpon>
     </Content>
     <Content Include="Scripts\theme\metisMenu.js" />
     <Content Include="Scripts\theme\metisMenu.min.js">
@@ -564,10 +552,6 @@
     <Content Include="Content\login.css.map">
       <DependentUpon>login.css</DependentUpon>
     </Content>
-    <Content Include="Content\theme\sb-admin-2.less" />
-    <Content Include="Content\theme\sb-admin-2.css.map">
-      <DependentUpon>sb-admin-2.css</DependentUpon>
-    </Content>
     <EntityDeploy Include="Models\Database.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Database.Designer.cs</LastGenOutput>
@@ -583,12 +567,12 @@
     <Content Include="Content\MineProsjekter\Index.css.map">
       <DependentUpon>Index.css</DependentUpon>
     </Content>
-    <Content Include="Content\TekniskProfil\Index.less" />
-    <Content Include="Content\TekniskProfil\LeggTil.less" />
-    <Content Include="Content\TekniskProfil\Index.css.map">
+    <Content Include="Content\TekniskeProfiler\Index.less" />
+    <Content Include="Content\TekniskeProfiler\LeggTil.less" />
+    <Content Include="Content\TekniskeProfiler\Index.css.map">
       <DependentUpon>Index.css</DependentUpon>
     </Content>
-    <Content Include="Content\TekniskProfil\LeggTil.css.map">
+    <Content Include="Content\TekniskeProfiler\LeggTil.css.map">
       <DependentUpon>LeggTil.css</DependentUpon>
     </Content>
     <Content Include="Content\Ansatte\Index.less" />
@@ -742,19 +726,19 @@
     <Content Include="Views\Ansatte\LeggTil.cshtml" />
     <Content Include="Views\Prosjekter\Index.cshtml" />
     <Content Include="Views\Prosjekter\LeggTil.cshtml" />
-    <Content Include="Views\Prosjekter\_SlettModal.cshtml" />
-    <Content Include="Views\TekniskProfil\Index.cshtml" />
-    <Content Include="Views\TekniskProfil\_SlettModal.cshtml" />
-    <Content Include="Views\TekniskProfil\_EndreModal.cshtml" />
-    <Content Include="Views\TekniskProfil\LeggTil.cshtml" />
+    <Content Include="Views\TekniskeProfiler\Index.cshtml" />
+    <Content Include="Views\TekniskeProfiler\LeggTilSlett.cshtml" />
     <Content Include="Scripts\plugins\bootstrap-switch.min.js.map">
       <DependentUpon>bootstrap-switch.min.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\TekniskProfil\Index.min.js.map">
+    <Content Include="Scripts\TekniskeProfiler\Index.min.js.map">
       <DependentUpon>Index.min.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\TekniskProfil\LeggTil.min.js.map">
+    <Content Include="Scripts\TekniskeProfiler\LeggTil.min.js.map">
       <DependentUpon>LeggTil.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\theme\bootstrap.min.js.map">
+      <DependentUpon>bootstrap.min.js</DependentUpon>
     </Content>
   </ItemGroup>
   <ItemGroup>

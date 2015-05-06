@@ -26,6 +26,9 @@
 .teknisk-tabell tbody tr:hover i {
   display: inline-block !important;
 }
+.alert {
+  margin-bottom: 15px !important;
+}
 .tabell-panel .panel-body {
   padding: 0;
 }

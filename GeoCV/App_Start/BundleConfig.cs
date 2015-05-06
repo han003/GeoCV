@@ -198,30 +198,30 @@ namespace GeoCV
                 .Include("~/Content/main.css")
                 .Include("~/Content/MineProsjekter/LeggTil.css"));
 
-            // Teknisk profil
-            bundles.Add(new ScriptBundle("~/Bundles/js/TekniskProfilIndex")
+            // Tekniske profiler
+            bundles.Add(new ScriptBundle("~/Bundles/js/TekniskeProfilerIndex")
                 .Include("~/Scripts/jquery/jquery-{version}.js")
                 .Include("~/Scripts/plugins/*.js")
                 .Include("~/Scripts/theme/*.js")
-                .Include("~/Scripts/TekniskProfil/Index.js"));
+                .Include("~/Scripts/TekniskeProfiler/Index.js"));
 
-            bundles.Add(new StyleBundle("~/Bundles/css/TekniskProfilIndex")
+            bundles.Add(new StyleBundle("~/Bundles/css/TekniskeProfilerIndex")
                 .Include("~/Content/theme/*.css")
                 .Include("~/Content/main.css")
-                .Include("~/Content/TekniskProfil/Index.css"));
+                .Include("~/Content/TekniskeProfiler/Index.css"));
 
             //////////////////////////////////////
 
-            bundles.Add(new ScriptBundle("~/Bundles/js/TekniskProfilLeggTil")
+            bundles.Add(new ScriptBundle("~/Bundles/js/TekniskeProfilerLeggTil")
                 .Include("~/Scripts/jquery/jquery-{version}.js")
                 .Include("~/Scripts/plugins/*.js")
                 .Include("~/Scripts/theme/*.js")
-                .Include("~/Scripts/TekniskProfil/LeggTil.js"));
+                .Include("~/Scripts/TekniskeProfiler/LeggTil.js"));
 
-            bundles.Add(new StyleBundle("~/Bundles/css/TekniskProfilLeggTil")
+            bundles.Add(new StyleBundle("~/Bundles/css/TekniskeProfilerLeggTil")
                 .Include("~/Content/theme/*.css")
                 .Include("~/Content/main.css")
-                .Include("~/Content/TekniskProfil/LeggTil.css"));
+                .Include("~/Content/TekniskeProfiler/LeggTil.css"));
 
             // Settings
             bundles.Add(new ScriptBundle("~/Bundles/js/settings")

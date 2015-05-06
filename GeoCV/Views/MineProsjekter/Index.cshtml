@@ -26,22 +26,28 @@
         <div class="col-lg-4">
             <div id="mine-prosjekter-panel" class="panel panel-primary">
                 <div class="panel-heading"><i class="fa fa-folder-open"></i> Prosjekter</div>
-                <div class="panel-body">
 
+                @if (Model.BrukerProsjekter.ToList().Count.Equals(0))
+                {
+                    <div class="panel-body">
+                        Ingen prosjekter lagt til
+                    </div>
+                }
+                else
+                {
                     <ul class="list-group">
-                        @foreach (var Prosjekt in Model.Data)
+                        @foreach (var Prosjekt in Model.BrukerProsjekter)
                         {
                             <li class="list-group-item list-group-item-default" data-prosjektid="@Prosjekt.ProsjektId"><div class="list-group-item-text">@Prosjekt.ProsjektNavn</div><i class="fa fa-chevron-right pull-right hidden" data-prosjektid="@Prosjekt.ProsjektId"></i></li>
                         }
                     </ul>
-
-                </div>
+                }
             </div>
         </div>
 
         <div class="col-lg-4">
 
-            @foreach (var Prosjekt in Model.Data)
+            @foreach (var Prosjekt in Model.BrukerProsjekter)
             {
                 <div class="panel panel-info prosjekt-panel hidden" data-prosjektid="@Prosjekt.ProsjektId">
                     <div class="panel-heading"><i class="fa fa-info"></i> @Prosjekt.ProsjektNavn</div>
@@ -98,12 +104,12 @@
                     </div>
                 </div>
 
-                    <div class="panel panel-danger prosjekt-panel hidden" data-prosjektid="@Prosjekt.ProsjektId">
-                        <div class="panel-heading"><i class="fa fa-trash"></i> Fjern</div>
-                        <div class="panel-body">
-                            <button type="button" class="btn btn-danger col-lg-12 fjern-prosjekt-btn" data-prosjektid="@Prosjekt.ProsjektId">Fjern fra mine prosjekter</button>
-                        </div>
+                <div class="panel panel-danger prosjekt-panel hidden" data-prosjektid="@Prosjekt.ProsjektId">
+                    <div class="panel-heading"><i class="fa fa-trash"></i> Fjern</div>
+                    <div class="panel-body">
+                        <button type="button" class="btn btn-danger col-lg-12 fjern-prosjekt-btn" data-prosjektid="@Prosjekt.ProsjektId">Fjern fra mine prosjekter</button>
                     </div>
+                </div>
 
             }
 
@@ -111,7 +117,7 @@
 
         <div class="col-lg-4">
 
-            @foreach (var Prosjekt in Model.Data)
+            @foreach (var Prosjekt in Model.BrukerProsjekter)
             {
                 <div class="panel panel-info prosjekt-panel hidden" data-prosjektid="@Prosjekt.ProsjektId">
                     <div class="panel-heading"><i class="fa fa-code"></i> Teknisk profil</div>
