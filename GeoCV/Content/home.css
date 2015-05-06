@@ -12,4 +12,9 @@
 form {
   margin-bottom: 0;
 }
+a,
+a:hover,
+a:focus {
+  color: blue;
+}
 /*# sourceMappingURL=home.css.map */

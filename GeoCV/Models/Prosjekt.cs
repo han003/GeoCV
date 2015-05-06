@@ -26,6 +26,7 @@ namespace GeoCV.Models
         public string Beskrivelse { get; set; }
         public Nullable<short> Fra { get; set; }
         public Nullable<short> Til { get; set; }
+        public bool Avsluttet { get; set; }
     
         public virtual ICollection<Medlem> Medlem { get; set; }
         public virtual ICollection<TekniskProfil> TekniskProfil { get; set; }

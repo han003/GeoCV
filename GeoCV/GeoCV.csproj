@@ -552,13 +552,6 @@
     <Content Include="Content\login.css.map">
       <DependentUpon>login.css</DependentUpon>
     </Content>
-    <EntityDeploy Include="Models\Database.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Database.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Database.edmx.diagram">
-      <DependentUpon>Database.edmx</DependentUpon>
-    </Content>
     <Content Include="Content\MineProsjekter\Index.less" />
     <Content Include="Content\MineProsjekter\LeggTil.less" />
     <Content Include="Content\MineProsjekter\LeggTil.css.map">
@@ -586,6 +579,13 @@
     </Content>
     <Content Include="Content\Prosjekter\Index.css.map">
       <DependentUpon>Index.css</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\Database.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Database.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Database.edmx.diagram">
+      <DependentUpon>Database.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\cvportal.pubxml" />
     <Content Include="Scripts\theme\metisMenu.min.js.map">
@@ -712,7 +712,6 @@
     <Content Include="Views\Expertise\_LeggTilModal.cshtml" />
     <Content Include="Views\Personal\_LeggTilModal.cshtml" />
     <Content Include="Views\Education\Min.cshtml" />
-    <Content Include="Views\Education\_RedigerModal.cshtml" />
     <Content Include="Views\Education\Ny.cshtml" />
     <Content Include="Views\Work\Min.cshtml" />
     <Content Include="Views\Work\_RedigerModal.cshtml" />

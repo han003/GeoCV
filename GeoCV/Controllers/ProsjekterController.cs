@@ -33,6 +33,7 @@ namespace GeoCV.Controllers
             NewItem.Beskrivelse = Beskrivelse.Trim();
             NewItem.Fra = short.Parse(DateTime.Now.Year.ToString());
             NewItem.Til = short.Parse(DateTime.Now.Year.ToString()); ;
+            NewItem.Avsluttet = false;
             db.Prosjekt.Add(NewItem);
 
             db.SaveChanges();
@@ -56,8 +57,6 @@ namespace GeoCV.Controllers
 
             db.Prosjekt.Remove(ValgtProsjekt);
             db.SaveChanges();
-
-            // RedirectToAction("Index", "Prosjekter");
         }
 
         [HttpPost]

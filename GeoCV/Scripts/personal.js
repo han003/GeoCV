@@ -35,6 +35,11 @@ $('.table-filter').keyup(function () {
     var filterTekst = $(this).val();
     console.log('Filter: ' + filterTekst);
 
+    // Sjekk om error
+    if (filterTekst != '' && $(this).closest('.form-group').hasClass('has-error')) {
+        $(this).closest('.form-group').removeClass('has-error');
+    }
+
     // Finn riktig katalog
     var filterKatalog = $(this).attr('id').replace('-filter', '');
     console.log('Katalog: ' + filterKatalog);
@@ -185,29 +190,54 @@ function oppdaterDatabase(katalog, tdElement) {
     });
 }
 
+$('.table-filter').keyup(function (event) {
+    if (event.keyCode == 13) {
+        var katalog = $(this).data('katalog');
+        leggTilIDatabase(katalog);
+    }
+});
+
 $('.legg-til-element-btn').click(function () {
-
     $(this).blur();
-
     var katalog = $(this).data('katalog');
-    var element = $('#' + katalog + '-filter').val().trim();
+    leggTilIDatabase(katalog);
+});
 
-    console.log(element + ' i ' + katalog);
+function leggTilIDatabase(katalog) {
+    var tekstBoks = $('#' + katalog + '-filter');
+    var nyttElement = tekstBoks.val().trim();
 
-    // Endre tekst
-    $('#modalLeggTilElement').html(element);
-    $('#modalLeggTilKatalog').html(katalog);
+    console.log(nyttElement + ' i ' + katalog);
 
-    // Endre data i modalen sin legg til knapp
-    $('#modal-LeggTil-btn').data('katalog', katalog);
-    $('#modal-LeggTil-btn').data('element', element);
+    if (nyttElement != '') {
+        // Endre tekst
+        $('#modalLeggTilElement').html(nyttElement);
+        $('#modalLeggTilKatalog').html(katalog);
 
-    // Vis modal
-    $('#leggTilModal').modal();
+        // Endre data i modalen sin legg til knapp
+        $('#modal-LeggTil-btn').data('katalog', katalog);
+        $('#modal-LeggTil-btn').data('element', nyttElement);
+
+        // Vis modal
+        $('#leggTilModal').modal();
+    } else {
+        tekstBoks.closest('.form-group').addClass('has-error');
+    }
+}
+
+// Enter trykk mens modal er synlig
+$(document).keypress(function (event) {
+    var keycode = (event.keyCode ? event.keyCode : event.which);
+    if (keycode == '13' && $('#leggTilModal').is(':visible')) {
+        modalLeggTil();
+    }
 });
 
 $('#modal-LeggTil-btn').click(function () {
+    modalLeggTil();
+});
 
+function modalLeggTil() {
     // Hent data
     var katalog = $('#modal-LeggTil-btn').data('katalog');
     var element = $('#modal-LeggTil-btn').data('element');
@@ -225,7 +255,7 @@ $('#modal-LeggTil-btn').click(function () {
         success: function (id) {
 
             // Gammel tekst
-            $('#modal-LeggTil-btn').html('Legg til');
+            $('#modal-LeggTil-btn').html('Legg til (Enter)');
 
             // Fjern modal
             $('#leggTilModal').modal('hide')
@@ -237,4 +267,4 @@ $('#modal-LeggTil-btn').click(function () {
                                                              '</tr>');
         }
     });
-});
+}

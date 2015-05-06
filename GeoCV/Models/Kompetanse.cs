@@ -22,7 +22,7 @@ namespace GeoCV.Models
         public int KompetanseId { get; set; }
         public string Programmeringsspråk { get; set; }
         public string Rammeverk { get; set; }
-        public string Webteknologier { get; set; }
+        public string WebTeknologier { get; set; }
         public string Databasesystemer { get; set; }
         public string Serverside { get; set; }
         public string Operativsystemer { get; set; }

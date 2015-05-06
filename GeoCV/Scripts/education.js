@@ -77,113 +77,66 @@ $('#education-add-btn').click(function () {
 
 });
 
-$(document).on('click', '.del-link', function () {
+$(document).on('click', '.slett-utdannelse-btn', function () {
 
-    console.log('Deleting..');
-
-    var elementId = $(this).closest('tr').attr('id');
-    var trElement = $(this).closest('tr');
-    var tdElement = $(this).closest('td');
-
-    tdElement.html('Sletter <i class="fa fa-spinner fa-spin"></i>');
+    var elementId = $(this).data('utdannelseid');
+    var panel = $(this).closest('.panel');
+    var tabellTr = $('#education-table tr[data-utdannelseid="' + elementId + '"]');
 
     console.log('Id: ' + elementId);
 
     $.ajax({
-        url: '/Education/DeleteElement',
+        url: '/Education/DeleteEdlement',
         data: { Id: elementId },
         type: 'POST',
         success: function () {
             console.log('Success');
-
-            trElement.remove();
         }
     });
 
 });
 
-$('#editModal').on('shown.bs.modal', function (e) {
-    $('#edit-txt').focus();
-})
+$('#education-table tbody tr').click(function () {
 
-$(document).on('click', '.update-td', function () {
+    // Valgt utdannelse
+    var valgtUtdannelseId = $(this).data('utdannelseid');
 
-    // Velg td elementet
-    var tdElement = $(this);
+    console.log(valgtUtdannelseId);
 
-    // Hent td index
-    var tdIndex = tdElement.index();
+    // For hvert panel som har klassen og rett prosjekt id (bare ett panel)
+    $.each($('.utdannelse-panel[data-utdannelseid="' + valgtUtdannelseId + '"]'), function (index, value) {
+        $(this).removeClass('hidden');
+    });
+    // For hvert panel som har klassen men ikke rett prosjekt id (alle de andre)
+    $.each($('.utdannelse-panel[data-utdannelseid!="' + valgtUtdannelseId + '"]'), function (index, value) {
+        $(this).addClass('hidden');
+    });
 
-    // Velg tr elementet
-    var trElement = tdElement.closest('tr');
-
-    // IDen til det som skal oppdateres
-    var elementId = trElement.attr('id');
-
-    // Hent nåverende verdi
-    var editVal = tdElement.html();
-
-    // Hent det som skal endres i databasen fra tablehead
-    var kolonneHtml = $('#education-table').find('th').eq(tdIndex).html();
-    var kolonne = kolonneHtml.substring(0, kolonneHtml.indexOf('<'));
-
-    console.log(elementId + ' - ' + editVal + ' - ' + kolonne);
-
-    // Oppdater header teksten i modalen
-    $('#myModalLabel').html('Rediger ' + kolonne.toLowerCase());
-
-    // Lagre ID, index og kolonne til videre bruk
-    $('#editModal').data('elementId', elementId);
-    $('#editModal').data('dbKolonne', kolonne);
-    $('#editModal').data('tdIndex', tdIndex);
-
-    // Skjul og vis relevant felt i modalen
-    if (kolonne.trim() == 'Fra' || kolonne.trim() == 'Til') {
-        $('#edit-txt').addClass('hidden');
-        $('#modal-select').removeClass('hidden');
-        $('#modal-select').val(editVal);
-    } else {
-        $('#modal-select').addClass('hidden');
-        $('#edit-txt').removeClass('hidden');
-        $('#edit-txt').val(editVal);
-    }
-
-    // Skjul loading animasjonen
-    $('#editLoader').addClass('hidden');
-
-    // Åpne modalen
-    $('#editModal').modal();
 });
 
-// Hva som skjer når man presser 'Enter' og modalen er synlig
-$(document).keypress(function (event) {
-    var keycode = (event.keyCode ? event.keyCode : event.which);
-    if (keycode == '13' && $('#editModal').is(":visible")) {
-        changeElement();
-    }
+$('.tekst-oppdaterings-input').keyup(function () {
+
+    var panelLoading = $(this).closest('.panel').find('i');
+    var elementId = $(this).data('utdannelseid');
+    var value = $(this).val();
+    var kolonne = $(this).data('kolonne');
+    
+    endreElement(elementId, value, kolonne, panelLoading);
+
 });
 
-// Hva som skjer når man klikker på endre knappen i modalen
-$('#editmodalAddItem').click(function () {
-    changeElement();
+$('.select-oppdaterings-input').change(function () {
+
+    var panelLoading = $(this).closest('.panel').find('i');
+    var elementId = $(this).data('utdannelseid');
+    var value = $(this).val();
+    var kolonne = $(this).data('kolonne');
+
+    endreElement(elementId, value, kolonne, panelLoading);
+
 });
 
-function changeElement() {
-
-    // Hent ID og kolonne for oppdatering
-    var elementId = $('#editModal').data('elementId');
-    var kolonne = $('#editModal').data('dbKolonne').trim();
-
-    // Hent den nye verdien
-    var value = '';
-    if (kolonne == 'Fra' || kolonne == 'Til') {
-        value = $('#modal-select').val();
-    } else {
-        value = $('#edit-txt').val();
-    }
-
-    // Hent tr elementet som ble valgt
-    var trElement = $('#' + elementId);
+function endreElement(elementId, value, kolonne, panelLoading) {
 
     console.log('Id: ' + elementId);
     console.log('Verdi: ' + value);
@@ -194,31 +147,12 @@ function changeElement() {
         data: { Id: elementId, NewValue: value, Kolonne: kolonne },
         type: 'POST',
         beforeSend: function () {
-
-            // Skjul felter
-            $('#edit-txt').addClass('hidden');
-            $('#modal-select').addClass('hidden');
-
-            // Vis loading animasjon
-            $('#editLoader').removeClass('hidden');
-
-
+            panelLoading.removeClass('hidden');
         },
         success: function () {
-            console.log('Changed');
+            panelLoading.addClass('hidden');
 
-            // Hent indexen til tden som ble redigert
-            var tdIndex = $('#editModal').data('tdIndex');
-            var oppdatertTd = trElement.children('td:nth-child(' + (tdIndex + 1) + ')');
-
-            // Endre verdien i td elementet som ble valgt
-            oppdatertTd.html(value);
-
-            // Fortell tabell sorteringen at verdien er endret
-            oppdatertTd.updateSortVal(value);
-
-            // Skjul modalen
-            $('#editModal').modal('hide');
+            $('.update-td[data-utdannelseid="' + elementId + '"][data-kolonne="' + kolonne + '"]').html(value);
         }
     });
 }

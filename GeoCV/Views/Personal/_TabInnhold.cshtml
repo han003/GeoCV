@@ -3,83 +3,87 @@
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Språk</h1>
+            <h1 class="page-header"><i class="fa fa-language"></i> Språk</h1>
         </div>
     </div>
 
     <div class="row filter-row">
-        <div class="col-lg-4">
-            <input id="@ViewData["Tab"]-filter" data-katalog="@ViewData["Tab"]" type="text" class="form-control table-filter" placeholder="Filter / Legg til i database" autocomplete="off">
-        </div>
-        <div class="col-lg-3">
-            <button type="button" class="btn btn-primary legg-til-element-btn" data-katalog="@ViewData["Tab"]">Legg til</button>
+        <div class="form-group">
+            <div class="col-lg-4">
+                <input id="@ViewData["Tab"]-filter" data-katalog="@ViewData["Tab"]" type="text" class="form-control table-filter" placeholder="Filter / Legg til i database" autocomplete="off">
+            </div>
+            <div class="col-lg-3">
+                <button type="button" class="btn btn-primary legg-til-element-btn" data-katalog="@ViewData["Tab"]">Legg til</button>
+            </div>
         </div>
     </div>
 
     <div class="row">
         <div class="col-lg-6">
-            <table id="@ViewData["Tab"]-alle-tabell" class="table element-table">
-                <thead>
-                    <tr>
-                        <th>Alle @ViewData["Tab"].ToString().ToLower()</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var Element in Model.Språk.Where(x => x.Katalog.Equals(ViewData["Tab"])).OrderBy(x => x.Element))
-                    {
-                        bool LagtTil = false;
-                        <tr>
-                            <td class="col-lg-5">@Element.Element</td>
 
-                            @if (ViewData["Bruker"] != null)
+            <div class="panel panel-primary ekspertise-panel">
+                <div class="panel-heading">Alle @ViewData["Tab"].ToString().ToLower()</div>
+                <div class="panel-body">
+
+                    <table id="@ViewData["Tab"]-alle-tabell" class="table element-table">
+                        <tbody>
+                            @foreach (var Element in Model.Språk.Where(x => x.Katalog.Equals(ViewData["Tab"])).OrderBy(x => x.Element))
                             {
-                                foreach (var BrukerElement in ViewData["Bruker"] as IEnumerable<GeoCV.Models.ListeKatalog>)
-                                {
-                                    if (BrukerElement.ListeKatalogId.Equals(Element.ListeKatalogId) && LagtTil.Equals(false))
+                                bool LagtTil = false;
+                                <tr>
+                                    <td class="col-lg-5">@Element.Element</td>
+
+                                    @if (ViewData["Bruker"] != null)
                                     {
-                                        <td class="col-lg-1">Lagt til</td>
-                                        LagtTil = true;
+                                        foreach (var BrukerElement in ViewData["Bruker"] as IEnumerable<GeoCV.Models.ListeKatalog>)
+                                        {
+                                            if (BrukerElement.ListeKatalogId.Equals(Element.ListeKatalogId) && LagtTil.Equals(false))
+                                            {
+                                                <td class="col-lg-1">Lagt til</td>
+                                                LagtTil = true;
+                                            }
+                                        }
                                     }
-                                }
+
+
+                                    @if (LagtTil.Equals(false))
+                                    {
+                                        <td class="col-lg-1"><i data-katalog="@ViewData["Tab"]" data-id="@Element.ListeKatalogId" data-element="@Element.Element" class="fa fa-plus-square fa-lg add-item-btn"></i></td>
+                                    }
+                                </tr>
                             }
+                        </tbody>
 
+                    </table>
 
-                            @if (LagtTil.Equals(false))
-                            {
-                                <td class="col-lg-1"><i data-katalog="@ViewData["Tab"]" data-id="@Element.ListeKatalogId" data-element="@Element.Element" class="fa fa-plus-square fa-lg add-item-btn"></i></td>
-                            }
-                        </tr>
-                    }
-                </tbody>
-
-
-
-            </table>
+                </div>
+            </div>
 
         </div>
 
         <div class="col-lg-6">
-            <table id="@ViewData["Tab"]-bruker-tabell" class="table bruker-table">
-                <thead>
-                    <tr>
-                        <th>Mine @ViewData["Tab"].ToString().ToLower()</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (ViewData["Bruker"] != null)
-                    {
-                        foreach (var Element in (ViewData["Bruker"] as IEnumerable<GeoCV.Models.ListeKatalog>).OrderBy(x => x.Element))
-                        {
-                            <tr>
-                                <td class="col-lg-5">@Element.Element</td>
-                                <td class="col-lg-1"><i data-katalog="@ViewData["Tab"]" data-id="@Element.ListeKatalogId" data-element="@Element.Element" class="fa fa-minus-square fa-lg remove-item-btn"></i></td>
-                            </tr>
-                        }
-                    }
-                </tbody>
-            </table>
+
+            <div class="panel panel-primary ekspertise-panel">
+                <div class="panel-heading">Mine @ViewData["Tab"].ToString().ToLower()</div>
+                <div class="panel-body">
+
+                    <table id="@ViewData["Tab"]-bruker-tabell" class="table bruker-table">
+                        <tbody>
+                            @if (ViewData["Bruker"] != null)
+                            {
+                                foreach (var Element in (ViewData["Bruker"] as IEnumerable<GeoCV.Models.ListeKatalog>).OrderBy(x => x.Element))
+                                {
+                                    <tr>
+                                        <td class="col-lg-5">@Element.Element</td>
+                                        <td class="col-lg-1"><i data-katalog="@ViewData["Tab"]" data-id="@Element.ListeKatalogId" data-element="@Element.Element" class="fa fa-minus-square fa-lg remove-item-btn"></i></td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
 
         </div>
     </div>

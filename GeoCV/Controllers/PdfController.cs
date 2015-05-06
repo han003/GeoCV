@@ -175,7 +175,7 @@ namespace GeoCV.Controllers
                     break;
 
                 case "Webteknologier":
-                    AnsattEkspertise = Ansatt.Kompetanse.Webteknologier;
+                    AnsattEkspertise = Ansatt.Kompetanse.WebTeknologier;
                     break;
 
                 case "Databasesystemer":

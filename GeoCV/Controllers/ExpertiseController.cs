@@ -84,7 +84,7 @@ namespace GeoCV.Controllers
 
             try
             {
-                List<string> BrukerWebteknologierListe = BrukerCv.Kompetanse.Webteknologier.Split(';').ToList();
+                List<string> BrukerWebteknologierListe = BrukerCv.Kompetanse.WebTeknologier.Split(';').ToList();
                 ViewModel.BrukerWebteknologier = from a in Katalog
                                                  where BrukerWebteknologierListe.Contains(a.ListeKatalogId.ToString())
                                                  select a;
@@ -212,7 +212,7 @@ namespace GeoCV.Controllers
                     break;
 
                 case "Webteknologier":
-                    Cv.Kompetanse.Webteknologier = Value;
+                    Cv.Kompetanse.WebTeknologier = Value;
                     break;
 
                 case "Databasesystemer":

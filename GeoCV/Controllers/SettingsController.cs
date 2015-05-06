@@ -64,7 +64,7 @@ namespace GeoCV.Controllers
                     break;
 
                 case "Web Teknologier":
-                    Cv.Innstillinger.Webteknologier = Value;
+                    Cv.Innstillinger.WebTeknologier = Value;
                     break;
 
                 case "Databasesystemer":
