@@ -600,13 +600,6 @@
     <Content Include="Content\Prosjekter\Index.css.map">
       <DependentUpon>Index.css</DependentUpon>
     </Content>
-    <EntityDeploy Include="Models\Database.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Database.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Database.edmx.diagram">
-      <DependentUpon>Database.edmx</DependentUpon>
-    </Content>
     <Content Include="Content\Ansatte\LeggTil.less" />
     <Content Include="Content\Ansatte\LeggTil.css.map">
       <DependentUpon>LeggTil.css</DependentUpon>
@@ -614,6 +607,13 @@
     <Content Include="Content\Database\LeggTil.less" />
     <Content Include="Content\Database\LeggTil.css.map">
       <DependentUpon>LeggTil.css</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\Database.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Database.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Database.edmx.diagram">
+      <DependentUpon>Database.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\cvportal.pubxml" />
     <Content Include="Scripts\theme\metisMenu.min.js.map">
