@@ -2,6 +2,8 @@
 @using Microsoft.AspNet.Identity
 @using GeoCV.Models
 
+@model GeoCV.Models.RegisterViewModel
+
 @{
     ViewBag.Title = "Ny ansatt";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -16,7 +18,7 @@
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Legg til ny ansatt</h1>
+            <h1 class="page-header"><i class="fa fa-user-plus"></i> Legg til ny ansatt</h1>
         </div>
     </div>
 
@@ -25,62 +27,56 @@
         <div class="col-lg-8">
 
             <div id="legg-til-ansatt-panel" class="panel panel-primary">
-                <div class="panel-heading">Legg til</div>
+                <div class="panel-heading"><i class="fa fa-user-plus"></i> Legg til</div>
                 <div class="panel-body">
-                    <div class="form-horizontal">
 
-                        <div class="form-group">
-                            <label for="Fornavn-txt" class="col-lg-2 control-label">Fornavn</label>
-                            <div class="col-lg-10">
-                                <input type="text" class="form-control col-lg-10" id="Fornavn-txt" value="ooppo">
+
+                        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary("", new { @class = "text-danger" })
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Fornavn, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.Fornavn, new { @class = "form-control", autocomplete = "off" })
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label for="Etternavn-txt" class="col-lg-2 control-label" value="areefw">Etternavn</label>
-                            <div class="col-lg-10">
-                                <input type="text" class="form-control col-lg-10" id="Etternavn-txt">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Etternavn, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.Etternavn, new { @class = "form-control", autocomplete = "off" })
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label for="Epost-txt" class="col-lg-2 control-label">Epost</label>
-                            <div class="col-lg-10">
-                                <input type="email" class="form-control col-lg-10" id="Epost-txt" value="adsdf@geomatikk-ikt.no">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", autocomplete = "off" })
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="Passord-txt" class="col-lg-2 control-label" value="Pepperkake1">Passord</label>
-                            <div class="col-lg-10">
-                                <input type="password" class="form-control col-lg-10" id="Passord-txt" data-container="body" data-toggle="popover" data-placement="right" data-content="test">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", autocomplete = "off" })
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label for="Gjenta-Passord-txt" class="col-lg-2 control-label" value="Pepperkake1">Gjenta passord</label>
-                            <div class="col-lg-10">
-                                <input type="password" class="form-control col-lg-10" id="Gjenta-Passord-txt">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", autocomplete = "off" })
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="Rolle-select" class="col-lg-2 control-label">Rolle</label>
-                            <div class="col-lg-10">
-                                <select id="Rolle-select" class="form-control">
-                                    <option>Admin</option>
-                                    <option selected>Bruker</option>
-                                </select>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" class="btn btn-primary" value="Registrer" />
+                                </div>
                             </div>
-                        </div>
+                        }
 
-                        <div class="form-group">
-                            <div class="col-lg-10 col-lg-offset-2">
-                                <button id="ny-ansatt-btn" class="btn btn-success" type="button">Legg til</button>
-                            </div>
-                        </div>
 
-                    </div>
                 </div>
             </div>
 

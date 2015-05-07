@@ -216,10 +216,17 @@ namespace GeoCV.Controllers
 
                     // Add user to role
                     UserManager.AddToRole(user.Id, EmployeeRole);
-                    
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
-                    return RedirectToAction("Index", "Dashboard");
+                    // Sjekk om ansatt ble lagt til av admin eller ikke
+                    if (Request.UrlReferrer.ToString().ToLower().Contains("ansatte"))
+                    {
+                        return RedirectToAction("LeggTil", "Ansatte");
+                    }
+                    else
+                    {
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        return RedirectToAction("Index", "Dashboard");
+                    }
                 }
                 AddErrors(result);
             }
