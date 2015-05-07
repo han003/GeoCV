@@ -40,7 +40,7 @@ $('#filter-txt').keyup(function () {
 });
 
 $('#filter-group li').on('click', function () {
-
+    
     if ($(this).hasClass('list-group-item-success'))
     {
         $(this).removeClass('list-group-item-success');
@@ -104,6 +104,12 @@ function filter() {
 
 }
 
+$(document).on('click', '.advarsel-slett-btn', function () {
+
+    $(this).next().removeClass('hidden');
+
+});
+
 $(document).on('click', '.slett-element-btn', function () {
 
     var elementId = $(this).data('elementid');
@@ -130,6 +136,8 @@ $(document).on('click', '.slett-element-btn', function () {
 
 $(document).on('click', '#database-tabell tbody tr', function () {
 
+    $('.slett-element-btn').addClass('hidden');
+
     // Valgt element
     var valgtElement = $(this).data('elementid');
 
@@ -142,6 +150,24 @@ $(document).on('click', '#database-tabell tbody tr', function () {
     // For hvert panel som har klassen men ikke rett prosjekt id (alle de andre)
     $.each($('.element-panel[data-elementid!="' + valgtElement + '"]'), function (index, value) {
         $(this).addClass('hidden');
+    });
+
+});
+
+$('.update-txt').keyup(function () {
+
+    var elementId = $(this).data('elementid');
+    var nyVerdi = $(this).val();
+
+    $.ajax({
+        url: '/Database/EndreElement',
+        data: { Id: elementId, NyVerdi: nyVerdi },
+        type: 'POST',
+        success: function () {
+
+
+
+        }
     });
 
 });

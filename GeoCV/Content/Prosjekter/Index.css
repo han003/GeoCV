@@ -5,12 +5,21 @@
   margin-bottom: 0;
 }
 #prosjekt-panel .panel-body #prosjekt-tabell tbody tr:hover {
-  background: #d9edf7;
-  color: #31708f;
   cursor: pointer;
 }
 #prosjekt-panel .panel-body #prosjekt-tabell tbody tr:hover i {
   display: inline-block !important;
+}
+.status-panel .td-flex div {
+  display: flex;
+  align-items: center;
+}
+.status-panel .td-flex div div {
+  -ms-flex: 1;
+  flex: 1;
+}
+.status-panel-header {
+  margin-left: 4px;
 }
 .td-flex {
   display: flex;
@@ -22,11 +31,6 @@
 }
 .form-horizontal .form-group:last-child {
   margin-bottom: 0;
-}
-.valgt-tr {
-  background: #d9edf7;
-  color: #31708f;
-  cursor: default;
 }
 button a,
 button a:hover,

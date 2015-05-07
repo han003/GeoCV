@@ -27,20 +27,7 @@ namespace GeoCV.Controllers
 
             var BrukerProsjekter = from a in db.Medlem
                                    where a.Person.PersonId.Equals(BrukerCv.Person.PersonId)
-                                   select new MineProsjekterObjekt
-                                   {
-                                       ProsjektId = a.Prosjekt.ProsjektId,
-                                       ProsjektNavn = a.Prosjekt.Navn,
-                                       ProsjektKunde = a.Prosjekt.Kunde,
-
-                                       ProsjektTekniskProfil = a.Prosjekt.TekniskProfil,
-
-                                       MedlemId = a.MedlemId,
-                                       MedlemRolle = a.Rolle,
-                                       MedlemTekniskProfil = a.TekniskProfil,
-                                       MedlemStart = a.Start,
-                                       MedlemSlutt = a.Slutt
-                                   };
+                                   select a;
 
             //store data of both queries in your ViewModel class here:
             var ViewModel = new MineProsjekterIndexModel();

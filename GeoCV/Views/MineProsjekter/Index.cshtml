@@ -36,9 +36,16 @@
                 else
                 {
                     <ul class="list-group">
-                        @foreach (var Prosjekt in Model.BrukerProsjekter)
+                        @foreach (var Medlem in Model.BrukerProsjekter)
                         {
-                            <li class="list-group-item list-group-item-default" data-prosjektid="@Prosjekt.ProsjektId"><div class="list-group-item-text">@Prosjekt.ProsjektNavn</div><i class="fa fa-chevron-right pull-right hidden" data-prosjektid="@Prosjekt.ProsjektId"></i></li>
+                            if (Medlem.Prosjekt.Avsluttet)
+                            {
+                                <li class="list-group-item list-group-item-default" data-prosjektid="@Medlem.Prosjekt.ProsjektId"><div class="list-group-item-text">@Medlem.Prosjekt.Navn (Avsluttet)</div><i class="fa fa-chevron-right pull-right hidden" data-prosjektid="@Medlem.Prosjekt.ProsjektId"></i></li>
+                            }
+                            else
+                            {
+                                <li class="list-group-item list-group-item-default" data-prosjektid="@Medlem.Prosjekt.ProsjektId"><div class="list-group-item-text">@Medlem.Prosjekt.Navn</div><i class="fa fa-chevron-right pull-right hidden" data-prosjektid="@Medlem.Prosjekt.ProsjektId"></i></li>
+                            }
                         }
                     </ul>
                 }
@@ -47,27 +54,27 @@
 
         <div class="col-lg-4">
 
-            @foreach (var Prosjekt in Model.BrukerProsjekter)
+            @foreach (var Medlem in Model.BrukerProsjekter)
             {
-                <div class="panel panel-info prosjekt-panel hidden" data-prosjektid="@Prosjekt.ProsjektId">
-                    <div class="panel-heading"><i class="fa fa-info"></i> @Prosjekt.ProsjektNavn</div>
+                <div class="panel panel-info prosjekt-panel hidden" data-prosjektid="@Medlem.Prosjekt.ProsjektId">
+                    <div class="panel-heading"><i class="fa fa-info"></i> @Medlem.Prosjekt.Navn</div>
                     <div class="panel-body">
 
                         <div class="form-horizontal">
 
                             <div class="form-group">
-                                <label for="stilling-@Prosjekt.ProsjektId" class="col-lg-2 control-label">Stilling</label>
+                                <label for="stilling-@Medlem.Prosjekt.ProsjektId" class="col-lg-2 control-label">Stilling</label>
                                 <div class="col-lg-10">
-                                    <select class="form-control stilling-select" data-prosjektid="@Prosjekt.ProsjektId">
+                                    <select class="form-control stilling-select" data-prosjektid="@Medlem.Prosjekt.ProsjektId">
 
-                                        @if (Prosjekt.MedlemRolle.Equals(null))
+                                        @if (Medlem.Rolle.Equals(null))
                                         {
                                             <option selected></option>
                                         }
 
                                         @foreach (var Stilling in Model.Stillinger)
                                         {
-                                            if (Prosjekt.MedlemRolle.Equals(Stilling.ListeKatalogId))
+                                            if (Medlem.Rolle.Equals(Stilling.ListeKatalogId))
                                             {
                                                 <option selected value="@Stilling.ListeKatalogId">@Stilling.Element</option>
                                             }
@@ -86,14 +93,14 @@
                             <div class="form-group">
                                 <label class="col-lg-2 control-label">Fra</label>
                                 <div class="col-lg-10">
-                                    <input class="form-control kalender" type="text" value="@Prosjekt.MedlemStart.ToString("dd. MMMM yyyy")" data-prosjektid="@Prosjekt.ProsjektId">
+                                    <input class="form-control kalender" type="text" value="@Medlem.Start.ToString("dd. MMMM yyyy")" data-prosjektid="@Medlem.Prosjekt.ProsjektId">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-lg-2 control-label">Til</label>
                                 <div class="col-lg-10">
-                                    <input class="form-control kalender" type="text" value="@Prosjekt.MedlemSlutt.ToString("dd. MMMM yyyy")" data-prosjektid="@Prosjekt.ProsjektId">
+                                    <input class="form-control kalender" type="text" value="@Medlem.Slutt.ToString("dd. MMMM yyyy")" data-prosjektid="@Medlem.Prosjekt.ProsjektId">
                                 </div>
                             </div>
 
@@ -104,10 +111,10 @@
                     </div>
                 </div>
 
-                <div class="panel panel-danger prosjekt-panel hidden" data-prosjektid="@Prosjekt.ProsjektId">
+                <div class="panel panel-danger prosjekt-panel hidden" data-prosjektid="@Medlem.Prosjekt.ProsjektId">
                     <div class="panel-heading"><i class="fa fa-trash"></i> Fjern</div>
                     <div class="panel-body">
-                        <button type="button" class="btn btn-danger col-lg-12 fjern-prosjekt-btn" data-prosjektid="@Prosjekt.ProsjektId">Fjern fra mine prosjekter</button>
+                        <button type="button" class="btn btn-danger col-lg-12 fjern-prosjekt-btn" data-prosjektid="@Medlem.Prosjekt.ProsjektId">Fjern fra mine prosjekter</button>
                     </div>
                 </div>
 
@@ -117,30 +124,30 @@
 
         <div class="col-lg-4">
 
-            @foreach (var Prosjekt in Model.BrukerProsjekter)
+            @foreach (var Medlem in Model.BrukerProsjekter)
             {
-                <div class="panel panel-info prosjekt-panel hidden" data-prosjektid="@Prosjekt.ProsjektId">
+                <div class="panel panel-info prosjekt-panel hidden" data-prosjektid="@Medlem.Prosjekt.ProsjektId">
                     <div class="panel-heading"><i class="fa fa-code"></i> Teknisk profil</div>
                     <div class="panel-body">
 
-                        <select class="form-control teknisk-profil-select" data-prosjektid="@Prosjekt.ProsjektId">
+                        <select class="form-control teknisk-profil-select" data-prosjektid="@Medlem.Prosjekt.ProsjektId">
 
-                            @if (Prosjekt.MedlemTekniskProfil.Equals(null))
+                            @if (Medlem.TekniskProfil.Equals(null))
                             {
                                 <option selected value="Teknisk profil ikke valgt"></option>
 
-                                foreach (var Profil in Prosjekt.ProsjektTekniskProfil)
+                                foreach (var Profil in Medlem.Prosjekt.TekniskProfil)
                                 {
                                     <option value="@Profil.TekniskProfilId">@Profil.Navn</option>
                                 }
                             }
                             else
                             {
-                                foreach (var Profil in Prosjekt.ProsjektTekniskProfil.Where(x => x.TekniskProfilId.Equals(Prosjekt.MedlemTekniskProfil)))
+                                foreach (var Profil in Medlem.Prosjekt.TekniskProfil.Where(x => x.TekniskProfilId.Equals(Medlem.TekniskProfil)))
                                 {
                                     <option selected value="@Profil.TekniskProfilId">@Profil.Navn</option>
                                 }
-                                foreach (var Profil in Prosjekt.ProsjektTekniskProfil.Where(x => x.TekniskProfilId != Prosjekt.MedlemTekniskProfil))
+                                foreach (var Profil in Medlem.Prosjekt.TekniskProfil.Where(x => x.TekniskProfilId != Medlem.TekniskProfil))
                                 {
                                     <option value="@Profil.TekniskProfilId">@Profil.Navn</option>
                                 }
@@ -149,9 +156,9 @@
                         </select>
 
 
-                        @if (Prosjekt.MedlemTekniskProfil.Equals(null))
+                        @if (Medlem.TekniskProfil.Equals(null))
                         {
-                            foreach (var Profil in Prosjekt.ProsjektTekniskProfil)
+                            foreach (var Profil in Medlem.Prosjekt.TekniskProfil)
                             {
                                 <div class="well hidden" data-tekniskprofilid="@Profil.TekniskProfilId">
                                     @foreach (var ElementId in Profil.Elementer.Split(';'))
@@ -169,7 +176,7 @@
                         }
                         else
                         {
-                            foreach (var Profil in Prosjekt.ProsjektTekniskProfil.Where(x => x.TekniskProfilId.Equals(Prosjekt.MedlemTekniskProfil)))
+                            foreach (var Profil in Medlem.Prosjekt.TekniskProfil.Where(x => x.TekniskProfilId.Equals(Medlem.TekniskProfil)))
                             {
                                 <div class="well" data-tekniskprofilid="@Profil.TekniskProfilId">
                                     @foreach (var ElementId in Profil.Elementer.Split(';'))
@@ -184,7 +191,7 @@
                                     }
                                 </div>
                             }
-                            foreach (var Profil in Prosjekt.ProsjektTekniskProfil.Where(x => x.TekniskProfilId != Prosjekt.MedlemTekniskProfil))
+                            foreach (var Profil in Medlem.Prosjekt.TekniskProfil.Where(x => x.TekniskProfilId != Medlem.TekniskProfil))
                             {
                                 <div class="well hidden" data-tekniskprofilid="@Profil.TekniskProfilId">
                                     @foreach (var ElementId in Profil.Elementer.Split(';'))

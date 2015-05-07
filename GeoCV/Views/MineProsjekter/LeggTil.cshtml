@@ -31,22 +31,44 @@
                     <ul class="list-group">
                         @foreach (var Prosjekt in Model.AlleProsjekter)
                         {
-                            bool BrukerHarLagtTil = false;
-                            foreach (var BrukerProsjekt in Model.BrukerProsjekter)
+                            if (Prosjekt.Avsluttet.Equals(false))
                             {
-                                if (Prosjekt.ProsjektId.Equals(BrukerProsjekt.Prosjekt.ProsjektId))
+                                bool BrukerHarLagtTil = false;
+                                foreach (var BrukerProsjekt in Model.BrukerProsjekter)
                                 {
-                                    BrukerHarLagtTil = true;
-                                    <li class="list-group-item list-group-item-success" data-prosjektid="@Prosjekt.ProsjektId"><div class="list-group-item-text" data-prosjektnavn="@Prosjekt.Navn">@Prosjekt.Navn</div><i class="fa fa-check" data-prosjektid="@Prosjekt.ProsjektId"></i></li>
+                                    if (Prosjekt.ProsjektId.Equals(BrukerProsjekt.Prosjekt.ProsjektId))
+                                    {
+                                        BrukerHarLagtTil = true;
+                                        <li class="list-group-item list-group-item-success" data-prosjektid="@Prosjekt.ProsjektId"><div class="list-group-item-text" data-prosjektnavn="@Prosjekt.Navn">@Prosjekt.Navn</div><i class="fa fa-check" data-prosjektid="@Prosjekt.ProsjektId"></i></li>
+                                    }
+                                }
+
+                                if (!BrukerHarLagtTil)
+                                {
+                                    <li class="list-group-item list-group-item-default" data-prosjektid="@Prosjekt.ProsjektId"><div class="list-group-item-text" data-prosjektnavn="@Prosjekt.Navn">@Prosjekt.Navn</div><i class="fa fa-plus hidden" data-prosjektid="@Prosjekt.ProsjektId"></i></li>
                                 }
                             }
-
-                            if (!BrukerHarLagtTil)
+                            else
                             {
-                                <li class="list-group-item list-group-item-default" data-prosjektid="@Prosjekt.ProsjektId"><div class="list-group-item-text" data-prosjektnavn="@Prosjekt.Navn">@Prosjekt.Navn</div><i class="fa fa-plus hidden" data-prosjektid="@Prosjekt.ProsjektId"></i></li>
+                                foreach (var BrukerProsjekt in Model.BrukerProsjekter)
+                                {
+                                    if (Prosjekt.ProsjektId.Equals(BrukerProsjekt.Prosjekt.ProsjektId))
+                                    {
+                                        <li class="list-group-item list-group-item-success" data-prosjektid="@Prosjekt.ProsjektId"><div class="list-group-item-text" data-prosjektnavn="@Prosjekt.Navn">@Prosjekt.Navn (Avsluttet)</div><i class="fa fa-check" data-prosjektid="@Prosjekt.ProsjektId"></i></li>
+                                    }
+                                }
                             }
                         }
                     </ul>
+
+
+
+
+
+
+
+
+
 
 
                 </div>

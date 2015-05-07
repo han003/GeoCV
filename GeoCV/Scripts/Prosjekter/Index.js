@@ -140,6 +140,56 @@ $('.bekreft-slett').click(function () {
 
 });
 
+$('.endre-status-btn').click(function () {
+
+    var spinner = $(this).closest('.panel').find('i.fa-spinner');
+    var prosjektId = $(this).data('prosjektid');
+    var avsluttetProsjekt = $(this).data('prosjektstatus');
+
+    // Elementer
+    var endreStatusBtn = $(this);
+    var statusPanelHeader = $('.status-panel-header[data-prosjektid="' + prosjektId + '"]');
+    var prosjektTr = $('#prosjekt-panel tbody tr[data-prosjektid="' + prosjektId + '"]');
+
+    console.log(avsluttetProsjekt);
+
+    // Hvis true så betyr det at prosjektet et satt som avsluttet
+    if (avsluttetProsjekt == 'False' || avsluttetProsjekt == false) {
+        avsluttetProsjekt = true;
+    } else {
+        avsluttetProsjekt = false;
+    }
+
+    $.ajax({
+        url: '/Prosjekter/EndrePorsjektStatus',
+        data: { Id: prosjektId, Status: avsluttetProsjekt },
+        type: 'POST',
+        beforeSend: function () {
+
+            spinner.removeClass('hidden');
+
+        },
+        success: function () {
+
+            if (avsluttetProsjekt) {
+                endreStatusBtn.data('prosjektstatus', true);
+                endreStatusBtn.html('Gjenåpne prosjekt');
+                statusPanelHeader.html('Gjenåpne');
+                prosjektTr.addClass('text-danger');
+            } else {
+                endreStatusBtn.data('prosjektstatus', false);
+                endreStatusBtn.html('Avslutt prosjekt');
+                statusPanelHeader.html('Avslutt');
+                prosjektTr.removeClass('text-danger');
+            }
+
+            spinner.addClass('hidden');
+            $(this).addClass('valgt-list-group-item');
+        }
+    });
+
+});
+
 $('.avbryt-slett').click(function () {
 
     $(this).parent().addClass('hidden');

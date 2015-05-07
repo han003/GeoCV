@@ -57,14 +57,31 @@
 
                             @foreach (var Prosjekt in Model)
                             {
-                                <tr id="@Prosjekt.ProsjektId" data-prosjektid="@Prosjekt.ProsjektId" data-kunde="@Prosjekt.Kunde" data-navn="@Prosjekt.Navn" data-beskrivelse="@Prosjekt.Beskrivelse">
-                                    <td class="col-lg-3 prosjekt-td" data-prosjektid="@Prosjekt.ProsjektId" data-tdfelt="kunde">@Prosjekt.Kunde</td>
-                                    <td class="col-lg-3 prosjekt-td" data-prosjektid="@Prosjekt.ProsjektId" data-tdfelt="navn">@Prosjekt.Navn</td>
-                                    <td class="col-lg-3"><div class="td-flex"><div class="prosjekt-td" data-prosjektid="@Prosjekt.ProsjektId" data-tdfelt="beskrivelse">@Prosjekt.Beskrivelse</div><i class="fa fa-chevron-right hidden"></i></div></td>
-                                </tr>
+                                if (Prosjekt.Avsluttet)
+                                {
+                                    <tr id="@Prosjekt.ProsjektId" class="text-danger" data-prosjektid="@Prosjekt.ProsjektId" data-kunde="@Prosjekt.Kunde" data-navn="@Prosjekt.Navn" data-beskrivelse="@Prosjekt.Beskrivelse">
+                                        <td class="col-lg-3 prosjekt-td" data-prosjektid="@Prosjekt.ProsjektId" data-tdfelt="kunde">@Prosjekt.Kunde</td>
+                                        <td class="col-lg-3 prosjekt-td" data-prosjektid="@Prosjekt.ProsjektId" data-tdfelt="navn">@Prosjekt.Navn</td>
+                                        <td class="col-lg-3"><div class="td-flex"><div class="prosjekt-td" data-prosjektid="@Prosjekt.ProsjektId" data-tdfelt="beskrivelse">@Prosjekt.Beskrivelse</div><i class="fa fa-chevron-right hidden"></i></div></td>
+                                    </tr>
+                                }
+                                else
+                                {
+                                    <tr id="@Prosjekt.ProsjektId" data-prosjektid="@Prosjekt.ProsjektId" data-kunde="@Prosjekt.Kunde" data-navn="@Prosjekt.Navn" data-beskrivelse="@Prosjekt.Beskrivelse">
+                                        <td class="col-lg-3 prosjekt-td" data-prosjektid="@Prosjekt.ProsjektId" data-tdfelt="kunde">@Prosjekt.Kunde</td>
+                                        <td class="col-lg-3 prosjekt-td" data-prosjektid="@Prosjekt.ProsjektId" data-tdfelt="navn">@Prosjekt.Navn</td>
+                                        <td class="col-lg-3"><div class="td-flex"><div class="prosjekt-td" data-prosjektid="@Prosjekt.ProsjektId" data-tdfelt="beskrivelse">@Prosjekt.Beskrivelse</div><i class="fa fa-chevron-right hidden"></i></div></td>
+                                    </tr>
+                                }
                             }
 
                         </tbody>
+
+
+
+
+
+
 
                     </table>
 
@@ -119,6 +136,42 @@
                         <a href="/TekniskeProfiler/?ProsjektId=@Prosjekt.ProsjektId"><button type="button" class="btn btn-primary col-lg-12">Gå til tekniske profiler</button></a>
                     </div>
                 </div>
+
+                if (Prosjekt.Avsluttet)
+                {
+                    <div class="panel panel-warning prosjekt-info-panel status-panel hidden" data-prosjektid="@Prosjekt.ProsjektId">
+                        <div class="panel-heading">
+                            <div class="td-flex">
+                                <div>
+                                    <i class="fa fa-power-off"></i>
+                                    <div class="status-panel-header" data-prosjektid="@Prosjekt.ProsjektId">Gjenåpne</div>
+                                </div>
+                                <i class="fa fa-spinner fa-spin hidden"></i>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <button type="button" class="btn btn-warning col-lg-12 endre-status-btn" data-prosjektid="@Prosjekt.ProsjektId" data-prosjektstatus="@Prosjekt.Avsluttet">Gjenåpne prosjekt</button>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="panel panel-warning prosjekt-info-panel status-panel hidden" data-prosjektid="@Prosjekt.ProsjektId">
+                        <div class="panel-heading">
+                            <div class="td-flex">
+                                <div>
+                                    <i class="fa fa-power-off"></i>
+                                    <div class="status-panel-header" data-prosjektid="@Prosjekt.ProsjektId">Avslutt</div>
+                                </div>
+                                <i class="fa fa-spinner fa-spin hidden"></i>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <button type="button" class="btn btn-warning col-lg-12 endre-status-btn" data-prosjektid="@Prosjekt.ProsjektId" data-prosjektstatus="@Prosjekt.Avsluttet">Avslutt prosjekt</button>
+                        </div>
+                    </div>
+                }
+
 
                 <div class="panel panel-danger prosjekt-info-panel slett-panel hidden" data-prosjektid="@Prosjekt.ProsjektId">
                     <div class="panel-heading"><div class="td-flex"><div><i class="fa fa-trash"></i> Slett</div><i class="fa fa-spinner fa-spin hidden"></i></div></div>

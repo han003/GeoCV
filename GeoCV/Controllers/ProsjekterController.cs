@@ -85,5 +85,13 @@ namespace GeoCV.Controllers
 
             db.SaveChanges();
         }
+
+        [HttpPost]
+        public void EndrePorsjektStatus(int Id, bool Status)
+        {
+            db.Prosjekt.Where(x => x.ProsjektId.Equals(Id)).FirstOrDefault().Avsluttet = Status;
+            db.SaveChanges();
+        }
+
     }
 }

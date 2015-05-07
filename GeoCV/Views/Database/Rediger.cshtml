@@ -7,10 +7,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section css{
-    @Styles.Render("~/bundles/css/database")
+    @Styles.Render("~/bundles/css/DatabaseRediger")
 }
 @section scripts{
-    @Scripts.Render("~/bundles/js/database")
+    @Scripts.Render("~/bundles/js/DatabaseRediger")
 }
 
 <div id="page-wrapper">
@@ -89,13 +89,14 @@
                             <div class="form-group">
                                 <label class="col-lg-2 control-label">Element</label>
                                 <div class="col-lg-10">
-                                    <input type="text" class="form-control update-txt col-lg-10" value="@Element.Element">
+                                    <input type="text" class="form-control update-txt col-lg-10" value="@Element.Element" data-elementid="@Element.ListeKatalogId">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <div class="col-lg-10 col-lg-offset-2">
-                                    <button type="button" class="btn btn-danger slett-element-btn" data-elementid="@Element.ListeKatalogId">Slett</button>
+                                    <button type="button" class="btn btn-warning advarsel-slett-btn" data-elementid="@Element.ListeKatalogId">Slett</button>
+                                    <button type="button" class="btn btn-danger slett-element-btn hidden" data-elementid="@Element.ListeKatalogId">Bekreft</button>
                                 </div>
                             </div>
 
@@ -105,8 +106,6 @@
                     </div>
                 </div>
             }
-
-            
 
         </div>
     </div>

@@ -123,6 +123,9 @@ $('.fjern-prosjekt-btn').click(function () {
 
     var prosjektId = $(this).data('prosjektid');
 
+    $('.prosjekt-panel[data-prosjektid="' + prosjektId + '"').remove();
+    $('.list-group-item[data-prosjektid="' + prosjektId + '"').remove();
+
     $.ajax({
         url: '/MineProsjekter/FjernProsjekt',
         data: { ProsjektId: prosjektId },

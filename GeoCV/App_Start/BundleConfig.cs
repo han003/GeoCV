@@ -237,16 +237,29 @@ namespace GeoCV
                 .Include("~/Content/settings.css"));
 
             // Database
-            bundles.Add(new ScriptBundle("~/Bundles/js/database")
+            bundles.Add(new ScriptBundle("~/Bundles/js/DatabaseRediger")
                 .Include("~/Scripts/jquery/jquery-{version}.js")
                 .Include("~/Scripts/plugins/*.js")
                 .Include("~/Scripts/theme/*.js")
-                .Include("~/Scripts/database.js"));
+                .Include("~/Scripts/Database/Rediger.js"));
 
-            bundles.Add(new StyleBundle("~/Bundles/css/database")
+            bundles.Add(new StyleBundle("~/Bundles/css/DatabaseRediger")
                 .Include("~/Content/theme/*.css")
                 .Include("~/Content/main.css")
-                .Include("~/Content/database.css"));
+                .Include("~/Content/Database/Rediger.css"));
+
+            /////////////////////////////////////////////
+
+            bundles.Add(new ScriptBundle("~/Bundles/js/DatabaseLeggTil")
+                .Include("~/Scripts/jquery/jquery-{version}.js")
+                .Include("~/Scripts/plugins/*.js")
+                .Include("~/Scripts/theme/*.js")
+                .Include("~/Scripts/Database/LeggTil.js"));
+
+            bundles.Add(new StyleBundle("~/Bundles/css/DatabaseLeggTil")
+                .Include("~/Content/theme/*.css")
+                .Include("~/Content/main.css")
+                .Include("~/Content/Database/LeggTil.css"));
 
             // BundleTable.EnableOptimizations = true;
         }

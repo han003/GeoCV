@@ -37,7 +37,7 @@ namespace GeoCV.Controllers
             }
             else
             {
-                BrukerCv = db.CVVersjon.Where(x => x.CVVersjonId.Equals(Id)).FirstOrDefault();
+                BrukerCv = db.CVVersjon.Where(x => x.CVVersjonId == Id).FirstOrDefault();
             }
             
             string FileName = BrukerCv.Person.Fornavn + " " + BrukerCv.Person.Etternavn + " - CV";

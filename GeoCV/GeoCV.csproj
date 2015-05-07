@@ -284,7 +284,6 @@
     </Compile>
     <Compile Include="Models\TekniskProfilModel.cs" />
     <Compile Include="Models\ExpertiseModel.cs" />
-    <Compile Include="Models\MineProsjekterObjekt.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MineProsjekterIndexModel.cs" />
@@ -302,6 +301,18 @@
     </Content>
     <Content Include="Content\Ansatte\Index.min.css">
       <DependentUpon>Index.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Ansatte\LeggTil.css">
+      <DependentUpon>LeggTil.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Ansatte\LeggTil.min.css">
+      <DependentUpon>LeggTil.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Database\LeggTil.css">
+      <DependentUpon>LeggTil.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Database\LeggTil.min.css">
+      <DependentUpon>LeggTil.css</DependentUpon>
     </Content>
     <Content Include="Content\Images\bakgrunn.jpg" />
     <Content Include="Content\MineProsjekter\Index.css">
@@ -354,11 +365,11 @@
     <Content Include="Content\dashboard.min.css">
       <DependentUpon>dashboard.css</DependentUpon>
     </Content>
-    <Content Include="Content\database.css">
-      <DependentUpon>database.less</DependentUpon>
+    <Content Include="Content\Database\Rediger.css">
+      <DependentUpon>Rediger.less</DependentUpon>
     </Content>
-    <Content Include="Content\database.min.css">
-      <DependentUpon>database.css</DependentUpon>
+    <Content Include="Content\Database\Rediger.min.css">
+      <DependentUpon>Rediger.css</DependentUpon>
     </Content>
     <Content Include="Content\education.css">
       <DependentUpon>education.less</DependentUpon>
@@ -461,6 +472,7 @@
     </Content>
     <Content Include="Scripts\Ansatte\Index.js" />
     <Content Include="Scripts\Ansatte\LeggTil.js" />
+    <Content Include="Scripts\Database\LeggTil.js" />
     <Content Include="Scripts\MineProsjekter\Index.js" />
     <Content Include="Scripts\MineProsjekter\LeggTil.js" />
     <Content Include="Scripts\plugins\bootstrap-switch.js" />
@@ -485,9 +497,9 @@
     <Content Include="Scripts\theme\metisMenu.min.js">
       <DependentUpon>metisMenu.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\database.js" />
-    <Content Include="Scripts\database.min.js">
-      <DependentUpon>database.js</DependentUpon>
+    <Content Include="Scripts\Database\Rediger.js" />
+    <Content Include="Scripts\Database\Rediger.min.js">
+      <DependentUpon>Rediger.js</DependentUpon>
     </Content>
     <Content Include="Scripts\education.js" />
     <Content Include="Scripts\education.min.js">
@@ -513,9 +525,9 @@
     <Content Include="Content\main.css.map">
       <DependentUpon>main.css</DependentUpon>
     </Content>
-    <Content Include="Content\database.less" />
-    <Content Include="Content\database.css.map">
-      <DependentUpon>database.css</DependentUpon>
+    <Content Include="Content\Database\Rediger.less" />
+    <Content Include="Content\Database\Rediger.css.map">
+      <DependentUpon>Rediger.css</DependentUpon>
     </Content>
     <Content Include="Content\education.less" />
     <Content Include="Content\education.css.map">
@@ -539,8 +551,8 @@
     <Content Include="Scripts\education.min.js.map">
       <DependentUpon>education.min.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\database.min.js.map">
-      <DependentUpon>database.min.js</DependentUpon>
+    <Content Include="Scripts\Database\Rediger.min.js.map">
+      <DependentUpon>Rediger.min.js</DependentUpon>
     </Content>
     <Content Include="Scripts\jquery-ui\jquery-ui.min.js.map">
       <DependentUpon>jquery-ui.min.js</DependentUpon>
@@ -586,6 +598,14 @@
     </EntityDeploy>
     <Content Include="Models\Database.edmx.diagram">
       <DependentUpon>Database.edmx</DependentUpon>
+    </Content>
+    <Content Include="Content\Ansatte\LeggTil.less" />
+    <Content Include="Content\Ansatte\LeggTil.css.map">
+      <DependentUpon>LeggTil.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Database\LeggTil.less" />
+    <Content Include="Content\Database\LeggTil.css.map">
+      <DependentUpon>LeggTil.css</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\cvportal.pubxml" />
     <Content Include="Scripts\theme\metisMenu.min.js.map">
@@ -719,7 +739,7 @@
     <Content Include="Views\MineProsjekter\Index.cshtml" />
     <Content Include="Views\MineProsjekter\LeggTil.cshtml" />
     <Content Include="Views\Database\Rediger.cshtml" />
-    <Content Include="Views\Database\Ny.cshtml" />
+    <Content Include="Views\Database\LeggTil.cshtml" />
     <Content Include="Views\Ansatte\Index.cshtml" />
     <Content Include="Views\Ansatte\LeggTil.cshtml" />
     <Content Include="Views\Prosjekter\Index.cshtml" />

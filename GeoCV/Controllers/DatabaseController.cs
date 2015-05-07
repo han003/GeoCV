@@ -19,7 +19,7 @@ namespace GeoCV.Controllers
             return View(DatabaseElementer);
         }
 
-        public ActionResult Ny()
+        public ActionResult LeggTil()
         {
             var DatabaseElementer = from a in db.ListeKatalog
                                     orderby a.Element ascending
@@ -43,21 +43,14 @@ namespace GeoCV.Controllers
         }
 
         [HttpPost]
-        public void ChangeElement(int Id, string NewValue)
+        public void EndreElement(int Id, string NyVerdi)
         {
-            var Item = from a in db.ListeKatalog
-                       where a.ListeKatalogId.Equals(Id)
-                       select a;
-
-            var Row = Item.FirstOrDefault();
-
-            Row.Element = NewValue.Trim();
-
+            db.ListeKatalog.Where(x => x.ListeKatalogId.Equals(Id)).FirstOrDefault().Element = NyVerdi.Trim();
             db.SaveChanges();
         }
 
         [HttpPost]
-        public ActionResult AddElement(string NyttElement, string Katalog)
+        public ActionResult LeggTilElement(string NyttElement, string Katalog)
         {
             var Data = from a in db.ListeKatalog
                        where a.Element.Equals(NyttElement) && a.Katalog.Equals(Katalog)
@@ -75,6 +68,10 @@ namespace GeoCV.Controllers
                 db.SaveChanges();
 
                 NyId = NyOppføring.ListeKatalogId;
+            }
+            else
+            {
+                return new HttpStatusCodeResult(400, NyttElement + " finnes allerede i databasen");
             }
 
             return Json(NyId, JsonRequestBehavior.AllowGet);

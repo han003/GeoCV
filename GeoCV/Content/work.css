@@ -10,4 +10,16 @@
 .btn-group label {
   width: 60px;
 }
+#arbeidserfaring-panel .panel-body {
+  padding: 0;
+}
+#arbeidserfaring-panel .panel-body #work-table {
+  margin-bottom: 0;
+}
+#arbeidserfaring-panel .panel-body #work-table a {
+  color: blue;
+}
+#legg-til-arbeidserfaring-panel .form-group:last-child {
+  margin-bottom: 0;
+}
 /*# sourceMappingURL=work.css.map */
