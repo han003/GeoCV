@@ -153,7 +153,7 @@ function modalLeggTil() {
     var element = $('#modal-LeggTil-btn').data('element');
 
     $.ajax({
-        url: '/Database/AddElement',
+        url: '/Database/LeggTilElement',
         data: { NyttElement: element, Katalog: katalog },
         type: 'POST',
         beforeSend: function () {
