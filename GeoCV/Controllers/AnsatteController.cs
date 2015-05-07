@@ -172,21 +172,8 @@ namespace GeoCV.Controllers
                 db.CVVersjon.Add(Cv);
                 db.SaveChanges();
 
-                // Employee role
-                string EmployeeRole = Rolle;
-
-                // If role doesn't exist
-                if (!RoleMan.RoleExists(EmployeeRole))
-                {
-                    var RoleResult = RoleMan.Create(new IdentityRole(EmployeeRole));
-                    if (!RoleResult.Succeeded)
-                    {
-                        // Error stuff
-                    };
-                }
-
                 // Add user to role
-                UserMan.AddToRole(user.Id, EmployeeRole);
+                UserMan.AddToRole(user.Id, Rolle);
             }
 
             return null;

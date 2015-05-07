@@ -152,6 +152,10 @@ namespace GeoCV.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Roles
+                var RoleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+                var RoleManager = new RoleManager<IdentityRole>(RoleStore);
+
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 UserManager.UserLockoutEnabledByDefault = false;
@@ -197,17 +201,13 @@ namespace GeoCV.Controllers
                     db.CVVersjon.Add(Cv);
                     db.SaveChanges();
 
-                    // Roles
-                    var RoleMan = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
-                    var UserMan = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
-
                     // Employee role
                     string EmployeeRole = "Admin";
 
                     // If role doesn't exist
-                    if (!RoleMan.RoleExists(EmployeeRole))
+                    if (!RoleManager.RoleExists(EmployeeRole))
                     {
-                        var RoleResult = RoleMan.Create(new IdentityRole(EmployeeRole));
+                        var RoleResult = RoleManager.Create(new IdentityRole(EmployeeRole));
                         if (!RoleResult.Succeeded)
                         {
                             // Error stuff
@@ -215,7 +215,7 @@ namespace GeoCV.Controllers
                     }
 
                     // Add user to role
-                    UserMan.AddToRole(user.Id, EmployeeRole);
+                    UserManager.AddToRole(user.Id, EmployeeRole);
                     
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
