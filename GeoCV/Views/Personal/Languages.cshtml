@@ -1,0 +1,18 @@
+﻿@using System.Web.Optimization
+@using Microsoft.AspNet.Identity
+
+@model GeoCV.Models.PersonalModel
+
+@{
+    ViewBag.Title = "Språk";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section css{
+    @Styles.Render("~/Bundles/css/personal")
+}
+@section scripts{
+    @Scripts.Render("~/Bundles/js/personal")
+}
+
+@Html.Partial("_LeggTilModal")
+@Html.Partial("_TabInnhold", Model, new ViewDataDictionary { { "Tab", "Språk" }, { "Bruker", Model.BrukerSpråk } })
