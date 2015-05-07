@@ -71,6 +71,7 @@ namespace GeoCV
 
             bundles.Add(new StyleBundle("~/Bundles/css/ProsjekterIndex")
                 .Include("~/Content/theme/*.css")
+                .Include("~/Content/plugins/bootstrap-switch.css")
                 .Include("~/Content/main.css")
                 .Include("~/Content/Prosjekter/Index.css"));
 
@@ -180,6 +181,7 @@ namespace GeoCV
             bundles.Add(new StyleBundle("~/Bundles/css/MineProsjekterIndex")
                 .Include("~/Content/theme/*.css")
                 .Include("~/Content/jquery-ui/*.css")
+                .Include("~/Content/plugins/*.css")
                 .Include("~/Content/main.css")
                 .Include("~/Content/MineProsjekter/Index.css"));
 

@@ -39,7 +39,7 @@ namespace GeoCV.Controllers
             {
                 BrukerCv = db.CVVersjon.Where(x => x.CVVersjonId == Id).FirstOrDefault();
             }
-            
+
             string FileName = BrukerCv.Person.Fornavn + " " + BrukerCv.Person.Etternavn + " - CV";
 
             var FilePath = Path.Combine(Path.GetTempPath(), "Temp.pdf");
@@ -353,14 +353,27 @@ namespace GeoCV.Controllers
                 int? MedlemTekniskProfil = MedlemData.TekniskProfil;
 
                 // "7,19,44,34"
-                string TekniskProfilElementer = db.TekniskProfil.Where(x => x.TekniskProfilId == MedlemTekniskProfil).FirstOrDefault().Elementer;
+                string TekniskProfilElementer = "";
+                try
+                {
+                    TekniskProfilElementer = db.TekniskProfil.Where(x => x.TekniskProfilId == MedlemTekniskProfil).FirstOrDefault().Elementer;
+                }
+                catch (Exception)
+                {
+                }
 
                 List<string> ElementListeString = TekniskProfilElementer.Split(';').ToList();
                 List<int> ElementListeInt = new List<int>();
 
                 foreach (var Element in ElementListeString)
                 {
-                    ElementListeInt.Add(int.Parse(Element));
+                    try
+                    {
+                        ElementListeInt.Add(int.Parse(Element));
+                    }
+                    catch (Exception)
+                    {
+                    }
                 }
 
                 var ListeKatalogData = from a in db.ListeKatalog

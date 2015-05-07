@@ -65,7 +65,7 @@
                             <div class="form-group">
                                 <label for="stilling-@Medlem.Prosjekt.ProsjektId" class="col-lg-2 control-label">Stilling</label>
                                 <div class="col-lg-10">
-                                    <select class="form-control stilling-select" data-prosjektid="@Medlem.Prosjekt.ProsjektId">
+                                    <select class="form-control stilling-select selectpicker" data-prosjektid="@Medlem.Prosjekt.ProsjektId">
 
                                         @if (Medlem.Rolle.Equals(null))
                                         {
@@ -130,7 +130,7 @@
                     <div class="panel-heading"><i class="fa fa-code"></i> Teknisk profil</div>
                     <div class="panel-body">
 
-                        <select class="form-control teknisk-profil-select" data-prosjektid="@Medlem.Prosjekt.ProsjektId">
+                        <select class="form-control teknisk-profil-select selectpicker" data-prosjektid="@Medlem.Prosjekt.ProsjektId">
 
                             @if (Medlem.TekniskProfil.Equals(null))
                             {

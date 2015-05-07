@@ -1,4 +1,9 @@
-﻿$(document).ready(function () {
+﻿$.fn.bootstrapSwitch.defaults.onText = 'Vis';
+$.fn.bootstrapSwitch.defaults.offText = 'Skjul';
+
+$('.vis-avslutt-switch').bootstrapSwitch();
+
+$(document).ready(function () {
 
     // Sorter valgt tabell
     $('#prosjekt-tabell').stupidtable();
@@ -26,6 +31,18 @@
 
         });
     });
+});
+
+$('input[name="avsluttede-prosjekter-checkbox"]').on('switchChange.bootstrapSwitch', function (event, state) {
+    console.log(this); // DOM element
+    console.log(event); // jQuery event
+    console.log(state); // true | false
+
+    if (state) {
+        $('tr.text-danger').removeClass('hidden');
+    } else {
+        $('tr.text-danger').addClass('hidden');
+    }
 });
 
 $('button').click(function () {
@@ -151,8 +168,6 @@ $('.endre-status-btn').click(function () {
     var statusPanelHeader = $('.status-panel-header[data-prosjektid="' + prosjektId + '"]');
     var prosjektTr = $('#prosjekt-panel tbody tr[data-prosjektid="' + prosjektId + '"]');
 
-    console.log(avsluttetProsjekt);
-
     // Hvis true så betyr det at prosjektet et satt som avsluttet
     if (avsluttetProsjekt == 'False' || avsluttetProsjekt == false) {
         avsluttetProsjekt = true;
@@ -172,6 +187,22 @@ $('.endre-status-btn').click(function () {
         success: function () {
 
             if (avsluttetProsjekt) {
+
+                // Hvis switch er satt til skjul avsluttede prosjekter
+                if ($('.vis-avslutt-switch').bootstrapSwitch('state') == false) {
+                    // Skjul tr
+                    prosjektTr.addClass('hidden');
+
+                    // Skjul paneler
+                    $('.panel[data-prosjektid="' + prosjektId + '"]').addClass('hidden');
+
+                    // Fjern valgt tr
+                    $.each($('#prosjekt-tabell tbody tr'), function (index, value) {
+                        $(this).removeClass('valgt-tr');
+                        $(this).find('i').addClass('hidden');
+                    });
+                }
+
                 endreStatusBtn.data('prosjektstatus', true);
                 endreStatusBtn.html('Gjenåpne prosjekt');
                 statusPanelHeader.html('Gjenåpne');
@@ -181,6 +212,7 @@ $('.endre-status-btn').click(function () {
                 endreStatusBtn.html('Avslutt prosjekt');
                 statusPanelHeader.html('Avslutt');
                 prosjektTr.removeClass('text-danger');
+                prosjektTr.removeClass('hidden');
             }
 
             spinner.addClass('hidden');

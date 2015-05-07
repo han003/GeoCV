@@ -327,6 +327,10 @@
     <Content Include="Content\MineProsjekter\LeggTil.min.css">
       <DependentUpon>LeggTil.css</DependentUpon>
     </Content>
+    <Content Include="Content\plugins\bootstrap-select.css" />
+    <Content Include="Content\plugins\bootstrap-select.min.css">
+      <DependentUpon>bootstrap-select.css</DependentUpon>
+    </Content>
     <Content Include="Content\plugins\bootstrap-switch.css" />
     <Content Include="Content\plugins\bootstrap-switch.min.css">
       <DependentUpon>bootstrap-switch.css</DependentUpon>
@@ -475,6 +479,10 @@
     <Content Include="Scripts\Database\LeggTil.js" />
     <Content Include="Scripts\MineProsjekter\Index.js" />
     <Content Include="Scripts\MineProsjekter\LeggTil.js" />
+    <Content Include="Scripts\plugins\bootstrap-select.js" />
+    <Content Include="Scripts\plugins\bootstrap-select.min.js">
+      <DependentUpon>bootstrap-select.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\plugins\bootstrap-switch.js" />
     <Content Include="Scripts\plugins\bootstrap-switch.min.js">
       <DependentUpon>bootstrap-switch.js</DependentUpon>
@@ -757,6 +765,9 @@
     </Content>
     <Content Include="Scripts\theme\bootstrap.min.js.map">
       <DependentUpon>bootstrap.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\plugins\bootstrap-select.min.js.map">
+      <DependentUpon>bootstrap-select.min.js</DependentUpon>
     </Content>
   </ItemGroup>
   <ItemGroup>

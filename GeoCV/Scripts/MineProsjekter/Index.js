@@ -1,5 +1,7 @@
 ﻿$(document).ready(function () {
 
+    $('.selectpicker').selectpicker();
+
     $('.kalender').datepicker({
         changeMonth: true,
         changeYear: true,

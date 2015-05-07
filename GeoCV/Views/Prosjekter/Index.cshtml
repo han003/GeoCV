@@ -22,13 +22,26 @@
 
     <div class="row">
 
-        <div class="col-lg-6">
+        <div class="col-lg-4">
 
             <div class="panel panel-primary">
                 <div class="panel-heading"><i class="fa fa-filter"></i> Prosjekt filter</div>
                 <div class="panel-body">
 
                     <input type="text" class="form-control" id="prosjekt-filter" placeholder="Filter">
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-lg-2">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading"><i class="fa fa-filter"></i> Avsluttede prosjekter</div>
+                <div class="panel-body text-center">
+
+                    <input class="vis-avslutt-switch" type="checkbox" name="avsluttede-prosjekter-checkbox">
 
                 </div>
             </div>
@@ -59,7 +72,7 @@
                             {
                                 if (Prosjekt.Avsluttet)
                                 {
-                                    <tr id="@Prosjekt.ProsjektId" class="text-danger" data-prosjektid="@Prosjekt.ProsjektId" data-kunde="@Prosjekt.Kunde" data-navn="@Prosjekt.Navn" data-beskrivelse="@Prosjekt.Beskrivelse">
+                                    <tr id="@Prosjekt.ProsjektId" class="text-danger hidden" data-prosjektid="@Prosjekt.ProsjektId" data-kunde="@Prosjekt.Kunde" data-navn="@Prosjekt.Navn" data-beskrivelse="@Prosjekt.Beskrivelse">
                                         <td class="col-lg-3 prosjekt-td" data-prosjektid="@Prosjekt.ProsjektId" data-tdfelt="kunde">@Prosjekt.Kunde</td>
                                         <td class="col-lg-3 prosjekt-td" data-prosjektid="@Prosjekt.ProsjektId" data-tdfelt="navn">@Prosjekt.Navn</td>
                                         <td class="col-lg-3"><div class="td-flex"><div class="prosjekt-td" data-prosjektid="@Prosjekt.ProsjektId" data-tdfelt="beskrivelse">@Prosjekt.Beskrivelse</div><i class="fa fa-chevron-right hidden"></i></div></td>
