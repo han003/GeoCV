@@ -27,24 +27,17 @@
             <div id="katalog-panel" class="panel panel-primary">
                 <div class="panel-heading"><i class="fa fa-folder"></i> Velg katalog</div>
                 <ul class="list-group">
-                    @{
-                        int KatalogNr = 0;
-                    }
-                    @foreach (var Katalog in Model.Select(x => x.Katalog).Distinct())
-                    {
-                        if (KatalogNr.Equals(0))
-                        {
-                            <li class="list-group-item list-group-item-info" data-katalog="@Katalog">@Katalog</li>
-                        }
-                        else
-                        {
-                            <li class="list-group-item" data-katalog="@Katalog">@Katalog</li>
-                        }
-
-                        KatalogNr++;
-                    }
+                    <li class="list-group-item list-group-item-info" data-katalog="Annet">Annet</li>
+                    <li class="list-group-item" data-katalog="Databasesystemer">Databasesystemer</li>
+                    <li class="list-group-item" data-katalog="Operativsystemer">Operativsystemer</li>
+                    <li class="list-group-item" data-katalog="Programmeringsspråk">Programmeringsspråk</li>
+                    <li class="list-group-item" data-katalog="Rammeverk">Rammeverk</li>
+                    <li class="list-group-item" data-katalog="Serverside">Serverside</li>
+                    <li class="list-group-item" data-katalog="WebTeknologier">WebTeknologier</li>
+                    <li class="list-group-item" data-katalog="Språk">Språk</li>
+                    <li class="list-group-item" data-katalog="Nasjonaliteter">Nasjonaliteter</li>
+                    <li class="list-group-item" data-katalog="Stillinger">Stillinger</li>
                 </ul>
-
             </div>
 
         </div>
