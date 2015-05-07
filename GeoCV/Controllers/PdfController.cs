@@ -68,7 +68,7 @@ namespace GeoCV.Controllers
             CvPDF.Add(Chunk.NEWLINE);
 
             // GEOMATIKK ADRESSE
-            Paragraph Address = new Paragraph("GEOMATIKK IKT, Otto Nielsens vei 12, 7052 Trondheim");
+            Paragraph Address = new Paragraph("GEOMATIKK IKT AS, Otto Nielsens vei 12, 7052 Trondheim");
             Address.Alignment = Element.ALIGN_CENTER;
             CvPDF.Add(Address);
             CvPDF.Add(Chunk.NEWLINE);
