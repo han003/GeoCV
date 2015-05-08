@@ -14,44 +14,48 @@ using Microsoft.AspNet.Identity;
 
 namespace GeoCV.Controllers
 {
-    public class WordController : Controller
+    public class WordController : BaseController
     {
 
-        public ActionResult LastNed()
+        public ActionResult LastNed(int? Id)
         {
 
-//            CVVersjon BrukerCv = new CVVersjon();
+            // Hent informasjon om brukeren sin CV /////////////////////////////////
+            CVVersjon BrukerCv = new CVVersjon();
 
-//            if (Id.Equals(null))
-//            {
-//                BrukerCv = GetBrukerCv(GetAspNetBrukerID());
-//            }
-//            else
-//            {
-//                BrukerCv = db.CVVersjon.Where(x => x.CVVersjonId == Id).FirstOrDefault();
-//            }
+            if (Id.Equals(null))
+            {
+                BrukerCv = GetBrukerCv(GetAspNetBrukerID());
+            }
+            else
+            {
+                BrukerCv = db.CVVersjon.Where(x => x.CVVersjonId == Id).FirstOrDefault();
+            }
 
-//            string FileName = BrukerCv.Person.Fornavn + " " + BrukerCv.Person.Etternavn + " - CV";
+            string FileName = BrukerCv.Person.Fornavn + " " + BrukerCv.Person.Etternavn + " - CV";
+            /////////////////////////////////////////////////////////
 
-            //var FilePath = Path.Combine(Path.GetTempPath(), "Temp.docx");
-            
             MemoryStream stream = new MemoryStream();
             DocX doc = DocX.Create(stream);
 
-            
-            // TITTEL
-            Paragraph tittel = doc.InsertParagraph();
-            tittel.Append("CURRICULUM VITAE").Font(new FontFamily("Verdana")).FontSize(24).Color(Color.Black).Bold();
-            tittel.Alignment = Alignment.center;
 
-            // GEOMATIKK address
-            Paragraph address = doc.InsertParagraph();
-            address.Append("GEOMATIKK IKT AS, Otto Nielsens vei 12, 7052 Trondheim").Font(new FontFamily("Verdana")).FontSize(13).Color(Color.Black);
-            address.Alignment = Alignment.center;
+            // TITTEL
+            Paragraph Tittel = doc.InsertParagraph();
+            Tittel.Append("CURRICULUM VITAE").Font(new FontFamily("Times New Roman")).FontSize(14).Color(Color.Black).Bold();
+            Tittel.Append("\n");
+            Tittel.Alignment = Alignment.center;
+            var a = FontFamily.Families;
+            System.Diagnostics.Debug.Write(a);
+            // GEOMATIKK addresse
+            Paragraph Adresse = doc.InsertParagraph();
+            Adresse.Append("GEOMATIKK IKT AS, Otto Nielsens vei 12, 7052 Trondheim").Font(new FontFamily("Times New Roman")).FontSize(12).Color(Color.Black);
+            Adresse.Append("\n\n");
+            Adresse.Alignment = Alignment.center;
 
             // NAVN
             Paragraph NavnEtikett = doc.InsertParagraph();
-            NavnEtikett.Append("\n\n Navn: ").Font(new FontFamily("Verdana")).FontSize(12).Color(Color.Black).Bold();
+            NavnEtikett.Append("Navn: ").Font(new FontFamily("Times New Roman")).FontSize(11).Color(Color.Black).Bold();
+            NavnEtikett.Append(BrukerCv.Person.Fornavn + " " + BrukerCv.Person.Etternavn);
             NavnEtikett.Alignment = Alignment.left;
 
             // STILLING
@@ -80,7 +84,7 @@ namespace GeoCV.Controllers
 
             doc.Save();
 
-            return File(stream.ToArray(), "application/octet-stream", "FileName.docx");
+            return File(stream.ToArray(), "application/octet-stream", FileName + ".docx");
         }
     }
 }
