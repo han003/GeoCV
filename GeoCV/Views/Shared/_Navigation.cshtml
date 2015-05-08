@@ -9,14 +9,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        @if (User.IsInRole("Admin"))
-        {
-            <a class="navbar-brand" href="index.html">Geomatikk CV Portal (admin)</a>
-        }
-        else
-        {
             <a class="navbar-brand" href="index.html">Geomatikk CV Portal</a>
-        }
     </div>
     <!-- /.navbar-header -->
     <ul class="nav navbar-top-links navbar-right">
@@ -31,90 +24,6 @@
                 </li>
             }
         }
-
-        <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-alerts">
-                <li>
-                    <a href="#">
-                        <div>
-                            <i class="fa fa-comment fa-fw"></i> New Comment
-                            <span class="pull-right text-muted small">4 minutes ago</span>
-                        </div>
-                    </a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <a href="#">
-                        <div>
-                            <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-                            <span class="pull-right text-muted small">12 minutes ago</span>
-                        </div>
-                    </a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <a href="#">
-                        <div>
-                            <i class="fa fa-envelope fa-fw"></i> Message Sent
-                            <span class="pull-right text-muted small">4 minutes ago</span>
-                        </div>
-                    </a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <a href="#">
-                        <div>
-                            <i class="fa fa-tasks fa-fw"></i> New Task
-                            <span class="pull-right text-muted small">4 minutes ago</span>
-                        </div>
-                    </a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <a href="#">
-                        <div>
-                            <i class="fa fa-upload fa-fw"></i> Server Rebooted
-                            <span class="pull-right text-muted small">4 minutes ago</span>
-                        </div>
-                    </a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <a class="text-center" href="#">
-                        <strong>See All Alerts</strong>
-                        <i class="fa fa-angle-right"></i>
-                    </a>
-                </li>
-            </ul>
-            <!-- /.dropdown-alerts -->
-        </li>
-        <!-- /.dropdown -->
-
-
-        <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-user">
-                <li>
-                    <a href="#"><i class="fa fa-user fa-fw"></i> Profil</a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-sign-out fa-fw"></i> Logg av</a>
-                    }
-                </li>
-            </ul>
-            <!-- /.dropdown-user -->
-        </li>
-
-        <!-- /.dropdown -->
     </ul>
     <!-- /.navbar-top-links -->
     <div class="navbar-default sidebar" role="navigation">
@@ -163,16 +72,7 @@
                     <!-- /.nav-second-level -->
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-graduation-cap fa-fw"></i> Utdannelse<span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            @Html.ActionLink("Min utdannelse", "Min", "Education")
-                        </li>
-                        <li>
-                            @Html.ActionLink("Legg til utdannelse", "Ny", "Education")
-                        </li>
-                    </ul>
-                    <!-- /.nav-second-level -->
+                    @Html.ActionLink("Utdannelse", "Index", "Utdannelse")
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-suitcase fa-fw"></i> Arbeidserfaring<span class="fa arrow"></span></a>
@@ -266,6 +166,13 @@
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->
+                </li>
+                <li>
+                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-sign-out fa-fw"></i> Logg av</a>
+                    }
                 </li>
             </ul>
         </div>

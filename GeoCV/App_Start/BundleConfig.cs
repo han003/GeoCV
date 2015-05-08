@@ -146,17 +146,17 @@ namespace GeoCV
                 .Include("~/Content/expertise.css")
                 .Include("~/Content/main.css"));
 
-            // Education
-            bundles.Add(new ScriptBundle("~/Bundles/js/education")
+            // Utdannelse
+            bundles.Add(new ScriptBundle("~/Bundles/js/utdannelse")
                 .Include("~/Scripts/jquery/jquery-{version}.js")
                 .Include("~/Scripts/plugins/*.js")
                 .Include("~/Scripts/theme/*.js")
-                .Include("~/Scripts/education.js"));
+                .Include("~/Scripts/utdannelse.js"));
 
-            bundles.Add(new StyleBundle("~/Bundles/css/education")
+            bundles.Add(new StyleBundle("~/Bundles/css/utdannelse")
                 .Include("~/Content/theme/*.css")
-                .Include("~/Content/education.css")
-                .Include("~/Content/main.css"));
+                .Include("~/Content/main.css")
+            .Include("~/Content/utdannelse.css"));
 
             // Work
             bundles.Add(new ScriptBundle("~/Bundles/js/work")

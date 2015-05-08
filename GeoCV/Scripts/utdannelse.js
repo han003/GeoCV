@@ -31,6 +31,10 @@
 
 });
 
+$('#legg-til-utdannelse-btn').click(function () {
+    $('#legg-til-utdannelse-modal').modal();
+});
+
 $('#education-add-btn').click(function () {
 
     var studiested = $('#school-text').val();
@@ -101,61 +105,12 @@ $(document).on('click', '.slett-utdannelse-btn', function () {
 
 $('#education-table tbody tr').click(function () {
 
-    // Valgt utdannelse
-    var valgtUtdannelseId = $(this).data('utdannelseid');
+    $('#rediger-utdannelse-modal').data('utdannelseid', $(this).data('utdannelseid'));
+    $('#rediger-studiested').val($(this).data('utdannelsestudiested'));
+    $('#rediger-beskrivelse').val($(this).data('utdannelsebeskrivelse'));
+    $('#rediger-fra').val($(this).data('utdannelsefra'));
+    $('#rediger-til').val($(this).data('utdannelsetil'));
 
-    console.log(valgtUtdannelseId);
-
-    // For hvert panel som har klassen og rett prosjekt id (bare ett panel)
-    $.each($('.utdannelse-panel[data-utdannelseid="' + valgtUtdannelseId + '"]'), function (index, value) {
-        $(this).removeClass('hidden');
-    });
-    // For hvert panel som har klassen men ikke rett prosjekt id (alle de andre)
-    $.each($('.utdannelse-panel[data-utdannelseid!="' + valgtUtdannelseId + '"]'), function (index, value) {
-        $(this).addClass('hidden');
-    });
+    $('#rediger-utdannelse-modal').modal();
 
 });
-
-$('.tekst-oppdaterings-input').keyup(function () {
-
-    var panelLoading = $(this).closest('.panel').find('i');
-    var elementId = $(this).data('utdannelseid');
-    var value = $(this).val();
-    var kolonne = $(this).data('kolonne');
-    
-    endreElement(elementId, value, kolonne, panelLoading);
-
-});
-
-$('.select-oppdaterings-input').change(function () {
-
-    var panelLoading = $(this).closest('.panel').find('i');
-    var elementId = $(this).data('utdannelseid');
-    var value = $(this).val();
-    var kolonne = $(this).data('kolonne');
-
-    endreElement(elementId, value, kolonne, panelLoading);
-
-});
-
-function endreElement(elementId, value, kolonne, panelLoading) {
-
-    console.log('Id: ' + elementId);
-    console.log('Verdi: ' + value);
-    console.log('Kolonne: ' + kolonne);
-
-    $.ajax({
-        url: '/Education/ChangeElement',
-        data: { Id: elementId, NewValue: value, Kolonne: kolonne },
-        type: 'POST',
-        beforeSend: function () {
-            panelLoading.removeClass('hidden');
-        },
-        success: function () {
-            panelLoading.addClass('hidden');
-
-            $('.update-td[data-utdannelseid="' + elementId + '"][data-kolonne="' + kolonne + '"]').html(value);
-        }
-    });
-}

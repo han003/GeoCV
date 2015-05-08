@@ -225,7 +225,7 @@
     <Compile Include="Controllers\WordController.cs" />
     <Compile Include="Controllers\PdfController.cs" />
     <Compile Include="Controllers\TekniskeProfilerController.cs" />
-    <Compile Include="Controllers\EducationController.cs" />
+    <Compile Include="Controllers\UtdannelseController.cs" />
     <Compile Include="Controllers\AnsatteController.cs" />
     <Compile Include="Controllers\ExpertiseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -375,11 +375,11 @@
     <Content Include="Content\Database\Rediger.min.css">
       <DependentUpon>Rediger.css</DependentUpon>
     </Content>
-    <Content Include="Content\education.css">
-      <DependentUpon>education.less</DependentUpon>
+    <Content Include="Content\utdannelse.css">
+      <DependentUpon>utdannelse.less</DependentUpon>
     </Content>
-    <Content Include="Content\education.min.css">
-      <DependentUpon>education.css</DependentUpon>
+    <Content Include="Content\utdannelse.min.css">
+      <DependentUpon>utdannelse.css</DependentUpon>
     </Content>
     <Content Include="Content\expertise.css">
       <DependentUpon>expertise.less</DependentUpon>
@@ -509,9 +509,9 @@
     <Content Include="Scripts\Database\Rediger.min.js">
       <DependentUpon>Rediger.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\education.js" />
-    <Content Include="Scripts\education.min.js">
-      <DependentUpon>education.js</DependentUpon>
+    <Content Include="Scripts\utdannelse.js" />
+    <Content Include="Scripts\utdannelse.min.js">
+      <DependentUpon>utdannelse.js</DependentUpon>
     </Content>
     <Content Include="Scripts\expertise.min.js">
       <DependentUpon>expertise.js</DependentUpon>
@@ -537,9 +537,9 @@
     <Content Include="Content\Database\Rediger.css.map">
       <DependentUpon>Rediger.css</DependentUpon>
     </Content>
-    <Content Include="Content\education.less" />
-    <Content Include="Content\education.css.map">
-      <DependentUpon>education.css</DependentUpon>
+    <Content Include="Content\utdannelse.less" />
+    <Content Include="Content\utdannelse.css.map">
+      <DependentUpon>utdannelse.css</DependentUpon>
     </Content>
     <Content Include="Content\work.less" />
     <Content Include="Content\work.css.map">
@@ -556,8 +556,8 @@
     <Content Include="Scripts\expertise.min.js.map">
       <DependentUpon>expertise.min.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\education.min.js.map">
-      <DependentUpon>education.min.js</DependentUpon>
+    <Content Include="Scripts\utdannelse.min.js.map">
+      <DependentUpon>utdannelse.min.js</DependentUpon>
     </Content>
     <Content Include="Scripts\Database\Rediger.min.js.map">
       <DependentUpon>Rediger.min.js</DependentUpon>
@@ -739,8 +739,7 @@
     <Content Include="Views\Expertise\Annet.cshtml" />
     <Content Include="Views\Expertise\_LeggTilModal.cshtml" />
     <Content Include="Views\Personal\_LeggTilModal.cshtml" />
-    <Content Include="Views\Education\Min.cshtml" />
-    <Content Include="Views\Education\Ny.cshtml" />
+    <Content Include="Views\Utdannelse\Index.cshtml" />
     <Content Include="Views\Work\Min.cshtml" />
     <Content Include="Views\Work\_RedigerModal.cshtml" />
     <Content Include="Views\Work\Ny.cshtml" />
@@ -769,6 +768,8 @@
     <Content Include="Scripts\plugins\bootstrap-select.min.js.map">
       <DependentUpon>bootstrap-select.min.js</DependentUpon>
     </Content>
+    <Content Include="Views\Utdannelse\_RedigerModal.cshtml" />
+    <Content Include="Views\Utdannelse\_LeggTilModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

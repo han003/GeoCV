@@ -11,9 +11,9 @@ namespace GeoCV.Controllers
 {
 
     [Authorize]
-    public class EducationController : BaseController
+    public class UtdannelseController : BaseController
     {
-        public ActionResult Min()
+        public ActionResult Index()
         {
             return View(GetBrukerCv(GetAspNetBrukerID()));
         }
