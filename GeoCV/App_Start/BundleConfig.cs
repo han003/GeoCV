@@ -37,6 +37,20 @@ namespace GeoCV
                 .Include("~/Content/main.css")
                 .Include("~/Content/dashboard.css"));
 
+            // Personal
+            bundles.Add(new ScriptBundle("~/Bundles/js/personal")
+                .Include("~/Scripts/jquery/jquery-{version}.js")
+                .Include("~/Scripts/jquery-ui/*.js")
+                .Include("~/Scripts/theme/*.js")
+                .Include("~/Scripts/personal.js"));
+
+
+            bundles.Add(new StyleBundle("~/Bundles/css/personal")
+                .Include("~/Content/theme/*.css")
+                .Include("~/Content/jquery-ui/*.css")
+                .Include("~/Content/main.css")
+                .Include("~/Content/personal.css"));
+
             // Ansatte
             bundles.Add(new ScriptBundle("~/Bundles/js/AnsatteIndex")
                 .Include("~/Scripts/jquery/jquery-{version}.js")
@@ -120,20 +134,6 @@ namespace GeoCV
                 .Include("~/Content/theme/*.css")
                 .Include("~/Content/main.css")
                 .Include("~/Content/changepass.css"));
-
-            // Personal
-            bundles.Add(new ScriptBundle("~/Bundles/js/personal")
-                .Include("~/Scripts/jquery/jquery-{version}.js")
-                .Include("~/Scripts/jquery-ui/*.js")
-                .Include("~/Scripts/theme/*.js")
-                .Include("~/Scripts/personal.js"));
-            
-
-            bundles.Add(new StyleBundle("~/Bundles/css/personal")
-                .Include("~/Content/theme/*.css")
-                .Include("~/Content/jquery-ui/*.css")
-                .Include("~/Content/main.css")
-                .Include("~/Content/personal.css"));
 
             // Expertise
             bundles.Add(new ScriptBundle("~/Bundles/js/expertise")

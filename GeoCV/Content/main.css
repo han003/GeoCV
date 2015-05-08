@@ -1,4 +1,7 @@
-﻿.modal-dialog {
+﻿body {
+  font-family: 'Open Sans', sans-serif;
+}
+.modal-dialog {
   z-index: 9999;
 }
 .sidebar-nav {
