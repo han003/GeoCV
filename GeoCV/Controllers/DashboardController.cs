@@ -1,14 +1,4 @@
-﻿using GeoCV.Models;
-using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Web;
-using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using System.Net;
+﻿using System.Web.Mvc;
 
 namespace GeoCV.Controllers
 {

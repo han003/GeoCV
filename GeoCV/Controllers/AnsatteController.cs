@@ -1,12 +1,9 @@
-﻿using GeoCV;
-using GeoCV.Models;
+﻿using GeoCV.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
 namespace GeoCV.Controllers

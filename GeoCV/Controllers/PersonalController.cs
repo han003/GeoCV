@@ -2,9 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
 
 namespace GeoCV.Controllers
 {
@@ -21,7 +19,7 @@ namespace GeoCV.Controllers
             // Hent CV
             CVVersjon BrukerCv = GetBrukerCv(GetAspNetBrukerID());
             ViewModel.BrukerCv = BrukerCv;
-            
+
             var Nasjonaliteter = from a in db.ListeKatalog
                                  where a.Katalog == "Nasjonaliteter"
                                  orderby a.Element ascending

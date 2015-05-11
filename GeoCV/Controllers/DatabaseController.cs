@@ -1,8 +1,5 @@
 ﻿using GeoCV.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace GeoCV.Controllers
@@ -32,8 +29,8 @@ namespace GeoCV.Controllers
         public void SlettElement(int Id)
         {
             var Item = from a in db.ListeKatalog
-                          where a.ListeKatalogId.Equals(Id)
-                          select a;
+                       where a.ListeKatalogId.Equals(Id)
+                       select a;
 
             var Element = Item.FirstOrDefault();
 

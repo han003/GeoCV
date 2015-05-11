@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.IO;
-using System.Diagnostics;
+﻿using GeoCV.Models;
 using Novacode;
 using System.Drawing;
-using GeoCV.Models;
-//using iTextSharp.text;
-//using iTextSharp.text.pdf;
-using Microsoft.AspNet.Identity;
+using System.IO;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace GeoCV.Controllers
 {

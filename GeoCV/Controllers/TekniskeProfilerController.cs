@@ -1,8 +1,6 @@
 ﻿using GeoCV.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace GeoCV.Controllers
@@ -62,8 +60,8 @@ namespace GeoCV.Controllers
         public ActionResult LeggTilProfil(int ProsjektId, string NyProfilNavn)
         {
             var Data = from a in db.Prosjekt
-                           where a.ProsjektId.Equals(ProsjektId)
-                           select a;
+                       where a.ProsjektId.Equals(ProsjektId)
+                       select a;
 
             Prosjekt Pro = Data.FirstOrDefault();
 
