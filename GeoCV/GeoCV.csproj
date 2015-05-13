@@ -478,6 +478,12 @@
     <Content Include="Scripts\Ansatte\Index.js" />
     <Content Include="Scripts\Ansatte\LeggTil.js" />
     <Content Include="Scripts\Database\LeggTil.js" />
+    <Content Include="Scripts\jquery\jquery-2.1.3.intellisense.min.js">
+      <DependentUpon>jquery-2.1.3.intellisense.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery\jquery-2.1.3.intellisense.min.js.map">
+      <DependentUpon>jquery-2.1.3.intellisense.min.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\MineProsjekter\Index.js" />
     <Content Include="Scripts\MineProsjekter\LeggTil.js" />
     <Content Include="Scripts\plugins\bootstrap-select.js" />
@@ -620,15 +626,12 @@
     <Content Include="Scripts\theme\metisMenu.min.js.map">
       <DependentUpon>metisMenu.min.js</DependentUpon>
     </Content>
-    <None Include="Scripts\jquery\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\expertise.js" />
-    <Content Include="Scripts\jquery\jquery-2.1.3.intellisense.min.js">
-      <DependentUpon>jquery-2.1.3.intellisense.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\jquery\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery\jquery-2.1.3.min.js">
       <DependentUpon>jquery-2.1.3.js</DependentUpon>
     </Content>
+    <None Include="Scripts\jquery\jquery-2.1.3.intellisense.js" />
     <None Include="Scripts\jquery\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery\jquery.validate-vsdoc.min.js">
       <DependentUpon>jquery.validate-vsdoc.js</DependentUpon>
@@ -689,9 +692,6 @@
     <Content Include="Views\Manage\Index.cshtml" />
     <Content Include="Views\Manage\SetPassword.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
-    <Content Include="Scripts\jquery\jquery-2.1.3.intellisense.min.js.map">
-      <DependentUpon>jquery-2.1.3.intellisense.min.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\jquery\jquery-2.1.3.min.js.map">
       <DependentUpon>jquery-2.1.3.min.js</DependentUpon>
     </Content>
