@@ -14,34 +14,35 @@ namespace GeoCV.Controllers
             return View(GetBrukerCv(GetAspNetBrukerID()));
         }
 
-        public ActionResult Ny()
-        {
-            return View();
-        }
-
         [HttpPost]
-        public ActionResult AddNewEducation(string Skole, string Beskrivelse, Int16 Fra, Int16 Til)
+        [ValidateAntiForgeryToken]
+        public ActionResult LeggTilUtdannelse(LeggTilModel Model)
         {
-            CVVersjon Cv = GetBrukerCv(GetAspNetBrukerID());
-
-            if (Fra > Til)
+            if (ModelState.IsValid)
             {
-                Int16 NyFra = Til;
-                Til = Fra;
-                Fra = NyFra;
+
+                CVVersjon Cv = GetBrukerCv(GetAspNetBrukerID());
+
+                if (Model.Fra > Model.Til)
+                {
+                    int NyFra = Model.Til;
+                    Model.Til = Model.Fra;
+                    Model.Fra = NyFra;
+                }
+
+                Utdannelse NewItem = new Utdannelse();
+                NewItem.Studiested = Model.Studiested;
+                NewItem.Beskrivelse = Model.Beskrivelse;
+                NewItem.Fra = Int16.Parse(Model.Fra.ToString());
+                NewItem.Til = Int16.Parse(Model.Til.ToString());
+
+                Cv.Utdannelse.Add(NewItem);
+
+                db.SaveChanges();
+
             }
 
-            Utdannelse NewItem = new Utdannelse();
-            NewItem.Studiested = Skole;
-            NewItem.Beskrivelse = Beskrivelse;
-            NewItem.Fra = Fra;
-            NewItem.Til = Til;
-
-            Cv.Utdannelse.Add(NewItem);
-
-            db.SaveChanges();
-
-            return Json(NewItem.UtdannelseId, JsonRequestBehavior.AllowGet);
+            return RedirectToAction("Index", "Utdannelse");
         }
 
         [HttpPost]
@@ -52,30 +53,22 @@ namespace GeoCV.Controllers
         }
 
         [HttpPost]
-        public void ChangeElement(int Id, string NewValue, string Kolonne)
+        [ValidateAntiForgeryToken]
+        public ActionResult RedigerUtdannelse(RedigerModel Model)
         {
-            var Utdannelse = GetBrukerCv(GetAspNetBrukerID()).Utdannelse.Where(x => x.UtdannelseId.Equals(Id)).FirstOrDefault();
-
-            switch (Kolonne)
+            if (ModelState.IsValid)
             {
-                case "Studiested":
-                    Utdannelse.Studiested = NewValue;
-                    break;
+                var Utdannelse = GetBrukerCv(GetAspNetBrukerID()).Utdannelse.Where(x => x.UtdannelseId.Equals(Model.Id)).FirstOrDefault();
 
-                case "Beskrivelse":
-                    Utdannelse.Beskrivelse = NewValue;
-                    break;
+                Utdannelse.Studiested = Model.Studiested;
+                Utdannelse.Beskrivelse = Model.Beskrivelse;
+                Utdannelse.Fra = Int16.Parse(Model.Fra.ToString());
+                Utdannelse.Til = Int16.Parse(Model.Til.ToString());
 
-                case "Fra":
-                    Utdannelse.Fra = Int16.Parse(NewValue);
-                    break;
-
-                case "Til":
-                    Utdannelse.Til = Int16.Parse(NewValue);
-                    break;
+                db.SaveChanges();
             }
 
-            db.SaveChanges();
+            return RedirectToAction("Index", "Utdannelse");
         }
     }
 }

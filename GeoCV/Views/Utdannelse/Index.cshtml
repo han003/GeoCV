@@ -14,8 +14,8 @@
     @Scripts.Render("~/Bundles/js/utdannelse")
 }
 
-@Html.Partial("_RedigerModal")
-@Html.Partial("_LeggTilModal")
+@Html.Partial("_RedigerModal", new GeoCV.Models.RedigerModel())
+@Html.Partial("_LeggTilModal", new GeoCV.Models.LeggTilModel())
 
 <div id="page-wrapper">
     <div class="row">
