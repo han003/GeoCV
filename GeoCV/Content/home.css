@@ -15,7 +15,8 @@ form {
 a,
 a:hover,
 a:focus {
-  color: blue;
+  text-decoration: none;
+  color: white;
 }
 .panel {
   margin-top: 111px;

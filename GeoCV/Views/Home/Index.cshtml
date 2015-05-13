@@ -31,9 +31,9 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
-                <div class="login-panel panel panel-default">
+                <div class="login-panel panel panel-primary">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Logg inn</h3>
+                        <h3 class="panel-title"><i class="fa fa-sign-in"></i> Logg inn</h3>
                     </div>
                     <div class="panel-body">
 
@@ -44,11 +44,11 @@
 
                             <fieldset>
                                 <div class="form-group">
-                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", autocomplete = "off" })
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", autocomplete = "off", placeholder = "Email" })
                                 </div>
 
                                 <div class="form-group">
-                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", autocomplete = "off" })
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", autocomplete = "off", placeholder = "Passord" })
                                 </div>
 
                                 <div class="checkbox">
@@ -56,13 +56,15 @@
                                     <label for="husk-meg">Forbli pålogget</label>
                                 </div>
 
-                                <input type="submit" value="Logg inn" class="btn btn-lg btn-success btn-block" />
+                                <input type="submit" value="Logg inn" class="btn btn-success btn-block" />
                             </fieldset>
                             
                             
                         }
+                        <hr />
+                        <a href="Account/Register"><button class="btn btn-primary btn-block">Registrer ny bruker</button></a>
                     </div>
-                    @Html.ActionLink("Registrer bruker", "Register", "Account")
+                    
                 </div>
             </div>
         </div>
