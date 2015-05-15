@@ -2,8 +2,11 @@
 
 namespace GeoCV.Models
 {
-    public class LeggTilModel
+    public class UtdannelseModel
     {
+        [Required]
+        public int Id { get; set; }
+
         [Required(ErrorMessage = "Studiested er påkrevd")]
         [Display(Name = "Studiested")]
         public string Studiested { get; set; }
@@ -23,25 +26,9 @@ namespace GeoCV.Models
         public int Til { get; set; }
     }
 
-    public class RedigerModel
+    public class SlettUtdannelseModel
     {
         [Required]
         public int Id { get; set; }
-
-        [Required(ErrorMessage = "Studiested er påkrevd")]
-        [Display(Name = "Studiested")]
-        public string Studiested { get; set; }
-
-        [Required]
-        [Display(Name = "Beskrivelse")]
-        public string Beskrivelse { get; set; }
-
-        [Required]
-        [Display(Name = "Fra")]
-        public int Fra { get; set; }
-
-        [Required]
-        [Display(Name = "Til")]
-        public int Til { get; set; }
     }
 }

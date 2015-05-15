@@ -18,33 +18,28 @@ namespace GeoCV.Controllers
             return View(Prosjekter);
         }
 
-        public ActionResult LeggTil()
-        {
-            return View();
-        }
-
         [HttpPost]
-        public ActionResult LeggTilProsjekt(string Kunde, string Navn, string Beskrivelse)
+        public ActionResult LeggTilProsjekt(ProsjekterModel Model)
         {
-            Prosjekt NewItem = new Prosjekt();
-            NewItem.Kunde = Kunde.Trim();
-            NewItem.Navn = Navn.Trim();
-            NewItem.Beskrivelse = Beskrivelse.Trim();
-            NewItem.Fra = short.Parse(DateTime.Now.Year.ToString());
-            NewItem.Til = short.Parse(DateTime.Now.Year.ToString()); ;
-            NewItem.Avsluttet = false;
-            db.Prosjekt.Add(NewItem);
+            Prosjekt NyttProsjekt = new Prosjekt();
+            NyttProsjekt.Kunde = Model.Kunde.Trim();
+            NyttProsjekt.Navn = Model.Prosjektnavn.Trim();
+            NyttProsjekt.Beskrivelse = Model.Beskrivelse.Trim();
+            NyttProsjekt.Fra = short.Parse(DateTime.Now.Year.ToString());
+            NyttProsjekt.Til = short.Parse(DateTime.Now.Year.ToString());
+            NyttProsjekt.Avsluttet = false;
+            db.Prosjekt.Add(NyttProsjekt);
 
             db.SaveChanges();
 
-            return Json(NewItem.ProsjektId, JsonRequestBehavior.AllowGet);
+            return RedirectToAction("Index", "Prosjekter");
         }
 
         [HttpPost]
-        public void SlettProsjekt(int Id)
+        public ActionResult SlettProsjekt(SlettProsjektModel Model)
         {
             var Item = from a in db.Prosjekt
-                       where a.ProsjektId.Equals(Id)
+                       where a.ProsjektId.Equals(Model.Id)
                        select a;
 
             Prosjekt ValgtProsjekt = Item.FirstOrDefault();
@@ -56,40 +51,34 @@ namespace GeoCV.Controllers
 
             db.Prosjekt.Remove(ValgtProsjekt);
             db.SaveChanges();
+
+            return RedirectToAction("Index", "Prosjekter");
         }
 
         [HttpPost]
-        public void EndreProsjektInfo(int Id, string NyVerdi, string Tekstfelt)
+        public ActionResult EndreProsjektInfo(ProsjekterModel Model)
         {
             var ProsjektData = from a in db.Prosjekt
-                               where a.ProsjektId.Equals(Id)
+                               where a.ProsjektId.Equals(Model.Id)
                                select a;
 
-            var Prosjekt = ProsjektData.FirstOrDefault();
+            var ValgtProsjekt = ProsjektData.FirstOrDefault();
 
-            switch (Tekstfelt)
-            {
-                case "navn":
-                    Prosjekt.Navn = NyVerdi;
-                    break;
-
-                case "kunde":
-                    Prosjekt.Kunde = NyVerdi;
-                    break;
-
-                case "beskrivelse":
-                    Prosjekt.Beskrivelse = NyVerdi;
-                    break;
-            }
+            ValgtProsjekt.Beskrivelse = Model.Beskrivelse;
+            ValgtProsjekt.Kunde = Model.Kunde;
+            ValgtProsjekt.Navn = Model.Prosjektnavn;
 
             db.SaveChanges();
+
+            return RedirectToAction("Index", "Prosjekter");
         }
 
-        [HttpPost]
-        public void EndrePorsjektStatus(int Id, bool Status)
+        public ActionResult EndrePorsjektStatus(int Id, bool Status)
         {
             db.Prosjekt.Where(x => x.ProsjektId.Equals(Id)).FirstOrDefault().Avsluttet = Status;
             db.SaveChanges();
+
+            return RedirectToAction("Index", "Prosjekter");
         }
 
     }

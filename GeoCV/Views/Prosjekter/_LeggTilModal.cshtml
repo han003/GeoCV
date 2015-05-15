@@ -1,0 +1,53 @@
+﻿@model GeoCV.Models.ProsjekterModel
+
+<div id="legg-til-prosjekt-modal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Legg til</h4>
+            </div>
+            <div class="modal-body">
+
+                @using (Html.BeginForm("LeggTilProsjekt", "Prosjekter", FormMethod.Post, new { @class = "form-horizontal", id = "legg-til-form" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Kunde, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Kunde, new { @class = "form-control", autocomplete = "off", id = "rediger-studiested" })
+                        </div>
+                        <div class="col-md-10 col-md-offset-2">
+                            @Html.ValidationMessageFor(m => m.Kunde, null, new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Prosjektnavn, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Prosjektnavn, new { @class = "form-control", autocomplete = "off", id = "rediger-studiested" })
+                        </div>
+                        <div class="col-md-10 col-md-offset-2">
+                            @Html.ValidationMessageFor(m => m.Prosjektnavn, null, new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Beskrivelse, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Beskrivelse, new { @class = "form-control", autocomplete = "off", id = "rediger-beskrivelse" })
+                        </div>
+                        <div class="col-md-10 col-md-offset-2">
+                            @Html.ValidationMessageFor(m => m.Beskrivelse, null, new { @class = "text-danger" })
+                        </div>
+                    </div>
+                }
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Avbryt</button>
+                <input type="submit" class="btn btn-primary" form="legg-til-form" value="Legg til" />
+            </div>
+        </div>
+    </div>
+</div>

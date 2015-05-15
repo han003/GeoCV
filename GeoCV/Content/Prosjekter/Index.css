@@ -4,11 +4,17 @@
 #prosjekt-panel .panel-body #prosjekt-tabell {
   margin-bottom: 0;
 }
+#prosjekt-panel .panel-body #prosjekt-tabell tbody a,
+#prosjekt-panel .panel-body #prosjekt-tabell tbody a:hover,
+#prosjekt-panel .panel-body #prosjekt-tabell tbody a:focus {
+  text-decoration: none;
+  color: blue;
+}
 #prosjekt-panel .panel-body #prosjekt-tabell tbody tr:hover {
   cursor: pointer;
 }
-#prosjekt-panel .panel-body #prosjekt-tabell tbody tr:hover i {
-  display: inline-block !important;
+#avsluttede-prosjekter-panel {
+  min-height: 113px;
 }
 .status-panel .td-flex div {
   display: flex;

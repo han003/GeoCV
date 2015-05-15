@@ -279,6 +279,7 @@
     <Compile Include="Models\Prosjekt.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProsjekterModel.cs" />
     <Compile Include="Models\TekniskProfil.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
@@ -341,12 +342,6 @@
     </Content>
     <Content Include="Content\Prosjekter\Index.min.css">
       <DependentUpon>Index.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Prosjekter\LeggTil.css">
-      <DependentUpon>LeggTil.less</DependentUpon>
-    </Content>
-    <Content Include="Content\Prosjekter\LeggTil.min.css">
-      <DependentUpon>LeggTil.css</DependentUpon>
     </Content>
     <Content Include="Content\TekniskeProfiler\Index.css">
       <DependentUpon>Index.less</DependentUpon>
@@ -495,7 +490,6 @@
       <DependentUpon>bootstrap-switch.js</DependentUpon>
     </Content>
     <Content Include="Scripts\Prosjekter\Index.js" />
-    <Content Include="Scripts\Prosjekter\LeggTil.js" />
     <Content Include="Scripts\TekniskeProfiler\Index.js" />
     <Content Include="Scripts\TekniskeProfiler\Index.min.js">
       <DependentUpon>Index.js</DependentUpon>
@@ -600,10 +594,6 @@
       <DependentUpon>Index.css</DependentUpon>
     </Content>
     <Content Include="Content\Prosjekter\Index.less" />
-    <Content Include="Content\Prosjekter\LeggTil.less" />
-    <Content Include="Content\Prosjekter\LeggTil.css.map">
-      <DependentUpon>LeggTil.css</DependentUpon>
-    </Content>
     <Content Include="Content\Prosjekter\Index.css.map">
       <DependentUpon>Index.css</DependentUpon>
     </Content>
@@ -751,7 +741,6 @@
     <Content Include="Views\Ansatte\Index.cshtml" />
     <Content Include="Views\Ansatte\LeggTil.cshtml" />
     <Content Include="Views\Prosjekter\Index.cshtml" />
-    <Content Include="Views\Prosjekter\LeggTil.cshtml" />
     <Content Include="Views\TekniskeProfiler\Index.cshtml" />
     <Content Include="Views\TekniskeProfiler\LeggTilSlett.cshtml" />
     <Content Include="Scripts\plugins\bootstrap-switch.min.js.map">
@@ -771,6 +760,10 @@
     </Content>
     <Content Include="Views\Utdannelse\_RedigerModal.cshtml" />
     <Content Include="Views\Utdannelse\_LeggTilModal.cshtml" />
+    <Content Include="Views\Utdannelse\_SlettModal.cshtml" />
+    <Content Include="Views\Prosjekter\_SlettModal.cshtml" />
+    <Content Include="Views\Prosjekter\_RedigerModal.cshtml" />
+    <Content Include="Views\Prosjekter\_LeggTilModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

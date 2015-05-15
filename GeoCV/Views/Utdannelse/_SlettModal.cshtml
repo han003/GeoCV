@@ -1,0 +1,30 @@
+﻿@model GeoCV.Models.SlettUtdannelseModel
+
+<div id="slett-utdannelse-modal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Slett</h4>
+            </div>
+            <div class="modal-body">
+
+                @using (Html.BeginForm("SlettUtdannelse", "Utdannelse", FormMethod.Post, new { @class = "form-horizontal", id = "slett-form" }))
+                {
+                    Html.AntiForgeryToken();
+
+                    <div class="form-group">
+                        @Html.HiddenFor(m => m.Id, new { id = "slett-id" })
+                    </div>
+                }
+
+                Er du sikker på at du vil slette <code id="slett-utdannelse-navn"></code>?
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Avbryt</button>
+                <input type="submit" class="btn btn-primary" form="slett-form" value="Slett" />
+            </div>
+        </div>
+    </div>
+</div>
+
