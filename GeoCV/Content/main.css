@@ -5,11 +5,27 @@
   z-index: 9999;
 }
 .sidebar-nav {
-  height: calc(100vh - 51px);
+  height: calc(100vh - 45px);
 }
 .navbar {
   width: 250px;
   background: #333333;
+}
+#logg-ut-li {
+  padding: 10px 15px;
+}
+#logg-ut-li a {
+  text-decoration: none;
+}
+#logg-ut-li:hover {
+  background-color: #272727;
+  cursor: pointer;
+}
+.page-header {
+  margin-top: 0;
+}
+.navbar-default.sidebar {
+  margin-top: 45px;
 }
 body {
   width: 100vw;

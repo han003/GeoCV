@@ -16,7 +16,7 @@ namespace GeoCV.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult LeggTilUtdannelse(LeggTilModel Model)
+        public ActionResult LeggTilUtdannelse(UtdannelseModel Model)
         {
             if (ModelState.IsValid)
             {
@@ -46,15 +46,20 @@ namespace GeoCV.Controllers
         }
 
         [HttpPost]
-        public void DeleteElement(int Id)
+        public ActionResult SlettUtdannelse(SlettUtdannelseModel Model)
         {
-            db.Utdannelse.Remove(GetBrukerCv(GetAspNetBrukerID()).Utdannelse.Where(x => x.UtdannelseId.Equals(Id)).FirstOrDefault());
-            db.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                db.Utdannelse.Remove(GetBrukerCv(GetAspNetBrukerID()).Utdannelse.Where(x => x.UtdannelseId.Equals(Model.Id)).FirstOrDefault());
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("Index", "Utdannelse");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult RedigerUtdannelse(RedigerModel Model)
+        public ActionResult RedigerUtdannelse(UtdannelseModel Model)
         {
             if (ModelState.IsValid)
             {

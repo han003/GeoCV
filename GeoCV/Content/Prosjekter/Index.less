@@ -8,15 +8,21 @@
         margin-bottom: 0;
 
         tbody {
+
+            a, a:hover, a:focus {
+                text-decoration: none;
+                color: blue;
+            }
+
             tr:hover {
                 cursor: pointer;
             }
-
-            tr:hover i {
-                display: inline-block !important;
-            }
         }
     }
+}
+
+#avsluttede-prosjekter-panel{
+    min-height: 113px;
 }
 
 .status-panel .td-flex {
@@ -31,7 +37,7 @@
     }
 }
 
-.status-panel-header{
+.status-panel-header {
     margin-left: 4px;
 }
 
@@ -62,7 +68,7 @@ button a, button a:hover, button a:focus {
         padding-right: 0;
     }
 
-    .bekreftelses-rad{
+    .bekreftelses-rad {
         margin-top: 10px;
     }
 }

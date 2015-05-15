@@ -127,15 +127,7 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="#">Prosjekter <span class="fa arrow"></span></a>
-                                <ul class="nav nav-third-level">
-                                    <li>
-                                        @Html.ActionLink("Oversikt", "Index", "Prosjekter")
-                                    </li>
-                                    <li>
-                                        @Html.ActionLink("Legg til", "LeggTil", "Prosjekter")
-                                    </li>
-                                </ul>
+                                @Html.ActionLink("Prosjekter", "Index", "Prosjekter")
                             </li>
                             <li>
                                 <a href="#">Tekniske profiler <span class="fa arrow"></span></a>
@@ -167,7 +159,7 @@
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>
-                <li>
+                <li id="logg-ut-li">
                     @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
                     {
                         @Html.AntiForgeryToken()

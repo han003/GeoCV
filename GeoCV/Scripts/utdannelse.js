@@ -9,7 +9,7 @@
         var sorteringRetning = data.direction;
         // $(this) - this table object
 
-        $.each($('#education-table th i'), function (index, value) {
+        $.each($('#education-table thead th i'), function (index, value) {
 
             if (index == kolonneIndex) {
                 $(this).removeClass('hidden');
@@ -35,37 +35,18 @@ $('#legg-til-utdannelse-btn').click(function () {
     $('#legg-til-utdannelse-modal').modal();
 });
 
-$(document).on('click', '.slett-utdannelse-btn', function () {
-
-    var elementId = $(this).data('utdannelseid');
-    var panel = $(this).closest('.panel');
-    var tabellTr = $('#education-table tr[data-utdannelseid="' + elementId + '"]');
-
-    tabellTr.remove();
-    panel.remove();
-
-    console.log('Id: ' + elementId);
-
-    $.ajax({
-        url: '/Education/DeleteElement',
-        data: { Id: elementId },
-        type: 'POST',
-        success: function () {
-            console.log('Success');
-        }
-    });
-
+$(document).on('click', '.slett-utdannelse', function () {
+    $('#slett-utdannelse-navn').html($(this).data('utdannelsestudiested'));
+    $('#slett-id').val($(this).data('utdannelseid'))
+    $('#slett-utdannelse-modal').modal();
 });
 
-$('#education-table tbody tr').click(function () {
-
+$('#education-table tbody tr .rediger-blyant').click(function () {
     $('#rediger-utdannelse-modal').data('utdannelseid', $(this).data('utdannelseid'));
     $('#rediger-studiested').val($(this).data('utdannelsestudiested'));
     $('#rediger-beskrivelse').val($(this).data('utdannelsebeskrivelse'));
     $('#rediger-fra').val($(this).data('utdannelsefra'));
     $('#rediger-til').val($(this).data('utdannelsetil'));
     $('#rediger-form #Id').val($(this).data('utdannelseid'));
-
     $('#rediger-utdannelse-modal').modal();
-
 });

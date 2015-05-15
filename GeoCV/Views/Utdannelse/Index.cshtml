@@ -14,8 +14,9 @@
     @Scripts.Render("~/Bundles/js/utdannelse")
 }
 
-@Html.Partial("_RedigerModal", new GeoCV.Models.RedigerModel())
-@Html.Partial("_LeggTilModal", new GeoCV.Models.LeggTilModel())
+@Html.Partial("_SlettModal", new GeoCV.Models.SlettUtdannelseModel())
+@Html.Partial("_RedigerModal", new GeoCV.Models.UtdannelseModel())
+@Html.Partial("_LeggTilModal", new GeoCV.Models.UtdannelseModel())
 
 <div id="page-wrapper">
     <div class="row">
@@ -25,7 +26,7 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-8">
 
             <div id="min-utdannelse-panel" class="panel panel-primary">
                 <div class="panel-heading">Utdannelser</div>
@@ -38,17 +39,21 @@
                                 <th data-sort="string">Beskrivelse <i class="fa fa-sort pull-right"></i></th>
                                 <th data-sort="int">Fra <i class="fa fa-sort pull-right"></i></th>
                                 <th data-sort="int">Til <i class="fa fa-sort pull-right"></i></th>
+                                <th>Rediger</th>
+                                <th>Slett</th>
                             </tr>
                         </thead>
                         <tbody>
 
                             @foreach (var BrukerUtdannelse in Model.Utdannelse.OrderByDescending(x => x.Fra))
                             {
-                                <tr id="@BrukerUtdannelse.UtdannelseId" data-utdannelseid="@BrukerUtdannelse.UtdannelseId" data-utdannelsestudiested="@BrukerUtdannelse.Studiested" data-utdannelsebeskrivelse="@BrukerUtdannelse.Beskrivelse" data-utdannelsefra="@BrukerUtdannelse.Fra" data-utdannelsetil="@BrukerUtdannelse.Til">
+                                <tr>
                                     <td class="update-td col-lg-3" data-utdannelseid="@BrukerUtdannelse.UtdannelseId" data-kolonne="Studiested">@BrukerUtdannelse.Studiested</td>
                                     <td class="update-td col-lg-3" data-utdannelseid="@BrukerUtdannelse.UtdannelseId" data-kolonne="Beskrivelse">@BrukerUtdannelse.Beskrivelse</td>
-                                    <td class="update-td col-lg-1" data-utdannelseid="@BrukerUtdannelse.UtdannelseId" data-kolonne="Fra">@BrukerUtdannelse.Fra</td>
-                                    <td class="update-td col-lg-1" data-utdannelseid="@BrukerUtdannelse.UtdannelseId" data-kolonne="Til">@BrukerUtdannelse.Til</td>
+                                    <td class="update-td col-lg-2" data-utdannelseid="@BrukerUtdannelse.UtdannelseId" data-kolonne="Fra">@BrukerUtdannelse.Fra</td>
+                                    <td class="update-td col-lg-2" data-utdannelseid="@BrukerUtdannelse.UtdannelseId" data-kolonne="Til">@BrukerUtdannelse.Til</td>
+                                    <th class="col-lg-1"><i class="fa fa-lg fa-pencil rediger-blyant" data-utdannelseid="@BrukerUtdannelse.UtdannelseId" data-utdannelsestudiested="@BrukerUtdannelse.Studiested" id="@BrukerUtdannelse.UtdannelseId" data-utdannelsebeskrivelse="@BrukerUtdannelse.Beskrivelse" data-utdannelsefra="@BrukerUtdannelse.Fra" data-utdannelsetil="@BrukerUtdannelse.Til"></i></th>
+                                    <th class="col-lg-1"><i class="fa fa-lg fa-minus-square slett-utdannelse" data-utdannelseid="@BrukerUtdannelse.UtdannelseId" data-utdannelsestudiested="@BrukerUtdannelse.Studiested"></i></th>
                                 </tr>
                             }
 
@@ -61,7 +66,7 @@
         </div>
 
 
-        <div class="col-lg-6">
+        <div class="col-lg-4">
 
             <button id="legg-til-utdannelse-btn" type="button" class="btn btn-success">Legg til</button>
 
