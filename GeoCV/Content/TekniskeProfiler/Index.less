@@ -48,7 +48,7 @@
 }
 
 .alert{
-    margin-bottom: 15px !important;
+    margin-bottom: 0;
 }
 
 .tabell-panel {
@@ -82,12 +82,18 @@
             -ms-flex: 1;
             flex: 1;
         }
+
+        a{
+            color: blue;
+        }
+
+        a:hover{
+            cursor: pointer;
+        }
     }
 
     .list-group-item-default:hover {
-        background: @info-bakgrunnsfarge;
-        color: @info-tekstfarge;
-        cursor: pointer;
+        cursor: default;
     }
 
     .list-group-item-default:hover i {

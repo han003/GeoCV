@@ -234,7 +234,7 @@
     <Compile Include="Controllers\MineProsjekterController.cs" />
     <Compile Include="Controllers\ProsjekterController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
-    <Compile Include="Controllers\WorkController.cs" />
+    <Compile Include="Controllers\ArbeidserfaringController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -242,6 +242,7 @@
     <Compile Include="Models\Arbeidserfaring.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ArbeidserfaringModels.cs" />
     <Compile Include="Models\CVVersjon.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
@@ -293,7 +294,6 @@
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UtdannelseModels.cs" />
-    <Compile Include="Models\WorkModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -348,12 +348,6 @@
     </Content>
     <Content Include="Content\TekniskeProfiler\Index.min.css">
       <DependentUpon>Index.css</DependentUpon>
-    </Content>
-    <Content Include="Content\TekniskeProfiler\LeggTil.css">
-      <DependentUpon>LeggTil.less</DependentUpon>
-    </Content>
-    <Content Include="Content\TekniskeProfiler\LeggTil.min.css">
-      <DependentUpon>LeggTil.css</DependentUpon>
     </Content>
     <Content Include="Content\theme\bootstrap.css" />
     <Content Include="Content\theme\bootstrap.min.css">
@@ -444,11 +438,11 @@
     <Content Include="Content\settings.min.css">
       <DependentUpon>settings.css</DependentUpon>
     </Content>
-    <Content Include="Content\work.css">
-      <DependentUpon>work.less</DependentUpon>
+    <Content Include="Content\arbeidserfaring.css">
+      <DependentUpon>arbeidserfaring.less</DependentUpon>
     </Content>
-    <Content Include="Content\work.min.css">
-      <DependentUpon>work.css</DependentUpon>
+    <Content Include="Content\arbeidserfaring.min.css">
+      <DependentUpon>arbeidserfaring.css</DependentUpon>
     </Content>
     <Content Include="Global.asax" />
     <Content Include="ApplicationInsights.config" />
@@ -494,10 +488,6 @@
     <Content Include="Scripts\TekniskeProfiler\Index.min.js">
       <DependentUpon>Index.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\TekniskeProfiler\LeggTil.js" />
-    <Content Include="Scripts\TekniskeProfiler\LeggTil.min.js">
-      <DependentUpon>LeggTil.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\theme\bootstrap.js" />
     <Content Include="Scripts\theme\bootstrap.min.js">
       <DependentUpon>bootstrap.js</DependentUpon>
@@ -542,9 +532,9 @@
     <Content Include="Content\utdannelse.css.map">
       <DependentUpon>utdannelse.css</DependentUpon>
     </Content>
-    <Content Include="Content\work.less" />
-    <Content Include="Content\work.css.map">
-      <DependentUpon>work.css</DependentUpon>
+    <Content Include="Content\arbeidserfaring.less" />
+    <Content Include="Content\arbeidserfaring.css.map">
+      <DependentUpon>arbeidserfaring.css</DependentUpon>
     </Content>
     <Content Include="Content\personal.less" />
     <Content Include="Content\personal.css.map">
@@ -582,12 +572,8 @@
       <DependentUpon>Index.css</DependentUpon>
     </Content>
     <Content Include="Content\TekniskeProfiler\Index.less" />
-    <Content Include="Content\TekniskeProfiler\LeggTil.less" />
     <Content Include="Content\TekniskeProfiler\Index.css.map">
       <DependentUpon>Index.css</DependentUpon>
-    </Content>
-    <Content Include="Content\TekniskeProfiler\LeggTil.css.map">
-      <DependentUpon>LeggTil.css</DependentUpon>
     </Content>
     <Content Include="Content\Ansatte\Index.less" />
     <Content Include="Content\Ansatte\Index.css.map">
@@ -649,9 +635,9 @@
     <Content Include="Scripts\plugins\stupidtable.min.js">
       <DependentUpon>stupidtable.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\work.js" />
+    <Content Include="Scripts\arbeidserfaring.js" />
     <Content Include="Scripts\work.min.js">
-      <DependentUpon>work.js</DependentUpon>
+      <DependentUpon>arbeidserfaring.js</DependentUpon>
     </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -731,9 +717,7 @@
     <Content Include="Views\Expertise\_LeggTilModal.cshtml" />
     <Content Include="Views\Personal\_LeggTilModal.cshtml" />
     <Content Include="Views\Utdannelse\Index.cshtml" />
-    <Content Include="Views\Work\Min.cshtml" />
-    <Content Include="Views\Work\_RedigerModal.cshtml" />
-    <Content Include="Views\Work\Ny.cshtml" />
+    <Content Include="Views\Arbeidserfaring\Index.cshtml" />
     <Content Include="Views\MineProsjekter\Index.cshtml" />
     <Content Include="Views\MineProsjekter\LeggTil.cshtml" />
     <Content Include="Views\Database\Rediger.cshtml" />
@@ -742,15 +726,11 @@
     <Content Include="Views\Ansatte\LeggTil.cshtml" />
     <Content Include="Views\Prosjekter\Index.cshtml" />
     <Content Include="Views\TekniskeProfiler\Index.cshtml" />
-    <Content Include="Views\TekniskeProfiler\LeggTilSlett.cshtml" />
     <Content Include="Scripts\plugins\bootstrap-switch.min.js.map">
       <DependentUpon>bootstrap-switch.min.js</DependentUpon>
     </Content>
     <Content Include="Scripts\TekniskeProfiler\Index.min.js.map">
       <DependentUpon>Index.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\TekniskeProfiler\LeggTil.min.js.map">
-      <DependentUpon>LeggTil.min.js</DependentUpon>
     </Content>
     <Content Include="Scripts\theme\bootstrap.min.js.map">
       <DependentUpon>bootstrap.min.js</DependentUpon>
@@ -764,6 +744,11 @@
     <Content Include="Views\Prosjekter\_SlettModal.cshtml" />
     <Content Include="Views\Prosjekter\_RedigerModal.cshtml" />
     <Content Include="Views\Prosjekter\_LeggTilModal.cshtml" />
+    <Content Include="Views\Arbeidserfaring\_SlettModal.cshtml" />
+    <Content Include="Views\Arbeidserfaring\_LeggTilModal.cshtml" />
+    <Content Include="Views\Arbeidserfaring\_RedigerModal.cshtml" />
+    <Content Include="Views\TekniskeProfiler\_SlettModal.cshtml" />
+    <Content Include="Views\TekniskeProfiler\_LeggTilModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

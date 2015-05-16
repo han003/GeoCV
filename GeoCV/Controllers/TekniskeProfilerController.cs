@@ -57,23 +57,23 @@ namespace GeoCV.Controllers
         }
 
         [HttpPost]
-        public ActionResult LeggTilProfil(int ProsjektId, string NyProfilNavn)
+        public ActionResult LeggTilProfil(LeggTilTekniskProfilModel Model)
         {
             var Data = from a in db.Prosjekt
-                       where a.ProsjektId.Equals(ProsjektId)
+                       where a.ProsjektId.Equals(Model.ProsjektId)
                        select a;
 
             Prosjekt Pro = Data.FirstOrDefault();
 
             TekniskProfil NyTekniskProfil = new TekniskProfil();
-            NyTekniskProfil.Navn = NyProfilNavn;
+            NyTekniskProfil.Navn = Model.ProfilNavn;
             NyTekniskProfil.Elementer = "";
 
             Pro.TekniskProfil.Add(NyTekniskProfil);
 
             db.SaveChanges();
 
-            return Json(NyTekniskProfil.TekniskProfilId, JsonRequestBehavior.AllowGet);
+            return RedirectToAction("Index", "TekniskeProfiler");
         }
 
         [HttpPost]
@@ -84,23 +84,12 @@ namespace GeoCV.Controllers
         }
 
         [HttpPost]
-        public void EndreProfilNavn(int ProfilId, string Navn)
+        public ActionResult SlettProfil(SlettTekniskProfilModel Model)
         {
-            var Profil = from a in db.TekniskProfil
-                         where a.TekniskProfilId.Equals(ProfilId)
-                         select a;
-
-            TekniskProfil OppdaterProfil = Profil.FirstOrDefault();
-            OppdaterProfil.Navn = Navn;
-
+            db.TekniskProfil.Remove(db.TekniskProfil.Where(x => x.TekniskProfilId.Equals(Model.Id)).FirstOrDefault());
             db.SaveChanges();
-        }
 
-        [HttpPost]
-        public void SlettProfil(int TekniskId)
-        {
-            db.TekniskProfil.Remove(db.TekniskProfil.Where(x => x.TekniskProfilId.Equals(TekniskId)).FirstOrDefault());
-            db.SaveChanges();
+            return RedirectToAction("Index", "TekniskeProfiler");
         }
     }
 }

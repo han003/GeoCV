@@ -106,6 +106,21 @@ $('.table-filter').keyup(function () {
     });
 });
 
+$('.slett-link').click(function () {
+
+    $('#slett-profil-navn').html($(this).data('profilnavn'));
+    $('#slett-id').val($(this).data('profilid'));
+    $('#slett-teknisk-profil-modal').modal();
+
+});
+
+$('.legg-til-profil-btn').click(function () {
+
+    $('#legg-til-prosjekt-id').val($(this).data('prosjektid'));
+    $('#legg-til-teknisk-profil-modal').modal();
+
+});
+
 // Når man klikker på et prosjekt for å endre tekniske profiler
 $(document).on('click', '#prosjekt-tabell tbody tr', function () {
     
@@ -156,8 +171,8 @@ $(document).on('click', '#prosjekt-tabell tbody tr', function () {
     }
 });
 
-// når man klikker på en teknisk profil i et prosjekt
-$(document).on('click', '.teknisk-profil-liste li', function () {
+// når man klikker på rediger en teknisk profil i et prosjekt
+$(document).on('click', '.rediger-link', function () {
 
     var tekniskId = $(this).data('tekprofilid');
 

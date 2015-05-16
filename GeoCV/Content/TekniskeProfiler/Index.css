@@ -27,7 +27,7 @@
   display: inline-block !important;
 }
 .alert {
-  margin-bottom: 15px !important;
+  margin-bottom: 0;
 }
 .tabell-panel .panel-body {
   padding: 0;
@@ -56,10 +56,14 @@
   -ms-flex: 1;
   flex: 1;
 }
-.list-group .list-group-item-default:hover {
-  background: #d9edf7;
-  color: #31708f;
+.list-group li a {
+  color: blue;
+}
+.list-group li a:hover {
   cursor: pointer;
+}
+.list-group .list-group-item-default:hover {
+  cursor: default;
 }
 .list-group .list-group-item-default:hover i {
   display: inline-block !important;

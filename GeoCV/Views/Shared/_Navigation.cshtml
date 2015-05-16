@@ -11,20 +11,6 @@
         </button>
             <a class="navbar-brand" href="index.html">Geomatikk CV Portal</a>
     </div>
-    <!-- /.navbar-header -->
-    <ul class="nav navbar-top-links navbar-right">
-        @if (User.IsInRole("Admin"))
-        {
-            if (Session["ShadowUser"] != null)
-            {
-                <li class="dropdown">
-                    <a id="shadowBrukerLink" class="dropdown-toggle" href="~/Dashboard/EndSession">
-                        <i class="fa fa-user-secret fa-fw"></i>  Surfer som @Session["ShadowUserName"]
-                    </a>
-                </li>
-            }
-        }
-    </ul>
     <!-- /.navbar-top-links -->
     <div class="navbar-default sidebar" role="navigation">
         <div class="sidebar-nav navbar-collapse">
@@ -75,16 +61,7 @@
                     <a href="@Url.Action("Index", "Utdannelse")"><i class="fa fa-graduation-cap"></i> Utdannelse</a>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-suitcase fa-fw"></i> Arbeidserfaring<span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            @Html.ActionLink("Min arbeidserfaring", "Min", "Work")
-                        </li>
-                        <li>
-                            @Html.ActionLink("Legg til arbeidserfaring", "Ny", "Work")
-                        </li>
-                    </ul>
-                    <!-- /.nav-second-level -->
+                    <a href="@Url.Action("Index", "Arbeidserfaring")"><i class="fa fa-suitcase fa-fw"></i> Arbeidserfaring</a>
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-folder-open fa-fw"></i> Prosjekter<span class="fa arrow"></span></a>
@@ -130,15 +107,7 @@
                                 @Html.ActionLink("Prosjekter", "Index", "Prosjekter")
                             </li>
                             <li>
-                                <a href="#">Tekniske profiler <span class="fa arrow"></span></a>
-                                <ul class="nav nav-third-level">
-                                    <li>
-                                        @Html.ActionLink("Rediger", "Index", "TekniskeProfiler")
-                                    </li>
-                                    <li>
-                                        @Html.ActionLink("Legg til / Slett", "LeggTilSlett", "TekniskeProfiler")
-                                    </li>
-                                </ul>
+                                @Html.ActionLink("Tekniske profiler", "Index", "TekniskeProfiler")
                             </li>
                         </ul>
                     </li>
@@ -166,6 +135,14 @@
                         <a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-sign-out fa-fw"></i> Logg av</a>
                     }
                 </li>
+                @if (User.IsInRole("Admin") && Session["ShadowUser"] != null)
+                {
+                    <li class="dropdown">
+                        <a id="shadowBrukerLink" class="dropdown-toggle" href="~/Dashboard/EndSession">
+                            <i class="fa fa-user-secret fa-fw"></i>  Surfer som @Session["ShadowUserName"]
+                        </a>
+                    </li>
+                }
             </ul>
         </div>
         <!-- /.sidebar-collapse -->

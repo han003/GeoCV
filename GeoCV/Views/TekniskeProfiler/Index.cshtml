@@ -13,6 +13,9 @@
     @Scripts.Render("~/bundles/js/TekniskeProfilerIndex")
 }
 
+@Html.Partial("_SlettModal", new GeoCV.Models.SlettTekniskProfilModel())
+@Html.Partial("_LeggTilModal", new GeoCV.Models.LeggTilTekniskProfilModel())
+
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
@@ -100,51 +103,33 @@
         <div class="col-lg-4">
             @foreach (var Prosjekt in Model.Prosjekter)
             {
-                // Vis panelet fordi Id parameteren stemmer og skjull alle de andre
-                if (Request.Params["ProsjektId"] == Prosjekt.ProsjektId.ToString())
-                {
-                    <div class="panel panel-primary prosjekt-profil-panel" data-prosjektid="@Prosjekt.ProsjektId">
+                <div class="panel panel-success prosjekt-profil-panel hidden" data-prosjektid="@Prosjekt.ProsjektId">
+                    <div class="panel-heading"><i class="fa fa-plus-square"></i> Legg til @Prosjekt.Navn profil</div>
+                    <div class="panel-body">
+
+                        <button class="btn btn-success legg-til-profil-btn" type="submit" data-prosjektid="@Prosjekt.ProsjektId">Legg til</button>
+
+                    </div>
+                </div>
+
+                <div class="panel panel-primary prosjekt-profil-panel hidden" data-prosjektid="@Prosjekt.ProsjektId">
                         <div class="panel-heading"><i class="fa fa-code"></i> @Prosjekt.Navn profiler</div>
                         @if (Prosjekt.TekniskProfil.Count == 0)
                         {
                             <div class="panel-body">
                                 <div class="alert alert-info" role="alert"><i class="fa fa-info-circle"></i> <strong>@Prosjekt.Navn</strong> inneholder ingen tekniske profiler</div>
-                                <a href="/TekniskeProfiler/LeggTilSlett?ProsjektId=@Prosjekt.ProsjektId"><button type="button" class="btn btn-primary col-lg-6">Legg til profil</button></a>
                             </div>
                         }
 
                         <ul class="list-group teknisk-profil-liste">
                             @foreach (var TekniskProfil in Prosjekt.TekniskProfil)
                             {
-                                <li class="list-group-item list-group-item-default" data-tekprofilid="@TekniskProfil.TekniskProfilId"><div>@TekniskProfil.Navn</div><i class="fa fa-chevron-down hidden" data-prosjektid="@Prosjekt.ProsjektId"></i></li>
+                                <li class="list-group-item list-group-item-default"><div><strong>@TekniskProfil.Navn</strong> (<a class="rediger-link" data-tekprofilid="@TekniskProfil.TekniskProfilId">Rediger</a> / <a class="slett-link" data-profilid="@TekniskProfil.TekniskProfilId" data-profilnavn="@TekniskProfil.Navn">Slett</a>)</div></li>
                             }
                         </ul>
 
                     </div>
-                }
-                else
-                {
-                    <div class="panel panel-primary prosjekt-profil-panel hidden" data-prosjektid="@Prosjekt.ProsjektId">
-                        <div class="panel-heading"><i class="fa fa-code"></i> @Prosjekt.Navn profiler</div>
-                        @if (Prosjekt.TekniskProfil.Count == 0)
-                        {
-                            <div class="panel-body">
-                                <div class="alert alert-info" role="alert"><i class="fa fa-info-circle"></i> <strong>@Prosjekt.Navn</strong> inneholder ingen tekniske profiler</div>
-                                <a href="/TekniskeProfiler/LeggTilSlett?ProsjektId=@Prosjekt.ProsjektId"><button type="button" class="btn btn-primary col-lg-6">Legg til profil</button></a>
-                            </div>
-                        }
-
-                        <ul class="list-group teknisk-profil-liste">
-                            @foreach (var TekniskProfil in Prosjekt.TekniskProfil)
-                            {
-                                <li class="list-group-item list-group-item-default" data-tekprofilid="@TekniskProfil.TekniskProfilId"><div>@TekniskProfil.Navn</div><i class="fa fa-chevron-down hidden" data-prosjektid="@Prosjekt.ProsjektId"></i></li>
-                            }
-                        </ul>
-
-                    </div>
-                }
-
-
+                
                 foreach (var TekniskProfil in Prosjekt.TekniskProfil)
                 {
                     <div class="panel panel-info tabell-panel teknisk-profil-panel hidden" data-tekprofilid="@TekniskProfil.TekniskProfilId">

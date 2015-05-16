@@ -46,7 +46,7 @@ namespace GeoCV.Controllers
         }
 
         [HttpPost]
-        public ActionResult SlettUtdannelse(SlettUtdannelseModel Model)
+        public ActionResult SlettUtdannelse(SlettArbeidserfaringModel Model)
         {
             if (ModelState.IsValid)
             {

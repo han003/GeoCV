@@ -181,18 +181,18 @@ namespace GeoCV
                 .Include("~/Content/main.css")
             .Include("~/Content/utdannelse.css"));
 
-            // Work
-            bundles.Add(new ScriptBundle("~/Bundles/js/work")
+            // Arbeidserfaring
+            bundles.Add(new ScriptBundle("~/Bundles/js/arbeidserfaring")
                 .Include("~/Scripts/jquery/jquery-{version}.js")
                 .Include("~/Scripts/jquery/jquery.validate.js")
                 .Include("~/Scripts/jquery/jquery.validate.unobtrusive.js")
                 .Include("~/Scripts/plugins/*.js")
                 .Include("~/Scripts/theme/*.js")
-                .Include("~/Scripts/work.js"));
+                .Include("~/Scripts/arbeidserfaring.js"));
 
-            bundles.Add(new StyleBundle("~/Bundles/css/work")
+            bundles.Add(new StyleBundle("~/Bundles/css/arbeidserfaring")
                 .Include("~/Content/theme/*.css")
-                .Include("~/Content/work.css")
+                .Include("~/Content/arbeidserfaring.css")
                 .Include("~/Content/main.css"));
 
             // Mine Prosjekter

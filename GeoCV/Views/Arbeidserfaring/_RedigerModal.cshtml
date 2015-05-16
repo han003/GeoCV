@@ -1,0 +1,97 @@
+﻿@model GeoCV.Models.ArbeidserfaringModel
+
+<div id="rediger-arbeidserfaring-modal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Rediger</h4>
+            </div>
+            <div class="modal-body">
+
+                @using (Html.BeginForm("RedigerArbeidserfaring", "Arbeidserfaring", FormMethod.Post, new { @class = "form-horizontal", id = "rediger-form" }))
+                {
+                    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.HiddenFor(m => m.Id)
+    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Arbeidsplass, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Arbeidsplass, new { @class = "form-control", autocomplete = "off", id = "rediger-arbeidsplass" })
+                        </div>
+                        <div class="col-md-10 col-md-offset-2">
+                            @Html.ValidationMessageFor(m => m.Arbeidsplass, null, new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Stilling, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Stilling, new { @class = "form-control", autocomplete = "off", id = "rediger-stilling" })
+                        </div>
+                        <div class="col-md-10 col-md-offset-2">
+                            @Html.ValidationMessageFor(m => m.Stilling, null, new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Beskrivelse, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Beskrivelse, new { @class = "form-control", autocomplete = "off", id = "rediger-beskrivelse" })
+                        </div>
+                        <div class="col-md-10 col-md-offset-2">
+                            @Html.ValidationMessageFor(m => m.Beskrivelse, null, new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.NåværendeStilling, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.CheckBoxFor(m => m.NåværendeStilling, new { id = "rediger-nåværende" })
+                        </div>
+                        <div class="col-md-10 col-md-offset-2">
+                            @Html.ValidationMessageFor(m => m.NåværendeStilling, null, new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Fra, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+
+                            @{
+                    List<SelectListItem> ÅrListe = new List<SelectListItem>();
+                    for (int i = 0; i <= 60; i++)
+                    {
+                        string År = (DateTime.Now.Year - i).ToString();
+                        ÅrListe.Add(new SelectListItem() { Value = År, Text = År });
+                    }
+                            }
+
+                            @Html.DropDownListFor(m => m.Fra, ÅrListe, new { @class = "form-control", autocomplete = "off", id = "rediger-fra" })
+                        </div>
+                        <div class="col-md-10 col-md-offset-2">
+                            @Html.ValidationMessageFor(m => m.Fra, null, new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Til, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(m => m.Til, ÅrListe, new { @class = "form-control", autocomplete = "off", id = "rediger-til" })
+                        </div>
+                        <div class="col-md-10 col-md-offset-2">
+                            @Html.ValidationMessageFor(m => m.Til, null, new { @class = "text-danger" })
+                        </div>
+                    </div>
+                }
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Avbryt</button>
+                <input type="submit" class="btn btn-primary" form="rediger-form" value="Rediger" />
+            </div>
+        </div>
+    </div>
+</div>
