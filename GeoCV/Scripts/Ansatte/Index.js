@@ -117,25 +117,8 @@ $(document).on('click', '.activate-link', function () {
 $(document).on('click', '.del-link', function (event) {
     event.preventDefault();
 
-    console.log('Deleting..');
+    $('#slett-ansatt-navn').html($(this).data('ansattfornavn') + ' ' + $(this).data('ansattetternavn'));
+    $('#slett-id').val($(this).data('ansattid'));
 
-    var elementId = $(this).data('id');
-    var trElement = $(this).closest('tr');
-    var tdElement = $(this).closest('td');
-
-    tdElement.html('Sletter <i class="fa fa-spinner fa-spin"></i>');
-
-    console.log('Id: ' + elementId);
-
-    $.ajax({
-        url: '/Ansatte/SlettBruker',
-        data: { Id: elementId },
-        type: 'POST',
-        success: function () {
-            console.log('Success');
-
-            trElement.remove();
-        }
-    });
-
+    $('#slett-ansatt-modal').modal();
 });

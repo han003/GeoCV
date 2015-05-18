@@ -86,11 +86,11 @@ namespace GeoCV.Controllers
         }
 
         [HttpPost]
-        public void SlettBruker(int Id)
+        public ActionResult SlettBruker(SlettAnsattModel Model)
         {
             // Finn riktig CV
             var Item = from a in db.CVVersjon
-                       where a.CVVersjonId.Equals(Id)
+                       where a.CVVersjonId.Equals(Model.Id)
                        select a;
 
             CVVersjon Cv = Item.FirstOrDefault();
@@ -106,6 +106,8 @@ namespace GeoCV.Controllers
 
             db.Kompetanse.Remove(Cv.Kompetanse);
 
+            db.Medlem.RemoveRange(db.Medlem.Where(x => x.Person.PersonId == Model.Id));
+
             db.Person.Remove(Cv.Person);
 
             db.CVVersjon.Remove(Cv);
@@ -117,6 +119,8 @@ namespace GeoCV.Controllers
             var UserMan = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
             var user = UserMan.FindById(Cv.AspNetUserId);
             UserMan.Delete(user);
+
+            return RedirectToAction("Index", "Ansatte");
         }
     }
 }

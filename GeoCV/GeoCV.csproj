@@ -239,6 +239,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AnsatteModels.cs" />
     <Compile Include="Models\Arbeidserfaring.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
@@ -749,6 +750,7 @@
     <Content Include="Views\Arbeidserfaring\_RedigerModal.cshtml" />
     <Content Include="Views\TekniskeProfiler\_SlettModal.cshtml" />
     <Content Include="Views\TekniskeProfiler\_LeggTilModal.cshtml" />
+    <Content Include="Views\Ansatte\_SlettModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
