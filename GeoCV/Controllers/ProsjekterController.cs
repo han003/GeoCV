@@ -11,11 +11,16 @@ namespace GeoCV.Controllers
     {
         public ActionResult Index()
         {
-            var Prosjekter = from a in db.Prosjekt
-                             orderby a.ProsjektId descending
-                             select a;
+            ProsjekterViewModel ViewModel = new ProsjekterViewModel();
 
-            return View(Prosjekter);
+            ViewModel.Prosjekter = from a in db.Prosjekt
+                                   orderby a.ProsjektId descending
+                                   select a;
+
+            ViewModel.Katalog = from a in db.ListeKatalog
+                                select a;
+
+            return View(ViewModel);
         }
 
         [HttpPost]

@@ -49,6 +49,22 @@ $('button').click(function () {
     $(this).blur();
 });
 
+$('.prosjekt-profil-link').click(function () {
+
+    var profil = $(this).data('profilnavn');
+
+    if ($('div[data-profilnavn="' + profil + '"]').hasClass('hidden')) {
+        $.each($('.prosjekt-profil'), function (index, value) {
+            $(this).addClass('hidden');
+        });
+
+        $('div[data-profilnavn="' + profil + '"]').removeClass('hidden');
+    } else {
+        $('div[data-profilnavn="' + profil + '"]').addClass('hidden')
+    }
+
+});
+
 $('#prosjekt-filter').keyup(function () {
     // Hent tekst som er skrevet inn
     var filterTekst = $(this).val().toLowerCase();

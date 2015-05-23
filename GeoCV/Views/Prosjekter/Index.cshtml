@@ -1,6 +1,6 @@
 ﻿@using System.Web.Optimization
 
-@model IEnumerable<GeoCV.Models.Prosjekt>
+@model GeoCV.Models.ProsjekterViewModel
 
 @{
     ViewBag.Title = "Prosjektoversikt";
@@ -89,7 +89,7 @@
                         </thead>
                         <tbody>
 
-                            @foreach (var Prosjekt in Model)
+                            @foreach (var Prosjekt in Model.Prosjekter)
                             {
                                 if (Prosjekt.Avsluttet)
                                 {
@@ -125,7 +125,20 @@
 
                                             @foreach (var TekniskProfil in Prosjekt.TekniskProfil)
                                             {
-                                                <div>@TekniskProfil.Navn</div>
+                                                <div><a class="prosjekt-profil-link" data-profilnavn="@TekniskProfil.Navn">@TekniskProfil.Navn</a></div>
+                                                <div class="prosjekt-profil hidden" data-profilnavn="@TekniskProfil.Navn">
+                                                    @foreach (var ElementString in TekniskProfil.Elementer.Split(';'))
+                                                    {
+                                                        foreach (var KatalogElement in Model.Katalog)
+                                                        {
+                                                            if (KatalogElement.ListeKatalogId.ToString().Equals(ElementString))
+                                                            {
+                                                                <div>@KatalogElement.Element</div>
+                                                                break;
+                                                            }
+                                                        }
+                                                    }
+                                                </div>
                                             }
                                             @if (Prosjekt.TekniskProfil.Count == 0)
                                             {

@@ -1,7 +1,16 @@
-﻿
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+
 namespace GeoCV.Models
 {
+    public class ProsjekterViewModel
+    {
+
+        public IEnumerable<Prosjekt> Prosjekter { get; set; }
+        public IEnumerable<ListeKatalog> Katalog { get; set; }
+
+    }
+
     public class ProsjekterModel
     {
         [Required]

@@ -7,11 +7,8 @@
 #prosjekt-panel .panel-body #prosjekt-tabell tbody a,
 #prosjekt-panel .panel-body #prosjekt-tabell tbody a:hover,
 #prosjekt-panel .panel-body #prosjekt-tabell tbody a:focus {
-  text-decoration: none;
-  color: blue;
-}
-#prosjekt-panel .panel-body #prosjekt-tabell tbody tr:hover {
   cursor: pointer;
+  color: blue;
 }
 #avsluttede-prosjekter-panel {
   min-height: 113px;
